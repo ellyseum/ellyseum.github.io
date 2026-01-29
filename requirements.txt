@@ -1,0 +1,5 @@
+# Dependencies for embeddings generation
+# Used by scripts/generate-embeddings.py
+
+sentence-transformers>=2.0.0
+requests>=2.25.0

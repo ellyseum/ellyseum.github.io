@@ -1,0 +1,38 @@
+name: Deploy Chat Proxy Worker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'worker/**'
+      - '.github/workflows/deploy-worker.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Workers
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: worker
+        run: npm install
+
+      - name: Deploy Worker
+        working-directory: worker
+        run: npm run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          SYSTEM_PROMPT: ${{ secrets.SYSTEM_PROMPT }}
+
+      - name: Set Groq API Key Secret
+        working-directory: worker
+        run: echo "${{ secrets.GROQ_API_KEY }}" | npx wrangler secret put GROQ_API_KEY
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

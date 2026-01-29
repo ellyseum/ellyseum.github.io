@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: #010108;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ page.description | default: site.data.site.site.description | default: site.description }}">
+  <meta name="theme-color" content="#010108">
+  <meta name="view-transition" content="same-origin">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>{% if page.title and page.title != "Home" %}{{ page.title }} — {% endif %}{{ site.data.site.site.title | default: site.title }}</title>
+  <style>
+    /* Critical CSS - prevents white flash during view transitions */
+    html, body { background-color: #010108; }
+    body { color: #e5e7eb; }
+  </style>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  {% feed_meta %}
+  {% seo %}
+</head>
+<body>
+  <canvas id="webgl-canvas" aria-hidden="true"></canvas>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="{{ '/' | relative_url }}" class="site-title">{{ site.data.site.site.title | default: site.title }}</a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>Home</a>
+        <a href="{{ '/archive/' | relative_url }}" {% if page.url == '/archive/' %}aria-current="page"{% endif %}>Archive</a>
+        <a href="{{ '/search/' | relative_url }}" {% if page.url == '/search/' %}aria-current="page"{% endif %}>Search</a>
+        <a href="{{ '/about/' | relative_url }}" {% if page.url == '/about/' %}aria-current="page"{% endif %}>About</a>
+        <a href="https://github.com/{{ site.data.site.site.repository | default: site.repository }}" class="nav-icon" aria-label="View source on GitHub" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="site-content">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; {{ 'now' | date: "%Y" }} {{ site.data.site.site.author | default: site.author }}</p>
+    <a href="{{ '/feed.xml' | relative_url }}" class="rss-link" title="RSS Feed">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6.18 15.64a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36m12.07 4.36a14.24 14.24 0 0 0-14.24-14.24V3a17 17 0 0 1 17 17h-2.76m-5.49 0A8.76 8.76 0 0 0 4 11.24V8.5a11.49 11.49 0 0 1 11.49 11.5h-2.73z"/></svg>
+      RSS
+    </a>
+  </footer>
+
+  {% if jekyll.environment == "development" %}
+  <script type="module" src="http://localhost:5173/src/main.ts"></script>
+  {% else %}
+  <script type="module" src="{{ '/assets/js/dist/main-Dc9u9pyO.js' | relative_url }}"></script>
+  {% endif %}
+  <script nomodule>
+    document.body.classList.add('static-experience');
+  </script>
+</body>
+</html>

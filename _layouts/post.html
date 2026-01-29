@@ -1,0 +1,112 @@
+---
+layout: default
+---
+<div class="post-nav-sticky">
+  <div class="post-nav-sticky-inner">
+    <div class="post-nav-sticky-left">
+      {% if page.previous %}
+        <a href="{{ page.previous.url | relative_url }}" class="post-nav-sticky-link" rel="prev">&larr; Prev</a>
+      {% else %}
+        <span class="post-nav-sticky-link post-nav-sticky-disabled">&larr; Prev</span>
+      {% endif %}
+      <a href="{{ '/' | relative_url }}" class="post-nav-sticky-link post-nav-sticky-posts">Posts</a>
+      {% if page.next %}
+        <a href="{{ page.next.url | relative_url }}" class="post-nav-sticky-link" rel="next">Next &rarr;</a>
+      {% else %}
+        <span class="post-nav-sticky-link post-nav-sticky-disabled">Next &rarr;</span>
+      {% endif %}
+    </div>
+    <button class="post-nav-sticky-top" aria-label="Back to top">&uarr; Top</button>
+    <div class="post-nav-sticky-right">
+      <!-- filled by JS from site header -->
+    </div>
+  </div>
+</div>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <nav class="post-nav-top" aria-label="Post navigation">
+    <div class="post-nav-top-inner">
+      {% if page.previous %}
+        <a href="{{ page.previous.url | relative_url }}" class="post-nav-top-link post-nav-top-prev" rel="prev">&larr; {{ page.previous.title }}</a>
+      {% else %}
+        <span class="post-nav-top-link post-nav-top-prev"></span>
+      {% endif %}
+      <a href="{{ '/' | relative_url }}" class="post-nav-top-link post-nav-top-back">All Posts</a>
+      {% if page.next %}
+        <a href="{{ page.next.url | relative_url }}" class="post-nav-top-link post-nav-top-next" rel="next">{{ page.next.title }} &rarr;</a>
+      {% else %}
+        <span class="post-nav-top-link post-nav-top-next"></span>
+      {% endif %}
+    </div>
+  </nav>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="headline">{{ page.title }}</h1>
+    {% if page.subtitle %}
+    <p class="post-subtitle">{{ page.subtitle }}</p>
+    {% endif %}
+    <p class="post-meta">
+      <a href="{{ '/search/' | relative_url }}?date={{ page.date | date: '%Y-%m-%d' }}" class="post-date-link">
+        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+          {{ page.date | date: "%B %d, %Y" }}
+        </time>
+      </a>
+      {% if page.author %}
+        <span aria-hidden="true">&bull;</span>
+        <span class="post-author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <span itemprop="name">{{ page.author }}</span>
+        </span>
+      {% endif %}
+      {% if page.reading_time %}
+        <span aria-hidden="true">&bull;</span>
+        <span class="reading-time">{{ page.reading_time }} min read</span>
+      {% endif %}
+    </p>
+    {% if page.tags and page.tags.size > 0 %}
+    <div class="post-tags" role="list" aria-label="Post tags">
+      {% for tag in page.tags %}
+        <a href="{{ '/search/' | relative_url }}?tags={{ tag }}" class="tag" role="listitem">{{ tag }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  <footer class="post-footer">
+    <nav aria-label="Post navigation">
+      <a href="{{ '/' | relative_url }}">&larr; Back to all posts</a>
+      <button class="post-footer-top" aria-label="Back to top">&uarr; Back to top</button>
+    </nav>
+
+    {% if page.previous or page.next %}
+    <div class="post-pagination">
+      {% if page.previous %}
+        <a href="{{ page.previous.url | relative_url }}" class="pagination-link pagination-prev" rel="prev">
+          <span class="pagination-arrow">&larr;</span>
+          <span class="pagination-content">
+            <span class="pagination-label">Previous</span>
+            <span class="pagination-title">{{ page.previous.title }}</span>
+          </span>
+        </a>
+      {% else %}
+        <span class="pagination-link pagination-prev pagination-disabled"></span>
+      {% endif %}
+      {% if page.next %}
+        <a href="{{ page.next.url | relative_url }}" class="pagination-link pagination-next" rel="next">
+          <span class="pagination-content">
+            <span class="pagination-label">Next</span>
+            <span class="pagination-title">{{ page.next.title }}</span>
+          </span>
+          <span class="pagination-arrow">&rarr;</span>
+        </a>
+      {% else %}
+        <span class="pagination-link pagination-next pagination-disabled"></span>
+      {% endif %}
+    </div>
+    {% endif %}
+  </footer>
+
+</article>

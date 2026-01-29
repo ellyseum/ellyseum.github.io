@@ -1,0 +1,61 @@
+# Jekyll build output
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Node.js
+node_modules/
+
+# Build output
+dist/
+assets/js/dist/
+
+# Ruby/Bundler
+*.gem
+.bundle/
+vendor/
+Gemfile.lock
+
+# IDE/Editor
+.idea/
+*.swp
+*.swo
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Claude local config
+CLAUDE.local.md
+.claude/
+
+# Personal context (contains personal info - stored in GitHub secrets)
+system-prompt.md
+worker/src/system-prompt.ts
+src/data/jocelyn-context.ts
+context-chunks.json
+src/data/context-chunks.ts
+assets/data/embeddings.json
+
+# Drafts (unpublished posts)
+drafts/
+
+# Content repo (nested git repo with posts and site config)
+content/
+.claude.env
+.env
+
+# Generated from content/ (don't commit - built from content repo)
+_data/site.yml
+_posts/
+src/data/taglines.ts
+about/index.md
+
+# Personal data dumps
+slackdump_*.zip
+channels-*.txt

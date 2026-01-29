@@ -1,0 +1,10 @@
+name = "jocelyn-chat-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+account_id = "d21bc86a2f0e201c9acddc1693bb5919"
+
+# Custom domain already configured via initial deploy
+# routes = [{ pattern = "chat.api.ellyseum.dev", custom_domain = true }]
+
+[vars]
+ALLOWED_ORIGIN = "https://ellyseum.me"

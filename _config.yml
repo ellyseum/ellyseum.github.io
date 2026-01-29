@@ -1,0 +1,44 @@
+# Site settings
+title: Ellyseum Dreams
+tagline: "Protocols, pixels, and bad ideas that ship"
+description: Personal space of a frontend developer exploring the boundaries of web, gamedev, and immersive experiences
+author: Jocelyn Ellyse
+url: "https://ellyseum.me"
+baseurl: ""
+repository: ellyseum/ellyseum.github.io
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - node_modules
+  - src
+
+# Explicitly include built assets (since they're gitignored but built in CI)
+include:
+  - assets/js/dist
+
+# Collections
+collections:
+  posts:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"

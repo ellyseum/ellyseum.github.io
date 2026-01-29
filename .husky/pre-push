@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Sync system prompt to GitHub secret before pushing
+# The GitHub Actions workflow will inject it at build time
+
+PROMPT_FILE="system-prompt.md"
+
+if [ ! -f "$PROMPT_FILE" ]; then
+  echo "Warning: $PROMPT_FILE not found - skipping secret sync"
+  exit 0
+fi
+
+echo "Syncing system prompt to GitHub secret..."
+gh secret set SYSTEM_PROMPT < "$PROMPT_FILE"
+
+if [ $? -ne 0 ]; then
+  echo "Warning: Failed to update GitHub secret (gh CLI may not be authenticated)"
+  echo "Make sure to manually update the secret if needed"
+fi
+
+echo "System prompt synced to GitHub!"

@@ -1,0 +1,15 @@
+{
+  "name": "jocelyn-chat-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "inject-prompt": "node scripts/inject-prompt.js",
+    "dev": "npm run inject-prompt && wrangler dev",
+    "deploy": "npm run inject-prompt && wrangler deploy",
+    "secret": "wrangler secret put GROQ_API_KEY"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "wrangler": "^3.0.0"
+  }
+}

@@ -1,0 +1,43 @@
+---
+layout: default
+title: Home
+---
+<div class="home">
+  <section class="intro">
+    <h1>{{ site.data.site.site.title | default: site.title }}</h1>
+    <p class="intro-tagline"></p>
+    <p class="intro-byline">by {{ site.data.site.site.author | default: site.author }}</p>
+  </section>
+
+  <section class="posts" aria-label="Recent posts">
+    <h2>Most Recent Posts</h2>
+    <ul class="post-list">
+      {% for post in site.posts limit:5 %}
+      <li class="post-item"
+          data-post
+          data-post-title="{{ post.title | escape }}"
+          data-post-url="{{ post.url | relative_url }}"
+          data-post-date="{{ post.date | date: '%b %d, %Y' }}"
+          data-post-excerpt="{{ post.excerpt | strip_html | truncate: 120 | escape }}">
+        <article>
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}{% if post.subtitle %} <span class="post-item-subtitle">{{ post.subtitle }}</span>{% endif %}</a></h3>
+          <a href="{{ '/search/' | relative_url }}?date={{ post.date | date: '%Y-%m-%d' }}" class="post-date-link"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time></a>
+          {% if post.excerpt %}
+          <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+          {% endif %}
+          {% if post.tags and post.tags.size > 0 %}
+          <div class="post-item-tags">
+            {% for tag in post.tags %}
+              <a href="{{ '/search/' | relative_url }}?tags={{ tag }}" class="tag">{{ tag }}</a>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </article>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if site.posts.size > 5 %}
+    <a href="{{ '/archive/' | relative_url }}" class="view-archive">View all {{ site.posts.size }} posts</a>
+    {% endif %}
+  </section>
+</div>
