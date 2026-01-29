@@ -25,12 +25,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fetch content
-        run: bash scripts/fetch-content.sh
-        env:
-          CONTENT_REPO: ${{ vars.CONTENT_REPO }}
-          CONTENT_PAT: ${{ secrets.CONTENT_PAT }}
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -39,6 +33,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Fetch content
+        run: bash scripts/fetch-content.sh
+        env:
+          CONTENT_REPO: ${{ vars.CONTENT_REPO }}
+          CONTENT_PAT: ${{ secrets.CONTENT_PAT }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
