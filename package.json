@@ -12,6 +12,7 @@
     "build": "npm run inject-all && npm run typecheck && vite build && node scripts/update-script-hash.js",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "clean": "rm -rf _site _data _posts assets/js/dist src/data/taglines.ts src/data/context-chunks.ts src/data/jocelyn-context.ts about/index.md .jekyll-cache .jekyll-metadata",
     "prepare": "husky"
   },
   "dependencies": {
