@@ -25,6 +25,22 @@ exclude:
   - vendor
   - node_modules
   - src
+  - scripts
+  - worker
+  - content
+  - drafts
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - vite.config.ts
+  - requirements.txt
+  - Makefile
+  - context-chunks.json
+  - system-prompt.md
+  - CLAUDE.local.md
+  - "*.log"
+  - .husky
+  - .github
 
 # Explicitly include built assets (since they're gitignored but built in CI)
 include:
