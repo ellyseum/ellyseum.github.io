@@ -50,8 +50,8 @@ content/
 .claude.env
 .env
 
-# Generated from content/ (don't commit - built from content repo)
-_data/site.yml
+# Generated from content/ and build (don't commit)
+_data/
 _posts/
 src/data/taglines.ts
 about/index.md

@@ -54,7 +54,8 @@
   {% if jekyll.environment == "development" %}
   <script type="module" src="http://localhost:5173/src/main.ts"></script>
   {% else %}
-  <script type="module" src="{{ '/assets/js/dist/main-Dc9u9pyO.js' | relative_url }}"></script>
+  {% assign main_entry = site.data.vite-manifest['src/main.ts'] %}
+  <script type="module" src="{{ '/assets/js/dist/' | append: main_entry.file | relative_url }}"></script>
   {% endif %}
   <script nomodule>
     document.body.classList.add('static-experience');
