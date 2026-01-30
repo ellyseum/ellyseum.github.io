@@ -1,5 +1,5 @@
 /**
- * Cloudflare Worker - Groq API Proxy for Jocelyn Chat
+ * Cloudflare Worker - Groq API Proxy for Chat Widget
  * Keeps API key secure, handles CORS, streams responses
  */
 

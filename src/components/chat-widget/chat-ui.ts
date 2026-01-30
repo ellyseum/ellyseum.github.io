@@ -152,7 +152,7 @@ export class ChatUI {
     const container = document.createElement('div');
     container.className = 'chat-widget';
     container.setAttribute('role', 'complementary');
-    container.setAttribute('aria-label', 'Chat with Jocelyn AI assistant');
+    container.setAttribute('aria-label', `Chat with ${SITE_CONFIG.author || 'AI'} assistant`);
 
     // Toggle Button
     this.toggleButton = document.createElement('button');
@@ -190,7 +190,7 @@ export class ChatUI {
     header.className = 'chat-header';
     header.innerHTML = `
       <div class="chat-header-title">
-        <h3>Chat with Jocelyn</h3>
+        <h3>Chat with ${SITE_CONFIG.author || 'AI'}</h3>
         <span class="chat-header-status">Checking...</span>
       </div>
     `;
