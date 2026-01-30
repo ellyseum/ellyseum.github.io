@@ -1,0 +1,35 @@
+{
+  "chunks": [
+    {
+      "id": "about-me",
+      "category": "personal",
+      "content": "I am [Your Name], a [your profession]. I specialize in [your areas of expertise].",
+      "keywords": ["about", "introduction", "background", "who"]
+    },
+    {
+      "id": "work-experience",
+      "category": "professional",
+      "content": "My professional experience includes [describe your work history and notable projects].",
+      "keywords": ["work", "experience", "career", "projects", "job"]
+    },
+    {
+      "id": "skills",
+      "category": "technical",
+      "content": "My technical skills include [list your key skills and technologies].",
+      "keywords": ["skills", "technologies", "expertise", "tech", "stack"]
+    },
+    {
+      "id": "contact",
+      "category": "contact",
+      "content": "You can reach me at [your@email.com] or connect on GitHub at [github.com/username] and LinkedIn at [linkedin.com/in/username].",
+      "keywords": ["contact", "email", "github", "linkedin", "social", "reach"]
+    },
+    {
+      "id": "site-purpose",
+      "category": "site",
+      "content": "This blog is where I share my thoughts on [your topics of interest]. I write about [describe your content themes].",
+      "keywords": ["blog", "writing", "topics", "purpose", "site"]
+    }
+  ],
+  "categories": ["personal", "professional", "technical", "contact", "site"]
+}
