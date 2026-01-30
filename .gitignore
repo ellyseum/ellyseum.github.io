@@ -60,6 +60,9 @@ about/index.md
 _config.yml
 CNAME
 
+# Worker config (contains account ID)
+worker/wrangler.toml
+
 # Personal data dumps
 slackdump_*.zip
 channels-*.txt

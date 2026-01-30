@@ -1,4 +1,4 @@
-# Ellyseum Dreams
+# Ellyseum Blog Template
 
 A GPU-accelerated personal blog that pushes what's possible in a browser. Custom WebGL shaders, SPA navigation with flying word animations, on-device AI chat, and a typewriter that makes realistic typos. Because static sites don't have to be boring.
 
@@ -8,13 +8,136 @@ A GPU-accelerated personal blog that pushes what's possible in a browser. Custom
 
 ---
 
-## The Stack
+## Quick Start
 
-- **Jekyll** for static site generation
-- **TypeScript** with Vite for build tooling
-- **WebGL** with custom GLSL shaders for GPU effects
-- **Web Workers** for non-blocking prefetch and AI inference
-- **WebLLM** for on-device chat (no server required)
+### Option 1: Single Repository (Simple)
+
+Everything in one repo. Good for getting started.
+
+```bash
+# Clone the template
+git clone https://github.com/ellyseum/ellyseum.github.io.git my-blog
+cd my-blog
+
+# Install dependencies
+npm install
+bundle install
+
+# Copy and customize config files
+cp _data/site.yml.example _data/site.yml
+cp system-prompt.md.example system-prompt.md
+cp context-chunks.json.example context-chunks.json
+
+# Edit _data/site.yml with your info
+# Edit system-prompt.md with your AI assistant prompt
+# Edit context-chunks.json with your RAG context
+
+# Add your blog posts to _posts/
+# Format: YYYY-MM-DD-title-slug.md
+
+# Build and preview
+make prod
+# Then: https _site 4000
+```
+
+### Option 2: Split Repositories (Recommended)
+
+Separate your content from the template. Keeps the template updatable and your content private.
+
+**Template Repo** (this one, public):
+- Fork or clone this repo
+- Contains all code, styling, and build tooling
+- Can pull template updates without merge conflicts
+
+**Content Repo** (yours, can be private):
+```
+your-content-repo/
+├── site.yml              # Site configuration
+├── system-prompt.md      # AI chat system prompt (optional)
+├── context-chunks.json   # RAG context for AI chat (optional)
+├── YYYY-MM-DD-post.md    # Blog posts
+└── drafts/               # Draft posts (optional)
+    └── draft-post.md
+```
+
+**Setup:**
+
+1. Create your content repo with `site.yml` (copy from `_data/site.yml.example`)
+
+2. Add secrets to your template fork:
+   - `CONTENT_PAT`: Personal access token with read access to content repo
+   - `SYSTEM_PROMPT`: Contents of your system-prompt.md (optional)
+   - `CONTEXT_CHUNKS`: Contents of your context-chunks.json (optional)
+
+3. Add repository variable:
+   - `CONTENT_REPO`: `username/content-repo-name`
+
+4. For local development, clone your content repo into `content/`:
+   ```bash
+   git clone git@github.com:you/your-content.git content
+   ```
+
+5. Build:
+   ```bash
+   make prod
+   ```
+
+---
+
+## Configuration
+
+### site.yml
+
+All site configuration lives in one file:
+
+```yaml
+site:
+  title: "Your Blog Title"
+  tagline: "Your tagline here"
+  description: "SEO description for your blog"
+  author: "Your Name"
+  url: "https://yourdomain.com"
+  domain: "yourdomain.com"
+  repository: "username/repo-name"
+
+taglines:
+  - "First rotating tagline"
+  - "Second rotating tagline"
+  - "Third rotating tagline"
+
+about:
+  intro: |
+    Your introduction paragraph. Markdown supported.
+  work: |
+    Description of your work.
+  site_description: |
+    What this site is about.
+
+skills:
+  - "Skill 1"
+  - "Skill 2"
+  - "Skill 3"
+
+contact:
+  email: "you@example.com"
+  github: "https://github.com/username"
+  linkedin: "https://linkedin.com/in/username"
+  portfolio: "https://yourportfolio.com"
+
+chat:
+  greeting_local: |
+    Hi! I'm a local AI assistant running in your browser.
+  greeting_cloud: |
+    Hi! I'm an AI assistant powered by cloud inference.
+```
+
+### system-prompt.md
+
+The system prompt for your AI chat assistant. Describes who you are and how the AI should respond. See `system-prompt.md.example` for a template.
+
+### context-chunks.json
+
+RAG (Retrieval Augmented Generation) context for the AI chat. Structured chunks of information the AI can retrieve to answer questions accurately. See `context-chunks.json.example` for the format.
 
 ---
 
@@ -22,100 +145,61 @@ A GPU-accelerated personal blog that pushes what's possible in a browser. Custom
 
 ### WebGL Visual Effects
 
-**Cosmic Background**
-- Real-time Perlin noise-based nebula effect
-- Mouse-reactive animation (follows cursor)
-- Device orientation support (tilt your phone/iPad)
-- Dynamic resolution scaling for performance
-
-**Flying Icons**
-- GPU-instanced rendering of animated icons
-- Cubic Bézier path animation with trail effects
-- Additive blending for glow
-
-**3D Card System**
-- CSS 3D perspective transforms with mouse tracking
-- Per-card random rotation for visual variety
-- Hover elevation with smooth interpolation
-- Disabled on mobile (no cursor to track)
+- **Cosmic Background**: Real-time Perlin noise nebula, mouse-reactive, tilt-responsive on mobile
+- **Flying Icons**: GPU-instanced Bézier path animation with trails
+- **3D Cards**: CSS 3D transforms with mouse tracking and hover elevation
 
 ### SPA Navigation
 
 Zero page reloads. Click a link, content animates out, new content flies in.
 
-**Transition Animations**
-- **Cards fly out** in random directions with rotation and scale
-- **Clicked card zooms** into viewport center while others scatter
-- **Words fly in** individually from screen edges with stagger delay
-- **Intro elements** cascade down (title → tagline → byline)
-
-**Prefetch System**
-- **Desktop:** Prefetch on hover/focus
-- **Mobile:** Batch prefetch all visible links on page load
-- **Web Worker** parses HTML off main thread
-- Hidden prerender divs ready for instant swap
+- Cards fly out in random directions
+- Words fly in individually from screen edges
+- Web Worker prefetches and parses HTML off main thread
+- Prerender for instant page swaps
 
 ### Typewriter Effect
 
-The tagline types itself with human-like imperfection.
-
-- Rotating taglines, shuffled each session (no repeats until all shown)
-- Variable typing speed (25-65ms per character)
-- **4 typo types:**
-  - Extra key repeats (40%)
-  - Accidental whitespace (25%)
-  - Dyslexia swaps (20%)
-  - Fat finger adjacent keys (15%)
-- QWERTY adjacency map for realistic finger slips
-- Shift-held cascade (uppercase bleeds into next characters)
-- Realistic pause before noticing mistakes
-- Slower backspace for corrections
+Tagline types itself with human-like imperfection:
+- Variable typing speed (25-65ms)
+- Realistic typos (key repeats, adjacent keys, dyslexia swaps)
+- QWERTY adjacency map for believable finger slips
+- Pauses before noticing and correcting mistakes
 
 ### On-Device AI Chat
 
-Talk to an AI that knows the blog content. Runs entirely in your browser.
+Talk to an AI that knows your content. Runs entirely in the browser.
 
-- **WebLLM** for inference (no server, no API keys)
-- **RAG retrieval** with dual strategy:
-  - Embedding-based semantic search
-  - BM25 keyword fallback
-- Token-by-token streaming responses
-- Graceful fallback to cloud API if WebGPU unavailable
-- Lazy-loaded on desktop, eager on mobile
+- **WebLLM** for local inference (no server, no API keys)
+- **RAG retrieval** with embedding search + BM25 fallback
+- Token-by-token streaming
+- Optional cloud fallback (requires Cloudflare Worker - see `worker/`)
 
 ### Performance
 
-**FPS Monitor**
-- Real-time frame counting with tier classification
-- Auto-detects display refresh rate
-- Draggable overlay panel
-
-**Potato Mode**
-- Triggers when FPS drops below 27
-- Disables flying icons
-- Reduces background resolution to 50%
-- Recovers automatically when performance improves
-
-**Adaptive Loading**
-- Three-phase initialization (background → interactive → decorative)
-- `prefers-reduced-motion` respected (disables all WebGL)
-- Static fallback for browsers without WebGL
+- **FPS Monitor**: Real-time tier classification, draggable overlay
+- **Potato Mode**: Auto-degrades when FPS drops below 27
+- **Adaptive Loading**: Three-phase init, respects `prefers-reduced-motion`
 
 ### Search & Filter
 
 - Full-text search across posts
-- Tag-based filtering with chip UI
-- Date filtering
-- Query params for shareable filtered views
-- Debounced input (400ms)
+- Tag and date filtering
+- Shareable query params
+- Animated results with stagger
 
-### Post Features
+---
 
-- **Code copy button** on all code blocks
-- **Sticky navigation** appears when header scrolls out
-- **Back to top** button after 300px scroll
-- **Previous/Next** post navigation
-- **Reading time** estimates
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `make prod` | Full production build (Vite + Jekyll) |
+| `make content` | Process content from content/ directory |
+| `make serve` | Serve _site (after build) |
+| `make new-post TITLE="..."` | Create new post |
+| `make draft TITLE="..."` | Create draft in content/drafts/ |
+| `npm run clean` | Remove all generated files |
 
 ---
 
@@ -133,109 +217,35 @@ src/
 │   ├── view-transitions.ts      # SPA navigation engine
 │   ├── typewriter.ts            # Realistic typing effect
 │   ├── search-filter.ts         # Search/filter UI
-│   ├── fps-monitor.ts           # Performance overlay
-│   ├── post-nav-sticky.ts       # Sticky navigation
-│   ├── back-to-top.ts           # Scroll button
-│   ├── code-copy.ts             # Code block copy
-│   └── target-reticle.ts        # Click indicator
+│   ├── chat-widget/             # AI chat components
+│   └── ...
 ├── workers/
 │   ├── nav-worker.ts            # Prefetch parser
 │   └── llm-worker.ts            # AI inference
-└── data/
-    └── taglines.ts              # Generated from content repo
+├── styles/                      # CSS (split into components)
+└── data/                        # Generated at build time
 ```
 
 ---
 
-## Content Management
+## Cloud Chat (Optional)
 
-Blog content is stored in a separate private repository and fetched at build time. This keeps the main repo reusable as a template.
-
-### Content Repository Structure
-
-```
-your-content-repo/
-├── site.yml          # Site configuration
-└── YYYY-MM-DD-*.md   # Blog posts in Jekyll format
-```
-
-### site.yml
-
-All configurable content:
-
-```yaml
-site:
-  title: "Your Blog Title"
-  tagline: "Your tagline"
-  description: "SEO description"
-  author: "Your Name"
-  url: "https://yourdomain.com"
-  repository: "username/repo"
-
-taglines:
-  - "First rotating tagline"
-  - "Second rotating tagline"
-
-about:
-  intro: "About page intro text..."
-  work: "What I work on..."
-  site_description: "About this site..."
-
-skills:
-  - "Skill 1"
-  - "Skill 2"
-
-contact:
-  email: "you@example.com"
-  github: "https://github.com/you"
-  linkedin: "https://linkedin.com/in/you"
-  portfolio: "https://yourportfolio.com"
-```
-
-### Setup
-
-1. Fork this repo
-2. Create a private content repo with `site.yml` and your posts
-3. Add secrets to your fork:
-   - `CONTENT_PAT`: Personal access token with read access to your content repo
-4. Add variables to your fork:
-   - `CONTENT_REPO`: `username/content-repo-name`
-5. Push and deploy
-
-For local development, clone your content repo into the `content/` folder (it's gitignored).
-
----
-
-## Development
-
-### Prerequisites
-
-- Node.js 18+
-- Ruby 2.7+ with Bundler
-
-### Setup
+For devices without WebGPU, you can deploy a Cloudflare Worker as a fallback:
 
 ```bash
-bundle install
+cd worker
 npm install
+cp wrangler.toml.example wrangler.toml
+# Edit wrangler.toml with your settings
 
-# Clone your content repo into content/ (optional for local dev)
-git clone git@github.com:you/your-content.git content
+# Set your Groq API key
+wrangler secret put GROQ_API_KEY
 
-make dev
+# Deploy
+npm run deploy
 ```
 
-Runs Vite (HMR) + Jekyll (live reload) in parallel.
-
-### Commands
-
-| Command | Description |
-|---------|-------------|
-| `make dev` | Start dev servers |
-| `make prod` | Production build + local serve |
-| `make content` | Process content from content/ |
-| `make build` | Build for deployment |
-| `make new-post TITLE="..."` | Scaffold new post |
+Then set `VITE_GROQ_PROXY_URL` in your environment to enable cloud fallback.
 
 ---
 

@@ -1,0 +1,7 @@
+name = "your-chat-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+# account_id = "your-cloudflare-account-id"  # Optional: Wrangler prompts if missing
+
+[vars]
+ALLOWED_ORIGIN = "https://yourdomain.com"
