@@ -21,7 +21,16 @@ fi
 
 # Check if content directory exists
 if [ ! -d "$CONTENT_DIR" ]; then
-  echo "No content/ directory found. Using existing _posts/ if any."
+  echo "No content/ directory found."
+  # Still try to generate config if _data/site.yml exists
+  if [ -f "$DATA_DIR/site.yml" ]; then
+    echo "Found existing _data/site.yml, generating configs..."
+    node scripts/generate-config.js
+    node scripts/generate-taglines.js
+    node scripts/generate-about.js
+  else
+    echo "Using existing _posts/ if any."
+  fi
   exit 0
 fi
 
@@ -34,6 +43,10 @@ mkdir -p "$POSTS_DIR" "$DATA_DIR" "$ABOUT_DIR"
 if [ -f "$CONTENT_DIR/site.yml" ]; then
   cp "$CONTENT_DIR/site.yml" "$DATA_DIR/site.yml"
   echo "Copied site.yml to $DATA_DIR/"
+
+  # Generate _config.yml and CNAME from site.yml
+  echo "Generating Jekyll config and CNAME..."
+  node scripts/generate-config.js
 
   # Generate taglines.ts from site.yml
   echo "Generating taglines.ts..."

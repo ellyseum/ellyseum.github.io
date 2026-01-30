@@ -6,6 +6,7 @@
 import type { ChatMessage, ChatState, LoadProgress } from './chat-types';
 import { MODEL_CATEGORIES, AVAILABLE_MODELS } from './chat-types';
 import { injectChatStyles } from './chat-styles';
+import { SITE_CONFIG } from '@/data/site-config';
 
 // SVG Icons
 const CHAT_ICON = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -35,20 +36,73 @@ export type ChatUIEvents = {
   onAbort: () => void;
 };
 
-// Whitelist of known links to make clickable
-const LINK_PATTERNS: [RegExp, (match: string) => string][] = [
+// Helper to escape regex special characters
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Helper to extract display text from URL (removes https:// prefix)
+function urlToDisplay(url: string): string {
+  return url.replace(/^https?:\/\//, '');
+}
+
+// Build link patterns from SITE_CONFIG
+function buildLinkPatterns(): [RegExp, () => string][] {
+  const patterns: [RegExp, () => string][] = [];
+
   // Email
-  [/jocelyn@ellyseum\.dev/g, () => '<a href="mailto:jocelyn@ellyseum.dev" class="chat-link">jocelyn@ellyseum.dev</a>'],
+  if (SITE_CONFIG.email) {
+    const escaped = escapeRegex(SITE_CONFIG.email);
+    patterns.push([
+      new RegExp(escaped, 'g'),
+      () => `<a href="mailto:${SITE_CONFIG.email}" class="chat-link">${SITE_CONFIG.email}</a>`
+    ]);
+  }
+
   // GitHub
-  [/github\.com\/ellyseum/g, () => '<a href="https://github.com/ellyseum" target="_blank" rel="noopener" class="chat-link">github.com/ellyseum</a>'],
+  if (SITE_CONFIG.github) {
+    const display = urlToDisplay(SITE_CONFIG.github);
+    const escaped = escapeRegex(display);
+    patterns.push([
+      new RegExp(escaped, 'g'),
+      () => `<a href="${SITE_CONFIG.github}" target="_blank" rel="noopener" class="chat-link">${display}</a>`
+    ]);
+  }
+
   // LinkedIn
-  [/linkedin\.com\/in\/jocelyn-elden/g, () => '<a href="https://linkedin.com/in/jocelyn-elden" target="_blank" rel="noopener" class="chat-link">linkedin.com/in/jocelyn-elden</a>'],
-  // Company sites
-  [/jazulabs\.ai/g, () => '<a href="https://jazulabs.ai" target="_blank" rel="noopener" class="chat-link">jazulabs.ai</a>'],
-  [/vc-sports\.ai/g, () => '<a href="https://vc-sports.ai" target="_blank" rel="noopener" class="chat-link">vc-sports.ai</a>'],
-  // Blog
-  [/ellyseum\.me/g, () => '<a href="https://ellyseum.me" target="_blank" rel="noopener" class="chat-link">ellyseum.me</a>'],
-];
+  if (SITE_CONFIG.linkedin) {
+    const display = urlToDisplay(SITE_CONFIG.linkedin);
+    const escaped = escapeRegex(display);
+    patterns.push([
+      new RegExp(escaped, 'g'),
+      () => `<a href="${SITE_CONFIG.linkedin}" target="_blank" rel="noopener" class="chat-link">${display}</a>`
+    ]);
+  }
+
+  // Portfolio
+  if (SITE_CONFIG.portfolio) {
+    const display = urlToDisplay(SITE_CONFIG.portfolio);
+    const escaped = escapeRegex(display);
+    patterns.push([
+      new RegExp(escaped, 'g'),
+      () => `<a href="${SITE_CONFIG.portfolio}" target="_blank" rel="noopener" class="chat-link">${display}</a>`
+    ]);
+  }
+
+  // Blog domain
+  if (SITE_CONFIG.domain) {
+    const escaped = escapeRegex(SITE_CONFIG.domain);
+    patterns.push([
+      new RegExp(escaped, 'g'),
+      () => `<a href="https://${SITE_CONFIG.domain}" target="_blank" rel="noopener" class="chat-link">${SITE_CONFIG.domain}</a>`
+    ]);
+  }
+
+  return patterns;
+}
+
+// Whitelist of known links to make clickable
+const LINK_PATTERNS = buildLinkPatterns();
 
 function linkifyContent(text: string): string {
   // Escape HTML first to prevent XSS
@@ -608,6 +662,41 @@ export class ChatUI {
     const desc = this.loadSection?.querySelector('.chat-load-desc');
     if (desc) {
       desc.textContent = 'Local models unavailable. Using cloud AI via secure proxy.';
+    }
+  }
+
+  disableCloudModels(): void {
+    if (!this.modelSelect) return;
+
+    // Disable cloud model options and update their text
+    const options = this.modelSelect.querySelectorAll('option');
+    let firstLocalEnabled = false;
+    options.forEach(option => {
+      if (option.value.startsWith('groq:')) {
+        option.disabled = true;
+        const model = AVAILABLE_MODELS.find(m => m.id === option.value);
+        if (model) {
+          option.textContent = `${model.name} (${model.size}) - unavailable`;
+        }
+      } else if (!option.disabled && !firstLocalEnabled) {
+        // Select first available local model
+        option.selected = true;
+        firstLocalEnabled = true;
+        // Trigger change event to update description
+        this.modelSelect?.dispatchEvent(new Event('change'));
+      }
+    });
+
+    // Update description if no models are available at all
+    if (!firstLocalEnabled) {
+      const desc = this.loadSection?.querySelector('.chat-load-desc');
+      if (desc) {
+        desc.textContent = 'No chat models available. Cloud proxy not configured and WebGPU not supported.';
+      }
+      if (this.loadButton) {
+        this.loadButton.disabled = true;
+        this.loadButton.textContent = 'Chat Unavailable';
+      }
     }
   }
 

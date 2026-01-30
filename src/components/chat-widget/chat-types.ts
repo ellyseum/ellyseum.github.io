@@ -71,11 +71,17 @@ export const AVAILABLE_MODELS: ModelOption[] = MODEL_CATEGORIES.flatMap(cat => c
 export const EMBEDDING_MODEL = 'snowflake-arctic-embed-m-q0f32-MLC-b4';
 
 // Groq API proxy URL (Cloudflare Worker)
-export const GROQ_PROXY_URL = 'https://chat.api.ellyseum.dev';
+// Uses env var if set, otherwise empty string (disables cloud chat)
+export const GROQ_PROXY_URL = import.meta.env.VITE_GROQ_PROXY_URL || '';
 
 // Helper to detect cloud models
 export function isCloudModel(modelId: string): boolean {
   return modelId.startsWith('groq:');
+}
+
+// Helper to check if cloud chat is available
+export function isCloudChatEnabled(): boolean {
+  return !!GROQ_PROXY_URL;
 }
 
 // Worker -> Main thread messages

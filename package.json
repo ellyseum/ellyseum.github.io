@@ -6,7 +6,10 @@
   "scripts": {
     "inject-context": "node scripts/inject-context.js",
     "inject-chunks": "node scripts/inject-chunks.js",
-    "inject-all": "npm run inject-context && npm run inject-chunks",
+    "generate-site-config": "node scripts/generate-site-config.js",
+    "generate-taglines": "node scripts/generate-taglines.js",
+    "generate-config": "node scripts/generate-config.js",
+    "inject-all": "npm run inject-context && npm run inject-chunks && npm run generate-site-config && npm run generate-taglines && npm run generate-config",
     "dev": "npm run inject-all && vite",
     "watch": "npm run inject-all && vite build --watch",
     "build": "npm run inject-all && npm run typecheck && vite build && node scripts/update-script-hash.js",

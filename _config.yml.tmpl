@@ -1,11 +1,11 @@
-# Site settings
-title: Ellyseum Dreams
-tagline: "Protocols, pixels, and bad ideas that ship"
-description: Personal space of a frontend developer exploring the boundaries of web, gamedev, and immersive experiences
-author: Jocelyn Ellyse
-url: "https://ellyseum.me"
+# Site settings - values populated from site.yml
+title: {{ site.title }}
+tagline: {{ site.tagline }}
+description: {{ site.description }}
+author: {{ site.author }}
+url: {{ site.url }}
 baseurl: ""
-repository: ellyseum/ellyseum.github.io
+repository: {{ site.repository }}
 
 # Build settings
 markdown: kramdown
@@ -41,6 +41,7 @@ exclude:
   - "*.log"
   - .husky
   - .github
+  - _config.yml.tmpl
 
 # Explicitly include built assets (since they're gitignored but built in CI)
 include:

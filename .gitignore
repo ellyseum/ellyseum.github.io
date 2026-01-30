@@ -38,6 +38,7 @@ CLAUDE.local.md
 system-prompt.md
 worker/src/system-prompt.ts
 src/data/jocelyn-context.ts
+src/data/site-config.ts
 context-chunks.json
 src/data/context-chunks.ts
 assets/data/embeddings.json
@@ -51,10 +52,13 @@ content/
 .env
 
 # Generated from content/ and build (don't commit)
-_data/
+_data/*
+!_data/site.yml.example
 _posts/
 src/data/taglines.ts
 about/index.md
+_config.yml
+CNAME
 
 # Personal data dumps
 slackdump_*.zip

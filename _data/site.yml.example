@@ -1,0 +1,49 @@
+# Site Configuration
+# Copy this to _data/site.yml and customize
+
+site:
+  title: "Your Blog Title"
+  tagline: "Your tagline here"
+  description: "A brief description of your blog"
+  author: "Your Name"
+  url: "https://yourdomain.com"
+  domain: "yourdomain.com"
+  repository: "username/repo-name"
+
+# Rotating taglines for the typewriter effect on the home page
+taglines:
+  - "First tagline"
+  - "Second tagline"
+  - "Third tagline"
+
+# About page content
+about:
+  intro: |
+    Write your introduction here. Markdown is supported.
+
+  work: |
+    Describe your work experience here.
+
+  site_description: |
+    Describe what this site is about.
+
+# Skills displayed on the about page
+skills:
+  - "Skill 1"
+  - "Skill 2"
+  - "Skill 3"
+
+# Contact/social links
+contact:
+  email: "you@example.com"
+  github: "https://github.com/yourusername"
+  linkedin: "https://linkedin.com/in/yourprofile"
+  portfolio: "https://yourportfolio.com"
+
+# Chat widget configuration
+chat:
+  greeting_local: |
+    Hi! I'm a local AI assistant running in your browser via WebGPU.
+
+  greeting_cloud: |
+    Hi! I'm an AI assistant powered by cloud inference.

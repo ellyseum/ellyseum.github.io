@@ -4,7 +4,7 @@
  */
 
 import type { ChatMessage, ChatState, WorkerMessage, MainMessage } from './chat-types';
-import { isCloudModel, GROQ_PROXY_URL } from './chat-types';
+import { isCloudModel, isCloudChatEnabled, GROQ_PROXY_URL } from './chat-types';
 import { ChatUI } from './chat-ui';
 import { GREETING_MESSAGE_LOCAL, GREETING_MESSAGE_CLOUD } from '@/data/jocelyn-context';
 
@@ -67,6 +67,10 @@ export class ChatWidget {
         } else {
           // WebGPU not available - update local models to show "requires WebGPU"
           this.ui.disableLocalModels();
+        }
+        // Disable cloud models if proxy URL is not configured
+        if (!isCloudChatEnabled()) {
+          this.ui.disableCloudModels();
         }
         break;
 
@@ -239,6 +243,20 @@ export class ChatWidget {
   }
 
   private async generateWithGroq(): Promise<void> {
+    // Guard against missing proxy URL
+    if (!GROQ_PROXY_URL) {
+      this.ui.hideTypingIndicator();
+      const errorMsg: ChatMessage = {
+        role: 'assistant',
+        content: 'Cloud chat is not available. The proxy URL is not configured.',
+        timestamp: Date.now()
+      };
+      this.messages.push(errorMsg);
+      this.ui.addMessage(errorMsg);
+      this.finishGeneration();
+      return;
+    }
+
     // Prepare messages for Groq API (no system - worker adds it)
     const chatHistory = this.messages
       .filter(m => m.role !== 'system')
