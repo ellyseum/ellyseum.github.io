@@ -1,0 +1,46 @@
+/* ==========================================================================
+   Back to Top Button
+   ========================================================================== */
+.back-to-top {
+  display: none;
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 80;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, border-color var(--transition), color var(--transition);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  &:hover {
+    border-color: var(--primary);
+    color: var(--primary-light);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4), inset 0 0 10px rgba(139, 92, 246, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    bottom: 1rem;
+    right: auto;
+    left: 1rem;
+    width: 36px;
+    height: 36px;
+  }
+}

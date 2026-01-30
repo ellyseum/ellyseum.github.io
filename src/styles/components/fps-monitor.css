@@ -1,0 +1,180 @@
+/* ==========================================================================
+   FPS Monitor
+   ========================================================================== */
+.fps-monitor {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  font-family: var(--font-mono);
+
+  &.dragging {
+    user-select: none;
+  }
+
+  /* Tier-based colors */
+  &[data-tier="superUltra"] {
+    .fps-panel {
+      border-color: rgba(240, 171, 252, 0.4);
+      box-shadow: 0 0 15px rgba(240, 171, 252, 0.2);
+    }
+
+    .fps-link,
+    .fps-counter {
+      color: #f0abfc;
+      text-shadow: 0 0 10px rgba(240, 171, 252, 0.5);
+    }
+  }
+
+  &[data-tier="ultra"] {
+    .fps-panel {
+      border-color: rgba(192, 132, 252, 0.4);
+    }
+
+    .fps-link,
+    .fps-counter {
+      color: #c084fc;
+    }
+  }
+
+  &[data-tier="high"] {
+    .fps-panel {
+      border-color: rgba(34, 211, 238, 0.3);
+    }
+
+    .fps-link,
+    .fps-counter {
+      color: #22d3ee;
+    }
+  }
+
+  &[data-tier="medium"] {
+    .fps-panel {
+      border-color: rgba(74, 222, 128, 0.3);
+    }
+
+    .fps-link,
+    .fps-counter {
+      color: #4ade80;
+    }
+  }
+
+  &[data-tier="low"] {
+    .fps-panel {
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+
+    .fps-link,
+    .fps-counter {
+      color: #fbbf24;
+    }
+  }
+
+  &[data-tier="potato"] {
+    .fps-panel {
+      border-color: rgba(248, 113, 113, 0.3);
+      animation: potatoPulse 1s ease-in-out infinite;
+    }
+
+    .fps-link,
+    .fps-counter {
+      color: #f87171;
+    }
+  }
+
+  @media (max-width: 1349px) {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
+/* Minimized link state */
+.fps-link {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.3rem 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+
+  &:hover {
+    color: var(--text);
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* Expanded panel state */
+.fps-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.3s;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &:hover .fps-close {
+    opacity: 1;
+  }
+}
+
+.fps-panel-header {
+  display: none;
+}
+
+.fps-close {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: rgba(60, 60, 70, 0.95);
+  color: var(--text-muted);
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  opacity: 0;
+
+  &:hover {
+    background: rgba(80, 80, 90, 0.95);
+    color: var(--text);
+  }
+}
+
+.fps-graph {
+  width: 100px;
+  height: 32px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.fps-counter {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+@keyframes potatoPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

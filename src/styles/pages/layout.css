@@ -1,0 +1,103 @@
+/* ==========================================================================
+   Page Layout
+   ========================================================================== */
+.page {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem 2rem;
+  }
+}
+
+.page-container {
+  position: relative;
+  background: var(--surface-solid);
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: 2.5rem;
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 0 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  z-index: 0;
+  /* Hidden until loaded */
+  opacity: 0;
+  transform: translateY(20px);
+
+  /* Animated gradient border */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 17px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary), var(--secondary));
+    background-size: 300% 300%;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: gradientBorderFlow 8s ease-in-out infinite;
+    opacity: 0.5;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+}
+
+.loaded:not(.spa-navigating) .page-container:not(.js-animated) {
+  animation: postFadeIn 0.5s ease forwards;
+  animation-delay: 0.1s;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, var(--text), var(--primary-light));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-content {
+  p {
+    margin-bottom: 1rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition);
+
+    &:hover {
+      border-bottom-color: var(--primary);
+    }
+  }
+
+  strong em,
+  em strong {
+    font-style: normal;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: italicShimmer 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 14px rgba(139, 92, 246, 0.6)) drop-shadow(0 0 30px rgba(236, 72, 153, 0.3));
+    padding: 0 0.15em;
+    margin: 0 -0.15em;
+    display: inline;
+    box-decoration-break: clone;
+  }
+}
+
+.connect-heading {
+  margin-top: 3rem;
+}

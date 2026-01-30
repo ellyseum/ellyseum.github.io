@@ -5,16 +5,16 @@
 export GEM_HOME := $(HOME)/.gems
 export PATH := $(HOME)/.gems/bin:$(PATH)
 
-.PHONY: install serve build clean deploy new-post help dev watch content
+.PHONY: install serve build clean deploy new-post help content
 
 # Default target
 help:
 	@echo "Available commands:"
-	@echo "  make dev        - Start dev server with TypeScript hot reload"
+	@echo "  make prod       - Full build (Vite + Jekyll) for local testing"
 	@echo "  make content    - Process content from content/ directory"
 	@echo "  make install    - Install Ruby dependencies"
-	@echo "  make serve      - Start local development server"
-	@echo "  make build      - Build the site for production"
+	@echo "  make serve      - Start Jekyll server (requires prior build)"
+	@echo "  make build      - Build Jekyll only (use 'make prod' for full build)"
 	@echo "  make clean      - Remove generated files"
 	@echo "  make deploy     - Push changes to GitHub"
 	@echo "  make sync-prompt - Sync system-prompt.md to GitHub secret"
@@ -28,19 +28,6 @@ help:
 content:
 	@echo "Processing content..."
 	bash scripts/fetch-content.sh
-
-# Development with TypeScript HMR
-dev: content
-	@echo "Starting Vite dev server + Jekyll serve..."
-	@echo "JS served from http://localhost:5173 (HMR)"
-	@echo "Site served from http://localhost:4000"
-	@trap 'kill 0' EXIT; \
-	npm run dev & \
-	sleep 2 && JEKYLL_ENV=development bundle exec jekyll serve
-
-# Just watch TypeScript (run in separate terminal)
-watch:
-	npm run watch
 
 # Install dependencies
 install:
@@ -97,8 +84,8 @@ draft:
 ifndef TITLE
 	$(error TITLE is required. Usage: make draft TITLE="My Draft Title")
 endif
-	@mkdir -p _drafts
-	@filename="_drafts/$$(echo '$(TITLE)' | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
+	@mkdir -p content/drafts
+	@filename="content/drafts/$$(echo '$(TITLE)' | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
 	echo "---" > $$filename; \
 	echo "layout: post" >> $$filename; \
 	echo "title: \"$(TITLE)\"" >> $$filename; \

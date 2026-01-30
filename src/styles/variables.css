@@ -1,0 +1,30 @@
+/* ==========================================================================
+   CSS Variables
+   ========================================================================== */
+:root {
+  --void: #010108;
+  --deep: #0a0815;
+  --surface: rgba(15, 12, 30, 0.85);
+  --surface-hover: rgba(25, 20, 45, 0.9);
+  --surface-solid: rgba(8, 6, 18, 0.95);
+
+  --primary: #8b5cf6;
+  --primary-light: #a78bfa;
+  --secondary: #ec4899;
+  --tertiary: #06b6d4;
+
+  --text: #f4f4f5;
+  --text-dim: #a1a1aa;
+  --text-muted: #71717a;
+
+  --border: rgba(139, 92, 246, 0.25);
+  --border-glow: rgba(139, 92, 246, 0.5);
+  --glow: 0 0 30px rgba(139, 92, 246, 0.3);
+  --glow-strong: 0 0 40px rgba(139, 92, 246, 0.4), 0 0 80px rgba(139, 92, 246, 0.2);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}

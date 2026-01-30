@@ -4,17 +4,78 @@
  *
  * Reads: _data/site.yml (or content/site.yml)
  * Writes: _config.yml, CNAME
- *
- * Template placeholders use {{ site.field }} syntax
  */
 
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { parse } from 'yaml';
 
 const SITE_YAML_PATHS = ['_data/site.yml', 'content/site.yml'];
-const CONFIG_TEMPLATE = '_config.yml.tmpl';
 const CONFIG_OUTPUT = '_config.yml';
 const CNAME_OUTPUT = 'CNAME';
+
+// Jekyll config template - placeholders use {{ site.field }} syntax
+const CONFIG_TEMPLATE = `# Site settings - values populated from site.yml
+title: {{ site.title }}
+tagline: {{ site.tagline }}
+description: {{ site.description }}
+author: {{ site.author }}
+url: {{ site.url }}
+baseurl: ""
+repository: {{ site.repository }}
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - node_modules
+  - src
+  - scripts
+  - worker
+  - content
+  - drafts
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - vite.config.ts
+  - postcss.config.js
+  - requirements.txt
+  - Makefile
+  - context-chunks.json
+  - system-prompt.md
+  - CLAUDE.local.md
+  - "*.log"
+  - .husky
+  - .github
+
+# Explicitly include built assets (since they're gitignored but built in CI)
+include:
+  - assets/js/dist
+
+# Collections
+collections:
+  posts:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+`;
 
 // Find site.yml
 let siteYamlPath = null;
@@ -50,16 +111,8 @@ for (const field of required) {
   }
 }
 
-// Read template
-if (!existsSync(CONFIG_TEMPLATE)) {
-  console.error(`Error: Template file ${CONFIG_TEMPLATE} not found`);
-  process.exit(1);
-}
-
-const template = readFileSync(CONFIG_TEMPLATE, 'utf-8');
-
 // Replace placeholders {{ site.field }}
-let output = template;
+let output = CONFIG_TEMPLATE;
 const placeholderRegex = /\{\{\s*site\.(\w+)\s*\}\}/g;
 output = output.replace(placeholderRegex, (match, field) => {
   if (site[field] !== undefined) {

@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
+
+  @media (max-width: 768px) {
+    position: relative;
+  }
+}
+
+.rss-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: 1rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, color 0.2s;
+
+  &:hover {
+    opacity: 1;
+    color: var(--primary);
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+

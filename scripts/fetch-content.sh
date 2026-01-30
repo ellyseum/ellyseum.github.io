@@ -8,6 +8,7 @@ set -e
 
 CONTENT_DIR="content"
 POSTS_DIR="_posts"
+DRAFTS_DIR="_drafts"
 DATA_DIR="_data"
 ABOUT_DIR="about"
 
@@ -68,4 +69,21 @@ for file in "$CONTENT_DIR"/*.md; do
 done
 
 echo "Copied $count posts to $POSTS_DIR/"
+
+# Copy drafts if they exist
+if [ -d "$CONTENT_DIR/drafts" ]; then
+  mkdir -p "$DRAFTS_DIR"
+  draft_count=0
+  for file in "$CONTENT_DIR/drafts"/*.md; do
+    if [ -f "$file" ]; then
+      filename=$(basename "$file")
+      cp "$file" "$DRAFTS_DIR/$filename"
+      draft_count=$((draft_count + 1))
+    fi
+  done
+  if [ $draft_count -gt 0 ]; then
+    echo "Copied $draft_count drafts to $DRAFTS_DIR/"
+  fi
+fi
+
 echo "Done!"

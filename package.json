@@ -10,12 +10,9 @@
     "generate-taglines": "node scripts/generate-taglines.js",
     "generate-config": "node scripts/generate-config.js",
     "inject-all": "npm run inject-context && npm run inject-chunks && npm run generate-site-config && npm run generate-taglines && npm run generate-config",
-    "dev": "npm run inject-all && vite",
-    "watch": "npm run inject-all && vite build --watch",
-    "build": "npm run inject-all && npm run typecheck && vite build && node scripts/update-script-hash.js",
-    "preview": "vite preview",
+    "build": "npm run inject-all && npm run typecheck && vite build && mkdir -p _data && cp assets/js/dist/.vite/manifest.json _data/vite-manifest.json",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf _site _data _posts assets/js/dist src/data/taglines.ts src/data/context-chunks.ts src/data/jocelyn-context.ts about/index.md .jekyll-cache .jekyll-metadata",
+    "clean": "rm -rf _site _data _posts _drafts assets src/data/taglines.ts src/data/context-chunks.ts src/data/jocelyn-context.ts src/data/site-config.ts about/index.md _config.yml CNAME .jekyll-cache .jekyll-metadata",
     "prepare": "husky"
   },
   "dependencies": {
@@ -23,7 +20,10 @@
   },
   "devDependencies": {
     "@webgpu/types": "^0.1.69",
+    "autoprefixer": "^10.4.23",
+    "cssnano": "^7.1.2",
     "husky": "^9.1.7",
+    "postcss": "^8.5.6",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
     "yaml": "^2.8.2"

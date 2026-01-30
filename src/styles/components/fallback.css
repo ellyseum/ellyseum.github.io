@@ -1,0 +1,73 @@
+/* ==========================================================================
+   Fallback / Static Experience
+   ========================================================================== */
+.static-experience {
+  #webgl-canvas {
+    display: none;
+  }
+
+  /* Static cosmic background for no-WebGL */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(139, 92, 246, 0.15), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(236, 72, 153, 0.1), transparent 50%),
+      radial-gradient(ellipse 50% 50% at 80% 60%, rgba(6, 182, 212, 0.08), transparent 50%),
+      var(--void);
+    pointer-events: none;
+  }
+
+  /* No-JS fallback: show content immediately */
+  .post-item,
+  .post-header,
+  .post-content,
+  .post-footer,
+  .page-container,
+  .home .intro {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+.reduced-motion {
+  #webgl-canvas {
+    display: none;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(139, 92, 246, 0.15), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(236, 72, 153, 0.1), transparent 50%),
+      radial-gradient(ellipse 50% 50% at 80% 60%, rgba(6, 182, 212, 0.08), transparent 50%),
+      var(--void);
+    pointer-events: none;
+  }
+
+  .post-item {
+    transform: none !important;
+  }
+
+  .post-header,
+  .post-content,
+  .post-footer,
+  .page-container,
+  .home .intro {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}

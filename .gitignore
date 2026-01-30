@@ -63,3 +63,4 @@ CNAME
 # Personal data dumps
 slackdump_*.zip
 channels-*.txt
+_drafts/

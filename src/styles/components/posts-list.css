@@ -1,0 +1,268 @@
+/* ==========================================================================
+   Posts List - Enhanced 3D Cards
+   ========================================================================== */
+.posts {
+  padding: 2rem;
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 0.75rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(10px);
+
+    &.js-animated {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.loaded:not(.spa-navigating) .posts h2:not(.js-animated) {
+  animation: recentFadeIn 0.5s ease forwards;
+  animation-delay: 0.05s;
+}
+
+@keyframes recentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.post-list {
+  list-style: none;
+  display: grid;
+  gap: 1.25rem;
+  perspective: 1200px;
+  /* Prevent card animations from affecting layout above */
+  contain: layout style;
+}
+
+.post-item {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  transition:
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease-out,
+    background 0.2s ease-out;
+  backdrop-filter: blur(12px);
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+  text-align: left;
+  z-index: 0;
+  /* Hidden until JS animates in */
+  opacity: 0;
+  transform: translateY(30px);
+
+  /* Animated gradient border */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 13px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary), var(--secondary));
+    background-size: 300% 300%;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: gradientBorderFlow 8s ease-in-out infinite;
+    opacity: 0.5;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Card shine effect on hover */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  &:hover {
+    background: var(--surface-hover);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.25), 0 0 60px rgba(139, 92, 246, 0.1), inset 0 0 20px rgba(139, 92, 246, 0.05);
+
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  /* JS-animated cards should stay visible */
+  &.js-animated {
+    opacity: 1;
+    transform: none;
+  }
+
+  h3 {
+    margin-bottom: 0.5rem;
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.15rem;
+      font-weight: 600;
+      transition: color var(--transition);
+
+      &:hover {
+        color: var(--primary-light);
+
+        .post-item-subtitle {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  time {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.25rem;
+    text-align: left;
+    transform: none;
+  }
+
+  @media (hover: none) {
+    &:hover {
+      transform: none !important;
+    }
+
+    &:active {
+      transform: scale(0.98) !important;
+      transition: transform 0.1s;
+    }
+  }
+}
+
+/* Animate in on page load (not during SPA navigation or after JS animation) */
+.loaded:not(.spa-navigating) .post-item:not(.js-animated) {
+  animation: cardFadeIn 0.6s ease forwards;
+
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+  &:nth-child(5) { animation-delay: 0.5s; }
+  &:nth-child(6) { animation-delay: 0.6s; }
+
+  @media (max-width: 768px) {
+    animation: mobileFadeIn 0.3s ease forwards;
+
+    &:nth-child(1) { animation-delay: 0.05s; }
+    &:nth-child(2) { animation-delay: 0.1s; }
+    &:nth-child(3) { animation-delay: 0.15s; }
+    &:nth-child(4) { animation-delay: 0.2s; }
+    &:nth-child(5) { animation-delay: 0.25s; }
+    &:nth-child(6) { animation-delay: 0.3s; }
+  }
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotateX(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+.post-item-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--primary-light);
+  opacity: 0.7;
+  margin-left: 0.5em;
+
+  @media (max-width: 768px) {
+    display: block;
+    margin-left: 0;
+    margin-top: 0.25rem;
+  }
+}
+
+.post-excerpt {
+  margin-top: 0.75rem;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+.view-archive {
+  display: inline-block;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  padding: 0.75rem 1.5rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  background: var(--surface);
+  transition: all var(--transition);
+  position: relative;
+  z-index: 0;
+
+  /* Animated gradient border */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: calc(0.5rem + 1px);
+    padding: 1px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary), var(--secondary));
+    background-size: 300% 300%;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: gradientBorderFlow 8s ease-in-out infinite;
+    opacity: 0.5;
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity var(--transition);
+  }
+
+  &:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+
+    &::before {
+      opacity: 0.8;
+    }
+  }
+}

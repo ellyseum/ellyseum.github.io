@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Home Page
+   ========================================================================== */
+.home .intro {
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+
+  &.js-animated {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Staggered children - hidden until animated */
+  h1, .intro-tagline, .intro-byline {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+
+  &.js-animated h1,
+  &.js-animated .intro-tagline,
+  &.js-animated .intro-byline {
+    opacity: 1;
+    transform: none;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--text), var(--primary-light), var(--secondary));
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleShimmer 8s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.3));
+  }
+
+  .intro-tagline {
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin: 0 auto 0.25rem;
+    font-style: italic;
+    white-space: nowrap;
+    min-height: 1.5em;
+
+    @media (max-width: 400px) {
+      white-space: normal;
+    }
+  }
+
+  .intro-byline {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    max-width: 24rem;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+
+    h1 {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+/* CSS fallback animations when JS hasn't run yet */
+.loaded:not(.spa-navigating) .home .intro:not(.js-animated) {
+  h1 {
+    animation: introChildFadeIn 0.5s ease 0.1s forwards;
+  }
+
+  .intro-tagline {
+    animation: introChildFadeIn 0.5s ease 0.2s forwards;
+  }
+
+  .intro-byline {
+    animation: introChildFadeIn 0.5s ease 0.3s forwards;
+  }
+}
+
+@keyframes introChildFadeIn {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes titleShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Typewriter effect */
+.typewriter-active {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.9rem;
+
+  @media (max-width: 500px) {
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 380px) {
+    font-size: 0.65rem;
+  }
+}
+
+.typewriter-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--primary);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  position: relative;
+  top: -1px;
+  animation: caretBlink 1s step-end infinite;
+}
+
+@keyframes caretBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
