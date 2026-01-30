@@ -193,6 +193,12 @@ export class TargetReticle {
     // Clear any pending timeouts and clean up previous brackets
     this.cleanup();
 
+    // Skip animation on mobile (looks weird with multi-line titles)
+    if (window.innerWidth <= 768) {
+      element.click();
+      return;
+    }
+
     // Make the link element itself the positioning parent
     this.activeH3 = element; // Reusing this field for the link element
     this.originalPosition = element.style.position;
