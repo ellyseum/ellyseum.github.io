@@ -1,0 +1,128 @@
+---
+layout: null
+permalink: /404.html
+---
+<!DOCTYPE html>
+<html lang="en" style="background-color: #010108;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Lost in the void</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #010108;
+      color: #e5e7eb;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+    }
+
+    .glitch {
+      font-size: clamp(80px, 20vw, 150px);
+      font-weight: 700;
+      color: #a855f7;
+      text-shadow:
+        0 0 10px #a855f7,
+        0 0 20px #a855f7,
+        0 0 40px #a855f7,
+        0 0 80px #a855f7;
+      animation: flicker 3s infinite;
+      letter-spacing: -0.05em;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      92% { opacity: 1; }
+      93% { opacity: 0.8; }
+      94% { opacity: 1; }
+      95% { opacity: 0.4; }
+      96% { opacity: 1; }
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #9ca3af;
+      margin: 1rem 0 2rem;
+    }
+
+    .message {
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    a {
+      color: #a855f7;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid #a855f733;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    a:hover {
+      background: #a855f715;
+      border-color: #a855f7;
+      box-shadow: 0 0 20px #a855f733;
+    }
+
+    .ascii {
+      margin-top: 3rem;
+      font-family: monospace;
+      font-size: 10px;
+      line-height: 1.2;
+      color: #374151;
+      white-space: pre;
+    }
+
+    @media (max-width: 480px) {
+      .ascii {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="glitch">404</div>
+    <h1>Lost in the void</h1>
+    <p class="message">
+      The page you're looking for has either moved, been deleted,
+      or never existed in this timeline.
+    </p>
+    <div class="links">
+      <a href="/">← Back to safety</a>
+      <a href="/archive">Browse archive</a>
+    </div>
+    <div class="ascii">
+    *  .  *       .        *    .   *   .  *
+        .    *    void    .   *      .
+  *   .    .   *    .  *   .    *   .    .
+    .   *     .   *    .     *   .   *
+    </div>
+  </div>
+</body>
+</html>

@@ -4,6 +4,10 @@
  */
 
 import { Experience } from '@/core/experience';
+import { initSecretTerminal } from '@/terminal';
+
+// Initialize secret terminal (console easter egg + konami listener)
+initSecretTerminal();
 
 // Check for reduced motion preference
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
