@@ -650,12 +650,36 @@ export class SearchFilter {
       });
     });
 
-    // Bind date clicks
+    // Bind date clicks - first click sets from:, second click sets to:
     this.resultsEl.querySelectorAll('[data-search-date]').forEach(el => {
       el.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        this.filters.dateExact = (el as HTMLElement).dataset.searchDate!;
+        const clickedDate = (el as HTMLElement).dataset.searchDate!;
+
+        // Clear dateExact if it was set (legacy behavior)
+        if (this.filters.dateExact) {
+          this.filters.dateExact = '';
+        }
+
+        if (!this.filters.dateFrom) {
+          // No from: yet, set it
+          this.filters.dateFrom = clickedDate;
+        } else if (!this.filters.dateTo) {
+          // from: exists, no to: yet
+          // If clicked date is before from:, swap them
+          if (clickedDate < this.filters.dateFrom) {
+            this.filters.dateTo = this.filters.dateFrom;
+            this.filters.dateFrom = clickedDate;
+          } else {
+            this.filters.dateTo = clickedDate;
+          }
+        } else {
+          // Both exist, start fresh with new from:
+          this.filters.dateFrom = clickedDate;
+          this.filters.dateTo = '';
+        }
+
         this.syncInputFromFilters();
         this.page = 1;
         this.render();
