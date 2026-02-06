@@ -61,6 +61,7 @@ jobs:
         env:
           SYSTEM_PROMPT: ${{ secrets.SYSTEM_PROMPT }}
           CONTEXT_CHUNKS: ${{ secrets.CONTEXT_CHUNKS }}
+          VITE_GROQ_PROXY_URL: ${{ secrets.VITE_GROQ_PROXY_URL }}
 
       - name: Generate embeddings
         run: python scripts/generate-embeddings.py

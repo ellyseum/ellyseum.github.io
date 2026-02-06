@@ -67,3 +67,6 @@ worker/wrangler.toml
 slackdump_*.zip
 channels-*.txt
 _drafts/
+
+# Research data (raw test results, too large for git)
+research/

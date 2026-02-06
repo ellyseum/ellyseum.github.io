@@ -7,4 +7,4 @@ account_id = "d21bc86a2f0e201c9acddc1693bb5919"
 # routes = [{ pattern = "chat.api.ellyseum.dev", custom_domain = true }]
 
 [vars]
-ALLOWED_ORIGIN = "https://ellyseum.me"
+ALLOWED_ORIGINS = "https://ellyseum.me,https://horus.ellyseum.dev:4000,http://localhost:4000"

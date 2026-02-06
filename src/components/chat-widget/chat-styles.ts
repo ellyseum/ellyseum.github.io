@@ -110,6 +110,7 @@ export const CHAT_STYLES = `
   font-size: 15px;
   font-weight: 600;
   color: var(--chat-text);
+  white-space: nowrap;
 }
 
 .chat-header-status {
@@ -118,6 +119,7 @@ export const CHAT_STYLES = `
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 .chat-header-status::before {

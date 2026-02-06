@@ -1386,8 +1386,15 @@ Examples:
       color: #86efac;
     }
 
-    .editor-btn-save:hover {
+    .editor-btn-save:hover:not(:disabled) {
       background: #22c55e33;
+    }
+
+    .editor-btn-save:disabled {
+      border-color: #374151;
+      color: #4b5563;
+      cursor: default;
+      opacity: 0.5;
     }
 
     .editor-btn-close {
@@ -1844,8 +1851,58 @@ Examples:
         width: auto;
       }
     }
+
+    .editor-toast {
+      position: absolute;
+      top: 56px;
+      right: 16px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 13px;
+      z-index: 10;
+      animation: editorToastIn 0.2s ease-out;
+      pointer-events: none;
+    }
+
+    .editor-toast.success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid #22c55e;
+      color: #86efac;
+    }
+
+    .editor-toast.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+    }
+
+    @keyframes editorToastIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes editorToastOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-8px); }
+    }
   `;
   editor.appendChild(style);
+
+  function showToast(message: string, type: 'success' | 'error' = 'success', duration = 2000) {
+    const existing = editor.querySelector('.editor-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = `editor-toast ${type}`;
+    toast.textContent = message;
+    editor.querySelector('.editor-window')!.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.animation = 'editorToastOut 0.2s ease-in forwards';
+      setTimeout(() => toast.remove(), 200);
+    }, duration);
+  }
 
   // Get elements
   const textarea = editor.querySelector('.editor-textarea') as HTMLTextAreaElement;
@@ -1911,6 +1968,7 @@ Examples:
           currentPath = path;
           pathEl.querySelector('.editor-path-renamed')?.remove();
         }
+        checkDirty();
       };
 
       input.addEventListener('blur', finishEdit);
@@ -1965,8 +2023,18 @@ Examples:
     preview.innerHTML = html;
   }
 
-  textarea.addEventListener('input', updatePreview);
+  const saveBtn = editor.querySelector('.editor-btn-save') as HTMLButtonElement;
+  let lastSavedContent = content;
+  let lastSavedPath = path;
+
+  function checkDirty() {
+    const dirty = textarea.value !== lastSavedContent || currentPath !== lastSavedPath;
+    saveBtn.disabled = !dirty;
+  }
+
+  textarea.addEventListener('input', () => { updatePreview(); checkDirty(); });
   updatePreview();
+  checkDirty();
 
   // Close handlers
   editor.querySelector('.editor-backdrop')?.addEventListener('click', closeEditor);
@@ -1982,8 +2050,8 @@ Examples:
   document.addEventListener('keydown', escHandler);
 
   // Save handler - saves locally, updates page in memory
-  editor.querySelector('.editor-btn-save')?.addEventListener('click', () => {
-    const saveBtn = editor.querySelector('.editor-btn-save') as HTMLButtonElement;
+  saveBtn.addEventListener('click', () => {
+    if (saveBtn.disabled) return;
     let newContent = textarea.value;
 
     // Check if frontmatter date changed - updates the path automatically
@@ -2037,12 +2105,13 @@ Examples:
     // Store github client globally for commit dialog
     (window as unknown as Record<string, unknown>).__githubClient = github;
 
-    saveBtn.textContent = '✓ Saved locally!';
+    lastSavedContent = newContent;
+    lastSavedPath = currentPath;
+    saveBtn.disabled = true;
     onSave?.();
 
-    setTimeout(() => {
-      saveBtn.textContent = '💾 Save';
-    }, 1500);
+    showToast('Saved locally', 'success', 800);
+    setTimeout(() => closeEditor(), 1000);
   });
 
   // AI Panel toggle
@@ -2081,6 +2150,7 @@ Examples:
         (accepted) => {
           textarea.value = accepted;
           updatePreview();
+          checkDirty();
           aiInput.value = '';
           aiPanel.hidden = true;
         },
@@ -2089,7 +2159,7 @@ Examples:
       );
     } catch (e) {
       console.error('AI error:', e);
-      alert('AI request failed: ' + (e instanceof Error ? e.message : 'Unknown error'));
+      showToast('AI request failed: ' + (e instanceof Error ? e.message : 'Unknown error'), 'error', 4000);
     } finally {
       aiBody.hidden = false;
       aiLoading.hidden = true;

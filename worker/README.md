@@ -31,7 +31,8 @@ name = "your-chat-proxy"
 main = "src/index.ts"
 
 [vars]
-ALLOWED_ORIGIN = "https://yourdomain.com"
+# Comma-separated list of allowed origins for CORS
+ALLOWED_ORIGINS = "https://yourdomain.com,http://localhost:4000"
 ```
 
 ### 3. Set API Key
@@ -79,7 +80,7 @@ Runs the worker locally with Miniflare.
 ## Security
 
 - **API key** is stored as a Cloudflare secret (never exposed to browser)
-- **ALLOWED_ORIGIN** restricts which domains can use the proxy
+- **ALLOWED_ORIGINS** restricts which domains can use the proxy (comma-separated)
 - **CORS headers** prevent unauthorized cross-origin requests
 
 ## Customization
