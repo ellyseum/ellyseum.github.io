@@ -21,6 +21,7 @@ description: {{ site.description }}
 author: {{ site.author }}
 url: {{ site.url }}
 baseurl: ""
+image: {{ site.image }}
 repository: {{ site.repository }}
 
 # Build settings
@@ -70,6 +71,10 @@ collections:
 
 # Defaults
 defaults:
+  - scope:
+      path: ""
+    values:
+      image: {{ site.image }}
   - scope:
       path: ""
       type: "posts"
