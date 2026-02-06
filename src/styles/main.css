@@ -4,6 +4,9 @@
 /* 1. Variables - CSS custom properties */
 @import './variables.css';
 
+/* 1b. Theme overrides - must come right after variables */
+@import './themes.css';
+
 /* 2. Base - Reset, typography, view transitions, canvas, content layer */
 @import './base.css';
 
@@ -20,6 +23,7 @@
 @import './components/fps-monitor.css';
 @import './components/syntax-highlighting.css';
 @import './components/back-to-top.css';
+@import './components/theme-switcher.css';
 
 /* 4. Pages */
 @import './pages/home.css';

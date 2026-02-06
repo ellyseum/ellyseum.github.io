@@ -23,6 +23,10 @@ export class ViewTransitions {
     return window.innerWidth <= 768;
   }
 
+  private isClassicTheme(): boolean {
+    return document.documentElement.classList.contains('classic');
+  }
+
   constructor(onReinit?: () => void) {
     this.onReinitCallback = onReinit;
     this.initWorker();
@@ -278,7 +282,7 @@ export class ViewTransitions {
     // Determine if this is a "browse" navigation (sequential/archive) vs "explore" (from home)
     const isSequentialNav = isComingFromPost && isGoingToPost; // prev/next navigation
     const isArchiveNav = isComingFromArchive && isGoingToPost; // archive to post
-    const useSimpleAnimation = isSequentialNav || isArchiveNav;
+    const useSimpleAnimation = isSequentialNav || isArchiveNav || this.isClassicTheme();
 
     // For search page, strip query params for fetch/cache (same HTML, JS reads params)
     const fetchUrl = isGoingToSearch ? '/search/' : url;
@@ -506,8 +510,8 @@ export class ViewTransitions {
       (card as HTMLElement).getAnimations().forEach(a => a.cancel());
     });
 
-    // Mobile: simple fade out
-    if (this.isMobile()) {
+    // Mobile / classic: simple fade out
+    if (this.isMobile() || this.isClassicTheme()) {
       cards.forEach(card => {
         const htmlCard = card as HTMLElement;
         htmlCard.animate([
@@ -644,7 +648,7 @@ export class ViewTransitions {
   }
 
   private async animateCardsIn(): Promise<void> {
-    const isMobile = this.isMobile();
+    const isMobile = this.isMobile() || this.isClassicTheme();
 
     // Animate intro children with stagger (h1, tagline, byline)
     const intro = document.querySelector('.intro') as HTMLElement | null;

@@ -20,6 +20,8 @@ export class Experience {
   private fpsMonitor: FPSMonitor | null = null;
   private targetReticle: TargetReticle | null = null;
   private searchFilter: SearchFilter | null = null;
+  private animationId: number | null = null;
+  private destroyed = false;
 
   constructor() {
     this.canvas = document.getElementById('webgl-canvas') as HTMLCanvasElement | null;
@@ -91,6 +93,8 @@ export class Experience {
   }
 
   private animate = (): void => {
+    if (this.destroyed) return;
+
     this.fpsMonitor?.incrementFrameCount();
 
     this.background?.render();
@@ -99,7 +103,7 @@ export class Experience {
     this.cards?.update();
     this.targetReticle?.render();
 
-    requestAnimationFrame(this.animate);
+    this.animationId = requestAnimationFrame(this.animate);
   };
 
   private reinit(): void {
@@ -115,6 +119,21 @@ export class Experience {
     this.initSearch();
     initTypewriter();
     initCodeCopy();
+
+    // Edit button for authenticated users on post pages
+    try {
+      if (localStorage.getItem('_ep')) {
+        import('@/edit-button').then(({ initEditButton }) => initEditButton());
+      }
+    } catch { /* ignore */ }
+
+    // Apply local edits to current page
+    try {
+      const edits = JSON.parse(localStorage.getItem('ellyseum_pending_edits') || '{}');
+      if (Object.keys(edits).length > 0) {
+        import('@/terminal/editor').then(({ applyLocalEditsToPage }) => applyLocalEditsToPage());
+      }
+    } catch { /* ignore */ }
   }
 
   private initSearch(): void {
@@ -191,6 +210,30 @@ export class Experience {
     // }
     if (!this.flyingIcons) {
       this.flyingIcons = new FlyingIconsGPU();
+    }
+  }
+
+  destroy(): void {
+    this.destroyed = true;
+
+    if (this.animationId !== null) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
+
+    this.background?.destroy();
+    this.background = null;
+
+    this.flyingIcons?.destroy();
+    this.flyingIcons = null;
+
+    this.targetReticle = null;
+    this.fpsMonitor = null;
+    this.cards = null;
+
+    // Hide canvas
+    if (this.canvas) {
+      this.canvas.style.display = 'none';
     }
   }
 }

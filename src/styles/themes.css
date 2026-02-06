@@ -1,0 +1,509 @@
+/* ==========================================================================
+   Theme Overrides
+   Classic themes: no WebGL, no glow/neon effects, solid borders
+   ========================================================================== */
+
+/* ==========================================================================
+   Classic White
+   ========================================================================== */
+[data-theme="classic-white"] {
+  --void: #ffffff;
+  --deep: #f8f9fa;
+  --surface: rgba(255, 255, 255, 0.95);
+  --surface-hover: rgba(248, 249, 250, 1);
+  --surface-solid: rgba(255, 255, 255, 0.98);
+
+  --primary: #6d28d9;
+  --primary-light: #7c3aed;
+  --secondary: #db2777;
+  --tertiary: #0891b2;
+
+  --text: #1a1a2e;
+  --text-dim: #4a4a5a;
+  --text-muted: #6b7280;
+  --text-body: #374151;
+
+  --border: rgba(109, 40, 217, 0.2);
+  --border-glow: rgba(109, 40, 217, 0.35);
+  --glow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --glow-strong: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  --surface-bg: var(--surface);
+  --surface-hover-bg: var(--surface-hover);
+  --code-bg: #f6f8fa;
+  --code-inline-bg: rgba(109, 40, 217, 0.08);
+  --blockquote-bg: linear-gradient(135deg, rgba(109, 40, 217, 0.05), rgba(219, 39, 119, 0.03));
+  --blockquote-shadow: none;
+  --tag-bg: rgba(109, 40, 217, 0.08);
+  --tag-hover-bg: rgba(109, 40, 217, 0.15);
+  --selection-bg: rgba(109, 40, 217, 0.2);
+  --scrollbar-track: rgba(109, 40, 217, 0.05);
+  --header-bg: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), transparent);
+  --footer-border: rgba(109, 40, 217, 0.1);
+
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   Classic Dark (Monokai)
+   ========================================================================== */
+[data-theme="classic-dark"] {
+  --void: #272822;
+  --deep: #1e1f1a;
+  --surface: rgba(39, 40, 34, 0.95);
+  --surface-hover: rgba(50, 51, 44, 1);
+  --surface-solid: rgba(30, 31, 26, 0.98);
+
+  --primary: #a6e22e;
+  --primary-light: #b8f34a;
+  --secondary: #f92672;
+  --tertiary: #66d9ef;
+
+  --text: #f8f8f2;
+  --text-dim: #b8b8a8;
+  --text-muted: #75715e;
+  --text-body: #d0d0c0;
+
+  --border: rgba(166, 226, 46, 0.2);
+  --border-glow: rgba(166, 226, 46, 0.35);
+  --glow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --glow-strong: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+  --surface-bg: var(--surface);
+  --surface-hover-bg: var(--surface-hover);
+  --code-bg: #1e1f1a;
+  --code-inline-bg: rgba(166, 226, 46, 0.1);
+  --blockquote-bg: linear-gradient(135deg, rgba(166, 226, 46, 0.06), rgba(249, 38, 114, 0.04));
+  --blockquote-shadow: none;
+  --tag-bg: rgba(166, 226, 46, 0.1);
+  --tag-hover-bg: rgba(166, 226, 46, 0.2);
+  --selection-bg: rgba(166, 226, 46, 0.25);
+  --scrollbar-track: rgba(166, 226, 46, 0.05);
+  --header-bg: linear-gradient(to bottom, rgba(39, 40, 34, 0.95), transparent);
+  --footer-border: rgba(166, 226, 46, 0.1);
+
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   Classic Theme Shared: Effect Suppression
+   ========================================================================== */
+html.classic {
+  /* Override critical CSS background */
+  background-color: var(--void) !important;
+}
+
+html.classic body {
+  background: var(--void);
+}
+
+/* Hide WebGL canvas */
+html.classic #webgl-canvas {
+  display: none !important;
+}
+
+/* Hide WebGL-only elements */
+html.classic .flying-icons-container,
+html.classic .constellation-container,
+html.classic .target-reticle,
+html.classic .fps-monitor {
+  display: none !important;
+}
+
+/* Kill all decorative animations */
+html.classic *::before,
+html.classic *::after {
+  animation: none !important;
+}
+
+/* Solid borders instead of animated gradient borders */
+html.classic .post-item::before,
+html.classic .post-header::before,
+html.classic .post-content::before,
+html.classic .post-footer::before,
+html.classic .post-nav-top::before,
+html.classic .page-container::before,
+html.classic .view-archive::before,
+html.classic .search-input-wrap::before,
+html.classic .search-pagination::before,
+html.classic .archive-year-link::before,
+html.classic div[class*="language-"].highlighter-rouge::after {
+  display: none !important;
+}
+
+html.classic .post-item,
+html.classic .pagination-link {
+  border: 1px solid var(--border);
+}
+
+html.classic .post-header,
+html.classic .post-content,
+html.classic .post-footer,
+html.classic .post-nav-top,
+html.classic .page-container {
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  backdrop-filter: none;
+}
+
+html.classic .post-item,
+html.classic .search-input,
+html.classic .search-pagination {
+  backdrop-filter: none;
+}
+
+html.classic .view-archive,
+html.classic .search-pagination,
+html.classic .archive-year-link {
+  border: 1px solid var(--border);
+}
+
+html.classic .search-input-wrap {
+  border: none;
+}
+
+html.classic .search-input {
+  border: 1px solid var(--border);
+}
+
+html.classic .search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.15);
+}
+
+/* Kill glow/neon effects */
+html.classic .site-title:hover {
+  filter: none;
+}
+
+html.classic .site-nav a::after {
+  filter: none;
+}
+
+html.classic .post-item:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+html.classic .post-subtitle {
+  filter: none;
+  animation: none;
+  background-size: 100% 100%;
+}
+
+html.classic .post-content h2 {
+  text-shadow: none;
+}
+
+html.classic .post-content h2::after {
+  box-shadow: none;
+  animation: none;
+  background: var(--border);
+  opacity: 1;
+}
+
+html.classic .post-content h3 {
+  text-shadow: none;
+}
+
+html.classic .post-content strong {
+  text-shadow: none;
+}
+
+/* Kill shimmer animations on text */
+html.classic .post-content em,
+html.classic .post-content strong.glow,
+html.classic .post-content strong em,
+html.classic .post-content em strong,
+html.classic .page-content strong em,
+html.classic .page-content em strong {
+  animation: none;
+  filter: none;
+  background-size: 100% 100%;
+}
+
+html.classic .post-content a:hover {
+  filter: none;
+}
+
+/* Code blocks: solid borders */
+html.classic div[class*="language-"].highlighter-rouge::before {
+  box-shadow: none;
+  animation: none;
+  background: var(--code-bg) padding-box;
+  border: 1px solid var(--border);
+}
+
+html.classic .post-content pre::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  box-shadow: none;
+  animation: none;
+}
+
+html.classic .post-content pre::-webkit-scrollbar-thumb:hover {
+  box-shadow: none;
+}
+
+/* Kill hr glow */
+html.classic .post-content hr {
+  box-shadow: none;
+  animation: none;
+  background: var(--border);
+  opacity: 1;
+}
+
+/* Tags: subtle */
+html.classic .tag:hover,
+html.classic .filter-chip:hover {
+  box-shadow: none;
+}
+
+/* Back to top: no glow */
+html.classic .back-to-top:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Buttons: no glow */
+html.classic .post-footer-top:hover,
+html.classic .post-nav-sticky-top:hover {
+  box-shadow: none;
+}
+
+/* Card shine: hidden */
+html.classic .post-item::after {
+  display: none;
+}
+
+/* View archive: no glow */
+html.classic .view-archive:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Home title: no shimmer, solid gradient */
+html.classic .home .intro h1 {
+  animation: none;
+  filter: none;
+  background-size: 100% 100%;
+}
+
+/* Archive heading borders: solid */
+html.classic .archive-year-title::after {
+  box-shadow: none;
+  animation: none;
+  background: var(--border);
+  opacity: 1;
+}
+
+html.classic .archive-post::after {
+  box-shadow: none;
+  animation: none;
+  background: var(--border);
+  opacity: 0.5;
+}
+
+/* Pagination: no glow */
+html.classic .post-pagination::before {
+  animation: none;
+  background: var(--border);
+  opacity: 1;
+}
+
+html.classic .page-num--active {
+  box-shadow: none;
+}
+
+/* Scrollbar: solid color */
+html.classic,
+html.classic body {
+  scrollbar-color: var(--primary) var(--scrollbar-track);
+}
+
+html.classic::-webkit-scrollbar-track,
+html.classic body::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+html.classic::-webkit-scrollbar-thumb,
+html.classic body::-webkit-scrollbar-thumb {
+  background: var(--primary);
+}
+
+html.classic::-webkit-scrollbar-thumb:hover,
+html.classic body::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}
+
+html.classic ::selection {
+  background: var(--selection-bg);
+}
+
+/* Code copy button: subtle */
+html.classic .code-copy-btn:hover {
+  box-shadow: none;
+}
+
+/* Blockquote */
+html.classic .post-content blockquote {
+  background: var(--blockquote-bg);
+  box-shadow: var(--blockquote-shadow);
+}
+
+/* Inline code */
+html.classic .post-content code {
+  background: var(--code-inline-bg);
+}
+
+/* Code blocks */
+html.classic .post-content pre {
+  background: var(--code-bg);
+}
+
+/* Tags */
+html.classic .tag {
+  background: var(--tag-bg);
+}
+
+html.classic .tag:hover {
+  background: var(--tag-hover-bg);
+}
+
+/* Filter chips */
+html.classic .filter-chip {
+  background: var(--tag-bg);
+}
+
+html.classic .filter-chip:hover {
+  background: var(--tag-hover-bg);
+}
+
+/* About page */
+html.classic .about-link {
+  background: var(--tag-bg);
+}
+
+html.classic .about-link:hover {
+  background: var(--tag-hover-bg);
+}
+
+html.classic .skill-tag {
+  background: var(--tag-bg);
+}
+
+html.classic .skill-tag:hover {
+  background: var(--tag-hover-bg);
+}
+
+/* Body text */
+html.classic .post-content p,
+html.classic .post-content ul,
+html.classic .post-content ol {
+  color: var(--text-body);
+}
+
+/* Footer: normal flow instead of fixed */
+html.classic .site-footer {
+  position: relative;
+  border-top: 1px solid var(--footer-border);
+  pointer-events: auto;
+}
+
+/* Content layer: no pointer-events trick needed without canvas */
+html.classic .site-content {
+  pointer-events: auto;
+}
+
+/* Header background */
+html.classic .site-header {
+  background: var(--header-bg);
+}
+
+/* Site title: solid color instead of gradient text */
+html.classic .site-title {
+  background: none;
+  -webkit-text-fill-color: var(--text);
+  color: var(--text);
+}
+
+/* Page titles: solid gradient text still works, just no animation */
+html.classic .archive-title,
+html.classic .search-title,
+html.classic .page-title {
+  animation: none;
+}
+
+/* Post subtitle: readable in classic */
+html.classic .post-subtitle {
+  -webkit-text-fill-color: var(--primary-light);
+  background: none;
+  color: var(--primary-light);
+}
+
+/* Emphasis text: use solid colors instead of gradient + animation */
+html.classic .post-content em {
+  -webkit-text-fill-color: var(--primary);
+  background: none;
+  color: var(--primary);
+}
+
+html.classic .post-content strong.glow {
+  -webkit-text-fill-color: var(--primary);
+  background: none;
+  color: var(--primary);
+}
+
+html.classic .post-content strong em,
+html.classic .post-content em strong,
+html.classic .page-content strong em,
+html.classic .page-content em strong {
+  -webkit-text-fill-color: var(--secondary);
+  background: none;
+  color: var(--secondary);
+}
+
+/* ==========================================================================
+   Classic White Syntax Highlighting (GitHub-style)
+   ========================================================================== */
+[data-theme="classic-white"] .highlight {
+  /* Comments */
+  .c, .ch, .cd, .cpf, .cm, .c1 { color: #6a737d; }
+  .cp, .cs { color: #6a737d; font-weight: bold; }
+
+  /* Keywords */
+  .k, .kv, .kc, .kd, .kp, .kr, .kt { color: #d73a49; font-weight: bold; }
+  .kn, .ow, .o { color: #d73a49; }
+
+  /* Numbers */
+  .mf, .mh, .il, .mi, .mo, .m, .mb, .mx { color: #005cc5; }
+  .se { color: #005cc5; }
+
+  /* Strings */
+  .sb, .sc, .sd, .s2, .sh, .si, .sx, .sr, .s1, .ss, .s, .dl { color: #032f62; }
+
+  /* Names/Functions */
+  .na { color: #6f42c1; }
+  .nc, .nd, .ne, .nf, .fm { color: #6f42c1; font-weight: bold; }
+  .no { color: #005cc5; }
+
+  /* Built-ins */
+  .bp, .nb, .ni, .nn, .vc, .vg, .vi, .nv, .vm, .w { color: #24292e; }
+  .nl { color: #24292e; font-weight: bold; }
+
+  /* Tags */
+  .nt { color: #22863a; }
+
+  /* Errors */
+  .err { color: #cb2431; }
+
+  /* Diffs */
+  .gi { color: #22863a; }
+  .gd { color: #cb2431; }
+
+  /* Preprocessor */
+  .sa { color: #d73a49; font-weight: bold; }
+}
+
+/* Classic White code block text */
+[data-theme="classic-white"] .post-content pre code {
+  color: #24292e;
+}
+
+/* Classic Dark keeps existing Monokai highlighting - no override needed */

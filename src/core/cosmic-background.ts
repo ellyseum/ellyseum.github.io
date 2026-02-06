@@ -67,7 +67,7 @@ export class CosmicBackground {
     this.uResolution = gl.getUniformLocation(this.program, 'uResolution');
 
     this.resize();
-    window.addEventListener('resize', () => this.resize());
+    window.addEventListener('resize', this.handleResize);
   }
 
   private compileShader(type: number, source: string): WebGLShader | null {
@@ -117,6 +117,22 @@ export class CosmicBackground {
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
+
+  destroy(): void {
+    window.removeEventListener('resize', this.handleResize);
+    if (this.gl && this.program) {
+      this.gl.deleteProgram(this.program);
+      this.program = null;
+    }
+    // Lose context to free GPU resources
+    const ext = this.gl?.getExtension('WEBGL_lose_context');
+    ext?.loseContext();
+    this.gl = null;
+  }
+
+  private handleResize = (): void => {
+    this.resize();
+  };
 
   get context(): WebGLRenderingContext | null {
     return this.gl;

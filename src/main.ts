@@ -4,6 +4,8 @@
  */
 
 import { Experience } from '@/core/experience';
+import { ThemeManager } from '@/core/theme-manager';
+import { initThemeSwitcher } from '@/components/theme-switcher';
 import { initSecretTerminal } from '@/terminal';
 
 // Initialize secret terminal (console easter egg + konami listener)
@@ -45,12 +47,38 @@ initSecretTerminal();
   } catch { /* ignore */ }
 })();
 
-// Check for reduced motion preference
+// Theme manager - handles lifecycle, localStorage, WebGL create/destroy
+const experience: { current: Experience | null } = { current: null };
+
+const themeManager = new ThemeManager((theme) => {
+  // Galaxy -> Classic: destroy WebGL (no reload needed)
+  if (theme !== 'galaxy' && experience.current) {
+    experience.current.destroy();
+    experience.current = null;
+    (window as Window & { experience?: Experience }).experience = undefined;
+  }
+});
+
+// Apply theme (the inline script already set data-theme for FOUC prevention,
+// but this ensures JS state is in sync)
+themeManager.applyTheme();
+
+// Initialize theme switcher UI
+initThemeSwitcher(themeManager);
+
+// Conditionally initialize WebGL experience
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.body.classList.add('reduced-motion');
+} else if (!themeManager.isClassic()) {
+  // Galaxy theme: full WebGL experience (includes SPA nav, cards, etc.)
+  experience.current = new Experience();
+  (window as Window & { experience?: Experience }).experience = experience.current;
 } else {
-  // Initialize the experience
-  (window as Window & { experience?: Experience }).experience = new Experience();
+  // Classic themes: no WebGL, but still need SPA navigation + interactive components
+  document.body.classList.add('loaded');
+  import('@/core/classic-experience').then(({ initClassicExperience }) => {
+    initClassicExperience();
+  });
 }
 
 // Chat widget loading strategy
@@ -74,13 +102,13 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         width: 56px;
         height: 56px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
         border: none;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        box-shadow: var(--glow);
         z-index: 200;
         transition: transform 0.3s, box-shadow 0.3s;
       ">
@@ -94,11 +122,11 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 
     btn.addEventListener('mouseenter', () => {
       btn.style.transform = 'scale(1.05)';
-      btn.style.boxShadow = '0 6px 30px rgba(139, 92, 246, 0.6)';
+      btn.style.boxShadow = 'var(--glow-strong, 0 6px 30px rgba(139, 92, 246, 0.6))';
     });
     btn.addEventListener('mouseleave', () => {
       btn.style.transform = '';
-      btn.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.4)';
+      btn.style.boxShadow = '';
     });
 
     let loaded = false;

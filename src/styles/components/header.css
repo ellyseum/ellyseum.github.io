@@ -108,6 +108,7 @@
     display: flex;
     align-items: center;
     opacity: 0.6;
+    margin-top: -2px;
 
     &:hover {
       opacity: 1;
@@ -116,6 +117,10 @@
     &::after {
       display: none;
     }
+  }
+
+  .theme-switcher {
+    margin-top: -2px;
   }
 
   @media (max-width: 768px) {

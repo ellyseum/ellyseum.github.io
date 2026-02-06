@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color: #010108;">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +8,27 @@
   <meta name="view-transition" content="same-origin">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <title>{% if page.title and page.title != "Home" %}{{ page.title }} — {% endif %}{{ site.data.site.site.title | default: site.title }}</title>
+  <script>
+    // FOUC prevention: apply theme before first paint
+    (function() {
+      var t = 'galaxy';
+      try { t = localStorage.getItem('ellyseum_theme') || 'galaxy'; } catch(e) {}
+      if (t === 'classic-white') {
+        document.documentElement.setAttribute('data-theme', 'classic-white');
+        document.documentElement.classList.add('classic');
+        document.documentElement.style.backgroundColor = '#ffffff';
+      } else if (t === 'classic-dark') {
+        document.documentElement.setAttribute('data-theme', 'classic-dark');
+        document.documentElement.classList.add('classic');
+        document.documentElement.style.backgroundColor = '#272822';
+      }
+    })();
+  </script>
   <style>
-    /* Critical CSS - prevents white flash during view transitions */
+    /* Critical CSS - prevents flash during view transitions */
     html, body { background-color: #010108; }
+    html[data-theme="classic-white"], html[data-theme="classic-white"] body { background-color: #ffffff; color: #1a1a2e; }
+    html[data-theme="classic-dark"], html[data-theme="classic-dark"] body { background-color: #272822; color: #f8f8f2; }
     body { color: #e5e7eb; }
   </style>
   {% assign css_entry = site.data.vite-manifest['src/styles/main.css'] %}

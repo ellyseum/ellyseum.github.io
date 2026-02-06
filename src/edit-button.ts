@@ -31,6 +31,10 @@ export async function initEditButton(): Promise<void> {
 }
 
 function injectButton(): void {
+  // If button was detached by SPA navigation, reset state
+  if (editButton && !editButton.isConnected) {
+    editButton = null;
+  }
   if (editButton) return;
 
   const body = document.querySelector('.post-content');
@@ -109,8 +113,14 @@ function injectButton(): void {
 }
 
 function showButton(): void {
+  // Button may have been destroyed by updatePageContent replacing .post-content innerHTML
+  if (editButton && !editButton.isConnected) {
+    editButton = null;
+  }
   if (editButton) {
     editButton.style.display = 'flex';
+  } else {
+    injectButton();
   }
 }
 

@@ -119,10 +119,10 @@ function updatePendingChangesIndicator(): void {
           align-items: center;
           gap: 12px;
           padding: 12px 16px;
-          background: rgba(15, 15, 20, 0.95);
-          border: 1px solid #7c3aed;
+          background: var(--surface-solid, rgba(15, 15, 20, 0.95));
+          border: 1px solid var(--primary, #7c3aed);
           border-radius: 8px;
-          box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
           backdrop-filter: blur(10px);
           animation: slideIn 0.3s ease-out;
           font-family: 'Inter', system-ui, sans-serif;
@@ -139,7 +139,7 @@ function updatePendingChangesIndicator(): void {
           justify-content: center;
           width: 24px;
           height: 24px;
-          background: linear-gradient(135deg, #7c3aed, #ec4899);
+          background: linear-gradient(135deg, var(--primary, #7c3aed), var(--secondary, #ec4899));
           border-radius: 50%;
           font-size: 12px;
           font-weight: 600;
@@ -148,15 +148,15 @@ function updatePendingChangesIndicator(): void {
 
         .pending-text {
           font-size: 13px;
-          color: #e5e7eb;
+          color: var(--text, #e5e7eb);
         }
 
         .pending-btn {
           padding: 6px 12px;
-          border: 1px solid #444;
+          border: 1px solid var(--border, #444);
           border-radius: 4px;
-          background: #1f1f2e;
-          color: #e5e7eb;
+          background: var(--surface, #1f1f2e);
+          color: var(--text, #e5e7eb);
           font-size: 12px;
           cursor: pointer;
           transition: all 0.15s;
@@ -240,10 +240,10 @@ function showCommitDialog(): void {
       .commit-dialog {
         position: relative;
         width: min(500px, 90vw);
-        background: #0f0f14;
-        border: 1px solid #7c3aed;
+        background: var(--surface-solid, #0f0f14);
+        border: 1px solid var(--primary, #7c3aed);
         border-radius: 8px;
-        box-shadow: 0 0 60px rgba(124, 58, 237, 0.3);
+        box-shadow: var(--glow-strong, 0 0 60px rgba(124, 58, 237, 0.3));
         animation: slideUp 0.3s ease-out;
       }
 
@@ -273,11 +273,11 @@ function showCommitDialog(): void {
       .commit-files {
         margin-bottom: 16px;
         padding: 12px;
-        background: rgba(124, 58, 237, 0.1);
+        background: color-mix(in srgb, var(--primary, #7c3aed) 10%, transparent);
         border-radius: 6px;
         font-family: monospace;
         font-size: 12px;
-        color: #c4b5fd;
+        color: var(--primary-light, #c4b5fd);
         max-height: 120px;
         overflow-y: auto;
       }
@@ -307,7 +307,7 @@ function showCommitDialog(): void {
       }
 
       .commit-message-input:focus {
-        border-color: #7c3aed;
+        border-color: var(--primary, #7c3aed);
       }
 
       .commit-message-input::placeholder {
@@ -579,14 +579,14 @@ function addLocalChangesIndicator(): void {
         top: 80px;
         right: 24px;
         padding: 8px 12px;
-        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        background: linear-gradient(135deg, var(--primary, #7c3aed), var(--secondary, #ec4899));
         color: white;
         font-size: 12px;
         font-weight: 500;
         border-radius: 4px;
         z-index: 1000;
         font-family: system-ui, sans-serif;
-        box-shadow: 0 2px 10px rgba(124, 58, 237, 0.4);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       }
     </style>
     ✏️ Local changes (not pushed)
@@ -730,13 +730,13 @@ function showDiffView(
       position: relative;
       width: min(1100px, 95vw);
       max-height: 90vh;
-      background: #0f0f14;
-      border: 1px solid #7c3aed;
+      background: var(--surface-solid, #0f0f14);
+      border: 1px solid var(--primary, #7c3aed);
       border-radius: 8px;
       display: flex;
       flex-direction: column;
       animation: diffSlideIn 0.3s ease-out;
-      box-shadow: 0 0 60px rgba(124, 58, 237, 0.3);
+      box-shadow: var(--glow-strong, 0 0 60px rgba(124, 58, 237, 0.3));
     }
 
     @keyframes diffSlideIn {
@@ -762,9 +762,9 @@ function showDiffView(
 
     .diff-stats {
       font-size: 13px;
-      color: #9ca3af;
+      color: var(--text-muted, #9ca3af);
       padding: 2px 8px;
-      background: rgba(124, 58, 237, 0.2);
+      background: color-mix(in srgb, var(--primary, #7c3aed) 20%, transparent);
       border-radius: 4px;
     }
 
@@ -809,12 +809,12 @@ function showDiffView(
     }
 
     .diff-apply {
-      border-color: #7c3aed;
-      color: #c4b5fd;
+      border-color: var(--primary, #7c3aed);
+      color: var(--primary-light, #c4b5fd);
     }
 
     .diff-apply:hover {
-      background: #7c3aed44;
+      background: color-mix(in srgb, var(--primary, #7c3aed) 25%, transparent);
     }
 
     .diff-body {
@@ -1273,8 +1273,8 @@ Examples:
       position: relative;
       width: min(1200px, 95vw);
       height: min(800px, 90vh);
-      background: #0f0f14;
-      border: 1px solid #333;
+      background: var(--surface-solid, #0f0f14);
+      border: 1px solid var(--border, #333);
       border-radius: 8px;
       display: flex;
       flex-direction: column;
@@ -1291,8 +1291,8 @@ Examples:
       align-items: center;
       justify-content: space-between;
       padding: 12px 16px;
-      background: #1a1a24;
-      border-bottom: 1px solid #333;
+      background: var(--surface, #1a1a24);
+      border-bottom: 1px solid var(--border, #333);
       border-radius: 8px 8px 0 0;
     }
 
@@ -1310,7 +1310,7 @@ Examples:
     }
 
     .editor-path-slug {
-      color: #c4b5fd;
+      color: var(--primary-light, #c4b5fd);
       cursor: pointer;
       padding: 1px 4px;
       border-radius: 3px;
@@ -1319,16 +1319,16 @@ Examples:
     }
 
     .editor-path-slug:hover {
-      border-color: rgba(124, 58, 237, 0.3);
-      background: rgba(124, 58, 237, 0.08);
+      border-color: color-mix(in srgb, var(--primary, #7c3aed) 30%, transparent);
+      background: color-mix(in srgb, var(--primary, #7c3aed) 8%, transparent);
     }
 
     .editor-path-slug-input {
       font-family: monospace;
       font-size: 13px;
-      color: #c4b5fd;
-      background: rgba(124, 58, 237, 0.1);
-      border: 1px solid #7c3aed;
+      color: var(--primary-light, #c4b5fd);
+      background: color-mix(in srgb, var(--primary, #7c3aed) 10%, transparent);
+      border: 1px solid var(--primary, #7c3aed);
       border-radius: 3px;
       padding: 1px 4px;
       outline: none;
@@ -1367,12 +1367,12 @@ Examples:
     }
 
     .editor-btn-ai {
-      border-color: #7c3aed;
-      color: #c4b5fd;
+      border-color: var(--primary, #7c3aed);
+      color: var(--primary-light, #c4b5fd);
     }
 
     .editor-btn-ai:hover {
-      background: #7c3aed33;
+      background: color-mix(in srgb, var(--primary, #7c3aed) 20%, transparent);
     }
 
     .editor-btn-save {
@@ -1422,8 +1422,8 @@ Examples:
       height: 100%;
       padding: 16px;
       border: none;
-      background: #0a0a0f;
-      color: #e5e7eb;
+      background: var(--surface-solid, #0a0a0f);
+      color: var(--text, #e5e7eb);
       font-family: "JetBrains Mono", "Fira Code", monospace;
       font-size: 14px;
       line-height: 1.6;
@@ -1432,23 +1432,14 @@ Examples:
     }
 
     .editor-preview {
-      background: rgba(8, 6, 18, 0.95);
-      /* CSS Variables for blog styling */
-      --primary: #8b5cf6;
-      --primary-light: #a78bfa;
-      --secondary: #ec4899;
-      --tertiary: #06b6d4;
-      --text: #f4f4f5;
-      --text-dim: #a1a1aa;
-      --text-muted: #71717a;
-      --border: rgba(139, 92, 246, 0.25);
+      background: var(--surface-solid, rgba(8, 6, 18, 0.95));
       --font-mono: "JetBrains Mono", "Fira Code", monospace;
       --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .editor-preview-content {
       padding: 24px 32px;
-      color: #c4c4cc;
+      color: var(--text-body, #c4c4cc);
       font-family: 'Inter', system-ui, sans-serif;
       font-size: 1.0625rem;
       line-height: 1.75;
@@ -1533,7 +1524,7 @@ Examples:
 
     .editor-preview-content p {
       margin-bottom: 1.5rem;
-      color: #c4c4cc;
+      color: var(--text-body, #c4c4cc);
     }
 
     /* Text emphasis - matches blog styling */
@@ -1606,7 +1597,7 @@ Examples:
     .editor-preview-content ol {
       margin-bottom: 1.5rem;
       padding-left: 1.5rem;
-      color: #c4c4cc;
+      color: var(--text-body, #c4c4cc);
     }
 
     .editor-preview-content li {
@@ -1692,14 +1683,51 @@ Examples:
       background: rgba(139, 92, 246, 0.05);
     }
 
+    /* Classic theme: suppress glow effects in preview */
+    html.classic .editor-preview-content h2 { text-shadow: none; }
+    html.classic .editor-preview-content h2::after { box-shadow: none; }
+    html.classic .editor-preview-content h3 { text-shadow: none; }
+    html.classic .editor-preview-content strong { text-shadow: none; }
+    html.classic .editor-preview-content em {
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: var(--primary, inherit);
+      filter: none;
+      animation: none;
+    }
+    html.classic .editor-preview-content strong em,
+    html.classic .editor-preview-content em strong {
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: var(--primary, inherit);
+      filter: none;
+      animation: none;
+    }
+    html.classic .editor-preview-content strong.glow {
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: var(--primary, inherit);
+      filter: none;
+      animation: none;
+    }
+    html.classic .preview-subtitle {
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: var(--primary, inherit);
+      filter: none;
+      animation: none;
+    }
+    html.classic .editor-preview-content hr { box-shadow: none; }
+    html.classic .editor-preview-content blockquote { box-shadow: none; }
+
     /* AI Panel */
     .editor-ai-panel {
       position: absolute;
       right: 16px;
       top: 60px;
       width: 320px;
-      background: #1a1a24;
-      border: 1px solid #7c3aed;
+      background: var(--surface, #1a1a24);
+      border: 1px solid var(--primary, #7c3aed);
       border-radius: 8px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     }
@@ -1709,25 +1737,25 @@ Examples:
       justify-content: space-between;
       align-items: center;
       padding: 10px 14px;
-      border-bottom: 1px solid #333;
-      color: #c4b5fd;
+      border-bottom: 1px solid var(--border, #333);
+      color: var(--primary-light, #c4b5fd);
       font-size: 13px;
       font-weight: 500;
     }
 
     .ai-model-select {
       padding: 4px 8px;
-      border: 1px solid #333;
+      border: 1px solid var(--border, #333);
       border-radius: 4px;
-      background: #0f0f14;
-      color: #c4b5fd;
+      background: var(--surface-solid, #0f0f14);
+      color: var(--primary-light, #c4b5fd);
       font-size: 11px;
       outline: none;
       margin-left: auto;
     }
 
     .ai-model-select:focus {
-      border-color: #7c3aed;
+      border-color: var(--primary, #7c3aed);
     }
 
     .ai-close {
@@ -1763,7 +1791,7 @@ Examples:
     }
 
     .ai-input:focus {
-      border-color: #7c3aed;
+      border-color: var(--primary, #7c3aed);
     }
 
     .ai-input::placeholder {
@@ -1791,7 +1819,7 @@ Examples:
       padding: 8px 16px;
       border: none;
       border-radius: 4px;
-      background: #7c3aed;
+      background: var(--primary, #7c3aed);
       color: white;
       font-size: 13px;
       font-weight: 500;
@@ -1800,7 +1828,7 @@ Examples:
     }
 
     .ai-submit:hover {
-      background: #6d28d9;
+      background: color-mix(in srgb, var(--primary, #7c3aed) 85%, black);
     }
 
     .ai-submit:disabled {
@@ -1818,8 +1846,8 @@ Examples:
       display: inline-block;
       width: 16px;
       height: 16px;
-      border: 2px solid #333;
-      border-top-color: #7c3aed;
+      border: 2px solid var(--border, #333);
+      border-top-color: var(--primary, #7c3aed);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
