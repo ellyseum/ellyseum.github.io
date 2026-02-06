@@ -292,6 +292,8 @@ const commands: Record<string, Command> = {
           ctx.writeLine('\x1b[32m✓ Authentication successful\x1b[0m');
           ctx.writeLine('\x1b[90mNew commands unlocked: edit, new, publish, rm\x1b[0m');
           ctx.writeLine('\x1b[90mType \x1b[33mhelp\x1b[90m to see all commands. Use \x1b[33mlogout\x1b[90m to clear saved token.\x1b[0m');
+          // Inject edit button on post pages
+          import('../edit-button').then(m => m.initEditButton()).catch(() => {});
         } else {
           githubClient = null;
           ctx.writeLine('\x1b[31m✗ Invalid token or insufficient permissions\x1b[0m');

@@ -1021,20 +1021,14 @@ function showDiffView(
     for (const hunk of hunks) {
       hunk.accepted = true;
     }
-    hunksContainer.querySelectorAll('.diff-hunk').forEach(el => {
-      el.classList.remove('rejected');
-      el.classList.add('accepted');
-    });
+    const result = applySelectedHunks(original, proposed, hunks);
+    closeDiffView();
+    onAccept(result);
   });
 
   overlay.querySelector('.diff-reject-all')!.addEventListener('click', () => {
-    for (const hunk of hunks) {
-      hunk.accepted = false;
-    }
-    hunksContainer.querySelectorAll('.diff-hunk').forEach(el => {
-      el.classList.remove('accepted');
-      el.classList.add('rejected');
-    });
+    closeDiffView();
+    onReject();
   });
 
   // Apply selected changes
@@ -2133,18 +2127,29 @@ Examples:
 
     const voice = aiVoice.value;
     const model = aiModel.value;
-    const originalContent = textarea.value;
+    const currentContent = textarea.value;
+
+    // Preserve frontmatter - AI should only edit body content
+    const fmSplit = currentContent.match(/^(---\s*\n[\s\S]*?\n---\s*\n)([\s\S]*)$/);
+    const frontmatter = fmSplit ? fmSplit[1] : '';
+    const bodyOnly = fmSplit ? fmSplit[2] : currentContent;
 
     aiBody.hidden = true;
     aiLoading.hidden = false;
     aiSubmit.disabled = true;
 
     try {
-      const result = await callAI(originalContent, instruction, voice, model);
+      const aiResult = await callAI(bodyOnly, instruction, voice, model);
+
+      // Strip any frontmatter the AI might have added to its response
+      const aiBody2 = aiResult.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+
+      // Reconstruct with preserved frontmatter
+      const result = frontmatter + aiBody2;
 
       // Show diff view instead of directly applying
       showDiffView(
-        originalContent,
+        currentContent,
         result,
         // On accept
         (accepted) => {
@@ -2176,6 +2181,7 @@ Examples:
   });
 
   document.body.appendChild(editor);
+  document.body.style.overflow = 'hidden';
   currentEditor = editor;
   textarea.focus();
 }
@@ -2184,6 +2190,7 @@ export function closeEditor(): void {
   if (currentEditor) {
     currentEditor.remove();
     currentEditor = null;
+    document.body.style.overflow = '';
   }
   if (currentOnClose) {
     currentOnClose();
@@ -2509,9 +2516,11 @@ ${STYLE_GUIDE}`;
     throw new Error(`AI response appears truncated (${result.length} chars vs ${content.length} original). Please try again.`);
   }
 
-  // Fix em dashes in compound words (LLMs love converting hyphens to em dashes)
-  // Only replace em dashes between word characters: follow—up → follow-up
+  // Remove all em dashes - LLMs love inserting them everywhere
+  // Between words: follow—up → follow-up
+  // Standalone/punctuation: " — " → " - ", "—" → "-"
   result = result.replace(/(\w)—(\w)/g, '$1-$2');
+  result = result.replace(/\s*—\s*/g, ' - ');
 
   // Sanity check for truncation
   if (result && looksLikeTruncated(result)) {
