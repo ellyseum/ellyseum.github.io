@@ -456,14 +456,140 @@ function showCommitDialog(): void {
 
 // Show discard confirmation dialog
 function showDiscardDialog(): void {
-  if (!confirm('Discard all uncommitted changes? This cannot be undone.')) return;
+  const dialog = document.createElement('div');
+  dialog.className = 'confirm-dialog-overlay';
+  dialog.innerHTML = `
+    <style>
+      .confirm-dialog-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 10003;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.2s ease-out;
+      }
 
-  localStorage.removeItem(EDITS_KEY);
-  updatePendingChangesIndicator();
-  showToast('Changes discarded', 'info');
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
 
-  // Reload current page to restore original content
-  window.location.reload();
+      .confirm-dialog-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+      }
+
+      .confirm-dialog {
+        position: relative;
+        width: min(400px, 90vw);
+        background: var(--surface-solid, #0f0f14);
+        border: 1px solid #ef4444;
+        border-radius: 8px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        animation: confirmSlideIn 0.25s ease-out;
+      }
+
+      @keyframes confirmSlideIn {
+        from { transform: translateY(12px) scale(0.97); opacity: 0; }
+        to { transform: translateY(0) scale(1); opacity: 1; }
+      }
+
+      .confirm-dialog-body {
+        padding: 24px;
+        text-align: center;
+      }
+
+      .confirm-dialog-icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+      }
+
+      .confirm-dialog-title {
+        margin: 0 0 8px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text, #e5e7eb);
+      }
+
+      .confirm-dialog-message {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-muted, #9ca3af);
+        line-height: 1.5;
+      }
+
+      .confirm-dialog-footer {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px 24px;
+        border-top: 1px solid var(--border, #333);
+      }
+
+      .confirm-btn {
+        padding: 10px 20px;
+        border: 1px solid var(--border, #444);
+        border-radius: 6px;
+        background: var(--surface, #1f1f2e);
+        color: var(--text, #e5e7eb);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .confirm-btn:hover {
+        background: var(--surface-hover, #2a2a3e);
+      }
+
+      .confirm-btn-danger {
+        border-color: #ef4444;
+        background: #ef4444;
+        color: white;
+      }
+
+      .confirm-btn-danger:hover {
+        background: #dc2626;
+      }
+    </style>
+    <div class="confirm-dialog-backdrop"></div>
+    <div class="confirm-dialog">
+      <div class="confirm-dialog-body">
+        <div class="confirm-dialog-icon">🗑</div>
+        <h3 class="confirm-dialog-title">Discard all changes?</h3>
+        <p class="confirm-dialog-message">This will remove all uncommitted edits and reload the page. This cannot be undone.</p>
+      </div>
+      <div class="confirm-dialog-footer">
+        <button class="confirm-btn confirm-btn-cancel">Cancel</button>
+        <button class="confirm-btn confirm-btn-danger">Discard</button>
+      </div>
+    </div>
+  `;
+
+  const close = () => dialog.remove();
+
+  dialog.querySelector('.confirm-dialog-backdrop')?.addEventListener('click', close);
+  dialog.querySelector('.confirm-btn-cancel')?.addEventListener('click', close);
+
+  dialog.querySelector('.confirm-btn-danger')?.addEventListener('click', () => {
+    close();
+    localStorage.removeItem(EDITS_KEY);
+    updatePendingChangesIndicator();
+    showToast('Changes discarded', 'info');
+    window.location.reload();
+  });
+
+  const escHandler = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      close();
+      document.removeEventListener('keydown', escHandler);
+    }
+  };
+  document.addEventListener('keydown', escHandler);
+
+  document.body.appendChild(dialog);
 }
 
 // Simple toast notification
