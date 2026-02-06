@@ -64,6 +64,9 @@ export class Terminal {
   private commandHistory: string[] = [];
   private historyIndex = -1;
   private cursorPosition = 0;
+  private lastRenderedRows = 1;
+  private cachedPrompt = '';
+  private cachedPromptVisible = 0;
   public isOpen = false;
 
   private context: TerminalContext = {
@@ -295,24 +298,13 @@ export class Terminal {
 
     await this.writePrompt();
 
-    // Handle input
+    // Handle input - onData receives both typed keys and pasted text
     this.xterm.onData(this.handleInput.bind(this));
 
-    // Handle Ctrl+V paste (onData doesn't receive it)
+    // Let browser handle Ctrl+V natively - xterm picks up the paste and sends via onData
     this.xterm.attachCustomKeyEventHandler((e: KeyboardEvent) => {
       if (e.type === 'keydown' && e.ctrlKey && e.key === 'v') {
-        navigator.clipboard.readText().then(text => {
-          if (text) {
-            // Insert pasted text at cursor
-            this.currentLine =
-              this.currentLine.slice(0, this.cursorPosition) +
-              text +
-              this.currentLine.slice(this.cursorPosition);
-            this.cursorPosition += text.length;
-            this.refreshLine();
-          }
-        }).catch(() => {});
-        return false; // Prevent default
+        return false; // Let browser paste, xterm sends it through onData
       }
       return true;
     });
@@ -335,8 +327,26 @@ export class Terminal {
     this.xterm.focus();
   }
 
+  private insertText(text: string): void {
+    const cleaned = text.replace(/[\r\n]/g, '');
+    if (cleaned) {
+      this.currentLine =
+        this.currentLine.slice(0, this.cursorPosition) +
+        cleaned +
+        this.currentLine.slice(this.cursorPosition);
+      this.cursorPosition += cleaned.length;
+      this.refreshLine();
+    }
+  }
+
   private handleInput(data: string): void {
     if (!this.xterm) return;
+
+    // Multi-character input that isn't an escape sequence = paste via onData
+    if (data.length > 1 && !data.startsWith('\x1b')) {
+      this.insertText(data);
+      return;
+    }
 
     for (const char of data) {
       switch (char) {
@@ -433,17 +443,28 @@ export class Terminal {
     }
   }
 
-  private async refreshLine(): Promise<void> {
+  private refreshLine(): void {
     if (!this.xterm) return;
-    const cmds = await getCommands();
-    const prompt = cmds.getPrompt(this.context);
-    // Clear line, write prompt + current line, position cursor
-    this.xterm.write('\r\x1b[K' + prompt + this.currentLine);
+    const cols = this.xterm.cols;
+    const totalLen = this.cachedPromptVisible + this.currentLine.length;
+    const newRows = Math.max(1, Math.ceil(totalLen / cols));
+    // Build entire update as a single string for atomic rendering
+    let buf = '';
+    // Move up to prompt start based on PREVIOUS row count
+    const moveUp = this.lastRenderedRows - 1;
+    if (moveUp > 0) {
+      buf += `\x1b[${moveUp}A`;
+    }
+    // Clear from prompt start to end of screen, write fresh content
+    buf += '\r\x1b[J' + this.cachedPrompt + this.currentLine;
     // Move cursor to correct position
     const moveBack = this.currentLine.length - this.cursorPosition;
     if (moveBack > 0) {
-      this.xterm.write(`\x1b[${moveBack}D`);
+      buf += `\x1b[${moveBack}D`;
     }
+    // Single atomic write - no flicker
+    this.xterm.write(buf);
+    this.lastRenderedRows = newRows;
   }
 
   private async processCommand(): Promise<void> {
@@ -451,6 +472,7 @@ export class Terminal {
     this.currentLine = '';
     this.cursorPosition = 0;
     this.historyIndex = -1;
+    this.lastRenderedRows = 1;
 
     if (command) {
       this.commandHistory.push(command);
@@ -465,7 +487,9 @@ export class Terminal {
 
   private async writePrompt(): Promise<void> {
     const cmds = await getCommands();
-    this.write(cmds.getPrompt(this.context));
+    this.cachedPrompt = cmds.getPrompt(this.context);
+    this.cachedPromptVisible = this.cachedPrompt.replace(/\x1b\[[0-9;]*m/g, '').length;
+    this.write(this.cachedPrompt);
   }
 
   write(text: string): void {

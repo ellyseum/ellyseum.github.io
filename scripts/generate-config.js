@@ -33,6 +33,7 @@ permalink: /:year/:month/:day/:title/
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-redirect-from
 
 # Exclude from processing
 exclude:

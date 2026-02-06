@@ -7,7 +7,7 @@ import { SYSTEM_PROMPT } from './system-prompt';
 
 interface Env {
   GROQ_API_KEY: string;
-  ALLOWED_ORIGIN: string;
+  ALLOWED_ORIGINS: string; // Comma-separated list of allowed origins
 }
 
 interface ChatMessage {
@@ -18,6 +18,8 @@ interface ChatMessage {
 interface ChatRequest {
   messages: ChatMessage[];
   model?: string;
+  max_tokens?: number;
+  temperature?: number;
 }
 
 // SYSTEM_PROMPT is loaded from ./system-prompt.ts (generated at build time)
@@ -31,13 +33,13 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const origin = request.headers.get('Origin') || '';
 
-    // Allow localhost for dev, production domain for prod
-    const allowedOrigins = [env.ALLOWED_ORIGIN, 'http://localhost:4000', 'http://127.0.0.1:4000'];
-    const isAllowed = allowedOrigins.some(o => origin.startsWith(o) || o === '*');
+    // Parse comma-separated allowed origins
+    const allowedOrigins = env.ALLOWED_ORIGINS.split(',').map(o => o.trim());
+    const isAllowed = allowedOrigins.some(o => origin === o || origin.startsWith(o) || o === '*');
 
     const corsHeaders = {
       ...CORS_HEADERS,
-      'Access-Control-Allow-Origin': isAllowed ? origin : env.ALLOWED_ORIGIN,
+      'Access-Control-Allow-Origin': isAllowed ? origin : allowedOrigins[0],
     };
 
     // Handle CORS preflight
@@ -68,8 +70,8 @@ export default {
         body: JSON.stringify({
           model: body.model || 'llama-3.3-70b-versatile',
           messages,
-          temperature: 0.7,
-          max_tokens: 1024,
+          temperature: body.temperature ?? 0.7,
+          max_tokens: Math.min(body.max_tokens || 1024, 32768),
           stream: true,
         }),
       });

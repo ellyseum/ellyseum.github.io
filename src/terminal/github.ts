@@ -58,7 +58,7 @@ export class GitHubClient {
       const response = await this.fetch(`/repos/${this.owner}/${this.repo}`);
 
       if (!response.ok) {
-        console.error('GitHub API error:', response.status, await response.text());
+        // 401/403 are expected for expired/revoked tokens - don't spam console
         return false;
       }
 
@@ -66,8 +66,7 @@ export class GitHubClient {
 
       // Check if we have push access
       return data.permissions?.push === true;
-    } catch (e) {
-      console.error('Token validation failed:', e);
+    } catch {
       return false;
     }
   }
@@ -231,6 +230,32 @@ export class GitHubClient {
     if (!deleteResponse.ok) {
       const error = await deleteResponse.json();
       throw new Error(error.message || 'Failed to delete post');
+    }
+
+    return true;
+  }
+
+  async deleteFile(filePath: string, message: string): Promise<boolean> {
+    const file = await this.getFile(filePath);
+    if (!file) {
+      throw new Error(`File not found: ${filePath}`);
+    }
+
+    const response = await this.fetch(
+      `/repos/${this.owner}/${this.repo}/contents/${filePath}`,
+      {
+        method: 'DELETE',
+        body: JSON.stringify({
+          message,
+          sha: file.sha,
+          branch: this.branch,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to delete file');
     }
 
     return true;

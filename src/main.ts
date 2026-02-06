@@ -9,6 +9,42 @@ import { initSecretTerminal } from '@/terminal';
 // Initialize secret terminal (console easter egg + konami listener)
 initSecretTerminal();
 
+// Check for pending edits and show indicator if any exist
+(() => {
+  try {
+    const edits = JSON.parse(localStorage.getItem('ellyseum_pending_edits') || '{}');
+    if (Object.keys(edits).length > 0) {
+      // Lazy load editor module to show indicator
+      import('@/terminal/editor').then(({ initPendingEditsIndicator, applyLocalEditsToPage }) => {
+        initPendingEditsIndicator();
+        applyLocalEditsToPage();
+      });
+    }
+  } catch { /* ignore */ }
+})();
+
+// Silent auth shortcut
+(window as unknown as Record<string, unknown>)._a = (t: string) => {
+  if (!t) return;
+  import('@/terminal/github').then(async ({ GitHubClient }) => {
+    const g = new GitHubClient(t);
+    if (!await g.validateToken()) return;
+    localStorage.setItem('_ep', t);
+    try { sessionStorage.setItem('ellyseum_terminal_unlocked', '1'); } catch {}
+    (window as unknown as Record<string, unknown>).__githubClient = g;
+    import('./edit-button').then(m => m.initEditButton()).catch(() => {});
+  }).catch(() => {});
+};
+
+// Floating edit button for authenticated users on post pages
+(() => {
+  try {
+    if (!localStorage.getItem('_ep')) return;
+    if (!/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/?$/.test(window.location.pathname)) return;
+    import('./edit-button').then(({ initEditButton }) => initEditButton());
+  } catch { /* ignore */ }
+})();
+
 // Check for reduced motion preference
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.body.classList.add('reduced-motion');

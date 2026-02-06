@@ -47,7 +47,7 @@ async function loadAuthModules() {
 // Check for saved auth and restore it
 export async function tryAutoAuth(ctx: TerminalContext): Promise<boolean> {
   try {
-    const savedToken = localStorage.getItem('ellyseum_pat');
+    const savedToken = localStorage.getItem('_ep');
     if (!savedToken) return false;
 
     const { githubModule: gh } = await loadAuthModules();
@@ -60,7 +60,7 @@ export async function tryAutoAuth(ctx: TerminalContext): Promise<boolean> {
       return true;
     } else {
       // Token expired or revoked, clear it
-      localStorage.removeItem('ellyseum_pat');
+      localStorage.removeItem('_ep');
       githubClient = null;
       return false;
     }
@@ -285,7 +285,7 @@ const commands: Record<string, Command> = {
           ctx.pat = token;
           // Store in localStorage for future sessions
           try {
-            localStorage.setItem('ellyseum_pat', token);
+            localStorage.setItem('_ep', token);
           } catch {
             // localStorage might be unavailable
           }
@@ -311,7 +311,7 @@ const commands: Record<string, Command> = {
       ctx.pat = null;
       githubClient = null;
       try {
-        localStorage.removeItem('ellyseum_pat');
+        localStorage.removeItem('_ep');
       } catch {
         // localStorage might be unavailable
       }

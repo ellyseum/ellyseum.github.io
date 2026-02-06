@@ -90,8 +90,8 @@ async function activateTerminal(): Promise<void> {
 }
 
 function handleBacktick(e: KeyboardEvent): void {
-  // Only if terminal was unlocked (konami entered) or has stored auth
-  if (!konamiUnlocked && !localStorage.getItem('ellyseum_pat')) return;
+  // Only if terminal was unlocked (konami entered or auth set the flag)
+  if (!konamiUnlocked) return;
 
   // Ignore if typing in input
   if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
@@ -106,9 +106,9 @@ export function initSecretTerminal(): void {
   // Print console easter egg (always runs - no lazy load needed, it's just a string)
   printConsoleEasterEgg();
 
-  // Check if previously unlocked (via konami or stored auth)
+  // Check if previously unlocked via konami
   try {
-    if (sessionStorage.getItem('ellyseum_terminal_unlocked') || localStorage.getItem('ellyseum_pat')) {
+    if (sessionStorage.getItem('ellyseum_terminal_unlocked')) {
       konamiUnlocked = true;
     }
   } catch {
