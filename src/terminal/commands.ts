@@ -2,11 +2,13 @@
  * Terminal commands
  * Lazy loaded with terminal module
  *
- * Layer 2 (terminal) commands are here
- * Layer 3 (editor/github) lazy loaded on auth
+ * Core Layer 2 commands live here.
+ * Auth/CMS commands provided by github-cms plugin.
+ * Games provided by terminal-games plugin.
  */
 
 import type { Terminal as XTerm } from '@xterm/xterm';
+import type { TerminalCommand } from '../core/plugin-types';
 
 export interface TerminalContext {
   cwd: string;
@@ -29,55 +31,52 @@ interface Command {
   hidden?: boolean;
 }
 
-// Layer 3 modules - lazy loaded on auth
-let githubModule: typeof import('./github') | null = null;
-let editorModule: typeof import('./editor') | null = null;
-let githubClient: import('./github').GitHubClient | null = null;
+// Track which commands were registered by plugins
+const pluginCommandNames = new Set<string>();
 
-async function loadAuthModules() {
-  if (!githubModule) {
-    githubModule = await import('./github');
-  }
-  if (!editorModule) {
-    editorModule = await import('./editor');
-  }
-  return { githubModule, editorModule };
+/** Register a command from a plugin. Adapts TerminalCommand to internal Command type. */
+export function registerPluginCommand(name: string, cmd: TerminalCommand): void {
+  const adapted: Command = {
+    description: cmd.description,
+    usage: cmd.usage,
+    hidden: cmd.hidden,
+    requiresAuth: cmd.requiresAuth,
+    handler: (args, ctx) => cmd.handler(args, ctx),
+  };
+  commands[name] = adapted;
+  pluginCommandNames.add(name);
 }
 
-// Check for saved auth and restore it
+/** Remove a plugin-registered command. */
+export function unregisterCommand(name: string): void {
+  if (pluginCommandNames.has(name)) {
+    delete commands[name];
+    pluginCommandNames.delete(name);
+  }
+}
+
+/** Check for saved auth and restore session state. */
 export async function tryAutoAuth(ctx: TerminalContext): Promise<boolean> {
   try {
     const savedToken = localStorage.getItem('_ep');
     if (!savedToken) return false;
 
-    const { githubModule: gh } = await loadAuthModules();
-    githubClient = new gh.GitHubClient(savedToken);
-    const valid = await githubClient.validateToken();
+    const { GitHubClient } = await import('./github');
+    const client = new GitHubClient(savedToken);
+    const valid = await client.validateToken();
 
     if (valid) {
       ctx.authenticated = true;
       ctx.pat = savedToken;
+      (window as unknown as Record<string, unknown>).__githubClient = client;
       return true;
     } else {
-      // Token expired or revoked, clear it
       localStorage.removeItem('_ep');
-      githubClient = null;
       return false;
     }
   } catch {
     return false;
   }
-}
-
-// Games - lazy loaded on demand
-async function loadSnake() {
-  const { startSnake } = await import('./games/snake');
-  return startSnake;
-}
-
-async function loadMatrix() {
-  const { startMatrix } = await import('./games/matrix');
-  return startMatrix;
 }
 
 const commands: Record<string, Command> = {
@@ -172,10 +171,12 @@ const commands: Record<string, Command> = {
     handler: async (args, ctx) => {
       const path = args[0] || window.location.pathname;
 
-      // If authenticated, fetch from GitHub
-      if (ctx.authenticated && githubClient) {
+      // If authenticated, fetch from GitHub (client set by github-cms plugin)
+      const ghClient = (window as unknown as Record<string, unknown>).__githubClient as
+        import('./github').GitHubClient | undefined;
+      if (ctx.authenticated && ghClient) {
         try {
-          const content = await githubClient.getFileContent(path);
+          const content = await ghClient.getFileContent(path);
           if (content) {
             ctx.writeLine('');
             ctx.writeLine(content);
@@ -233,241 +234,6 @@ const commands: Record<string, Command> = {
     },
   },
 
-  // Games - lazy loaded
-  snake: {
-    description: 'Play Snake',
-    handler: async (_, ctx) => {
-      const xterm = ctx.getXTerm();
-      if (xterm) {
-        ctx.writeLine('\x1b[33mLoading Snake...\x1b[0m');
-        const startSnake = await loadSnake();
-        startSnake(xterm);
-      }
-    },
-  },
-
-  matrix: {
-    description: 'Enter the Matrix',
-    handler: async (_, ctx) => {
-      const xterm = ctx.getXTerm();
-      if (xterm) {
-        ctx.writeLine('\x1b[32mInitializing Matrix...\x1b[0m');
-        const startMatrix = await loadMatrix();
-        startMatrix(xterm);
-      }
-    },
-  },
-
-  // Authentication - loads Layer 3
-  auth: {
-    description: 'Authenticate with GitHub PAT',
-    usage: '<token>',
-    hidden: true,
-    handler: async (args, ctx) => {
-      if (!args[0]) {
-        ctx.writeLine('Usage: auth <github_pat>');
-        ctx.writeLine('\x1b[90mToken will be saved for future sessions\x1b[0m');
-        return;
-      }
-
-      const token = args[0];
-      ctx.writeLine('Authenticating...');
-
-      try {
-        // Lazy load Layer 3 modules
-        const { githubModule: gh } = await loadAuthModules();
-
-        githubClient = new gh.GitHubClient(token);
-        const valid = await githubClient.validateToken();
-
-        if (valid) {
-          ctx.authenticated = true;
-          ctx.pat = token;
-          // Store in localStorage for future sessions
-          try {
-            localStorage.setItem('_ep', token);
-          } catch {
-            // localStorage might be unavailable
-          }
-          ctx.writeLine('\x1b[32m✓ Authentication successful\x1b[0m');
-          ctx.writeLine('\x1b[90mNew commands unlocked: edit, new, publish, rm\x1b[0m');
-          ctx.writeLine('\x1b[90mType \x1b[33mhelp\x1b[90m to see all commands. Use \x1b[33mlogout\x1b[90m to clear saved token.\x1b[0m');
-          // Inject edit button on post pages
-          import('../edit-button').then(m => m.initEditButton()).catch(() => {});
-        } else {
-          githubClient = null;
-          ctx.writeLine('\x1b[31m✗ Invalid token or insufficient permissions\x1b[0m');
-        }
-      } catch (e) {
-        githubClient = null;
-        ctx.writeLine(`\x1b[31m✗ Authentication failed: ${e instanceof Error ? e.message : 'Unknown error'}\x1b[0m`);
-      }
-    },
-  },
-
-  logout: {
-    description: 'Clear saved authentication',
-    hidden: true,
-    handler: (_, ctx) => {
-      ctx.authenticated = false;
-      ctx.pat = null;
-      githubClient = null;
-      try {
-        localStorage.removeItem('_ep');
-      } catch {
-        // localStorage might be unavailable
-      }
-      ctx.writeLine('\x1b[33m✓ Logged out. Token cleared from storage.\x1b[0m');
-    },
-  },
-
-  // Authenticated commands (Layer 3)
-  edit: {
-    description: 'Edit current page',
-    usage: '[path]',
-    requiresAuth: true,
-    handler: async (args, ctx) => {
-      if (!githubClient) {
-        ctx.writeLine('\x1b[31mNot authenticated. Use: auth <token>\x1b[0m');
-        return;
-      }
-
-      const { editorModule: editor } = await loadAuthModules();
-      const path = args[0] || window.location.pathname;
-      ctx.writeLine(`Opening editor for ${path}...`);
-
-      try {
-        const content = await githubClient.getFileContent(path);
-        if (content !== null) {
-          editor.openEditor({
-            path,
-            content,
-            github: githubClient,
-            onSave: () => {
-              ctx.writeLine(`\x1b[32m✓ Saved ${path}\x1b[0m`);
-            },
-          });
-        } else {
-          ctx.writeLine(`\x1b[31mCould not find source for ${path}\x1b[0m`);
-        }
-      } catch (e) {
-        ctx.writeLine(`\x1b[31mError: ${e instanceof Error ? e.message : 'Unknown error'}\x1b[0m`);
-      }
-    },
-  },
-
-  new: {
-    description: 'Create a new draft',
-    usage: '<"Title">',
-    requiresAuth: true,
-    handler: async (args, ctx) => {
-      if (!githubClient) {
-        ctx.writeLine('\x1b[31mNot authenticated\x1b[0m');
-        return;
-      }
-
-      const { editorModule: editor } = await loadAuthModules();
-
-      const title = args.join(' ').replace(/^["']|["']$/g, '');
-      if (!title) {
-        ctx.writeLine('Usage: new "Post Title"');
-        return;
-      }
-
-      const slug = title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '');
-
-      const date = new Date().toISOString().split('T')[0];
-      const filename = `${date}-${slug}.md`;
-
-      const template = `---
-layout: post
-title: "${title}"
-subtitle: ""
-date: ${date}
-tags: []
-draft: true
----
-
-`;
-
-      ctx.writeLine(`Creating draft: ${filename}...`);
-
-      editor.openEditor({
-        path: `/_drafts/${filename}`,
-        content: template,
-        github: githubClient,
-        isNew: true,
-        onSave: () => {
-          ctx.writeLine(`\x1b[32m✓ Created draft ${filename}\x1b[0m`);
-        },
-      });
-    },
-  },
-
-  publish: {
-    description: 'Publish a draft',
-    usage: '<slug>',
-    requiresAuth: true,
-    handler: async (args, ctx) => {
-      if (!githubClient) {
-        ctx.writeLine('\x1b[31mNot authenticated\x1b[0m');
-        return;
-      }
-
-      if (!args[0]) {
-        ctx.writeLine('Usage: publish <slug>');
-        return;
-      }
-
-      const slug = args[0];
-      ctx.writeLine(`Publishing ${slug}...`);
-
-      try {
-        await githubClient.publishDraft(slug);
-        ctx.writeLine(`\x1b[32m✓ Published ${slug}\x1b[0m`);
-      } catch (e) {
-        ctx.writeLine(`\x1b[31mError: ${e instanceof Error ? e.message : 'Unknown error'}\x1b[0m`);
-      }
-    },
-  },
-
-  rm: {
-    description: 'Remove a post',
-    usage: '<slug>',
-    requiresAuth: true,
-    handler: async (args, ctx) => {
-      if (!githubClient) {
-        ctx.writeLine('\x1b[31mNot authenticated\x1b[0m');
-        return;
-      }
-
-      if (!args[0]) {
-        ctx.writeLine('Usage: rm <slug>');
-        return;
-      }
-
-      const slug = args[0];
-      ctx.writeLine(`\x1b[33mDeleting ${slug}...\x1b[0m`);
-
-      try {
-        await githubClient.deletePost(slug);
-        ctx.writeLine(`\x1b[32m✓ Deleted ${slug}\x1b[0m`);
-      } catch (e) {
-        ctx.writeLine(`\x1b[31mError: ${e instanceof Error ? e.message : 'Unknown error'}\x1b[0m`);
-      }
-    },
-  },
-
-  save: {
-    description: 'Quick save (use after edit)',
-    requiresAuth: true,
-    handler: (_, ctx) => {
-      ctx.writeLine('\x1b[90mUse the Save button in the editor, or edit → make changes → save\x1b[0m');
-    },
-  },
 };
 
 // Hidden easter egg commands

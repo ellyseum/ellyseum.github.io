@@ -20,7 +20,6 @@ export interface EditorOptions {
 }
 
 let currentEditor: HTMLDivElement | null = null;
-let currentDiffView: HTMLDivElement | null = null;
 let pendingChangesIndicator: HTMLDivElement | null = null;
 let currentOnClose: (() => void) | null = null;
 
@@ -739,462 +738,7 @@ interface DiffHunk {
   accepted: boolean | null; // null = pending, true = accepted, false = rejected
 }
 
-function showDiffView(
-  original: string,
-  proposed: string,
-  onAccept: (result: string) => void,
-  onReject: () => void
-): void {
-  closeDiffView();
-
-  // Compute line-by-line diff
-  const changes = Diff.diffLines(original, proposed);
-  const hunks: DiffHunk[] = [];
-  let hunkId = 0;
-  let lineNum = 1;
-
-  // Group changes into hunks - a hunk is a contiguous block of changes
-  // We need to pair adjacent removed+added as a single hunk
-  let i = 0;
-  while (i < changes.length) {
-    const change = changes[i];
-    const lines = change.value.split('\n');
-    if (lines[lines.length - 1] === '') lines.pop();
-
-    if (!change.added && !change.removed) {
-      // Unchanged - just advance line counter
-      lineNum += lines.length;
-      i++;
-      continue;
-    }
-
-    // Start a new hunk
-    const hunk: DiffHunk = {
-      id: hunkId++,
-      oldStart: lineNum,
-      oldLines: [],
-      newLines: [],
-      accepted: null,
-    };
-
-    // Collect all contiguous changes into this hunk
-    while (i < changes.length) {
-      const c = changes[i];
-      if (!c.added && !c.removed) break; // Hit unchanged, stop
-
-      const cLines = c.value.split('\n');
-      if (cLines[cLines.length - 1] === '') cLines.pop();
-
-      if (c.removed) {
-        hunk.oldLines.push(...cLines);
-        lineNum += cLines.length;
-      }
-      if (c.added) {
-        hunk.newLines.push(...cLines);
-      }
-      i++;
-    }
-
-    hunks.push(hunk);
-  }
-
-  // If no hunks, content is identical
-  if (hunks.length === 0) {
-    onAccept(proposed);
-    return;
-  }
-
-  // Create diff view overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'diff-overlay';
-  overlay.innerHTML = `
-    <div class="diff-backdrop"></div>
-    <div class="diff-window">
-      <div class="diff-header">
-        <span class="diff-title">Review AI Changes</span>
-        <span class="diff-stats">${hunks.length} change${hunks.length > 1 ? 's' : ''}</span>
-        <div class="diff-actions">
-          <button class="diff-btn diff-accept-all">✓ Accept All</button>
-          <button class="diff-btn diff-reject-all">✕ Reject All</button>
-        </div>
-      </div>
-      <div class="diff-body">
-        <div class="diff-hunks"></div>
-      </div>
-      <div class="diff-footer">
-        <button class="diff-btn diff-apply">Apply Selected Changes</button>
-        <button class="diff-btn diff-cancel">Cancel</button>
-      </div>
-    </div>
-  `;
-
-  // Add styles
-  const style = document.createElement('style');
-  style.textContent = `
-    .diff-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 10002;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: diffFadeIn 0.2s ease-out;
-    }
-
-    @keyframes diffFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .diff-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.95);
-    }
-
-    .diff-window {
-      position: relative;
-      width: min(1100px, 95vw);
-      max-height: 90vh;
-      background: var(--surface-solid, #0f0f14);
-      border: 1px solid var(--primary, #7c3aed);
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      animation: diffSlideIn 0.3s ease-out;
-      box-shadow: var(--glow-strong, 0 0 60px rgba(124, 58, 237, 0.3));
-    }
-
-    @keyframes diffSlideIn {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .diff-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 20px;
-      background: #1a1a24;
-      border-bottom: 1px solid #333;
-      border-radius: 8px 8px 0 0;
-    }
-
-    .diff-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .diff-stats {
-      font-size: 13px;
-      color: var(--text-muted, #9ca3af);
-      padding: 2px 8px;
-      background: color-mix(in srgb, var(--primary, #7c3aed) 20%, transparent);
-      border-radius: 4px;
-    }
-
-    .diff-actions {
-      margin-left: auto;
-      display: flex;
-      gap: 8px;
-    }
-
-    .diff-btn {
-      padding: 8px 14px;
-      border: 1px solid #444;
-      border-radius: 4px;
-      background: #1f1f2e;
-      color: #e5e7eb;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .diff-btn:hover {
-      background: #2a2a3e;
-      border-color: #555;
-    }
-
-    .diff-accept-all {
-      border-color: #22c55e;
-      color: #86efac;
-    }
-
-    .diff-accept-all:hover {
-      background: #22c55e33;
-    }
-
-    .diff-reject-all {
-      border-color: #ef4444;
-      color: #fca5a5;
-    }
-
-    .diff-reject-all:hover {
-      background: #ef444433;
-    }
-
-    .diff-apply {
-      border-color: var(--primary, #7c3aed);
-      color: var(--primary-light, #c4b5fd);
-    }
-
-    .diff-apply:hover {
-      background: color-mix(in srgb, var(--primary, #7c3aed) 25%, transparent);
-    }
-
-    .diff-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-    }
-
-    .diff-hunks {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .diff-hunk {
-      border: 1px solid #333;
-      border-radius: 6px;
-      overflow: hidden;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .diff-hunk.accepted {
-      border-color: #22c55e;
-      box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
-    }
-
-    .diff-hunk.rejected {
-      border-color: #ef4444;
-      opacity: 0.5;
-    }
-
-    .diff-hunk-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      background: #1a1a24;
-      border-bottom: 1px solid #333;
-    }
-
-    .diff-hunk-title {
-      font-family: monospace;
-      font-size: 12px;
-      color: #9ca3af;
-    }
-
-    .diff-hunk-actions {
-      margin-left: auto;
-      display: flex;
-      gap: 4px;
-    }
-
-    .diff-hunk-btn {
-      padding: 4px 8px;
-      border: 1px solid #444;
-      border-radius: 3px;
-      background: transparent;
-      font-size: 11px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .diff-hunk-accept {
-      color: #86efac;
-      border-color: #22c55e55;
-    }
-
-    .diff-hunk-accept:hover {
-      background: #22c55e33;
-    }
-
-    .diff-hunk-reject {
-      color: #fca5a5;
-      border-color: #ef444455;
-    }
-
-    .diff-hunk-reject:hover {
-      background: #ef444433;
-    }
-
-    .diff-hunk-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .diff-side {
-      padding: 12px;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      word-break: break-word;
-      overflow-x: auto;
-    }
-
-    .diff-old {
-      background: rgba(239, 68, 68, 0.08);
-      border-right: 1px solid #333;
-    }
-
-    .diff-new {
-      background: rgba(34, 197, 94, 0.08);
-    }
-
-    .diff-line {
-      display: block;
-      padding: 2px 4px;
-      margin: 0 -4px;
-      border-radius: 2px;
-    }
-
-    .diff-line-removed {
-      background: rgba(239, 68, 68, 0.25);
-      color: #fca5a5;
-    }
-
-    .diff-line-added {
-      background: rgba(34, 197, 94, 0.25);
-      color: #86efac;
-    }
-
-    .diff-word-removed {
-      background: rgba(239, 68, 68, 0.5);
-      padding: 1px 2px;
-      border-radius: 2px;
-    }
-
-    .diff-word-added {
-      background: rgba(34, 197, 94, 0.5);
-      padding: 1px 2px;
-      border-radius: 2px;
-    }
-
-    .diff-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      padding: 14px 20px;
-      background: #1a1a24;
-      border-top: 1px solid #333;
-      border-radius: 0 0 8px 8px;
-    }
-
-    .diff-cancel {
-      color: #9ca3af;
-    }
-
-    @media (max-width: 768px) {
-      .diff-hunk-content {
-        grid-template-columns: 1fr;
-      }
-
-      .diff-old {
-        border-right: none;
-        border-bottom: 1px solid #333;
-      }
-    }
-  `;
-  overlay.appendChild(style);
-
-  // Render hunks
-  const hunksContainer = overlay.querySelector('.diff-hunks')!;
-
-  for (const hunk of hunks) {
-    const hunkEl = document.createElement('div');
-    hunkEl.className = 'diff-hunk';
-    hunkEl.dataset.hunkId = String(hunk.id);
-
-    // Word-level diff for better visibility
-    const wordDiffHtml = computeWordDiff(hunk.oldLines.join('\n'), hunk.newLines.join('\n'));
-
-    hunkEl.innerHTML = `
-      <div class="diff-hunk-header">
-        <span class="diff-hunk-title">Line ${hunk.oldStart}</span>
-        <div class="diff-hunk-actions">
-          <button class="diff-hunk-btn diff-hunk-accept">✓ Accept</button>
-          <button class="diff-hunk-btn diff-hunk-reject">✕ Reject</button>
-        </div>
-      </div>
-      <div class="diff-hunk-content">
-        <div class="diff-side diff-old">${wordDiffHtml.old}</div>
-        <div class="diff-side diff-new">${wordDiffHtml.new}</div>
-      </div>
-    `;
-
-    // Hunk accept/reject handlers
-    hunkEl.querySelector('.diff-hunk-accept')!.addEventListener('click', () => {
-      hunk.accepted = true;
-      hunkEl.classList.remove('rejected');
-      hunkEl.classList.add('accepted');
-    });
-
-    hunkEl.querySelector('.diff-hunk-reject')!.addEventListener('click', () => {
-      hunk.accepted = false;
-      hunkEl.classList.remove('accepted');
-      hunkEl.classList.add('rejected');
-    });
-
-    hunksContainer.appendChild(hunkEl);
-  }
-
-  // Global actions
-  overlay.querySelector('.diff-accept-all')!.addEventListener('click', () => {
-    for (const hunk of hunks) {
-      hunk.accepted = true;
-    }
-    const result = applySelectedHunks(original, proposed, hunks);
-    closeDiffView();
-    onAccept(result);
-  });
-
-  overlay.querySelector('.diff-reject-all')!.addEventListener('click', () => {
-    closeDiffView();
-    onReject();
-  });
-
-  // Apply selected changes
-  overlay.querySelector('.diff-apply')!.addEventListener('click', () => {
-    const result = applySelectedHunks(original, proposed, hunks);
-    closeDiffView();
-    onAccept(result);
-  });
-
-  // Cancel
-  overlay.querySelector('.diff-cancel')!.addEventListener('click', () => {
-    closeDiffView();
-    onReject();
-  });
-
-  overlay.querySelector('.diff-backdrop')!.addEventListener('click', () => {
-    closeDiffView();
-    onReject();
-  });
-
-  // ESC to close
-  const escHandler = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      closeDiffView();
-      onReject();
-      document.removeEventListener('keydown', escHandler);
-    }
-  };
-  document.addEventListener('keydown', escHandler);
-
-  document.body.appendChild(overlay);
-  currentDiffView = overlay;
-}
-
-function closeDiffView(): void {
-  if (currentDiffView) {
-    currentDiffView.remove();
-    currentDiffView = null;
-  }
-}
+// Old showDiffView/closeDiffView removed - replaced by inline diff in preview pane
 
 // Compute diff with HTML highlighting
 // Uses word-level for small changes, line-level for large ones
@@ -1982,6 +1526,253 @@ Examples:
       to { transform: rotate(360deg); }
     }
 
+    /* Inline diff styles (rendered in preview pane) */
+    .inline-diff-container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .inline-diff-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: #1a1a24;
+      border-bottom: 1px solid #333;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .inline-diff-status {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .inline-diff-stats {
+      font-size: 12px;
+      color: var(--text-muted, #9ca3af);
+      padding: 2px 8px;
+      background: color-mix(in srgb, var(--primary, #7c3aed) 20%, transparent);
+      border-radius: 4px;
+    }
+
+    .inline-diff-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+    }
+
+    .inline-diff-hunks {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .inline-diff-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 10px 16px;
+      background: #1a1a24;
+      border-top: 1px solid #333;
+    }
+
+    .diff-btn {
+      padding: 6px 12px;
+      border: 1px solid #444;
+      border-radius: 4px;
+      background: #1f1f2e;
+      color: #e5e7eb;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .diff-btn:hover {
+      background: #2a2a3e;
+      border-color: #555;
+    }
+
+    .diff-accept-all {
+      border-color: #22c55e;
+      color: #86efac;
+    }
+
+    .diff-accept-all:hover {
+      background: #22c55e33;
+    }
+
+    .diff-reject-all {
+      border-color: #ef4444;
+      color: #fca5a5;
+    }
+
+    .diff-reject-all:hover {
+      background: #ef444433;
+    }
+
+    .diff-apply {
+      border-color: var(--primary, #7c3aed);
+      color: var(--primary-light, #c4b5fd);
+    }
+
+    .diff-apply:hover {
+      background: color-mix(in srgb, var(--primary, #7c3aed) 25%, transparent);
+    }
+
+    .diff-hunk {
+      border: 1px solid #333;
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .diff-hunk.accepted {
+      border-color: #22c55e;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+    }
+
+    .diff-hunk.rejected {
+      border-color: #ef4444;
+      opacity: 0.5;
+    }
+
+    .diff-hunk-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: #1a1a24;
+      border-bottom: 1px solid #333;
+    }
+
+    .diff-hunk-title {
+      font-family: monospace;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .diff-hunk-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 4px;
+    }
+
+    .diff-hunk-btn {
+      padding: 3px 8px;
+      border: 1px solid #444;
+      border-radius: 3px;
+      background: transparent;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .diff-hunk-accept {
+      color: #86efac;
+      border-color: #22c55e55;
+    }
+
+    .diff-hunk-accept:hover {
+      background: #22c55e33;
+    }
+
+    .diff-hunk-reject {
+      color: #fca5a5;
+      border-color: #ef444455;
+    }
+
+    .diff-hunk-reject:hover {
+      background: #ef444433;
+    }
+
+    .diff-hunk-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .diff-side {
+      padding: 8px 10px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: auto;
+    }
+
+    .diff-old {
+      background: rgba(239, 68, 68, 0.08);
+      border-right: 1px solid #333;
+    }
+
+    .diff-new {
+      background: rgba(34, 197, 94, 0.08);
+    }
+
+    .diff-line {
+      display: block;
+      padding: 1px 3px;
+      margin: 0 -3px;
+      border-radius: 2px;
+    }
+
+    .diff-line-removed {
+      background: rgba(239, 68, 68, 0.25);
+      color: #fca5a5;
+    }
+
+    .diff-line-added {
+      background: rgba(34, 197, 94, 0.25);
+      color: #86efac;
+    }
+
+    .diff-word-removed {
+      background: rgba(239, 68, 68, 0.5);
+      padding: 1px 2px;
+      border-radius: 2px;
+    }
+
+    .diff-word-added {
+      background: rgba(34, 197, 94, 0.5);
+      padding: 1px 2px;
+      border-radius: 2px;
+    }
+
+    .diff-streaming-block {
+      padding: 10px 12px;
+      background: color-mix(in srgb, var(--primary, #7c3aed) 8%, transparent);
+      border: 1px dashed color-mix(in srgb, var(--primary, #7c3aed) 40%, transparent);
+      border-radius: 6px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      color: var(--text-muted, #9ca3af);
+      position: relative;
+    }
+
+    .diff-streaming-block::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: var(--primary, #7c3aed);
+      margin-left: 2px;
+      animation: cursorBlink 1s step-end infinite;
+    }
+
+    @keyframes cursorBlink {
+      50% { opacity: 0; }
+    }
+
     /* Mobile */
     @media (max-width: 768px) {
       .editor-body {
@@ -1997,6 +1788,15 @@ Examples:
         right: 8px;
         left: 8px;
         width: auto;
+      }
+
+      .diff-hunk-content {
+        grid-template-columns: 1fr;
+      }
+
+      .diff-old {
+        border-right: none;
+        border-bottom: 1px solid #333;
       }
     }
 
@@ -2025,6 +1825,12 @@ Examples:
       color: #fca5a5;
     }
 
+    .editor-toast.info {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid #3b82f6;
+      color: #93c5fd;
+    }
+
     @keyframes editorToastIn {
       from { opacity: 0; transform: translateY(-8px); }
       to { opacity: 1; transform: translateY(0); }
@@ -2037,7 +1843,7 @@ Examples:
   `;
   editor.appendChild(style);
 
-  function showToast(message: string, type: 'success' | 'error' = 'success', duration = 2000) {
+  function showToast(message: string, type: 'success' | 'error' | 'info' = 'success', duration = 2000) {
     const existing = editor.querySelector('.editor-toast');
     if (existing) existing.remove();
 
@@ -2060,8 +1866,6 @@ Examples:
   const aiVoice = editor.querySelector('.ai-voice-select') as HTMLSelectElement;
   const aiModel = editor.querySelector('.ai-model-select') as HTMLSelectElement;
   const aiSubmit = editor.querySelector('.ai-submit') as HTMLButtonElement;
-  const aiLoading = editor.querySelector('.ai-loading') as HTMLDivElement;
-  const aiBody = editor.querySelector('.ai-body') as HTMLDivElement;
 
   // Save model preference when changed
   aiModel.addEventListener('change', () => {
@@ -2188,9 +1992,14 @@ Examples:
   editor.querySelector('.editor-backdrop')?.addEventListener('click', closeEditor);
   editor.querySelector('.editor-btn-close')?.addEventListener('click', closeEditor);
 
-  // ESC to close
+  // ESC to close (or cancel AI streaming first)
   const escHandler = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
+      if (currentAbortController) {
+        // Cancel active AI streaming first
+        currentAbortController.abort();
+        return;
+      }
       closeEditor();
       document.removeEventListener('keydown', escHandler);
     }
@@ -2274,6 +2083,151 @@ Examples:
     aiPanel.hidden = true;
   });
 
+  // AI conversation history for multi-turn refinement
+  let aiConversationHistory: Array<{ role: string; content: string }> = [];
+  let currentAbortController: AbortController | null = null;
+
+  // Inline diff state
+  type EditorMode = 'preview' | 'diff-streaming' | 'diff-review';
+  let editorMode: EditorMode = 'preview';
+
+  function restorePreviewMode() {
+    editorMode = 'preview';
+    currentAbortController = null;
+    updatePreview();
+  }
+
+  function renderInlineDiffHeader(container: HTMLDivElement, status: string, stats: string, streaming: boolean) {
+    container.innerHTML = `
+      <div class="inline-diff-header">
+        <span class="inline-diff-status">${status}</span>
+        <span class="inline-diff-stats">${stats}</span>
+        <div class="inline-diff-actions">
+          ${streaming ? `<button class="diff-btn inline-diff-cancel">Cancel</button>` : `
+            <button class="diff-btn diff-accept-all inline-diff-accept-all">Accept All</button>
+            <button class="diff-btn diff-reject-all inline-diff-reject-all">Reject All</button>
+          `}
+        </div>
+      </div>
+      <div class="inline-diff-hunks"></div>
+      ${!streaming ? `
+        <div class="inline-diff-footer">
+          <button class="diff-btn diff-apply inline-diff-apply">Apply Selected</button>
+          <button class="diff-btn diff-cancel inline-diff-cancel-review">Cancel</button>
+        </div>
+      ` : ''}
+    `;
+  }
+
+  function renderHunksIntoContainer(hunksContainer: Element, hunks: DiffHunk[]) {
+    hunksContainer.innerHTML = '';
+    for (const hunk of hunks) {
+      const hunkEl = document.createElement('div');
+      hunkEl.className = 'diff-hunk';
+      hunkEl.dataset.hunkId = String(hunk.id);
+
+      const wordDiffHtml = computeWordDiff(hunk.oldLines.join('\n'), hunk.newLines.join('\n'));
+
+      hunkEl.innerHTML = `
+        <div class="diff-hunk-header">
+          <span class="diff-hunk-title">Line ${hunk.oldStart}</span>
+          <div class="diff-hunk-actions">
+            <button class="diff-hunk-btn diff-hunk-accept">Accept</button>
+            <button class="diff-hunk-btn diff-hunk-reject">Reject</button>
+          </div>
+        </div>
+        <div class="diff-hunk-content">
+          <div class="diff-side diff-old">${wordDiffHtml.old}</div>
+          <div class="diff-side diff-new">${wordDiffHtml.new}</div>
+        </div>
+      `;
+
+      hunkEl.querySelector('.diff-hunk-accept')!.addEventListener('click', () => {
+        hunk.accepted = true;
+        hunkEl.classList.remove('rejected');
+        hunkEl.classList.add('accepted');
+      });
+
+      hunkEl.querySelector('.diff-hunk-reject')!.addEventListener('click', () => {
+        hunk.accepted = false;
+        hunkEl.classList.remove('accepted');
+        hunkEl.classList.add('rejected');
+      });
+
+      hunksContainer.appendChild(hunkEl);
+    }
+  }
+
+  function transitionToReview(original: string, proposed: string, diffContainer: HTMLDivElement) {
+    editorMode = 'diff-review';
+    currentAbortController = null;
+
+    // Compute final hunks
+    const changes = Diff.diffLines(original, proposed);
+    const hunks: DiffHunk[] = [];
+    let hunkId = 0;
+    let lineNum = 1;
+    let ci = 0;
+    while (ci < changes.length) {
+      const change = changes[ci];
+      const lines = change.value.split('\n');
+      if (lines[lines.length - 1] === '') lines.pop();
+
+      if (!change.added && !change.removed) {
+        lineNum += lines.length;
+        ci++;
+        continue;
+      }
+
+      const hunk: DiffHunk = { id: hunkId++, oldStart: lineNum, oldLines: [], newLines: [], accepted: null };
+      while (ci < changes.length) {
+        const c = changes[ci];
+        if (!c.added && !c.removed) break;
+        const cLines = c.value.split('\n');
+        if (cLines[cLines.length - 1] === '') cLines.pop();
+        if (c.removed) { hunk.oldLines.push(...cLines); lineNum += cLines.length; }
+        if (c.added) { hunk.newLines.push(...cLines); }
+        ci++;
+      }
+      hunks.push(hunk);
+    }
+
+    if (hunks.length === 0) {
+      // No changes detected
+      restorePreviewMode();
+      showToast('No changes detected', 'info', 2000);
+      return;
+    }
+
+    renderInlineDiffHeader(diffContainer, 'Review Changes', `${hunks.length} change${hunks.length > 1 ? 's' : ''}`, false);
+    const hunksEl = diffContainer.querySelector('.inline-diff-hunks')!;
+    renderHunksIntoContainer(hunksEl, hunks);
+
+    // Wire up review buttons
+    diffContainer.querySelector('.inline-diff-accept-all')?.addEventListener('click', () => {
+      for (const h of hunks) h.accepted = true;
+      const result = applySelectedHunks(original, proposed, hunks);
+      textarea.value = result;
+      restorePreviewMode();
+      checkDirty();
+    });
+
+    diffContainer.querySelector('.inline-diff-reject-all')?.addEventListener('click', () => {
+      restorePreviewMode();
+    });
+
+    diffContainer.querySelector('.inline-diff-apply')?.addEventListener('click', () => {
+      const result = applySelectedHunks(original, proposed, hunks);
+      textarea.value = result;
+      restorePreviewMode();
+      checkDirty();
+    });
+
+    diffContainer.querySelector('.inline-diff-cancel-review')?.addEventListener('click', () => {
+      restorePreviewMode();
+    });
+  }
+
   // AI Submit
   aiSubmit.addEventListener('click', async () => {
     const instruction = aiInput.value.trim();
@@ -2288,40 +2242,156 @@ Examples:
     const frontmatter = fmSplit ? fmSplit[1] : '';
     const bodyOnly = fmSplit ? fmSplit[2] : currentContent;
 
-    aiBody.hidden = true;
-    aiLoading.hidden = false;
     aiSubmit.disabled = true;
 
+    // Set up streaming diff in the preview pane
+    editorMode = 'diff-streaming';
+    const abortController = new AbortController();
+    currentAbortController = abortController;
+
+    const diffContainer = document.createElement('div');
+    diffContainer.className = 'inline-diff-container';
+    renderInlineDiffHeader(diffContainer, 'Streaming...', '0 chars', true);
+
+    // Replace preview content with diff container
+    preview.innerHTML = '';
+    preview.appendChild(diffContainer);
+
+    // Wire cancel button
+    diffContainer.querySelector('.inline-diff-cancel')?.addEventListener('click', () => {
+      abortController.abort();
+    });
+
+    // Progressive diff rendering state
+    let lastDiffedLength = 0;
+    const DIFF_THROTTLE_MS = 500;
+    let diffTimer: ReturnType<typeof setTimeout> | null = null;
+
+    function renderProgressiveDiff(accumulated: string) {
+      const statsEl = diffContainer.querySelector('.inline-diff-stats');
+      if (statsEl) statsEl.textContent = `${accumulated.length} chars`;
+
+      // Throttle progressive diff rendering
+      if (diffTimer) return;
+      diffTimer = setTimeout(() => {
+        diffTimer = null;
+        if (editorMode !== 'diff-streaming') return;
+
+        // Only diff completed paragraphs
+        const lastDoubleNewline = accumulated.lastIndexOf('\n\n');
+        const stableText = lastDoubleNewline > lastDiffedLength ? accumulated.slice(0, lastDoubleNewline) : '';
+
+        if (stableText.length > lastDiffedLength) {
+          // Compute diff on stable portion
+          const hunksEl = diffContainer.querySelector('.inline-diff-hunks')!;
+          const changes = Diff.diffLines(bodyOnly, stableText);
+          const hunks: DiffHunk[] = [];
+          let hunkId = 0;
+          let lineNum = 1;
+          let ci = 0;
+
+          while (ci < changes.length) {
+            const change = changes[ci];
+            const lines = change.value.split('\n');
+            if (lines[lines.length - 1] === '') lines.pop();
+
+            if (!change.added && !change.removed) {
+              lineNum += lines.length;
+              ci++;
+              continue;
+            }
+
+            const hunk: DiffHunk = { id: hunkId++, oldStart: lineNum, oldLines: [], newLines: [], accepted: null };
+            while (ci < changes.length) {
+              const c = changes[ci];
+              if (!c.added && !c.removed) break;
+              const cLines = c.value.split('\n');
+              if (cLines[cLines.length - 1] === '') cLines.pop();
+              if (c.removed) { hunk.oldLines.push(...cLines); lineNum += cLines.length; }
+              if (c.added) { hunk.newLines.push(...cLines); }
+              ci++;
+            }
+            hunks.push(hunk);
+          }
+
+          // Render stable hunks (no accept/reject during streaming)
+          hunksEl.innerHTML = '';
+          for (const hunk of hunks) {
+            const hunkEl = document.createElement('div');
+            hunkEl.className = 'diff-hunk';
+            const wordDiffHtml = computeWordDiff(hunk.oldLines.join('\n'), hunk.newLines.join('\n'));
+            hunkEl.innerHTML = `
+              <div class="diff-hunk-header">
+                <span class="diff-hunk-title">Line ${hunk.oldStart}</span>
+              </div>
+              <div class="diff-hunk-content">
+                <div class="diff-side diff-old">${wordDiffHtml.old}</div>
+                <div class="diff-side diff-new">${wordDiffHtml.new}</div>
+              </div>
+            `;
+            hunksEl.appendChild(hunkEl);
+          }
+
+          // Show streaming indicator for the remaining text
+          const remaining = accumulated.slice(lastDoubleNewline);
+          if (remaining.trim()) {
+            const streamBlock = document.createElement('div');
+            streamBlock.className = 'diff-streaming-block';
+            streamBlock.textContent = remaining.trim();
+            hunksEl.appendChild(streamBlock);
+          }
+
+          lastDiffedLength = stableText.length;
+        }
+      }, DIFF_THROTTLE_MS);
+    }
+
     try {
-      const aiResult = await callAI(bodyOnly, instruction, voice, model);
+      const aiResult = await callAI({
+        content: bodyOnly,
+        instruction,
+        voice,
+        model,
+        signal: abortController.signal,
+        history: aiConversationHistory.length > 0 ? aiConversationHistory : undefined,
+        onToken: renderProgressiveDiff,
+      });
+
+      // Clear any pending throttled render
+      if (diffTimer) { clearTimeout(diffTimer); diffTimer = null; }
 
       // Strip any frontmatter the AI might have added to its response
-      const aiBody2 = aiResult.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+      const aiBodyClean = aiResult.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
+      const proposed = frontmatter + aiBodyClean;
 
-      // Reconstruct with preserved frontmatter
-      const result = frontmatter + aiBody2;
-
-      // Show diff view instead of directly applying
-      showDiffView(
-        currentContent,
-        result,
-        // On accept
-        (accepted) => {
-          textarea.value = accepted;
-          updatePreview();
-          checkDirty();
-          aiInput.value = '';
-          aiPanel.hidden = true;
-        },
-        // On reject - do nothing, content stays the same
-        () => {}
+      // Add to conversation history for multi-turn
+      aiConversationHistory.push(
+        { role: 'user', content: `Here is the current content:\n\n${bodyOnly}\n\n---\n\nInstruction: ${instruction}` },
+        { role: 'assistant', content: aiResult },
       );
+
+      // Transition to review mode
+      transitionToReview(currentContent, proposed, diffContainer);
+      aiInput.value = '';
     } catch (e) {
-      console.error('AI error:', e);
-      showToast('AI request failed: ' + (e instanceof Error ? e.message : 'Unknown error'), 'error', 4000);
+      if (diffTimer) { clearTimeout(diffTimer); diffTimer = null; }
+
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        // User cancelled - transition to review with partial content if any
+        const partialHunks = diffContainer.querySelector('.inline-diff-hunks');
+        if (partialHunks && partialHunks.children.length > 0) {
+          showToast('Cancelled - review partial changes', 'info', 2000);
+          // Can't do a clean review without the full accumulated string,
+          // so just restore preview
+        }
+        restorePreviewMode();
+        showToast('AI request cancelled', 'info', 2000);
+      } else {
+        console.error('AI error:', e);
+        restorePreviewMode();
+        showToast('AI request failed: ' + (e instanceof Error ? e.message : 'Unknown error'), 'error', 4000);
+      }
     } finally {
-      aiBody.hidden = false;
-      aiLoading.hidden = true;
       aiSubmit.disabled = false;
     }
   });
@@ -2487,7 +2557,19 @@ function estimateTokens(text: string): number {
   return Math.ceil(text.length / 3.5);
 }
 
-async function callAI(content: string, instruction: string, voice: string, model: string): Promise<string> {
+interface AIStreamOptions {
+  content: string;
+  instruction: string;
+  voice: string;
+  model: string;
+  onToken?: (accumulated: string) => void;
+  signal?: AbortSignal;
+  history?: Array<{ role: string; content: string }>;
+}
+
+async function callAI(options: AIStreamOptions): Promise<string> {
+  const { content, instruction, voice, model, onToken, signal, history } = options;
+
   // Get worker URL from config
   const config = SITE_CONFIG as Record<string, unknown>;
   const workerUrl = (config.worker_url as string) || 'https://chat.api.ellyseum.dev';
@@ -2517,20 +2599,27 @@ ${STYLE_GUIDE}`;
     systemPrompt += `\n\n## Voice Style to Use:\n${voice}`;
   }
 
+  // Build messages array with optional conversation history
+  const messages: Array<{ role: string; content: string }> = [
+    { role: 'system', content: systemPrompt },
+  ];
+  if (history) {
+    messages.push(...history);
+  }
+  messages.push({ role: 'user', content: `Here is the current content:\n\n${content}\n\n---\n\nInstruction: ${instruction}` });
+
   const response = await fetch(workerUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: `Here is the current content:\n\n${content}\n\n---\n\nInstruction: ${instruction}` },
-      ],
+      messages,
       model: model || 'llama-3.3-70b-versatile',
       temperature: 0.7,
       max_tokens: maxOutputTokens,
     }),
+    signal,
   });
 
   if (!response.ok) {
@@ -2538,23 +2627,32 @@ ${STYLE_GUIDE}`;
   }
 
   // Check Content-Type to determine response format
-  const contentType = response.headers.get('content-type') || '';
-  const isSSE = contentType.includes('text/event-stream');
-  const isJSON = contentType.includes('application/json');
+  const contentType2 = response.headers.get('content-type') || '';
+  const isSSE = contentType2.includes('text/event-stream');
+  const isJSON = contentType2.includes('application/json');
 
-  console.log('[AI] Response Content-Type:', contentType, 'isSSE:', isSSE, 'isJSON:', isJSON);
+  console.log('[AI] Response Content-Type:', contentType2, 'isSSE:', isSSE, 'isJSON:', isJSON);
 
   let result = '';
+
+  // Helper: extract token from parsed SSE chunk
+  function extractToken(parsed: Record<string, unknown>): string | null {
+    const choices = parsed.choices as Array<Record<string, unknown>> | undefined;
+    if (!choices?.[0]) return null;
+    const delta = choices[0].delta as Record<string, unknown> | undefined;
+    const message = choices[0].message as Record<string, unknown> | undefined;
+    return (delta?.content as string) || (message?.content as string) || null;
+  }
 
   // Handle non-streaming JSON response
   if (isJSON && !isSSE) {
     const json = await response.json();
     console.log('[AI] Got JSON response:', JSON.stringify(json).slice(0, 500));
 
-    // Handle standard chat completion response
-    const content = json.choices?.[0]?.message?.content || json.choices?.[0]?.delta?.content;
-    if (content) {
-      result = content;
+    const extracted = extractToken(json);
+    if (extracted) {
+      result = extracted;
+      onToken?.(result);
     } else if (json.error) {
       throw new Error(json.error.message || 'API returned an error');
     } else {
@@ -2569,6 +2667,39 @@ ${STYLE_GUIDE}`;
     const decoder = new TextDecoder();
     let buffer = '';
 
+    // Process a single SSE line, returns true if an error was thrown
+    function processLine(trimmedLine: string): void {
+      if (!trimmedLine) return;
+
+      let data: string | null = null;
+      if (trimmedLine.startsWith('data: ')) {
+        data = trimmedLine.slice(6).trim();
+        if (data === '[DONE]') return;
+      } else if (trimmedLine.startsWith('{')) {
+        data = trimmedLine;
+      }
+      if (!data) return;
+
+      try {
+        const parsed = JSON.parse(data);
+        const token = extractToken(parsed);
+        if (token) {
+          result += token;
+          onToken?.(result);
+        }
+        if (parsed.error) {
+          console.error('[AI] Error in stream:', parsed.error);
+          throw new Error(parsed.error.message || 'API error');
+        }
+      } catch (e) {
+        if (e instanceof SyntaxError) {
+          console.warn('[AI] Failed to parse SSE data:', data.slice(0, 100));
+        } else {
+          throw e;
+        }
+      }
+    }
+
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
@@ -2578,80 +2709,14 @@ ${STYLE_GUIDE}`;
       buffer = lines.pop() || '';
 
       for (const line of lines) {
-        const trimmedLine = line.trim();
-        if (!trimmedLine) continue;
-
-        if (trimmedLine.startsWith('data: ')) {
-          const data = trimmedLine.slice(6).trim();
-          if (data === '[DONE]') continue;
-
-          try {
-            const parsed = JSON.parse(data);
-            // Handle both streaming (delta) and non-streaming (message) formats
-            const token = parsed.choices?.[0]?.delta?.content ||
-                          parsed.choices?.[0]?.message?.content;
-            if (token) {
-              result += token;
-            }
-            // Check for error in response
-            if (parsed.error) {
-              console.error('[AI] Error in stream:', parsed.error);
-              throw new Error(parsed.error.message || 'API error');
-            }
-          } catch (e) {
-            if (e instanceof SyntaxError) {
-              // JSON parse error - log but continue
-              console.warn('[AI] Failed to parse SSE data:', data.slice(0, 100));
-            } else {
-              throw e;
-            }
-          }
-        } else if (trimmedLine.startsWith('{')) {
-          // Some APIs send raw JSON without "data: " prefix
-          try {
-            const parsed = JSON.parse(trimmedLine);
-            const token = parsed.choices?.[0]?.delta?.content ||
-                          parsed.choices?.[0]?.message?.content;
-            if (token) {
-              result += token;
-            }
-          } catch {
-            // Ignore parse errors
-          }
-        }
+        processLine(line.trim());
       }
     }
 
     // Process any remaining content in buffer
     if (buffer.trim()) {
       for (const line of buffer.split('\n')) {
-        const trimmedLine = line.trim();
-        if (trimmedLine.startsWith('data: ')) {
-          const data = trimmedLine.slice(6).trim();
-          if (data && data !== '[DONE]') {
-            try {
-              const parsed = JSON.parse(data);
-              const token = parsed.choices?.[0]?.delta?.content ||
-                            parsed.choices?.[0]?.message?.content;
-              if (token) {
-                result += token;
-              }
-            } catch {
-              // Ignore
-            }
-          }
-        } else if (trimmedLine.startsWith('{')) {
-          try {
-            const parsed = JSON.parse(trimmedLine);
-            const token = parsed.choices?.[0]?.delta?.content ||
-                          parsed.choices?.[0]?.message?.content;
-            if (token) {
-              result += token;
-            }
-          } catch {
-            // Ignore
-          }
-        }
+        processLine(line.trim());
       }
     }
   }

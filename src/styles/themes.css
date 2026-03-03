@@ -103,8 +103,6 @@ html.classic #webgl-canvas {
 }
 
 /* Hide WebGL-only elements */
-html.classic .flying-icons-container,
-html.classic .constellation-container,
 html.classic .target-reticle,
 html.classic .fps-monitor {
   display: none !important;

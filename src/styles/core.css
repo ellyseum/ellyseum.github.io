@@ -1,5 +1,6 @@
-/* Main CSS Entry Point */
+/* Core CSS Entry Point */
 /* Imports all stylesheets in the correct order */
+/* Plugin-specific CSS is injected at runtime by plugins */
 
 /* 1. Variables - CSS custom properties */
 @import './variables.css';
@@ -13,8 +14,6 @@
 /* 3. Components */
 @import './components/header.css';
 @import './components/fallback.css';
-@import './components/constellation.css';
-@import './components/flying-icons.css';
 @import './components/posts-list.css';
 @import './components/post-page.css';
 @import './components/post-nav.css';

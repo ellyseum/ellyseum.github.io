@@ -8,17 +8,9 @@ import { FitAddon } from '@xterm/addon-fit';
 import { WebLinksAddon } from '@xterm/addon-web-links';
 import '@xterm/xterm/css/xterm.css';
 import { SITE_CONFIG } from '../data/site-config';
+import type { TerminalContext } from './commands';
 
-export interface TerminalContext {
-  cwd: string;
-  authenticated: boolean;
-  pat: string | null;
-  write: (text: string) => void;
-  writeLine: (text: string) => void;
-  clear: () => void;
-  close: () => void;
-  getXTerm: () => XTerm | null;
-}
+export type { TerminalContext };
 
 // Commands module - lazy loaded with terminal
 let commandsModule: typeof import('./commands') | null = null;
