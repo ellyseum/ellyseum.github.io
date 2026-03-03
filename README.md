@@ -1,6 +1,6 @@
 # Ellyseum Blog Template
 
-A GPU-accelerated personal blog that pushes what's possible in a browser. Custom WebGL shaders, SPA navigation with flying word animations, on-device AI chat, and a typewriter that makes realistic typos. Because static sites don't have to be boring.
+A GPU-accelerated personal blog with a plugin architecture that pushes what's possible in a browser. Custom WebGL shaders, SPA navigation with flying word animations, on-device AI chat, a hidden terminal with games, and a typewriter that makes realistic typos. Because static sites don't have to be boring.
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
 ![WebGL](https://img.shields.io/badge/WebGL-990000?style=flat&logo=webgl&logoColor=white)
@@ -143,50 +143,104 @@ RAG (Retrieval Augmented Generation) context for the AI chat. Structured chunks 
 
 ## Features
 
+### Plugin Architecture
+
+Everything beyond the core blog is a plugin. Eight plugins ship by default, each with its own loading strategy (eager, idle, or lazy). Disable any plugin by commenting out one line in `ellyseum.config.ts`. See [docs/PLUGINS.md](docs/PLUGINS.md) for the full catalog and API reference.
+
 ### WebGL Visual Effects
 
-- **Cosmic Background**: Real-time Perlin noise nebula, mouse-reactive, tilt-responsive on mobile
-- **Flying Icons**: GPU-instanced Bézier path animation with trails
-- **3D Cards**: CSS 3D transforms with mouse tracking and hover elevation
+- **Cosmic Background**: 5-octave FBM simplex noise nebula, 4-density star field with diffraction spikes, mouse-reactive parallax, tilt-responsive on mobile
+- **Flying Icons**: GPU-instanced cubic Bezier path animation with additive-blended trails
+- **3D Cards**: CSS 3D transforms with per-card random rotation, mouse tracking, hover elevation
 
 ### SPA Navigation
 
 Zero page reloads. Click a link, content animates out, new content flies in.
 
-- Cards fly out in random directions
-- Words fly in individually from screen edges
+- Cards fly out in random directions with rotation
+- Words fly in individually from screen edges with staggered timing
 - Web Worker prefetches and parses HTML off main thread
 - Prerender for instant page swaps
 
-### Typewriter Effect
+### Themes
 
-Tagline types itself with human-like imperfection:
-- Variable typing speed (25-65ms)
-- Realistic typos (key repeats, adjacent keys, dyslexia swaps)
-- QWERTY adjacency map for believable finger slips
-- Pauses before noticing and correcting mistakes
+Three themes with instant switching:
+
+- **Galaxy** (default) - WebGL cosmic background with all GPU effects
+- **Classic Dark** - Clean dark theme, no WebGL
+- **Classic Light** - Clean light theme, no WebGL
+
+Switch via the theme picker in the header, or via the `theme` command in the hidden terminal.
+
+### Hidden Terminal
+
+Enter the Konami code anywhere on the site to reveal a full terminal emulator. Features:
+
+- `ls`, `cat`, `cd`, `pwd`, `whoami`, `clear`, `exit` - file system navigation
+- `snake` - playable Snake game rendered to the terminal canvas
+- `matrix` - Matrix rain screensaver
+- `roguelike` - procedural dungeon exploration
+- `theme` - switch site themes
+- `auth` - unlock the hidden CMS (see Progressive Disclosure below)
+- Easter eggs: `sudo make me a sandwich`, `rm -rf /`
+
+### Progressive Disclosure
+
+Four discovery layers, each lazy-loaded on demand:
+
+1. **DevTools console** - ASCII art logo + cryptic hint (0 KB cost)
+2. **Konami code** - Full xterm.js terminal drops in (~339 KB lazy)
+3. **Terminal commands** - Games, navigation, easter eggs (~9 KB lazy)
+4. **`auth <github_pat>`** - Unlocks full headless CMS with CodeMirror editor (~108 KB lazy)
 
 ### On-Device AI Chat
 
-Talk to an AI that knows your content. Runs entirely in the browser.
+Two-tier zero-dollar AI infrastructure:
 
-- **WebLLM** for local inference (no server, no API keys)
-- **RAG retrieval** with embedding search + BM25 fallback
-- Token-by-token streaming
-- Optional cloud fallback (requires Cloudflare Worker - see `worker/`)
+- **Tier 1 - Local**: WebGPU inference in your browser (Qwen/Phi models on your GPU, no API key, no server)
+- **Tier 2 - Cloud**: Groq free tier (1M tokens/day, LLaMA 70B/Mixtral 8x7B)
+- RAG retrieval with embedding search + BM25 fallback
+- Token-by-token streaming via Web Worker (main thread never blocks)
 
 ### Performance
 
-- **FPS Monitor**: Real-time tier classification, draggable overlay
-- **Potato Mode**: Auto-degrades when FPS drops below 27
+- **FPS Monitor**: Real-time 6-tier classification (SuperUltra/Ultra/High/Medium/Low/Potato), draggable overlay with canvas graph
+- **Potato Mode**: Auto-degrades when FPS drops below 27 (destroys flying icons, halves background resolution)
 - **Adaptive Loading**: Three-phase init, respects `prefers-reduced-motion`
 
 ### Search & Filter
 
-- Full-text search across posts
-- Tag and date filtering
+- Full-text search across posts with smart syntax (`"exact phrase" from:2024-01 tag:ai`)
+- Tag and date filtering with FLIP-animated chips
 - Shareable query params
-- Animated results with stagger
+- Staggered result animations
+
+---
+
+## Plugin System
+
+All features beyond the core blog are plugins registered in `src/ellyseum.config.ts`:
+
+```typescript
+const config: EllysConfig = {
+  plugins: [
+    () => import('./plugins/spa-router'),
+    () => import('./plugins/webgl-galaxy'),
+    () => import('./plugins/galaxy-extras'),
+    () => import('./plugins/konami-terminal'),
+    () => import('./plugins/terminal-theme'),
+    () => import('./plugins/terminal-games'),
+    () => import('./plugins/github-cms'),
+    () => import('./plugins/ai-chat'),
+  ],
+};
+```
+
+**Comment out a line to disable a plugin.** No rebuild needed - just refresh.
+
+Plugins load in three strategies: **eager** (immediate), **idle** (`requestIdleCallback`), and **lazy** (on-demand via trigger). Dependencies are resolved via topological sort.
+
+For the full plugin catalog, API reference, and how to create your own, see [docs/PLUGINS.md](docs/PLUGINS.md). For architecture deep-dive, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
 
@@ -194,12 +248,20 @@ Talk to an AI that knows your content. Runs entirely in the browser.
 
 | Command | Description |
 |---------|-------------|
-| `make prod` | Full production build (Vite + Jekyll) |
+| `make prod` | Full production build (content + Vite + Jekyll) |
 | `make content` | Process content from content/ directory |
-| `make serve` | Serve _site (after build) |
+| `make serve` | Start Jekyll dev server with live reload |
+| `make build` | Jekyll build only (use `make prod` for full build) |
+| `make clean` | Remove generated files |
 | `make new-post TITLE="..."` | Create new post |
 | `make draft TITLE="..."` | Create draft in content/drafts/ |
-| `npm run clean` | Remove all generated files |
+| `make sync-prompt` | Sync system-prompt.md to GitHub secret |
+| `make sync-chunks` | Sync context-chunks.json to GitHub secret |
+| `make sync-all` | Sync all secrets to GitHub |
+| `make rebuild` | Trigger GitHub Actions rebuild without pushing |
+| `make embeddings` | Regenerate embeddings (requires conda env) |
+| `npm run build` | Vite build only (inject + typecheck + bundle) |
+| `npm run clean` | Remove all generated data files |
 
 ---
 
@@ -207,23 +269,84 @@ Talk to an AI that knows your content. Runs entirely in the browser.
 
 ```
 src/
-├── main.ts                      # Entry point
-├── core/
-│   ├── experience.ts            # WebGL orchestrator
-│   └── cosmic-background.ts     # Perlin noise shader
-├── components/
-│   ├── cards-3d.ts              # 3D card interactions
-│   ├── flying-icons-gpu.ts      # Bézier icon animation
-│   ├── view-transitions.ts      # SPA navigation engine
-│   ├── typewriter.ts            # Realistic typing effect
-│   ├── search-filter.ts         # Search/filter UI
-│   ├── chat-widget/             # AI chat components
-│   └── ...
-├── workers/
-│   ├── nav-worker.ts            # Prefetch parser
-│   └── llm-worker.ts            # AI inference
-├── styles/                      # CSS (split into components)
-└── data/                        # Generated at build time
+├── main.ts                          # Entry point: theme, plugins, core components
+├── ellyseum.config.ts               # Plugin registry (comment out = disable)
+│
+├── core/                            # Infrastructure
+│   ├── plugin-manager.ts            # Lifecycle, dependency sort, triggers
+│   ├── plugin-types.ts              # EllysPlugin, PluginContext, TerminalCommand
+│   ├── event-bus.ts                 # Pub/sub for inter-plugin communication
+│   ├── theme-manager.ts             # Theme state and switching
+│   └── cosmic-background.ts         # WebGL renderer (FBM nebula + star field)
+│
+├── plugins/                         # Feature plugins
+│   ├── spa-router/                  # SPA navigation + view transitions
+│   │   ├── index.ts                 # Plugin entry (eager)
+│   │   ├── view-transitions.ts      # Card zoom, flying words, prefetch
+│   │   └── nav-worker.ts            # Web Worker for HTML parsing
+│   ├── webgl-galaxy/                # WebGL cosmic background (eager)
+│   ├── galaxy-extras/               # Cards 3D, flying icons, FPS, typewriter (idle)
+│   ├── konami-terminal/             # Hidden terminal via Konami code (lazy)
+│   ├── terminal-theme/              # Theme switching command (idle)
+│   ├── terminal-games/              # Snake, Matrix, Roguelike commands (idle)
+│   ├── github-cms/                  # Auth, editor, publish pipeline (idle)
+│   └── ai-chat/                     # Two-tier AI chatbot (lazy)
+│
+├── components/                      # Shared UI components
+│   ├── cards-3d.ts                  # 3D card tilt with mouse tracking
+│   ├── flying-icons-gpu.ts          # GPU-instanced Bezier path animation
+│   ├── fps-monitor.ts               # 6-tier adaptive FPS monitoring
+│   ├── typewriter.ts                # Tagline with realistic typos
+│   ├── search-filter.ts             # Full-text search with date/tag filtering
+│   ├── target-reticle.ts            # Animated [[ ]] brackets
+│   ├── constellation-text-gpu.ts    # GPU particle text (disabled)
+│   ├── theme-switcher.ts            # Theme selector UI
+│   ├── post-nav-sticky.ts           # Sticky navigation on post pages
+│   ├── back-to-top.ts              # Scroll-to-top button
+│   ├── code-copy.ts                # Copy buttons for code blocks
+│   └── chat-widget/                # AI chat UI components
+│       ├── chat-widget.ts
+│       ├── chat-ui.ts
+│       ├── chat-types.ts
+│       ├── chat-styles.ts
+│       └── index.ts
+│
+├── terminal/                        # Terminal shell implementation
+│   ├── terminal.ts                  # xterm.js wrapper with line editing
+│   ├── commands.ts                  # Command registry + builtins
+│   ├── editor.ts                    # CodeMirror markdown editor
+│   ├── github.ts                    # GitHub API client
+│   └── games/
+│       ├── snake.ts                 # Snake game
+│       ├── matrix.ts                # Matrix rain
+│       └── roguelike.ts             # Procedural dungeon
+│
+├── shaders/                         # GLSL shader modules
+│   ├── cosmic.ts                    # FBM nebula + star field
+│   ├── flying-icons.ts              # Icon path rendering
+│   └── constellation.ts            # Text-to-particle
+│
+├── workers/                         # Web Workers
+│   └── llm-worker.ts               # WebGPU LLM inference
+│
+├── styles/                          # CSS (~4,000 lines)
+│   ├── core.css                     # Entry point (imports all)
+│   ├── variables.css                # Design tokens
+│   ├── themes.css                   # Galaxy / Classic Dark / Classic Light
+│   ├── base.css                     # Base styles
+│   ├── components/                  # Component-scoped stylesheets
+│   ├── pages/                       # Page-specific styles
+│   └── utilities/                   # Animations, accessibility, reduced-motion
+│
+├── data/                            # Generated at build time
+│   ├── site-config.ts               # Injected from _data/site.yml
+│   ├── taglines.ts                  # Injected from _data/site.yml
+│   ├── context-chunks.ts            # Injected RAG context
+│   └── jocelyn-context.ts           # Personal context for AI
+│
+├── edit-button.ts                   # Floating edit button (authenticated pages)
+├── utils/performance.ts             # Performance tracking
+└── vite-env.d.ts                    # Vite type declarations
 ```
 
 ---
@@ -264,11 +387,15 @@ Gracefully degrades without WebGL. Respects `prefers-reduced-motion`.
 
 ## Performance Tiers
 
-| Tier | Trigger | Experience |
-|------|---------|------------|
-| **Full** | 60+ FPS | All effects |
-| **Potato** | <27 FPS | Reduced effects, lower resolution |
-| **Static** | No WebGL / reduced motion | CSS only |
+| Tier | FPS | Experience |
+|------|-----|------------|
+| **SuperUltra** | 480+ | All effects, maximum quality |
+| **Ultra** | 240+ | All effects |
+| **High** | 120+ | All effects |
+| **Medium** | 60+ | All effects |
+| **Low** | 30+ | All effects (monitoring) |
+| **Potato** | <27 | Reduced effects, lower resolution |
+| **Static** | No WebGL / reduced motion | CSS only, no GPU effects |
 
 ---
 
