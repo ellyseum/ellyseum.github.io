@@ -5,7 +5,9 @@
 export GEM_HOME := $(HOME)/.gems
 export PATH := $(HOME)/.gems/bin:$(PATH)
 
-.PHONY: install serve build clean deploy new-post help content
+.PHONY: install serve build clean deploy new-post help content prod \
+        embeddings sync-prompt sync-chunks sync-all rebuild draft \
+        serve-drafts doctor
 
 # Default target
 help:
@@ -33,8 +35,9 @@ content:
 install:
 	bundle install
 
-# Start development server with live reload
-serve:
+# Start development server with live reload.
+# Depends on `content` so _config.yml/CNAME/about exist before Jekyll runs.
+serve: content
 	bundle exec jekyll serve --livereload
 
 # Build for production
