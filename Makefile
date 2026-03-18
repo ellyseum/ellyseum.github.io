@@ -47,7 +47,7 @@ prod: content
 	npm run build
 	@echo "Building Jekyll..."
 	JEKYLL_ENV=production bundle exec jekyll build
-	@echo "Done! Run: https _site 4000"
+	@echo "Done! Run: npx serve _site -l 4000"
 
 # Clean generated files
 clean:

@@ -107,6 +107,12 @@ your-content-repo/
    make prod
    ```
 
+6. Preview locally with any static server (we use `npx serve` in examples,
+   but `python -m http.server`, `caddy file-server`, etc. all work):
+   ```bash
+   npx serve _site -l 4000
+   ```
+
 ---
 
 ## Configuration
