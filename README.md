@@ -8,6 +8,24 @@ A GPU-accelerated personal blog with a plugin architecture that pushes what's po
 
 ---
 
+## Prerequisites
+
+Install these before running setup:
+
+| Tool | Version | When you need it |
+|------|---------|------------------|
+| Node.js | 20+ | Always (Vite, build scripts) |
+| Ruby + bundler | 3.2+ | Always (Jekyll) |
+| Python | 3.11+ | Only for `make embeddings` (RAG generation) |
+| `gh` CLI (authenticated) | latest | Only for `make sync-*` and `make rebuild` |
+| `wrangler` CLI | latest | Only for deploying the optional Cloudflare Worker |
+
+Versions are what CI pins. Older may work but is unsupported.
+
+If you don't need the AI chat / RAG / worker features, you can skip Python, `gh`, and `wrangler` entirely — Node and Ruby are the minimum.
+
+---
+
 ## Quick Start
 
 ### Option 1: Single Repository (Simple)
