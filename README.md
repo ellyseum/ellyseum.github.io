@@ -28,9 +28,12 @@ If you don't need the AI chat / RAG / worker features, you can skip Python, `gh`
 
 ## Quick Start
 
-### Option 1: Single Repository (Simple)
+### Option 1: Single Repository (local preview / fork-and-edit only)
 
-Everything in one repo. Good for getting started.
+> **Heads up:** Option 1 is for local preview and tinkering. The user-source files
+> it tells you to create (`_data/site.yml`, `_posts/*.md`, `system-prompt.md`,
+> `context-chunks.json`) are gitignored, so they won't be tracked or deployed by
+> CI. To deploy, switch to Option 2.
 
 ```bash
 # Clone the template
@@ -55,12 +58,12 @@ cp context-chunks.json.example context-chunks.json
 
 # Build and preview
 make prod
-# Then: https _site 4000
+# Then: npx serve _site -l 4000
 ```
 
-### Option 2: Split Repositories (Recommended)
+### Option 2: Split Repositories (recommended for deploy)
 
-Separate your content from the template. Keeps the template updatable and your content private.
+Separate your content from the template. Keeps the template updatable and your content private — and works correctly with CI/CD.
 
 **Template Repo** (this one, public):
 - Fork or clone this repo
@@ -80,20 +83,24 @@ your-content-repo/
 
 **Setup:**
 
-1. Create your content repo with `site.yml` (copy from `_data/site.yml.example`)
+1. Create your content repo with `site.yml` (copy from `_data/site.yml.example`).
 
-2. Add secrets to your template fork:
-   - `CONTENT_PAT`: Personal access token with read access to content repo
-   - `SYSTEM_PROMPT`: Contents of your system-prompt.md (optional)
-   - `CONTEXT_CHUNKS`: Contents of your context-chunks.json (optional)
-
-3. Add repository variable:
-   - `CONTENT_REPO`: `username/content-repo-name`
-
-4. For local development, clone your content repo into `content/`:
+2. Clone the template fork and your content repo, then install dependencies:
    ```bash
-   git clone git@github.com:you/your-content.git content
+   git clone https://github.com/<you>/<your-fork>.git my-blog
+   cd my-blog
+   git clone git@github.com:<you>/<your-content>.git content
+   npm install
+   bundle install
    ```
+
+3. Add secrets to your template fork (Settings → Secrets and variables → Actions):
+   - `CONTENT_PAT`: Personal access token with read access to your content repo
+   - `SYSTEM_PROMPT`: Contents of your `system-prompt.md` (optional)
+   - `CONTEXT_CHUNKS`: Contents of your `context-chunks.json` (optional)
+
+4. Add a repository variable:
+   - `CONTENT_REPO`: `<you>/<your-content-repo>`
 
 5. Build:
    ```bash
