@@ -132,16 +132,30 @@ output = output.replace(placeholderRegex, (match, field) => {
 writeFileSync(CONFIG_OUTPUT, output);
 console.log(`Generated ${CONFIG_OUTPUT} from ${siteYamlPath}`);
 
-// Generate CNAME if domain is specified
+// Generate CNAME for custom domains only. Sites hosted at *.github.io
+// must NOT have a CNAME — Pages uses its presence as the signal that a
+// custom domain is configured, so writing one for username.github.io
+// breaks the deployment.
+const isGithubPagesHost = (host) =>
+  /\.github\.io$/i.test(host) || /^github\.io$/i.test(host);
+
 if (site.domain) {
-  writeFileSync(CNAME_OUTPUT, site.domain + '\n');
-  console.log(`Generated ${CNAME_OUTPUT}: ${site.domain}`);
+  if (isGithubPagesHost(site.domain)) {
+    console.log(`Skipping ${CNAME_OUTPUT}: ${site.domain} is a github.io host`);
+  } else {
+    writeFileSync(CNAME_OUTPUT, site.domain + '\n');
+    console.log(`Generated ${CNAME_OUTPUT}: ${site.domain}`);
+  }
 } else {
   // Extract domain from URL if not explicitly set
   try {
     const url = new URL(site.url);
-    writeFileSync(CNAME_OUTPUT, url.hostname + '\n');
-    console.log(`Generated ${CNAME_OUTPUT}: ${url.hostname} (from url)`);
+    if (isGithubPagesHost(url.hostname)) {
+      console.log(`Skipping ${CNAME_OUTPUT}: ${url.hostname} is a github.io host`);
+    } else {
+      writeFileSync(CNAME_OUTPUT, url.hostname + '\n');
+      console.log(`Generated ${CNAME_OUTPUT}: ${url.hostname} (from url)`);
+    }
   } catch (e) {
     console.warn('Warning: Could not generate CNAME - no domain or valid url specified');
   }

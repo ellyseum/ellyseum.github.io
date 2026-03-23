@@ -49,17 +49,27 @@ if [ -f "$CONTENT_DIR/site.yml" ]; then
   node scripts/generate-about.js
 fi
 
-# Copy all markdown posts
+# Copy markdown posts. Only files matching YYYY-MM-DD-*.md are treated
+# as posts — README.md, system-prompt.md, *.example.md, etc. live next
+# to posts in the content repo and would otherwise leak into _posts/.
 count=0
+skipped=0
 for file in "$CONTENT_DIR"/*.md; do
   if [ -f "$file" ]; then
     filename=$(basename "$file")
-    cp "$file" "$POSTS_DIR/$filename"
-    count=$((count + 1))
+    if echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}-.+\.md$'; then
+      cp "$file" "$POSTS_DIR/$filename"
+      count=$((count + 1))
+    else
+      skipped=$((skipped + 1))
+    fi
   fi
 done
 
 echo "Copied $count posts to $POSTS_DIR/"
+if [ $skipped -gt 0 ]; then
+  echo "Skipped $skipped non-post .md file(s) (README, system-prompt, etc.)"
+fi
 
 # Copy drafts if they exist
 if [ -d "$CONTENT_DIR/drafts" ]; then
