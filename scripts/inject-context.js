@@ -27,46 +27,54 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
-let prompt;
+let prompt = '';
+let haveSource = false;
 
 // Try environment variable first (CI), then local file
 if (process.env.SYSTEM_PROMPT) {
   console.log('Using SYSTEM_PROMPT from environment');
   prompt = process.env.SYSTEM_PROMPT;
+  haveSource = true;
 } else if (fs.existsSync(localPromptPath)) {
   console.log('Using system-prompt.md from local file');
   prompt = fs.readFileSync(localPromptPath, 'utf-8');
+  haveSource = true;
 } else {
-  console.error('Error: No system prompt found!');
-  console.error('Either set SYSTEM_PROMPT env var or create system-prompt.md');
-  process.exit(1);
+  console.warn('No system prompt found — emitting empty stub.');
+  console.warn('Set SYSTEM_PROMPT env var or create system-prompt.md to customize.');
 }
 
-// Base64 encode and chunk for obfuscation
-const encoded = Buffer.from(prompt).toString('base64');
-const chunkSize = 8; // Small chunks = more annoying
-const chunks = [];
-for (let i = 0; i < encoded.length; i += chunkSize) {
-  chunks.push(encoded.slice(i, i + chunkSize));
+// Base64 encode and chunk for obfuscation. When no prompt is configured,
+// we emit a plain empty-string export instead of running the obfuscator
+// over an empty buffer (which would emit `_decode()` with no args).
+let chunkFunctions = '';
+let assembly = '""';
+if (haveSource && prompt.length > 0) {
+  const encoded = Buffer.from(prompt).toString('base64');
+  const chunkSize = 8; // Small chunks = more annoying
+  const chunks = [];
+  for (let i = 0; i < encoded.length; i += chunkSize) {
+    chunks.push(encoded.slice(i, i + chunkSize));
+  }
+
+  // Generate randomized function names
+  const fnNames = chunks.map((_, i) => `_${Math.random().toString(36).slice(2, 8)}`);
+
+  // Shuffle the order for extra annoyance (but track original indices)
+  const indices = chunks.map((_, i) => i);
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+
+  // Build the chunked functions in shuffled order
+  chunkFunctions = indices.map(i =>
+    `const ${fnNames[i]}=()=>"${chunks[i]}";`
+  ).join('\n');
+
+  // Build the assembly in correct order
+  assembly = fnNames.map(fn => `${fn}()`).join('+');
 }
-
-// Generate randomized function names
-const fnNames = chunks.map((_, i) => `_${Math.random().toString(36).slice(2, 8)}`);
-
-// Shuffle the order for extra annoyance (but track original indices)
-const indices = chunks.map((_, i) => i);
-for (let i = indices.length - 1; i > 0; i--) {
-  const j = Math.floor(Math.random() * (i + 1));
-  [indices[i], indices[j]] = [indices[j], indices[i]];
-}
-
-// Build the chunked functions in shuffled order
-const chunkFunctions = indices.map(i =>
-  `const ${fnNames[i]}=()=>"${chunks[i]}";`
-).join('\n');
-
-// Build the assembly in correct order
-const assembly = fnNames.map(fn => `${fn}()`).join('+');
 
 // Load chat greetings from site.yml if available
 let greetingLocal = `Hey! I'm the local AI assistant. I run 100% in your browser via WebGPU - no data leaves your device, nothing is sent to any server. Pretty cool, right?

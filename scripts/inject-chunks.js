@@ -29,9 +29,9 @@ if (process.env.CONTEXT_CHUNKS) {
   console.log('Using context-chunks.json from local file');
   chunksData = JSON.parse(fs.readFileSync(localChunksPath, 'utf-8'));
 } else {
-  console.error('Error: No context chunks found!');
-  console.error('Either set CONTEXT_CHUNKS env var or create context-chunks.json');
-  process.exit(1);
+  console.warn('No context chunks found — emitting empty stub.');
+  console.warn('Set CONTEXT_CHUNKS env var or create context-chunks.json to enable RAG.');
+  chunksData = { chunks: [], categories: [] };
 }
 
 // Build the TypeScript file
