@@ -51,6 +51,7 @@ if (!config.contact) {
 
 const site = config.site;
 const contact = config.contact;
+const cms = config.cms || {};
 
 // Ensure output directory exists
 if (!existsSync(OUTPUT_DIR)) {
@@ -65,6 +66,12 @@ const siteConfig = {
   linkedin: contact.linkedin || '',
   domain: site.domain || '',
   portfolio: contact.portfolio || '',
+  // CMS — used by the in-browser editor when authenticated. Lets the user
+  // commit posts to a repo other than the template fork (e.g. their split
+  // content repo). Empty defaults preserve the previous hard-coded behavior.
+  content_repo: cms.content_repo || '',
+  github_owner: cms.github_owner || '',
+  content_posts_path: cms.content_posts_path || '',
 };
 
 // Generate TypeScript file
@@ -78,6 +85,9 @@ export const SITE_CONFIG = {
   linkedin: ${JSON.stringify(siteConfig.linkedin)},
   domain: ${JSON.stringify(siteConfig.domain)},
   portfolio: ${JSON.stringify(siteConfig.portfolio)},
+  content_repo: ${JSON.stringify(siteConfig.content_repo)},
+  github_owner: ${JSON.stringify(siteConfig.github_owner)},
+  content_posts_path: ${JSON.stringify(siteConfig.content_posts_path)},
 } as const;
 
 export type SiteConfig = typeof SITE_CONFIG;
