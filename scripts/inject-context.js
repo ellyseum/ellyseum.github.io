@@ -127,7 +127,7 @@ const output = `// AUTO-GENERATED - DO NOT EDIT
 
 ${chunkFunctions}
 const _decode=(s:string)=>decodeURIComponent(atob(s).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-export const JOCELYN_SYSTEM_PROMPT=_decode(${assembly});
+export const SYSTEM_PROMPT=_decode(${assembly});
 
 export const GREETING_MESSAGE_LOCAL = \`${escapeTemplateLiteral(greetingLocal)}\`;
 

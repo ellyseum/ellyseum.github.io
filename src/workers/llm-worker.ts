@@ -7,7 +7,7 @@
 import * as webllm from '@mlc-ai/web-llm';
 import type { MainMessage, WorkerMessage, ChatMessage } from '@/components/chat-widget/chat-types';
 import { EMBEDDING_MODEL } from '@/components/chat-widget/chat-types';
-import { JOCELYN_SYSTEM_PROMPT } from '@/data/jocelyn-context';
+import { SYSTEM_PROMPT } from '@/data/jocelyn-context';
 
 let chatEngine: webllm.MLCEngineInterface | null = null;
 let embeddingEngine: webllm.MLCEngineInterface | null = null;
@@ -278,8 +278,8 @@ async function generate(messages: ChatMessage[]): Promise<void> {
 
     // Build system prompt with RAG context
     const systemPrompt = context
-      ? `${JOCELYN_SYSTEM_PROMPT}${context}`
-      : JOCELYN_SYSTEM_PROMPT;
+      ? `${SYSTEM_PROMPT}${context}`
+      : SYSTEM_PROMPT;
 
     // Build messages with system prompt
     const llmMessages: webllm.ChatCompletionMessageParam[] = [
