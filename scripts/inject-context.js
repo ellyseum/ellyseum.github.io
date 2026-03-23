@@ -14,7 +14,14 @@ import { parse } from 'yaml';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(__dirname, '../src/data');
 const outputPath = path.join(dataDir, 'jocelyn-context.ts');
-const localPromptPath = path.join(__dirname, '../system-prompt.md');
+
+// system-prompt.md lookup paths, in priority order. Local-first, then
+// the content/ folder (split-repo layout where the prompt lives in the
+// content repo cloned into content/).
+const promptPaths = [
+  path.join(__dirname, '../system-prompt.md'),
+  path.join(__dirname, '../content/system-prompt.md')
+];
 
 // Site YAML paths to check
 const siteYamlPaths = [
@@ -30,18 +37,24 @@ if (!fs.existsSync(dataDir)) {
 let prompt = '';
 let haveSource = false;
 
-// Try environment variable first (CI), then local file
+// Resolution order: env var (CI) → root system-prompt.md → content/system-prompt.md
 if (process.env.SYSTEM_PROMPT) {
   console.log('Using SYSTEM_PROMPT from environment');
   prompt = process.env.SYSTEM_PROMPT;
   haveSource = true;
-} else if (fs.existsSync(localPromptPath)) {
-  console.log('Using system-prompt.md from local file');
-  prompt = fs.readFileSync(localPromptPath, 'utf-8');
-  haveSource = true;
 } else {
-  console.warn('No system prompt found — emitting empty stub.');
-  console.warn('Set SYSTEM_PROMPT env var or create system-prompt.md to customize.');
+  for (const p of promptPaths) {
+    if (fs.existsSync(p)) {
+      console.log(`Using system prompt from ${path.relative(path.join(__dirname, '..'), p)}`);
+      prompt = fs.readFileSync(p, 'utf-8');
+      haveSource = true;
+      break;
+    }
+  }
+  if (!haveSource) {
+    console.warn('No system prompt found — emitting empty stub.');
+    console.warn('Set SYSTEM_PROMPT env var or create system-prompt.md (root or content/) to customize.');
+  }
 }
 
 // Base64 encode and chunk for obfuscation. When no prompt is configured,

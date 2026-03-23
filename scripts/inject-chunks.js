@@ -12,7 +12,14 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(__dirname, '../src/data');
 const outputPath = path.join(dataDir, 'context-chunks.ts');
-const localChunksPath = path.join(__dirname, '../context-chunks.json');
+
+// context-chunks.json lookup paths, priority order. Root first, then
+// the content/ folder for split-repo layouts where the file ships in
+// the content repo.
+const chunkPaths = [
+  path.join(__dirname, '../context-chunks.json'),
+  path.join(__dirname, '../content/context-chunks.json')
+];
 
 // Ensure output directory exists
 if (!fs.existsSync(dataDir)) {
@@ -21,17 +28,25 @@ if (!fs.existsSync(dataDir)) {
 
 let chunksData;
 
-// Try environment variable first (CI), then local file
+// Resolution order: env var (CI) → root context-chunks.json → content/context-chunks.json
 if (process.env.CONTEXT_CHUNKS) {
   console.log('Using CONTEXT_CHUNKS from environment');
   chunksData = JSON.parse(process.env.CONTEXT_CHUNKS);
-} else if (fs.existsSync(localChunksPath)) {
-  console.log('Using context-chunks.json from local file');
-  chunksData = JSON.parse(fs.readFileSync(localChunksPath, 'utf-8'));
 } else {
-  console.warn('No context chunks found — emitting empty stub.');
-  console.warn('Set CONTEXT_CHUNKS env var or create context-chunks.json to enable RAG.');
-  chunksData = { chunks: [], categories: [] };
+  let loaded = false;
+  for (const p of chunkPaths) {
+    if (fs.existsSync(p)) {
+      console.log(`Using chunks from ${path.relative(path.join(__dirname, '..'), p)}`);
+      chunksData = JSON.parse(fs.readFileSync(p, 'utf-8'));
+      loaded = true;
+      break;
+    }
+  }
+  if (!loaded) {
+    console.warn('No context chunks found — emitting empty stub.');
+    console.warn('Set CONTEXT_CHUNKS env var or create context-chunks.json (root or content/) to enable RAG.');
+    chunksData = { chunks: [], categories: [] };
+  }
 }
 
 // Build the TypeScript file
