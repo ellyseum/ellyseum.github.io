@@ -24,7 +24,9 @@ fi
 if [ ! -d "$CONTENT_DIR" ]; then
   echo "No content/ directory found."
   if [ -f "$DATA_DIR/site.yml" ]; then
-    echo "Found existing _data/site.yml, generating about page..."
+    echo "Found existing _data/site.yml, generating Jekyll config and pages..."
+    node scripts/generate-config.js
+    node scripts/generate-taglines.js
     node scripts/generate-about.js
   else
     echo "Using existing _posts/ if any."
@@ -42,9 +44,14 @@ if [ -f "$CONTENT_DIR/site.yml" ]; then
   cp "$CONTENT_DIR/site.yml" "$DATA_DIR/site.yml"
   echo "Copied site.yml to $DATA_DIR/"
 
-  # Generate about page from site.yml. _config.yml, CNAME, and taglines.ts
-  # are produced by `npm run inject-all` (which always runs after content)
-  # so we don't run those generators here.
+  # Generate everything that depends on site.yml: Jekyll config, CNAME,
+  # taglines, and the about page. These are owned by the content pipeline
+  # so `make serve` (which only runs `make content`) gets a working build
+  # without needing a separate `npm run inject-all` pass.
+  echo "Generating Jekyll config and CNAME..."
+  node scripts/generate-config.js
+  echo "Generating taglines.ts..."
+  node scripts/generate-taglines.js
   echo "Generating about page..."
   node scripts/generate-about.js
 fi

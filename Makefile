@@ -72,11 +72,7 @@ new-post:
 ifndef TITLE
 	$(error TITLE is required. Usage: make new-post TITLE="My Post Title")
 endif
-	@if [ ! -d content ]; then \
-	  echo "Error: content/ directory not found."; \
-	  echo "Create it (mkdir content) or use 'make draft' to put a draft in content/drafts/."; \
-	  exit 1; \
-	fi
+	@mkdir -p content
 	@filename="content/$$(date +%Y-%m-%d)-$$(echo '$(TITLE)' | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
 	if [ -e "$$filename" ]; then \
 	  echo "Error: $$filename already exists. Pick a different title or delete the existing file."; \
