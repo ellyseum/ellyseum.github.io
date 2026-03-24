@@ -17,21 +17,41 @@ export class GitHubClient {
   private repo: string;
   private branch: string;
 
+  // Where posts live in the target repo: '' for repo root, or e.g. '_posts'
+  // for the Jekyll default. Both reads and writes go through this.
   private postsPath: string;
+  // Where drafts live. Defaults to 'drafts' (the layout fetch-content.sh
+  // expects). Set 'cms.content_drafts_path' in site.yml to override.
+  private draftsPath: string;
 
   constructor(token: string) {
     this.token = token;
 
-    // Get repo info from site config or defaults
     const config = SITE_CONFIG as Record<string, unknown>;
-    const contentRepo = (config.content_repo as string) || 'ellyseum-content';
-    const repoOwner = (config.github_owner as string) || 'ellyseum';
 
-    this.owner = repoOwner;
-    this.repo = contentRepo;
+    // Fall back to site.repository ("owner/repo") when explicit cms.*
+    // overrides aren't set. This makes the CMS commit to the same repo
+    // the site was generated from by default.
+    const repoString = (config.repository as string) || '';
+    const slashIdx = repoString.indexOf('/');
+    const defaultOwner = slashIdx >= 0 ? repoString.slice(0, slashIdx) : '';
+    const defaultRepo = slashIdx >= 0 ? repoString.slice(slashIdx + 1) : '';
+
+    this.owner = (config.github_owner as string) || defaultOwner;
+    this.repo = (config.content_repo as string) || defaultRepo;
     this.branch = 'main';
-    // Where posts live in the content repo: '' for root, '_posts' for Jekyll default
     this.postsPath = (config.content_posts_path as string) || '';
+    this.draftsPath = (config.content_drafts_path as string) || 'drafts';
+  }
+
+  // Compose a content-repo-relative path for a post/draft filename. Public
+  // so plugins can build the same paths the client uses for read/write.
+  postFilePath(filename: string): string {
+    return this.postsPath ? `${this.postsPath}/${filename}` : filename;
+  }
+
+  draftFilePath(filename: string): string {
+    return this.draftsPath ? `${this.draftsPath}/${filename}` : filename;
   }
 
   private async fetch(endpoint: string, options: RequestInit = {}): Promise<Response> {
@@ -84,9 +104,8 @@ export class GitHubClient {
       const [, year, month, day, slug] = postMatch;
       // Remove trailing slash from slug if present
       const cleanSlug = slug.replace(/\/$/, '');
-      // Build path: postsPath + YYYY-MM-DD-slug.md
       const filename = `${year}-${month}-${day}-${cleanSlug}.md`;
-      filePath = this.postsPath ? `${this.postsPath}/${filename}` : filename;
+      filePath = this.postFilePath(filename);
     } else if (urlPath === '/' || urlPath === '') {
       filePath = 'index.md';
     } else {
@@ -199,17 +218,25 @@ export class GitHubClient {
   }
 
   async deletePost(slug: string): Promise<boolean> {
-    // Find the post file
+    // List posts at the configured path. Empty postsPath means repo root.
+    const listPath = this.postsPath || '';
     const response = await this.fetch(
-      `/repos/${this.owner}/${this.repo}/contents/_posts?ref=${this.branch}`
+      `/repos/${this.owner}/${this.repo}/contents/${listPath}?ref=${this.branch}`
     );
 
     if (!response.ok) {
       throw new Error('Failed to list posts');
     }
 
-    const files = await response.json();
-    const file = files.find((f: { name: string }) => f.name.includes(slug));
+    const allFiles = await response.json();
+    // At repo root the listing includes everything; narrow to YYYY-MM-DD-*.md
+    // before matching the slug so we don't accidentally delete README.md etc.
+    const postFiles = (allFiles as { name: string }[]).filter(f =>
+      /^\d{4}-\d{2}-\d{2}-.+\.md$/.test(f.name)
+    );
+    const file = postFiles.find(f => f.name.includes(slug)) as
+      | { name: string; path: string; sha: string }
+      | undefined;
 
     if (!file) {
       throw new Error(`Post not found: ${slug}`);
@@ -262,10 +289,9 @@ export class GitHubClient {
   }
 
   async publishDraft(slug: string): Promise<boolean> {
-    // Get the draft file
-    const draftPath = `_drafts`;
+    // List drafts at the configured drafts path
     const response = await this.fetch(
-      `/repos/${this.owner}/${this.repo}/contents/${draftPath}?ref=${this.branch}`
+      `/repos/${this.owner}/${this.repo}/contents/${this.draftsPath}?ref=${this.branch}`
     );
 
     if (!response.ok) {
@@ -288,8 +314,8 @@ export class GitHubClient {
     // Remove draft: true from frontmatter
     const content = draft.content.replace(/^(---[\s\S]*?)draft:\s*true\n?([\s\S]*?---)/, '$1$2');
 
-    // Create in _posts
-    const postPath = `_posts/${draftFile.name}`;
+    // Create at the configured posts path
+    const postPath = this.postFilePath(draftFile.name);
     await this.saveFile(postPath, content, `Publish: ${slug}`);
 
     // Delete draft

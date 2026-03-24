@@ -42,12 +42,13 @@ contact:
   portfolio: "https://yourportfolio.com"
 
 # In-browser CMS configuration (optional). Used by the authenticated
-# editor to commit posts to a content repo. Leave blank if you want
-# the editor to commit to the same repo it's running from.
+# editor to commit posts to a content repo. Leave blank to commit to
+# the same repo named in `site.repository` above.
 cms:
-  content_repo: ""        # e.g. "your-content-repo-name" (no owner)
-  github_owner: ""        # e.g. "yourusername"
-  content_posts_path: ""  # "" for repo root, or "_posts" for Jekyll default
+  content_repo: ""         # e.g. "your-content-repo-name" (no owner)
+  github_owner: ""         # e.g. "yourusername"
+  content_posts_path: ""   # "" for repo root, or "_posts" for Jekyll default
+  content_drafts_path: ""  # default "drafts" — where drafts live in the content repo
 
 # Chat widget configuration
 chat:

@@ -203,7 +203,7 @@ draft: true
         term.writeLine(`Creating draft: ${filename}...`);
 
         openEditor({
-          path: `/_drafts/${filename}`,
+          path: `/${client.draftFilePath(filename)}`,
           content: template,
           github: client,
           isNew: true,
