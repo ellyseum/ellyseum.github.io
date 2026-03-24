@@ -29,20 +29,23 @@ MODEL_NAME = "Snowflake/snowflake-arctic-embed-m"
 
 
 def load_chunks():
-    """Load chunk data from JSON env var or local file."""
-    # Try environment variable first (CI), then local file
+    """Load chunk data from JSON env var or local file (root or content/)."""
+    # Try environment variable first (CI), then local files
     if os.environ.get('CONTEXT_CHUNKS'):
         print("Loading chunks from CONTEXT_CHUNKS env var")
         data = json.loads(os.environ['CONTEXT_CHUNKS'])
         return data.get('chunks', [])
 
-    # Try local JSON file
     script_dir = Path(__file__).parent
-    local_json = script_dir.parent / 'context-chunks.json'
-    if local_json.exists():
-        print(f"Loading chunks from {local_json}")
-        data = json.loads(local_json.read_text())
-        return data.get('chunks', [])
+    candidates = [
+        script_dir.parent / 'context-chunks.json',
+        script_dir.parent / 'content' / 'context-chunks.json',
+    ]
+    for path in candidates:
+        if path.exists():
+            print(f"Loading chunks from {path}")
+            data = json.loads(path.read_text())
+            return data.get('chunks', [])
 
     return []
 
@@ -61,8 +64,19 @@ def main():
     print(f"Found {len(chunks)} chunks")
 
     if not chunks:
-        print("Error: No chunks found!")
-        sys.exit(1)
+        # No chunks available — emit an empty embeddings.json so the chat
+        # widget still loads cleanly and the build doesn't fail. RAG just
+        # has nothing to retrieve from until the user adds chunks.
+        print("No context chunks available — writing empty embeddings.json")
+        empty = {
+            'model': 'snowflake-arctic-embed-m',
+            'dimensions': 0,
+            'chunks': []
+        }
+        with open(output_path, 'w') as f:
+            json.dump(empty, f)
+        print(f"Output file: {output_path}")
+        return
 
     # Load model from HuggingFace
     print(f"Loading {MODEL_NAME} from HuggingFace...")

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 /**
  * Injects system prompt into worker at build time
- * Reads from: ../system-prompt.md (local) or SYSTEM_PROMPT env var (CI)
+ * Reads from: ../system-prompt.md, ../content/system-prompt.md, or
+ *             SYSTEM_PROMPT env var (CI). Emits an empty stub if none
+ *             of those exist so the worker still compiles.
  * Writes to: src/system-prompt.ts
  */
 
@@ -9,21 +11,31 @@ const fs = require('fs');
 const path = require('path');
 
 const outputPath = path.join(__dirname, '../src/system-prompt.ts');
-const localPromptPath = path.join(__dirname, '../../system-prompt.md');
+const promptPaths = [
+  path.join(__dirname, '../../system-prompt.md'),
+  path.join(__dirname, '../../content/system-prompt.md'),
+];
 
-let prompt;
+let prompt = '';
 
-// Try environment variable first (CI), then local file
+// Resolution order: env var (CI) → root system-prompt.md → content/system-prompt.md
 if (process.env.SYSTEM_PROMPT) {
   console.log('Using SYSTEM_PROMPT from environment');
   prompt = process.env.SYSTEM_PROMPT;
-} else if (fs.existsSync(localPromptPath)) {
-  console.log('Using system-prompt.md from local file');
-  prompt = fs.readFileSync(localPromptPath, 'utf-8');
 } else {
-  console.error('Error: No system prompt found!');
-  console.error('Either set SYSTEM_PROMPT env var or create system-prompt.md');
-  process.exit(1);
+  let loaded = false;
+  for (const p of promptPaths) {
+    if (fs.existsSync(p)) {
+      console.log(`Using system prompt from ${path.relative(path.join(__dirname, '../..'), p)}`);
+      prompt = fs.readFileSync(p, 'utf-8');
+      loaded = true;
+      break;
+    }
+  }
+  if (!loaded) {
+    console.warn('No system prompt found — emitting empty stub.');
+    console.warn('Set SYSTEM_PROMPT env var or create system-prompt.md (root or content/) to customize.');
+  }
 }
 
 // Escape backticks and ${} for template literal
