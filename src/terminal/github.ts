@@ -17,11 +17,11 @@ export class GitHubClient {
   private repo: string;
   private branch: string;
 
-  // Where posts live in the target repo: '' for repo root, or e.g. '_posts'
-  // for the Jekyll default. Both reads and writes go through this.
+  // Repo-relative directory where posts live. Empty means repo root.
+  // Both reads and writes go through this.
   private postsPath: string;
-  // Where drafts live. Defaults to 'drafts' (the layout fetch-content.sh
-  // expects). Set 'cms.content_drafts_path' in site.yml to override.
+  // Repo-relative directory where drafts live. Set via cms.content_drafts_path
+  // in site.yml; fetch-content.sh expects the default.
   private draftsPath: string;
 
   constructor(token: string) {
@@ -92,9 +92,9 @@ export class GitHubClient {
   }
 
   async getFileContent(urlPath: string): Promise<string | null> {
-    // Convert URL path to file path
-    // /2024/01/15/my-post/ -> _posts/2024-01-15-my-post.md
-    // /about/ -> about/index.md
+    // Convert a Jekyll URL path to the file path in the content repo,
+    // routing posts through postFilePath() and treating other URLs as
+    // static pages.
 
     let filePath: string;
 
