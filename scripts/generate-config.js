@@ -6,7 +6,7 @@
  * Writes: _config.yml, CNAME
  */
 
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, unlinkSync } from 'fs';
 import { parse } from 'yaml';
 
 const SITE_YAML_PATHS = ['_data/site.yml', 'content/site.yml'];
@@ -135,28 +135,34 @@ console.log(`Generated ${CONFIG_OUTPUT} from ${siteYamlPath}`);
 // Generate CNAME for custom domains only. Sites hosted at *.github.io
 // must NOT have a CNAME — Pages uses its presence as the signal that a
 // custom domain is configured, so writing one for username.github.io
-// breaks the deployment.
+// breaks the deployment. If a stale CNAME from a previous build is
+// still on disk, remove it so switching off a custom domain takes effect.
 const isGithubPagesHost = (host) =>
   /\.github\.io$/i.test(host) || /^github\.io$/i.test(host);
 
+const removeStaleCname = (reason) => {
+  if (existsSync(CNAME_OUTPUT)) {
+    unlinkSync(CNAME_OUTPUT);
+    console.log(`Removed stale ${CNAME_OUTPUT} (${reason})`);
+  }
+};
+
+let cnameHost = null;
 if (site.domain) {
-  if (isGithubPagesHost(site.domain)) {
-    console.log(`Skipping ${CNAME_OUTPUT}: ${site.domain} is a github.io host`);
-  } else {
-    writeFileSync(CNAME_OUTPUT, site.domain + '\n');
-    console.log(`Generated ${CNAME_OUTPUT}: ${site.domain}`);
-  }
+  cnameHost = site.domain;
 } else {
-  // Extract domain from URL if not explicitly set
   try {
-    const url = new URL(site.url);
-    if (isGithubPagesHost(url.hostname)) {
-      console.log(`Skipping ${CNAME_OUTPUT}: ${url.hostname} is a github.io host`);
-    } else {
-      writeFileSync(CNAME_OUTPUT, url.hostname + '\n');
-      console.log(`Generated ${CNAME_OUTPUT}: ${url.hostname} (from url)`);
-    }
+    cnameHost = new URL(site.url).hostname;
   } catch (e) {
-    console.warn('Warning: Could not generate CNAME - no domain or valid url specified');
+    console.warn('Warning: Could not derive CNAME host from site.url');
   }
+}
+
+if (!cnameHost) {
+  removeStaleCname('no domain or valid url configured');
+} else if (isGithubPagesHost(cnameHost)) {
+  removeStaleCname(`${cnameHost} is a github.io host`);
+} else {
+  writeFileSync(CNAME_OUTPUT, cnameHost + '\n');
+  console.log(`Generated ${CNAME_OUTPUT}: ${cnameHost}`);
 }

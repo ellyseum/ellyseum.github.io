@@ -114,17 +114,25 @@ serve-drafts:
 doctor:
 	bundle exec jekyll doctor
 
-# Sync system prompt to GitHub secret
+# Sync system prompt to GitHub secret. Prefer content/system-prompt.md
+# (split-repo layout) and fall back to the repo root.
 sync-prompt:
-	@echo "Syncing system prompt to GitHub secret..."
-	@gh secret set SYSTEM_PROMPT < system-prompt.md
-	@echo "System prompt synced to GitHub!"
+	@if [ -f content/system-prompt.md ]; then src=content/system-prompt.md; \
+	elif [ -f system-prompt.md ]; then src=system-prompt.md; \
+	else echo "No system-prompt.md found in content/ or repo root"; exit 1; fi; \
+	echo "Syncing $$src to SYSTEM_PROMPT..."; \
+	gh secret set SYSTEM_PROMPT < $$src; \
+	echo "System prompt synced to GitHub!"
 
-# Sync context chunks to GitHub secret
+# Sync context chunks to GitHub secret. Prefer content/context-chunks.json,
+# fall back to the repo root.
 sync-chunks:
-	@echo "Syncing context chunks to GitHub secret..."
-	@gh secret set CONTEXT_CHUNKS < context-chunks.json
-	@echo "Context chunks synced to GitHub!"
+	@if [ -f content/context-chunks.json ]; then src=content/context-chunks.json; \
+	elif [ -f context-chunks.json ]; then src=context-chunks.json; \
+	else echo "No context-chunks.json found in content/ or repo root"; exit 1; fi; \
+	echo "Syncing $$src to CONTEXT_CHUNKS..."; \
+	gh secret set CONTEXT_CHUNKS < $$src; \
+	echo "Context chunks synced to GitHub!"
 
 # Sync all secrets
 sync-all: sync-prompt sync-chunks
