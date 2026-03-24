@@ -9,6 +9,7 @@ site:
   url: "https://yourdomain.com"
   domain: "yourdomain.com"
   repository: "username/repo-name"
+  image: "/assets/og-image.png"  # Used by jekyll-seo-tag for OpenGraph cards
 
 # Rotating taglines for the typewriter effect on the home page
 taglines:

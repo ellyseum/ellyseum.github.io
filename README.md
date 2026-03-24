@@ -267,7 +267,7 @@ const config: EllysConfig = {
 };
 ```
 
-**Comment out a line to disable a plugin.** No rebuild needed - just refresh.
+**Comment out a line to disable a plugin**, then run `npm run build` (or restart `vite dev`). The plugin registry is statically resolved by Vite at build time, so changes require a rebuild.
 
 Plugins load in three strategies: **eager** (immediate), **idle** (`requestIdleCallback`), and **lazy** (on-demand via trigger). Dependencies are resolved via topological sort.
 
@@ -384,22 +384,33 @@ src/
 
 ## Cloud Chat (Optional)
 
-For devices without WebGPU, you can deploy a Cloudflare Worker as a fallback:
+For devices without WebGPU, you can deploy a Cloudflare Worker as a fallback. Prerequisites: a Cloudflare account, the `wrangler` CLI installed and logged in (`wrangler login`), and a Groq API key.
 
 ```bash
 cd worker
 npm install
-cp wrangler.toml.example wrangler.toml
-# Edit wrangler.toml with your settings
 
-# Set your Groq API key
+# Configure the worker
+cp wrangler.toml.example wrangler.toml
+# Edit wrangler.toml: set `name`, fill in `account_id` (or run
+# `wrangler whoami` to find it), and update ALLOWED_ORIGINS to
+# include your blog's domain(s).
+
+# The worker reads its system prompt from worker/src/system-prompt.ts.
+# Either:
+#   - copy the template fork's system-prompt.md into the worker via
+#     `cp ../system-prompt.md src/system-prompt.ts` and wrap it in
+#     `export const SYSTEM_PROMPT = \`...\`;` , or
+#   - rely on the SYSTEM_PROMPT secret you set with `wrangler secret put`.
+
+# Set your Groq API key as a worker secret
 wrangler secret put GROQ_API_KEY
 
 # Deploy
 npm run deploy
 ```
 
-Then set `VITE_GROQ_PROXY_URL` in your environment to enable cloud fallback.
+Then set `VITE_GROQ_PROXY_URL` in your template fork's environment (and as a CI secret) to enable cloud fallback. The blog will use WebGPU when available and fall back to the proxy when the device can't run a local model.
 
 ---
 
