@@ -53,8 +53,10 @@ cp context-chunks.json.example context-chunks.json
 # Edit system-prompt.md with your AI assistant prompt
 # Edit context-chunks.json with your RAG context
 
-# Add your blog posts to _posts/
+# Write a post — content/ is the canonical source, copied to _posts/ at build time.
+# (Both `make new-post TITLE="..."` and writing files directly to content/ work.)
 # Format: YYYY-MM-DD-title-slug.md
+make new-post TITLE="My First Post"
 
 # Build and preview
 make prod
@@ -96,8 +98,13 @@ your-content-repo/
 
 3. Add secrets to your template fork (Settings → Secrets and variables → Actions):
    - `CONTENT_PAT`: Personal access token with read access to your content repo
-   - `SYSTEM_PROMPT`: Contents of your `system-prompt.md` (optional)
-   - `CONTEXT_CHUNKS`: Contents of your `context-chunks.json` (optional)
+   - `SYSTEM_PROMPT`: Contents of your `system-prompt.md` (optional — see note below)
+   - `CONTEXT_CHUNKS`: Contents of your `context-chunks.json` (optional — see note below)
+
+   The system prompt and context chunks can also live as files in your
+   content repo (`content/system-prompt.md`, `content/context-chunks.json`)
+   instead of as GitHub secrets. Either way works; pick whichever fits your
+   workflow. The build resolves env vars first, then root, then `content/`.
 
 4. Add a repository variable:
    - `CONTENT_REPO`: `<you>/<your-content-repo>`
@@ -130,6 +137,7 @@ site:
   url: "https://yourdomain.com"
   domain: "yourdomain.com"
   repository: "username/repo-name"
+  image: "/assets/og-image.png"  # OpenGraph card image (jekyll-seo-tag)
 
 taglines:
   - "First rotating tagline"
@@ -154,6 +162,14 @@ contact:
   github: "https://github.com/username"
   linkedin: "https://linkedin.com/in/username"
   portfolio: "https://yourportfolio.com"
+
+# Optional: in-browser CMS configuration. Leave any field blank to fall
+# back to `site.repository` above.
+cms:
+  content_repo: ""         # e.g. "your-content-repo-name"
+  github_owner: ""         # e.g. "yourusername"
+  content_posts_path: ""   # "" for repo root
+  content_drafts_path: ""  # default "drafts"
 
 chat:
   greeting_local: |
@@ -396,12 +412,13 @@ cp wrangler.toml.example wrangler.toml
 # `wrangler whoami` to find it), and update ALLOWED_ORIGINS to
 # include your blog's domain(s).
 
-# The worker reads its system prompt from worker/src/system-prompt.ts.
-# Either:
-#   - copy the template fork's system-prompt.md into the worker via
-#     `cp ../system-prompt.md src/system-prompt.ts` and wrap it in
-#     `export const SYSTEM_PROMPT = \`...\`;` , or
-#   - rely on the SYSTEM_PROMPT secret you set with `wrangler secret put`.
+# The worker injects its system prompt at build time. `npm run deploy`
+# (and `npm run dev`) automatically runs scripts/inject-prompt.js, which
+# reads in this priority order:
+#   1. SYSTEM_PROMPT env var
+#   2. ../system-prompt.md (template-fork root)
+#   3. ../content/system-prompt.md (split-repo content folder)
+# If none of those exist the worker still compiles with an empty prompt.
 
 # Set your Groq API key as a worker secret
 wrangler secret put GROQ_API_KEY

@@ -73,7 +73,7 @@ The heaviest plugin by functionality. Registers five commands:
 - **`logout`** - Clears the stored token.
 - **`edit [path]`** - Opens a CodeMirror markdown editor with syntax highlighting, diff viewer, AI rewrite panel, and frontmatter editor. Fetches content from GitHub.
 - **`new "Title"`** - Creates a new draft with frontmatter template.
-- **`publish <slug>`** - Moves a draft to `_posts/`, strips `draft: true` frontmatter, adds `redirect_from` entries, commits via GitHub API.
+- **`publish <slug>`** - Moves a draft from the configured drafts path to the configured posts path (see `cms.content_*_path` in site.yml), strips `draft: true` frontmatter, adds `redirect_from` entries, commits via GitHub API.
 - **`rm <slug>`** - Deletes a post.
 
 Also injects a floating edit button on post pages when authenticated, a pending edits indicator when unsaved changes exist, and re-injects both after SPA navigation. Secret shortcut: `window._a("pat")` in DevTools bypasses the terminal.
