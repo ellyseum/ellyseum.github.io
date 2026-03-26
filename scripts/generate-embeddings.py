@@ -36,10 +36,12 @@ def load_chunks():
         data = json.loads(os.environ['CONTEXT_CHUNKS'])
         return data.get('chunks', [])
 
+    # content/ wins over repo root so split-repo users aren't shadowed
+    # by a stale template-fork copy. CONTEXT_CHUNKS env still overrides.
     script_dir = Path(__file__).parent
     candidates = [
-        script_dir.parent / 'context-chunks.json',
         script_dir.parent / 'content' / 'context-chunks.json',
+        script_dir.parent / 'context-chunks.json',
     ]
     for path in candidates:
         if path.exists():

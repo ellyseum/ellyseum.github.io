@@ -104,7 +104,8 @@ your-content-repo/
    The system prompt and context chunks can also live as files in your
    content repo (`content/system-prompt.md`, `content/context-chunks.json`)
    instead of as GitHub secrets. Either way works; pick whichever fits your
-   workflow. The build resolves env vars first, then root, then `content/`.
+   workflow. The build resolves env vars first, then `content/`, then
+   the template fork's root.
 
 4. Add a repository variable:
    - `CONTENT_REPO`: `<you>/<your-content-repo>`
@@ -416,8 +417,8 @@ cp wrangler.toml.example wrangler.toml
 # (and `npm run dev`) automatically runs scripts/inject-prompt.js, which
 # reads in this priority order:
 #   1. SYSTEM_PROMPT env var
-#   2. ../system-prompt.md (template-fork root)
-#   3. ../content/system-prompt.md (split-repo content folder)
+#   2. ../content/system-prompt.md (split-repo content folder)
+#   3. ../system-prompt.md (template-fork root)
 # If none of those exist the worker still compiles with an empty prompt.
 
 # Set your Groq API key as a worker secret

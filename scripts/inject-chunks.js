@@ -13,12 +13,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(__dirname, '../src/data');
 const outputPath = path.join(dataDir, 'context-chunks.ts');
 
-// context-chunks.json lookup paths, priority order. Root first, then
-// the content/ folder for split-repo layouts where the file ships in
-// the content repo.
+// context-chunks.json lookup paths, in priority order. content/ wins
+// over the repo root so split-repo users authoring in their content
+// repo aren't shadowed by a stale root copy. The CONTEXT_CHUNKS env
+// var still overrides both (handled below).
 const chunkPaths = [
-  path.join(__dirname, '../context-chunks.json'),
-  path.join(__dirname, '../content/context-chunks.json')
+  path.join(__dirname, '../content/context-chunks.json'),
+  path.join(__dirname, '../context-chunks.json')
 ];
 
 // Ensure output directory exists
@@ -28,7 +29,7 @@ if (!fs.existsSync(dataDir)) {
 
 let chunksData;
 
-// Resolution order: env var (CI) → root context-chunks.json → content/context-chunks.json
+// Resolution order: env var (CI) → content/context-chunks.json → root context-chunks.json
 if (process.env.CONTEXT_CHUNKS) {
   console.log('Using CONTEXT_CHUNKS from environment');
   chunksData = JSON.parse(process.env.CONTEXT_CHUNKS);

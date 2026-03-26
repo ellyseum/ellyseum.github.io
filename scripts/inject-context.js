@@ -15,12 +15,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(__dirname, '../src/data');
 const outputPath = path.join(dataDir, 'jocelyn-context.ts');
 
-// system-prompt.md lookup paths, in priority order. Local-first, then
-// the content/ folder (split-repo layout where the prompt lives in the
-// content repo cloned into content/).
+// system-prompt.md lookup paths, in priority order. content/ wins
+// over the repo root so split-repo users can author in their content
+// repo without an out-of-date root copy taking precedence. The
+// SYSTEM_PROMPT env var still overrides both (handled below).
 const promptPaths = [
-  path.join(__dirname, '../system-prompt.md'),
-  path.join(__dirname, '../content/system-prompt.md')
+  path.join(__dirname, '../content/system-prompt.md'),
+  path.join(__dirname, '../system-prompt.md')
 ];
 
 // Site YAML paths to check
@@ -37,7 +38,7 @@ if (!fs.existsSync(dataDir)) {
 let prompt = '';
 let haveSource = false;
 
-// Resolution order: env var (CI) → root system-prompt.md → content/system-prompt.md
+// Resolution order: env var (CI) → content/system-prompt.md → root system-prompt.md
 if (process.env.SYSTEM_PROMPT) {
   console.log('Using SYSTEM_PROMPT from environment');
   prompt = process.env.SYSTEM_PROMPT;

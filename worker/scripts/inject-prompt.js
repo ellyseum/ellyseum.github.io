@@ -11,14 +11,16 @@ const fs = require('fs');
 const path = require('path');
 
 const outputPath = path.join(__dirname, '../src/system-prompt.ts');
+// content/ wins over the template-fork root so split-repo users keep a
+// single source of truth for their prompt. SYSTEM_PROMPT env still overrides.
 const promptPaths = [
-  path.join(__dirname, '../../system-prompt.md'),
   path.join(__dirname, '../../content/system-prompt.md'),
+  path.join(__dirname, '../../system-prompt.md'),
 ];
 
 let prompt = '';
 
-// Resolution order: env var (CI) → root system-prompt.md → content/system-prompt.md
+// Resolution order: env var (CI) → content/system-prompt.md → root system-prompt.md
 if (process.env.SYSTEM_PROMPT) {
   console.log('Using SYSTEM_PROMPT from environment');
   prompt = process.env.SYSTEM_PROMPT;
