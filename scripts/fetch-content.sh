@@ -20,69 +20,83 @@ if [ -n "$CONTENT_REPO" ] && [ ! -d "$CONTENT_DIR/.git" ]; then
     "$CONTENT_DIR"
 fi
 
-# Check if content directory exists
-if [ ! -d "$CONTENT_DIR" ]; then
-  echo "No content/ directory found."
-  if [ -f "$DATA_DIR/site.yml" ]; then
-    echo "Found existing _data/site.yml, generating Jekyll config and pages..."
-    node scripts/generate-config.js
-    node scripts/generate-taglines.js
-    node scripts/generate-about.js
-  else
-    echo "Using existing _posts/ if any."
-  fi
-  exit 0
-fi
-
-echo "Processing content..."
-
-# Create directories if needed
-mkdir -p "$POSTS_DIR" "$DATA_DIR" "$ABOUT_DIR"
-
-# Copy site.yml to _data/
-if [ -f "$CONTENT_DIR/site.yml" ]; then
+# Generators always run as long as some site.yml is reachable. This handles
+# three cases:
+#   1. content/ missing entirely (single-repo / preview mode) — generate
+#      from _data/site.yml if it exists.
+#   2. content/ exists with site.yml — copy it into _data/ and generate.
+#   3. content/ exists but has no site.yml (e.g. user ran `make new-post`
+#      before adding site.yml) — keep using _data/site.yml.
+mkdir -p "$DATA_DIR"
+if [ -d "$CONTENT_DIR" ] && [ -f "$CONTENT_DIR/site.yml" ]; then
   cp "$CONTENT_DIR/site.yml" "$DATA_DIR/site.yml"
   echo "Copied site.yml to $DATA_DIR/"
+fi
 
-  # Generate everything that depends on site.yml: Jekyll config, CNAME,
-  # taglines, and the about page. These are owned by the content pipeline
-  # so `make serve` (which only runs `make content`) gets a working build
-  # without needing a separate `npm run inject-all` pass.
+if [ -f "$DATA_DIR/site.yml" ]; then
   echo "Generating Jekyll config and CNAME..."
   node scripts/generate-config.js
   echo "Generating taglines.ts..."
   node scripts/generate-taglines.js
   echo "Generating about page..."
   node scripts/generate-about.js
+else
+  echo "No site.yml found in content/ or _data/ — skipping config generators."
 fi
+
+# Bail out early when there's no content/ folder at all — nothing to copy.
+if [ ! -d "$CONTENT_DIR" ]; then
+  echo "No content/ directory; using existing _posts/ if any."
+  echo "Done!"
+  exit 0
+fi
+
+echo "Processing content..."
+
+# Resolve CMS-configurable subdirectories so the local build copies from
+# the same paths the in-browser CMS commits to (cms.content_posts_path /
+# cms.content_drafts_path in site.yml).
+POSTS_SUBDIR=""
+DRAFTS_SUBDIR="drafts"
+if cms_paths="$(node scripts/print-cms-paths.js 2>/dev/null)"; then
+  eval "$cms_paths"
+fi
+
+POSTS_SRC="$CONTENT_DIR"
+[ -n "$POSTS_SUBDIR" ] && POSTS_SRC="$CONTENT_DIR/$POSTS_SUBDIR"
+DRAFTS_SRC="$CONTENT_DIR/$DRAFTS_SUBDIR"
+
+mkdir -p "$POSTS_DIR" "$ABOUT_DIR"
 
 # Copy markdown posts. Only files matching YYYY-MM-DD-*.md are treated
 # as posts — README.md, system-prompt.md, *.example.md, etc. live next
 # to posts in the content repo and would otherwise leak into _posts/.
 count=0
 skipped=0
-for file in "$CONTENT_DIR"/*.md; do
-  if [ -f "$file" ]; then
-    filename=$(basename "$file")
-    if echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}-.+\.md$'; then
-      cp "$file" "$POSTS_DIR/$filename"
-      count=$((count + 1))
-    else
-      skipped=$((skipped + 1))
+if [ -d "$POSTS_SRC" ]; then
+  for file in "$POSTS_SRC"/*.md; do
+    if [ -f "$file" ]; then
+      filename=$(basename "$file")
+      if echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}-.+\.md$'; then
+        cp "$file" "$POSTS_DIR/$filename"
+        count=$((count + 1))
+      else
+        skipped=$((skipped + 1))
+      fi
     fi
-  fi
-done
+  done
+fi
 
-echo "Copied $count posts to $POSTS_DIR/"
+echo "Copied $count posts to $POSTS_DIR/ (from $POSTS_SRC)"
 if [ $skipped -gt 0 ]; then
   echo "Skipped $skipped non-post .md file(s) (README, system-prompt, etc.)"
 fi
 
-# Copy drafts if they exist
-if [ -d "$CONTENT_DIR/drafts" ]; then
+# Copy drafts if they exist at the configured drafts path
+if [ -d "$DRAFTS_SRC" ]; then
   mkdir -p "$DRAFTS_DIR"
   draft_count=0
-  for file in "$CONTENT_DIR/drafts"/*.md; do
+  for file in "$DRAFTS_SRC"/*.md; do
     if [ -f "$file" ]; then
       filename=$(basename "$file")
       cp "$file" "$DRAFTS_DIR/$filename"
@@ -90,7 +104,7 @@ if [ -d "$CONTENT_DIR/drafts" ]; then
     fi
   done
   if [ $draft_count -gt 0 ]; then
-    echo "Copied $draft_count drafts to $DRAFTS_DIR/"
+    echo "Copied $draft_count drafts to $DRAFTS_DIR/ (from $DRAFTS_SRC)"
   fi
 fi
 
