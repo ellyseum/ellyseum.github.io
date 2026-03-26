@@ -109,9 +109,11 @@ export class GitHubClient {
     } else if (urlPath === '/' || urlPath === '') {
       filePath = 'index.md';
     } else {
-      // Static page
+      // Static page or any path with an explicit filename. Don't double-append
+      // .md if the caller already gave us one (e.g. when the CMS opens a draft
+      // path like /drafts/draft-foo.md).
       const cleanPath = urlPath.replace(/^\/|\/$/g, '');
-      filePath = `${cleanPath}.md`;
+      filePath = cleanPath.endsWith('.md') ? cleanPath : `${cleanPath}.md`;
     }
 
     console.log(`[GitHub] Fetching: ${this.owner}/${this.repo}/${filePath}`);
@@ -127,20 +129,26 @@ export class GitHubClient {
         const errorText = await response.text();
         console.error(`[GitHub] Error fetching ${filePath}:`, errorText);
 
-        // Try without index.md for static pages
+        // Try the directory-index variant for static pages (e.g. /about/ →
+        // about/index.md instead of about.md).
         if (!postMatch) {
-          const altPath = urlPath.replace(/^\/|\/$/g, '') + '.md';
-          console.log(`[GitHub] Trying alt path: ${altPath}`);
-          const altResponse = await this.fetch(
-            `/repos/${this.owner}/${this.repo}/contents/${altPath}?ref=${this.branch}`
-          );
+          const cleanPath = urlPath.replace(/^\/|\/$/g, '');
+          const altPath = cleanPath.endsWith('.md')
+            ? cleanPath.replace(/\.md$/, '/index.md')
+            : `${cleanPath}/index.md`;
+          if (altPath !== filePath) {
+            console.log(`[GitHub] Trying alt path: ${altPath}`);
+            const altResponse = await this.fetch(
+              `/repos/${this.owner}/${this.repo}/contents/${altPath}?ref=${this.branch}`
+            );
 
-          if (!altResponse.ok) {
-            return null;
+            if (!altResponse.ok) {
+              return null;
+            }
+
+            const altData = await altResponse.json();
+            return atob(altData.content.replace(/\n/g, ''));
           }
-
-          const altData = await altResponse.json();
-          return atob(altData.content.replace(/\n/g, ''));
         }
         return null;
       }
@@ -234,7 +242,9 @@ export class GitHubClient {
     const postFiles = (allFiles as { name: string }[]).filter(f =>
       /^\d{4}-\d{2}-\d{2}-.+\.md$/.test(f.name)
     );
-    const file = postFiles.find(f => f.name.includes(slug)) as
+    // Match the slug exactly (post filenames are YYYY-MM-DD-<slug>.md), not
+    // by substring, so 'foo' doesn't accidentally target 'foo-extended'.
+    const file = postFiles.find(f => f.name.endsWith(`-${slug}.md`)) as
       | { name: string; path: string; sha: string }
       | undefined;
 
@@ -298,8 +308,12 @@ export class GitHubClient {
       throw new Error('Failed to list drafts');
     }
 
-    const files = await response.json();
-    const draftFile = files.find((f: { name: string }) => f.name.includes(slug));
+    const files = await response.json() as { name: string; sha: string; path: string }[];
+    // Match the slug exactly. Drafts may or may not carry a date prefix, so
+    // accept both "<slug>.md" and "YYYY-MM-DD-<slug>.md" as exact matches.
+    const exact = `${slug}.md`;
+    const dated = new RegExp(`^\\d{4}-\\d{2}-\\d{2}-${slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\.md$`);
+    const draftFile = files.find(f => f.name === exact || dated.test(f.name));
 
     if (!draftFile) {
       throw new Error(`Draft not found: ${slug}`);
@@ -314,12 +328,21 @@ export class GitHubClient {
     // Remove draft: true from frontmatter
     const content = draft.content.replace(/^(---[\s\S]*?)draft:\s*true\n?([\s\S]*?---)/, '$1$2');
 
-    // Create at the configured posts path
-    const postPath = this.postFilePath(draftFile.name);
+    // Always publish to a YYYY-MM-DD-<slug>.md filename. fetch-content.sh
+    // copies posts to _posts/ using that exact pattern; an undated draft
+    // filename (from `make draft`) would be silently dropped otherwise.
+    // Prefer the date in frontmatter, fall back to today.
+    const dateMatch = content.match(/^---[\s\S]*?\bdate:\s*['"]?(\d{4}-\d{2}-\d{2})/);
+    const datePrefix = dateMatch ? dateMatch[1] : new Date().toISOString().slice(0, 10);
+    const publishedName = dated.test(draftFile.name)
+      ? draftFile.name
+      : `${datePrefix}-${slug}.md`;
+    const postPath = this.postFilePath(publishedName);
     await this.saveFile(postPath, content, `Publish: ${slug}`);
 
-    // Delete draft
-    await this.fetch(
+    // Delete draft. Validate the response — silently swallowing a failed
+    // delete leaves the post duplicated in both posts and drafts.
+    const deleteResponse = await this.fetch(
       `/repos/${this.owner}/${this.repo}/contents/${draftFile.path}`,
       {
         method: 'DELETE',
@@ -330,6 +353,13 @@ export class GitHubClient {
         }),
       }
     );
+
+    if (!deleteResponse.ok) {
+      const error = await deleteResponse.json().catch(() => ({}));
+      throw new Error(
+        `Published ${publishedName} but failed to delete draft ${draftFile.path}: ${error.message || deleteResponse.status}`
+      );
+    }
 
     return true;
   }
