@@ -21,6 +21,11 @@ for (const f of ['content/site.yml', '_data/site.yml']) {
   }
 }
 
+// Single-quote the values and escape any embedded single quotes so eval'ing
+// the output is safe even if a yaml value contains spaces, quotes, $, or
+// other shell metacharacters.
+const shq = (v) => `'${String(v).replace(/'/g, "'\\''")}'`;
+
 const cms = cfg.cms || {};
-console.log(`POSTS_SUBDIR=${cms.content_posts_path || ''}`);
-console.log(`DRAFTS_SUBDIR=${cms.content_drafts_path || 'drafts'}`);
+console.log(`POSTS_SUBDIR=${shq(cms.content_posts_path || '')}`);
+console.log(`DRAFTS_SUBDIR=${shq(cms.content_drafts_path || 'drafts')}`);

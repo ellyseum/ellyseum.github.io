@@ -242,9 +242,12 @@ export class GitHubClient {
     const postFiles = (allFiles as { name: string }[]).filter(f =>
       /^\d{4}-\d{2}-\d{2}-.+\.md$/.test(f.name)
     );
-    // Match the slug exactly (post filenames are YYYY-MM-DD-<slug>.md), not
-    // by substring, so 'foo' doesn't accidentally target 'foo-extended'.
-    const file = postFiles.find(f => f.name.endsWith(`-${slug}.md`)) as
+    // Match the slug exactly. endsWith('-slug.md') is too loose: looking
+    // for 'me' would happily delete 'about-me.md' (since '-about-me.md'
+    // ends with '-me.md'). Anchor on the date prefix instead.
+    const escapedSlug = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const exactRe = new RegExp(`^\\d{4}-\\d{2}-\\d{2}-${escapedSlug}\\.md$`);
+    const file = postFiles.find(f => exactRe.test(f.name)) as
       | { name: string; path: string; sha: string }
       | undefined;
 
@@ -325,14 +328,20 @@ export class GitHubClient {
       throw new Error('Failed to read draft');
     }
 
-    // Remove draft: true from frontmatter
-    const content = draft.content.replace(/^(---[\s\S]*?)draft:\s*true\n?([\s\S]*?---)/, '$1$2');
+    // Remove `draft: true` from frontmatter. Match common YAML variants
+    // (true / "true" / True) but anchor at the start of a line so we
+    // don't mangle anything in the body that happens to mention draft.
+    const content = draft.content.replace(
+      /^---([\s\S]*?)^draft:\s*["']?(?:true|True|TRUE)["']?\s*$\n?/m,
+      '---$1'
+    );
 
     // Always publish to a YYYY-MM-DD-<slug>.md filename. fetch-content.sh
     // copies posts to _posts/ using that exact pattern; an undated draft
     // filename (from `make draft`) would be silently dropped otherwise.
-    // Prefer the date in frontmatter, fall back to today.
-    const dateMatch = content.match(/^---[\s\S]*?\bdate:\s*['"]?(\d{4}-\d{2}-\d{2})/);
+    // Prefer the date in frontmatter, fall back to today. Anchor `date:`
+    // at line start so frontmatter keys like `published-date:` don't match.
+    const dateMatch = content.match(/^date:\s*['"]?(\d{4}-\d{2}-\d{2})/m);
     const datePrefix = dateMatch ? dateMatch[1] : new Date().toISOString().slice(0, 10);
     const publishedName = dated.test(draftFile.name)
       ? draftFile.name
