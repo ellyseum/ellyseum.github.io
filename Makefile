@@ -36,8 +36,11 @@ install:
 	bundle install
 
 # Start development server with live reload.
-# Depends on `content` so _config.yml/CNAME/about exist before Jekyll runs.
+# Depends on `content` so _config.yml/CNAME/about exist, and runs the
+# Vite build so the asset manifest the layouts reference is in place.
+# Without this step, _layouts/default.html resolves to broken URLs.
 serve: content
+	npm run build
 	bundle exec jekyll serve --livereload
 
 # Build for production
