@@ -31,9 +31,12 @@ content:
 	@echo "Processing content..."
 	bash scripts/fetch-content.sh
 
-# Install dependencies
+# Install dependencies (Ruby gems + npm packages). The build pipeline
+# needs both — fetch-content.sh shells out to Node scripts that import
+# 'yaml', and the Vite/typecheck steps obviously need npm too.
 install:
 	bundle install
+	npm install
 
 # Start development server with live reload.
 # Depends on `content` so _config.yml/CNAME/about exist, and runs the
@@ -76,9 +79,11 @@ new-post:
 ifndef TITLE
 	$(error TITLE is required. Usage: make new-post TITLE="My Post Title")
 endif
-	@mkdir -p content
-	@title=$$(printf '%s' "$(TITLE)"); \
-	filename="content/$$(date +%Y-%m-%d)-$$(printf '%s' "$$title" | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
+	@eval "$$(node scripts/print-cms-paths.js 2>/dev/null || echo POSTS_SUBDIR= DRAFTS_SUBDIR=drafts)"; \
+	dir="content$${POSTS_SUBDIR:+/$$POSTS_SUBDIR}"; \
+	mkdir -p "$$dir"; \
+	title=$$(printf '%s' "$(TITLE)"); \
+	filename="$$dir/$$(date +%Y-%m-%d)-$$(printf '%s' "$$title" | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
 	if [ -e "$$filename" ]; then \
 	  echo "Error: $$filename already exists. Pick a different title or delete the existing file."; \
 	  exit 1; \
@@ -99,9 +104,11 @@ draft:
 ifndef TITLE
 	$(error TITLE is required. Usage: make draft TITLE="My Draft Title")
 endif
-	@mkdir -p content/drafts
-	@title=$$(printf '%s' "$(TITLE)"); \
-	filename="content/drafts/$$(printf '%s' "$$title" | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
+	@eval "$$(node scripts/print-cms-paths.js 2>/dev/null || echo POSTS_SUBDIR= DRAFTS_SUBDIR=drafts)"; \
+	dir="content/$$DRAFTS_SUBDIR"; \
+	mkdir -p "$$dir"; \
+	title=$$(printf '%s' "$(TITLE)"); \
+	filename="$$dir/$$(printf '%s' "$$title" | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
 	echo "---" > $$filename; \
 	echo "layout: post" >> $$filename; \
 	echo "title: \"$(TITLE)\"" >> $$filename; \

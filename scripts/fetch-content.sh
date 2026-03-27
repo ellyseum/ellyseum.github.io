@@ -12,8 +12,17 @@ DRAFTS_DIR="_drafts"
 DATA_DIR="_data"
 ABOUT_DIR="about"
 
-# In CI, clone the content repo if CONTENT_REPO is set
+# In CI, clone the content repo if CONTENT_REPO is set. Skip when content/
+# already has its own .git (already cloned). Bail out if content/ exists
+# but is not a git repo — git clone would fail with a confusing error
+# message, and silently overwriting a hand-populated content/ would lose
+# the user's work.
 if [ -n "$CONTENT_REPO" ] && [ ! -d "$CONTENT_DIR/.git" ]; then
+  if [ -d "$CONTENT_DIR" ] && [ -n "$(ls -A "$CONTENT_DIR" 2>/dev/null)" ]; then
+    echo "Error: $CONTENT_DIR/ exists and is not a git checkout. Refusing to clone over it."
+    echo "Either remove $CONTENT_DIR/ or unset CONTENT_REPO."
+    exit 1
+  fi
   echo "Cloning content from $CONTENT_REPO..."
   git clone --depth 1 \
     "https://x-access-token:${CONTENT_PAT:-$GITHUB_TOKEN}@github.com/${CONTENT_REPO}.git" \
