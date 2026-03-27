@@ -141,9 +141,14 @@ const isGithubPagesHost = (host) =>
   /\.github\.io$/i.test(host) || /^github\.io$/i.test(host);
 
 const removeStaleCname = (reason) => {
-  if (existsSync(CNAME_OUTPUT)) {
+  try {
     unlinkSync(CNAME_OUTPUT);
     console.log(`Removed stale ${CNAME_OUTPUT} (${reason})`);
+  } catch (e) {
+    // ENOENT is fine — nothing to remove. Anything else is unexpected.
+    if (e.code !== 'ENOENT') {
+      console.warn(`Warning: failed to remove ${CNAME_OUTPUT}: ${e.message}`);
+    }
   }
 };
 

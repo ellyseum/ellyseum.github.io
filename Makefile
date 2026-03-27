@@ -52,10 +52,11 @@ prod: content
 	JEKYLL_ENV=production bundle exec jekyll build
 	@echo "Done! Run: npx serve _site -l 4000"
 
-# Clean generated files
+# Clean generated files. Mirrors `npm run clean` — removes only build
+# outputs (never user-source posts, drafts, or _data/site.yml).
 clean:
 	bundle exec jekyll clean
-	rm -rf _site .jekyll-cache .jekyll-metadata
+	npm run clean
 
 # Deploy to GitHub Pages
 deploy:
@@ -73,7 +74,8 @@ ifndef TITLE
 	$(error TITLE is required. Usage: make new-post TITLE="My Post Title")
 endif
 	@mkdir -p content
-	@filename="content/$$(date +%Y-%m-%d)-$$(echo '$(TITLE)' | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
+	@title=$$(printf '%s' "$(TITLE)"); \
+	filename="content/$$(date +%Y-%m-%d)-$$(printf '%s' "$$title" | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
 	if [ -e "$$filename" ]; then \
 	  echo "Error: $$filename already exists. Pick a different title or delete the existing file."; \
 	  exit 1; \
@@ -95,7 +97,8 @@ ifndef TITLE
 	$(error TITLE is required. Usage: make draft TITLE="My Draft Title")
 endif
 	@mkdir -p content/drafts
-	@filename="content/drafts/$$(echo '$(TITLE)' | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
+	@title=$$(printf '%s' "$(TITLE)"); \
+	filename="content/drafts/$$(printf '%s' "$$title" | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md"; \
 	echo "---" > $$filename; \
 	echo "layout: post" >> $$filename; \
 	echo "title: \"$(TITLE)\"" >> $$filename; \
@@ -121,7 +124,7 @@ sync-prompt:
 	elif [ -f system-prompt.md ]; then src=system-prompt.md; \
 	else echo "No system-prompt.md found in content/ or repo root"; exit 1; fi; \
 	echo "Syncing $$src to SYSTEM_PROMPT..."; \
-	gh secret set SYSTEM_PROMPT < $$src; \
+	gh secret set SYSTEM_PROMPT < "$$src"; \
 	echo "System prompt synced to GitHub!"
 
 # Sync context chunks to GitHub secret. Prefer content/context-chunks.json,
@@ -131,7 +134,7 @@ sync-chunks:
 	elif [ -f context-chunks.json ]; then src=context-chunks.json; \
 	else echo "No context-chunks.json found in content/ or repo root"; exit 1; fi; \
 	echo "Syncing $$src to CONTEXT_CHUNKS..."; \
-	gh secret set CONTEXT_CHUNKS < $$src; \
+	gh secret set CONTEXT_CHUNKS < "$$src"; \
 	echo "Context chunks synced to GitHub!"
 
 # Sync all secrets

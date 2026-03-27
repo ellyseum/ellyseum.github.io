@@ -15,12 +15,9 @@ try {
   const yaml = readFileSync(SITE_YML, 'utf-8');
   const config = parse(yaml);
 
-  if (!config.taglines || !Array.isArray(config.taglines)) {
-    console.error('No taglines array found in site.yml');
-    process.exit(1);
-  }
-
-  const taglines = config.taglines;
+  // taglines is optional — emit an empty array if not configured so
+  // builds don't fail on a barebones site.yml.
+  const taglines = Array.isArray(config.taglines) ? config.taglines : [];
 
   const output = `// Auto-generated from site.yml - do not edit directly
 export const TAGLINES: string[] = ${JSON.stringify(taglines, null, 2)};

@@ -17,8 +17,8 @@ try {
   const { about, skills, contact, site } = config;
 
   if (!about) {
-    console.error('No about section found in site.yml');
-    process.exit(1);
+    console.warn('No about section in site.yml — skipping about page generation');
+    process.exit(0);
   }
 
   // Convert markdown bold/italic to HTML for Jekyll
