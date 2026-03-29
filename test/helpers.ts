@@ -1,5 +1,8 @@
 import { spawnSync, type SpawnSyncReturns } from 'child_process';
-import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, existsSync } from 'fs';
+import {
+  mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, existsSync,
+  cpSync,
+} from 'fs';
 import { tmpdir } from 'os';
 import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
@@ -14,19 +17,36 @@ export type RunResult = {
 };
 
 /**
- * Spawn a Node script (resolved relative to REPO_ROOT) inside a temp
- * working directory. The temp dir is the cwd for the child process, so
- * scripts that read relative paths (e.g. `_data/site.yml`, `content/...`)
- * see only the fixture files we put there.
+ * Spawn a Node script inside a temp working directory. The script is
+ * copied from REPO_ROOT into the temp dir first so that __dirname-based
+ * path resolution inside the script (`path.join(__dirname, '../foo')`)
+ * lands on the fixture files in the temp dir, not the real repo.
+ *
+ * The temp dir's cwd also matches, so scripts that resolve from `process.cwd()`
+ * see the fixtures too.
  */
 export function runScript(
   relScript: string,
   cwd: string,
   env: Record<string, string | undefined> = {}
 ): RunResult {
+  // Copy the entire scripts/ tree (small and self-contained) so any
+  // imports between scripts also resolve against the temp dir.
+  const tempScriptsDir = join(cwd, 'scripts');
+  if (!existsSync(tempScriptsDir)) {
+    cpSync(resolve(REPO_ROOT, 'scripts'), tempScriptsDir, { recursive: true });
+  }
+  // Drop a minimal package.json so .js scripts are treated as ESM and
+  // can use 'import' (the real package.json declares "type": "module").
+  const pkgPath = join(cwd, 'package.json');
+  if (!existsSync(pkgPath)) {
+    writeFileSync(pkgPath, JSON.stringify({ type: 'module' }), 'utf-8');
+  }
+
+  const tempScript = join(cwd, relScript);
   const result: SpawnSyncReturns<Buffer> = spawnSync(
     process.execPath,
-    [resolve(REPO_ROOT, relScript)],
+    [tempScript],
     {
       cwd,
       env: { ...process.env, ...env },
@@ -46,9 +66,6 @@ export function runScript(
  */
 export function makeTempCwd(): { dir: string; cleanup: () => void } {
   const dir = mkdtempSync(join(tmpdir(), 'ellyseum-test-'));
-  // Ensure node_modules from the real repo is reachable so scripts that
-  // import 'yaml' resolve. Symlinking is cheaper than copying.
-  mkdirSync(join(dir, 'scripts'), { recursive: true });
   return {
     dir,
     cleanup: () => rmSync(dir, { recursive: true, force: true }),
