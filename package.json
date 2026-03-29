@@ -12,6 +12,8 @@
     "inject-all": "npm run inject-context && npm run inject-chunks && npm run generate-site-config",
     "build": "npm run inject-all && npm run typecheck && vite build && mkdir -p _data && cp assets/js/dist/.vite/manifest.json _data/vite-manifest.json",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "clean": "rm -rf _site assets/js/dist src/data/taglines.ts src/data/context-chunks.ts src/data/jocelyn-context.ts src/data/site-config.ts about/index.md _config.yml CNAME .jekyll-cache .jekyll-metadata _data/vite-manifest.json",
     "prepare": "husky"
   },
@@ -32,6 +34,7 @@
     "postcss": "^8.5.6",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
+    "vitest": "^2.1.9",
     "yaml": "^2.8.2"
   }
 }
