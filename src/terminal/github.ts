@@ -3,7 +3,7 @@
  * Lazy loaded on auth (Layer 3)
  */
 
-import { SITE_CONFIG } from '../data/site-config';
+import { SITE_CONFIG } from '@/data/site-config';
 
 interface GitHubFile {
   path: string;

@@ -7,6 +7,9 @@ export default defineConfig({
     exclude: ['node_modules', '_site', 'assets/js/dist', 'content', 'worker'],
     testTimeout: 15000,
     pool: 'forks', // child-process tests spawn subprocesses; isolate via forks
+    // Runs once before any tests; ensures gitignored generated files
+    // that test imports touch (src/data/site-config.ts) exist.
+    globalSetup: ['./test/setup.ts'],
   },
   resolve: {
     alias: {
