@@ -434,6 +434,27 @@ Then set `VITE_GROQ_PROXY_URL` in your template fork's environment (and as a CI 
 
 ---
 
+## RAG Embeddings
+
+The chat widget uses retrieval-augmented generation: queries are embedded with [`snowflake-arctic-embed-m`](https://huggingface.co/Snowflake/snowflake-arctic-embed-m) (768 dims) and matched against pre-computed embeddings of every `content-chunks.json` entry. The retrieval index lives at `assets/data/embeddings.json`.
+
+**In CI** this is fully automatic — the `Build and Deploy` workflow installs Python 3.11, runs `pip install -r requirements.txt`, caches the HuggingFace model between runs, and calls `python scripts/generate-embeddings.py` after the JS build. You don't need Python locally for normal blog use.
+
+**For local dev** (only needed if you're iterating on `context-chunks.json` and want to test RAG retrieval before pushing):
+
+```bash
+# One-time setup — pick a venv flavor
+python3.11 -m venv .venv && source .venv/bin/activate
+# OR: conda create -n embeddings python=3.11 && conda activate embeddings
+
+pip install -r requirements.txt   # sentence-transformers, requests
+make embeddings                    # downloads the model (~500MB) on first run
+```
+
+This writes `assets/data/embeddings.json`. Subsequent `make embeddings` runs use the cached HuggingFace model and complete in seconds. The build pipeline doesn't depend on this file existing — when `embeddings.json` is missing or empty, the chat widget falls back to BM25 keyword retrieval.
+
+---
+
 ## Browser Support
 
 | Browser | Version | Notes |
