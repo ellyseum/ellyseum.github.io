@@ -1,6 +1,8 @@
 # Ellyseum Blog Template
 
-A GPU-accelerated personal blog with a plugin architecture that pushes what's possible in a browser. Custom WebGL shaders, SPA navigation with flying word animations, on-device AI chat, a hidden terminal with games, and a typewriter that makes realistic typos. Because static sites don't have to be boring.
+A $0 inference stack pretending to be a blog. RAG runs in the browser via WebGPU — Qwen/Phi for chat, snowflake-arctic-embed-m for embeddings, no API key, no server, no spend. Devices without WebGPU fall back to a Cloudflare Worker proxying Groq's free tier.
+
+The flex on top of that: a Jekyll blog template wrapped in a TypeScript plugin system, a WebGL cosmic background, SPA navigation with flying-word transitions, and a Konami-code terminal with Snake, Matrix rain, and a roguelike. Every feature is a plugin — comment out a line in `src/ellyseum.config.ts` to disable it, or drop in your own.
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
 ![WebGL](https://img.shields.io/badge/WebGL-990000?style=flat&logo=webgl&logoColor=white)

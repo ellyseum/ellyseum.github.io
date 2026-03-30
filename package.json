@@ -1,7 +1,7 @@
 {
   "name": "ellyseum-dreams",
   "version": "1.0.0",
-  "description": "GPU-accelerated personal blog with WebGL shaders, SPA navigation, and on-device AI chat",
+  "description": "$0 inference stack pretending to be a blog: in-browser WebGPU RAG (Qwen/Phi + snowflake-arctic-embed-m, Groq fallback) on a Jekyll template with a TypeScript plugin system, WebGL effects, and a Konami-code terminal.",
   "type": "module",
   "scripts": {
     "inject-context": "node scripts/inject-context.js",
