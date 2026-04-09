@@ -42,6 +42,10 @@ interface BM25Index {
 
 let embeddingsData: EmbeddingsData | null = null;
 let bm25Index: BM25Index | null = null;
+// In-flight init promise so concurrent rag-context calls (or rag-context
+// racing load-embedding-model) share a single fetch + index build instead
+// of each kicking off their own.
+let initPromise: Promise<boolean> | null = null;
 
 // ============ RAG Functions ============
 /**
@@ -50,29 +54,43 @@ let bm25Index: BM25Index | null = null;
  * available — e.g. RAG generation hasn't run on this fork — fall back to
  * building BM25 directly from the build-time CONTEXT_CHUNKS. Either way
  * we end up with a usable bm25Index, so RAG retrieval keeps working.
+ *
+ * Concurrent callers share a single in-flight promise — without this,
+ * two parallel rag-context messages each kick off their own fetch +
+ * index build before either resolves.
  */
-async function loadEmbeddingsData(): Promise<boolean> {
-  try {
-    const response = await fetch('/assets/data/embeddings.json');
-    if (response.ok) {
-      embeddingsData = await response.json();
-      if (embeddingsData && embeddingsData.chunks.length > 0) {
-        bm25Index = buildBM25Index(embeddingsData.chunks);
-        return true;
-      }
-    }
-  } catch {
-    // fall through to BM25-only fallback
-  }
+function loadEmbeddingsData(): Promise<boolean> {
+  if (bm25Index) return Promise.resolve(true);
+  if (initPromise) return initPromise;
 
-  // No embeddings.json available — build BM25 from the static chunks file.
-  if (CONTEXT_CHUNKS.length > 0) {
-    bm25Index = buildBM25Index(
-      CONTEXT_CHUNKS.map(c => ({ id: c.id, category: c.category, content: c.content }))
-    );
-    return true;
-  }
-  return false;
+  initPromise = (async () => {
+    try {
+      const response = await fetch('/assets/data/embeddings.json');
+      if (response.ok) {
+        embeddingsData = await response.json();
+        if (embeddingsData && embeddingsData.chunks.length > 0) {
+          bm25Index = buildBM25Index(embeddingsData.chunks);
+          return true;
+        }
+      }
+    } catch {
+      // fall through to BM25-only fallback
+    }
+
+    // No embeddings.json available — build BM25 from the static chunks file.
+    if (CONTEXT_CHUNKS.length > 0) {
+      bm25Index = buildBM25Index(
+        CONTEXT_CHUNKS.map(c => ({ id: c.id, category: c.category, content: c.content }))
+      );
+      return true;
+    }
+    return false;
+  })();
+
+  // Clear the cached promise once it settles. If a future call wants to
+  // retry (e.g. embeddings.json arrived after first failure), it'll get
+  // a fresh attempt rather than the cached failure.
+  return initPromise.finally(() => { initPromise = null; });
 }
 
 function cosineSimilarity(a: number[], b: number[]): number {
