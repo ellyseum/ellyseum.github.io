@@ -292,19 +292,33 @@ export class ChatWidget {
 
     // Prepare messages for Groq API. The Cloudflare worker prepends its
     // own SYSTEM_PROMPT, but doesn't do RAG retrieval — we pre-retrieve
-    // here and inject as an extra system message so cloud users get the
-    // same grounded answers as local-WebGPU users.
+    // here so cloud users get the same grounded answers as local-WebGPU
+    // users.
+    //
+    // Create the AbortController BEFORE awaiting RAG retrieval. The
+    // retrieval can take seconds on a cold worker; if Stop is clicked
+    // during that window the controller needs to already exist for the
+    // abort to bail out the still-pending Groq request.
+    this.abortController = new AbortController();
+
     const chatHistoryRaw = this.messages
       .filter(m => m.role !== 'system')
       .map(m => ({ role: m.role, content: m.content }));
 
     const lastUser = [...chatHistoryRaw].reverse().find(m => m.role === 'user');
     const ragContext = lastUser ? await this.requestRAGContext(lastUser.content) : '';
+
+    // If the user hit Stop during retrieval, the controller's signal will
+    // be aborted. Bail out before the upstream call.
+    if (this.abortController.signal.aborted) {
+      this.finishGeneration();
+      return;
+    }
+
     const chatHistory = ragContext
       ? [{ role: 'system' as const, content: ragContext }, ...chatHistoryRaw]
       : chatHistoryRaw;
 
-    this.abortController = new AbortController();
     let hasAddedMessage = false;
 
     try {
