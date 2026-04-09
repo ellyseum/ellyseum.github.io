@@ -20,6 +20,10 @@ interface ChatRequest {
   model?: string;
   max_tokens?: number;
   temperature?: number;
+  // Pre-retrieved RAG context. The client picks chunks before forwarding
+  // here; this keeps the proxy simple (no embeddings on the worker) and
+  // matches what the local-WebGPU path produces structurally.
+  context?: string;
 }
 
 // SYSTEM_PROMPT is loaded from ./system-prompt.ts (generated at build time)
@@ -66,9 +70,15 @@ export default {
     try {
       const body: ChatRequest = await request.json();
 
-      // Build messages with system prompt (injected at build time)
+      // Build messages with system prompt (injected at build time). If
+      // the client pre-retrieved RAG context, append it to SYSTEM_PROMPT
+      // so the cloud and local-WebGPU paths produce the same prompt
+      // structure: a single grounded system message followed by history.
+      const systemContent = body.context
+        ? `${SYSTEM_PROMPT}${body.context}`
+        : SYSTEM_PROMPT;
       const messages = [
-        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'system', content: systemContent },
         ...body.messages.map(m => ({ role: m.role, content: m.content }))
       ];
 

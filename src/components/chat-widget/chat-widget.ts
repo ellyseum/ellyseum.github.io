@@ -315,10 +315,6 @@ export class ChatWidget {
       return;
     }
 
-    const chatHistory = ragContext
-      ? [{ role: 'system' as const, content: ragContext }, ...chatHistoryRaw]
-      : chatHistoryRaw;
-
     let hasAddedMessage = false;
 
     try {
@@ -328,7 +324,10 @@ export class ChatWidget {
       const response = await fetch(GROQ_PROXY_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: chatHistory, model: modelName }),
+        // Send ragContext as a separate field — the worker concats it
+        // onto its SYSTEM_PROMPT, mirroring the local-WebGPU path's
+        // single-system-message structure.
+        body: JSON.stringify({ messages: chatHistoryRaw, model: modelName, context: ragContext || undefined }),
         signal: this.abortController.signal
       });
 
