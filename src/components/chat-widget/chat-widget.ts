@@ -185,10 +185,16 @@ export class ChatWidget {
     return new Promise<string>((resolve) => {
       this.ragContextResolvers.set(requestId, resolve);
       // Bail out after 5s rather than blocking the user-facing request
-      // forever if the worker hasn't loaded chunks yet.
+      // forever if the worker hasn't loaded chunks yet. First-message
+      // cold starts can hit this — the response goes out ungrounded
+      // and we'd otherwise have no signal that retrieval was skipped.
       setTimeout(() => {
         if (this.ragContextResolvers.has(requestId)) {
           this.ragContextResolvers.delete(requestId);
+          console.warn(
+            '[chat] RAG context request timed out after 5s; ' +
+            'forwarding to LLM without retrieved context'
+          );
           resolve('');
         }
       }, 5000);
