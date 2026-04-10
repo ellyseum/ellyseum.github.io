@@ -46,6 +46,10 @@ let bm25Index: BM25Index | null = null;
 // racing load-embedding-model) share a single fetch + index build instead
 // of each kicking off their own.
 let initPromise: Promise<boolean> | null = null;
+// Sticky failure: if init resolves false (no embeddings, no chunks),
+// stop trying. Otherwise every rag-context call refetches embeddings.json
+// to find the same nothing.
+let initFailed = false;
 
 // ============ RAG Functions ============
 /**
@@ -61,6 +65,7 @@ let initPromise: Promise<boolean> | null = null;
  */
 function loadEmbeddingsData(): Promise<boolean> {
   if (bm25Index) return Promise.resolve(true);
+  if (initFailed) return Promise.resolve(false);
   if (initPromise) return initPromise;
 
   initPromise = (async () => {
@@ -87,10 +92,22 @@ function loadEmbeddingsData(): Promise<boolean> {
     return false;
   })();
 
-  // Clear the cached promise once it settles. If a future call wants to
-  // retry (e.g. embeddings.json arrived after first failure), it'll get
-  // a fresh attempt rather than the cached failure.
-  return initPromise.finally(() => { initPromise = null; });
+  // Clear the in-flight promise once it settles. On success, future calls
+  // short-circuit on the bm25Index check. On a `false` outcome (no chunks
+  // anywhere), latch initFailed so subsequent calls don't refetch — but
+  // a thrown error (network blip etc.) leaves both flags clear so the
+  // next call gets a fresh retry.
+  return initPromise.then(
+    (ok) => {
+      initPromise = null;
+      if (!ok) initFailed = true;
+      return ok;
+    },
+    (err) => {
+      initPromise = null;
+      throw err;
+    }
+  );
 }
 
 function cosineSimilarity(a: number[], b: number[]): number {
