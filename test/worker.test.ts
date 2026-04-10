@@ -4,7 +4,7 @@ import worker from '../worker/src/index';
 describe('Cloudflare Worker', () => {
   const env = {
     GROQ_API_KEY: 'test-key',
-    ALLOWED_ORIGINS: 'https://ellyseum.me, https://dev.ellyseum.me',
+    ALLOWED_ORIGINS: 'https://example.com, https://staging.example.com',
   };
 
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('Cloudflare Worker', () => {
     const req = new Request('https://proxy.worker', {
       method: 'POST',
       headers: {
-        'Origin': 'https://ellyseum.me',
+        'Origin': 'https://example.com',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ messages: [{ role: 'user', content: 'hi' }] }),
@@ -28,7 +28,7 @@ describe('Cloudflare Worker', () => {
 
     const res = await worker.fetch(req, env);
     expect(res.status).toBe(200);
-    expect(res.headers.get('Access-Control-Allow-Origin')).toBe('https://ellyseum.me');
+    expect(res.headers.get('Access-Control-Allow-Origin')).toBe('https://example.com');
   });
 
   it('rejects forbidden origin', async () => {
@@ -52,7 +52,7 @@ describe('Cloudflare Worker', () => {
     const req = new Request('https://proxy.worker', {
       method: 'POST',
       headers: {
-        'Origin': 'https://ellyseum.me',
+        'Origin': 'https://example.com',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 

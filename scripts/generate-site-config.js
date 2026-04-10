@@ -76,6 +76,9 @@ const siteConfig = {
   github_owner: cms.github_owner || '',
   content_posts_path: cms.content_posts_path || '',
   content_drafts_path: cms.content_drafts_path || '',
+  // URL of the deployed Cloudflare worker that proxies Groq for the
+  // editor's AI-rewrite feature. Empty disables the feature gracefully.
+  worker_url: cms.worker_url || '',
 };
 
 // Generate TypeScript file
@@ -94,6 +97,7 @@ export const SITE_CONFIG = {
   github_owner: ${JSON.stringify(siteConfig.github_owner)},
   content_posts_path: ${JSON.stringify(siteConfig.content_posts_path)},
   content_drafts_path: ${JSON.stringify(siteConfig.content_drafts_path)},
+  worker_url: ${JSON.stringify(siteConfig.worker_url)},
 } as const;
 
 export type SiteConfig = typeof SITE_CONFIG;

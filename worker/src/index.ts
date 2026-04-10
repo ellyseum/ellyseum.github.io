@@ -38,8 +38,8 @@ export default {
     const origin = request.headers.get('Origin') || '';
 
     // Parse comma-separated allowed origins. Match exactly — startsWith
-    // would let "https://ellyseum.me.evil.com" through since it begins
-    // with "https://ellyseum.me". The wildcard "*" is honored for dev.
+    // would let "https://example.com.evil.com" through since it begins
+    // with "https://example.com". The wildcard "*" is honored for dev.
     const allowedOrigins = env.ALLOWED_ORIGINS.split(',').map(o => o.trim()).filter(Boolean);
     const isAllowed = allowedOrigins.some(o => o === '*' || origin === o);
 

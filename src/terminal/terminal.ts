@@ -99,11 +99,15 @@ export class Terminal {
   private createContainer(): void {
     this.container = document.createElement('div');
     this.container.id = 'secret-terminal';
+    // Title pulls the site domain from SITE_CONFIG so forks see their
+    // own domain in the chrome rather than the template's.
+    const siteDomain = (SITE_CONFIG as Record<string, unknown>).domain as string | undefined;
+    const title = siteDomain ? `~/${siteDomain}` : '~/blog';
     this.container.innerHTML = `
       <div class="terminal-backdrop"></div>
       <div class="terminal-window">
         <div class="terminal-header">
-          <span class="terminal-title">~/ellyseum.me</span>
+          <span class="terminal-title">${title}</span>
           <button class="terminal-close" aria-label="Close terminal">×</button>
         </div>
         <div class="terminal-body"></div>

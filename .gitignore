@@ -63,6 +63,9 @@ CNAME
 # Worker config (contains account ID)
 worker/wrangler.toml
 
+# Internal planning notes / brain-surgery memory
+.context/
+
 # Personal data dumps
 slackdump_*.zip
 channels-*.txt

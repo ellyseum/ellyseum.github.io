@@ -49,6 +49,7 @@ cms:
   github_owner: ""         # e.g. "yourusername"
   content_posts_path: ""   # "" for repo root, or "_posts" for Jekyll default
   content_drafts_path: ""  # default "drafts" — where drafts live in the content repo
+  worker_url: ""           # deployed Cloudflare worker URL for AI-rewrite feature (optional)
 
 # Chat widget configuration
 chat:

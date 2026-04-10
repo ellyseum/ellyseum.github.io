@@ -2570,9 +2570,15 @@ interface AIStreamOptions {
 async function callAI(options: AIStreamOptions): Promise<string> {
   const { content, instruction, voice, model, onToken, signal, history } = options;
 
-  // Get worker URL from config
+  // Get worker URL from config. Empty default — callers should set
+  // `worker_url` in site.yml's CMS block to enable the AI rewrite path.
   const config = SITE_CONFIG as Record<string, unknown>;
-  const workerUrl = (config.worker_url as string) || 'https://chat.api.ellyseum.dev';
+  const workerUrl = (config.worker_url as string) || '';
+  if (!workerUrl) {
+    throw new Error(
+      'AI rewrite is not configured. Set cms.worker_url in site.yml to enable.'
+    );
+  }
 
   // Calculate tokens needed - content will be returned modified, so output ≈ input size
   const contentTokens = estimateTokens(content);
