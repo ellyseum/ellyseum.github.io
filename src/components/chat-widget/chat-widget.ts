@@ -179,18 +179,27 @@ export class ChatWidget {
    * Ask the worker to retrieve RAG context for a query and resolve with
    * the resulting context string (or '' on no match). Used by the cloud
    * path to ground messages before forwarding to the proxy.
+   *
+   * If an AbortSignal is supplied and fires during retrieval, the
+   * promise resolves with '' immediately so the UI's Stop button feels
+   * responsive instead of waiting on the worker to reply or the 5s
+   * timeout to fire.
    */
-  private requestRAGContext(query: string): Promise<string> {
+  private requestRAGContext(query: string, signal?: AbortSignal): Promise<string> {
     const requestId = String(++this.ragRequestId);
     return new Promise<string>((resolve) => {
+      const cleanup = () => {
+        this.ragContextResolvers.delete(requestId);
+      };
+
       this.ragContextResolvers.set(requestId, resolve);
-      // Bail out after 5s rather than blocking the user-facing request
-      // forever if the worker hasn't loaded chunks yet. First-message
-      // cold starts can hit this — the response goes out ungrounded
-      // and we'd otherwise have no signal that retrieval was skipped.
-      setTimeout(() => {
+
+      // Bail out after 5s if the worker hasn't loaded chunks yet.
+      // First-message cold starts can hit this — the response goes out
+      // ungrounded; warn so the case is visible in DevTools.
+      const timeoutId = setTimeout(() => {
         if (this.ragContextResolvers.has(requestId)) {
-          this.ragContextResolvers.delete(requestId);
+          cleanup();
           console.warn(
             '[chat] RAG context request timed out after 5s; ' +
             'forwarding to LLM without retrieved context'
@@ -198,6 +207,23 @@ export class ChatWidget {
           resolve('');
         }
       }, 5000);
+
+      // Short-circuit on abort so Stop doesn't wait on retrieval.
+      const onAbort = () => {
+        if (this.ragContextResolvers.has(requestId)) {
+          clearTimeout(timeoutId);
+          cleanup();
+          resolve('');
+        }
+      };
+      if (signal) {
+        if (signal.aborted) {
+          onAbort();
+          return;
+        }
+        signal.addEventListener('abort', onAbort, { once: true });
+      }
+
       this.postMessage({ type: 'rag-context', requestId, query });
     });
   }
@@ -312,10 +338,14 @@ export class ChatWidget {
       .map(m => ({ role: m.role, content: m.content }));
 
     const lastUser = [...chatHistoryRaw].reverse().find(m => m.role === 'user');
-    const ragContext = lastUser ? await this.requestRAGContext(lastUser.content) : '';
+    // Pass the abort signal so a Stop click during retrieval resolves
+    // the rag-context promise immediately (instead of blocking until
+    // the worker replies or the 5s timeout fires).
+    const ragContext = lastUser
+      ? await this.requestRAGContext(lastUser.content, this.abortController.signal)
+      : '';
 
-    // If the user hit Stop during retrieval, the controller's signal will
-    // be aborted. Bail out before the upstream call.
+    // If the user hit Stop during retrieval, bail out before fetch.
     if (this.abortController.signal.aborted) {
       this.finishGeneration();
       return;

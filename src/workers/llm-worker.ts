@@ -331,6 +331,13 @@ async function generate(messages: ChatMessage[]): Promise<void> {
     const lastUserMsg = [...messages].reverse().find(m => m.role === 'user');
     const context = lastUserMsg ? await getRAGContext(lastUserMsg.content) : '';
 
+    // If the caller aborted during retrieval (which can take seconds on
+    // a cold cache) bail out before kicking off model inference.
+    if (abortController.signal.aborted) {
+      postMessage({ type: 'aborted' });
+      return;
+    }
+
     // Signal that we're starting generation (RAG is done, streaming about to begin)
     postMessage({ type: 'generation-started' });
 
