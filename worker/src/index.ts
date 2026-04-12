@@ -33,13 +33,15 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const origin = request.headers.get('Origin') || '';
 
-    // Parse comma-separated allowed origins
-    const allowedOrigins = env.ALLOWED_ORIGINS.split(',').map(o => o.trim());
-    const isAllowed = allowedOrigins.some(o => origin === o || origin.startsWith(o) || o === '*');
+    // Parse comma-separated allowed origins. Match exactly — startsWith
+    // would let "https://ellyseum.me.evil.com" through since it begins
+    // with "https://ellyseum.me". The wildcard "*" is honored for dev.
+    const allowedOrigins = env.ALLOWED_ORIGINS.split(',').map(o => o.trim()).filter(Boolean);
+    const isAllowed = allowedOrigins.some(o => o === '*' || origin === o);
 
     const corsHeaders = {
       ...CORS_HEADERS,
-      'Access-Control-Allow-Origin': isAllowed ? origin : allowedOrigins[0],
+      'Access-Control-Allow-Origin': isAllowed ? origin : (allowedOrigins[0] || ''),
     };
 
     // Handle CORS preflight
@@ -49,6 +51,16 @@ export default {
 
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405, headers: corsHeaders });
+    }
+
+    // Reject disallowed origins outright. Browsers also enforce CORS via
+    // the response header, but non-browser clients (curl, scripts) ignore
+    // CORS and would otherwise burn the GROQ quota for the proxy owner.
+    if (!isAllowed) {
+      return new Response(JSON.stringify({ error: 'Forbidden origin' }), {
+        status: 403,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
     try {
