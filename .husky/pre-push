@@ -1,16 +1,22 @@
 #!/bin/sh
 
-# Sync system prompt to GitHub secret before pushing
-# The GitHub Actions workflow will inject it at build time
+# Sync system prompt to GitHub secret before pushing.
+# The GitHub Actions workflow injects this secret at build time.
+#
+# Lookup order matches the inject scripts: prefer content/system-prompt.md
+# (split-repo layout) over the template-fork root copy. Skip with a
+# noisy warning if neither file exists, so the push still goes through.
 
-PROMPT_FILE="system-prompt.md"
-
-if [ ! -f "$PROMPT_FILE" ]; then
-  echo "Warning: $PROMPT_FILE not found - skipping secret sync"
+if [ -f "content/system-prompt.md" ]; then
+  PROMPT_FILE="content/system-prompt.md"
+elif [ -f "system-prompt.md" ]; then
+  PROMPT_FILE="system-prompt.md"
+else
+  echo "Warning: no system-prompt.md found in content/ or repo root - skipping secret sync"
   exit 0
 fi
 
-echo "Syncing system prompt to GitHub secret..."
+echo "Syncing $PROMPT_FILE to SYSTEM_PROMPT GitHub secret..."
 gh secret set SYSTEM_PROMPT < "$PROMPT_FILE"
 
 if [ $? -ne 0 ]; then
