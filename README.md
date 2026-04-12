@@ -315,6 +315,18 @@ For the full plugin catalog, API reference, and how to create your own, see [doc
 
 ---
 
+## Pre-push hook
+
+A husky pre-push hook (`.husky/pre-push`) automatically runs `gh secret set SYSTEM_PROMPT < <prompt-file>` on every `git push`, so the GitHub Actions build always receives the latest prompt without a separate `make sync-prompt` step. The hook:
+
+- Prefers `content/system-prompt.md` (split-repo layout) and falls back to the repo root.
+- No-ops with a warning if neither file is present, or if the `gh` CLI isn't authenticated — your push always proceeds.
+
+To skip the hook for a single push: `git push --no-verify`.
+To disable it permanently: delete `.husky/pre-push` (or remove `prepare: husky` from `package.json` and run `git config --unset core.hooksPath`).
+
+---
+
 ## Architecture
 
 ```
