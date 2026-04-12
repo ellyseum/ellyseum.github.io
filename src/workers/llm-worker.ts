@@ -8,17 +8,22 @@ import * as webllm from '@mlc-ai/web-llm';
 import type { MainMessage, WorkerMessage, ChatMessage } from '@/components/chat-widget/chat-types';
 import { EMBEDDING_MODEL } from '@/components/chat-widget/chat-types';
 import { SYSTEM_PROMPT } from '@/data/jocelyn-context';
+import { CONTEXT_CHUNKS } from '@/data/context-chunks';
 
 let chatEngine: webllm.MLCEngineInterface | null = null;
 let embeddingEngine: webllm.MLCEngineInterface | null = null;
 let abortController: AbortController | null = null;
 
 // ============ RAG State ============
+// EmbeddingChunk extends the static ContextChunk with an optional embedding
+// vector. Embedding-based retrieval needs the vector; BM25 only needs the
+// content. The build-time chunks file is the source of truth for both
+// modes — embeddings.json adds vectors when it's available.
 interface EmbeddingChunk {
   id: string;
   category: string;
   content: string;
-  embedding: number[];
+  embedding?: number[];
 }
 
 interface EmbeddingsData {
@@ -39,18 +44,35 @@ let embeddingsData: EmbeddingsData | null = null;
 let bm25Index: BM25Index | null = null;
 
 // ============ RAG Functions ============
+/**
+ * Try to load embeddings.json (vector index, lets us do cosine similarity
+ * on embeddings) and build a BM25 index from it. If embeddings.json isn't
+ * available — e.g. RAG generation hasn't run on this fork — fall back to
+ * building BM25 directly from the build-time CONTEXT_CHUNKS. Either way
+ * we end up with a usable bm25Index, so RAG retrieval keeps working.
+ */
 async function loadEmbeddingsData(): Promise<boolean> {
   try {
     const response = await fetch('/assets/data/embeddings.json');
-    if (!response.ok) return false;
-    embeddingsData = await response.json();
-    if (embeddingsData) {
-      bm25Index = buildBM25Index(embeddingsData.chunks);
+    if (response.ok) {
+      embeddingsData = await response.json();
+      if (embeddingsData && embeddingsData.chunks.length > 0) {
+        bm25Index = buildBM25Index(embeddingsData.chunks);
+        return true;
+      }
     }
-    return true;
   } catch {
-    return false;
+    // fall through to BM25-only fallback
   }
+
+  // No embeddings.json available — build BM25 from the static chunks file.
+  if (CONTEXT_CHUNKS.length > 0) {
+    bm25Index = buildBM25Index(
+      CONTEXT_CHUNKS.map(c => ({ id: c.id, category: c.category, content: c.content }))
+    );
+    return true;
+  }
+  return false;
 }
 
 function cosineSimilarity(a: number[], b: number[]): number {
@@ -84,7 +106,11 @@ function buildBM25Index(chunks: EmbeddingChunk[]): BM25Index {
     }
   }
 
-  return { documents, avgDocLength: totalLength / documents.length, documentFrequency, totalDocs: documents.length, chunks };
+  // Guard the empty-corpus case: dividing by zero produces Infinity, which
+  // poisons every subsequent bm25Score with NaN. Return a structurally
+  // valid index that retrieveByBM25 will treat as 'no results'.
+  const avgDocLength = documents.length > 0 ? totalLength / documents.length : 0;
+  return { documents, avgDocLength, documentFrequency, totalDocs: documents.length, chunks };
 }
 
 function bm25Score(queryTokens: string[], docTokens: string[], docLength: number, index: BM25Index): number {
@@ -105,7 +131,12 @@ function bm25Score(queryTokens: string[], docTokens: string[], docLength: number
 
 function retrieveByEmbedding(queryEmbedding: number[], topK: number = 3): { chunk: EmbeddingChunk; score: number }[] {
   if (!embeddingsData) return [];
-  const scores = embeddingsData.chunks.map(chunk => ({ chunk, score: cosineSimilarity(queryEmbedding, chunk.embedding) }));
+  // Only chunks with an embedding vector can be scored. BM25-only chunks
+  // (from the static CONTEXT_CHUNKS fallback) are skipped here and reach
+  // retrieval through retrieveByBM25 instead.
+  const scores = embeddingsData.chunks
+    .filter(c => Array.isArray(c.embedding))
+    .map(chunk => ({ chunk, score: cosineSimilarity(queryEmbedding, chunk.embedding!) }));
   scores.sort((a, b) => b.score - a.score);
   return scores.slice(0, topK);
 }
@@ -126,12 +157,14 @@ function retrieveByBM25(query: string, topK: number = 3): { chunk: EmbeddingChun
 }
 
 async function getRAGContext(query: string): Promise<string> {
-  if (!embeddingsData) return '';
-
+  // BM25 is available whenever any chunk source loaded — embeddings.json
+  // OR the static CONTEXT_CHUNKS fallback. Embedding-based retrieval only
+  // works when both the embeddings vectors AND the embedding engine
+  // (WebGPU model) are loaded.
   let results: { chunk: EmbeddingChunk; score: number }[] = [];
 
-  // Try embedding-based retrieval if embedding engine is available
-  if (embeddingEngine) {
+  // Try embedding-based retrieval first (only possible if we have vectors)
+  if (embeddingsData && embeddingEngine) {
     try {
       const embedResult = await embeddingEngine.embeddings.create({ input: [query], model: EMBEDDING_MODEL });
       const queryEmbedding = Array.from(embedResult.data[0].embedding);
@@ -144,7 +177,7 @@ async function getRAGContext(query: string): Promise<string> {
     }
   }
 
-  // Fallback to BM25
+  // BM25 fallback — works regardless of WebGPU / embeddings availability
   results = retrieveByBM25(query, 3);
   if (results.length > 0) {
     return '\n\nRelevant context:\n' + results.map(r => r.chunk.content).join('\n\n');
