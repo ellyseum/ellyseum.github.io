@@ -161,6 +161,13 @@ async function getRAGContext(query: string): Promise<string> {
   // OR the static CONTEXT_CHUNKS fallback. Embedding-based retrieval only
   // works when both the embeddings vectors AND the embedding engine
   // (WebGPU model) are loaded.
+
+  // Lazy-init BM25 on first retrieval. The cloud path doesn't load the
+  // embedding model, so loadEmbeddingsData wouldn't have run on its own.
+  if (!bm25Index) {
+    await loadEmbeddingsData();
+  }
+
   let results: { chunk: EmbeddingChunk; score: number }[] = [];
 
   // Try embedding-based retrieval first (only possible if we have vectors)
@@ -387,5 +394,14 @@ self.onmessage = async (e: MessageEvent<MainMessage>) => {
     case 'abort':
       abort();
       break;
+    case 'rag-context': {
+      // Run retrieval on demand for callers that aren't using the
+      // local-inference path (e.g. the cloud Groq proxy). Reply tagged
+      // with the request id so concurrent calls don't cross-pollinate.
+      const { requestId, query } = e.data;
+      const context = await getRAGContext(query);
+      postMessage({ type: 'rag-context-result', requestId, context });
+      break;
+    }
   }
 };

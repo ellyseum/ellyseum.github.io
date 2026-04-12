@@ -19,6 +19,9 @@ export class ChatWidget {
   private isCloud = false;
   private selectedModelId = '';
   private abortController: AbortController | null = null;
+  // Promise resolvers for in-flight RAG context requests, keyed by request id.
+  private ragContextResolvers = new Map<string, (context: string) => void>();
+  private ragRequestId = 0;
 
   constructor() {
     this.ui = new ChatUI({
@@ -160,7 +163,37 @@ export class ChatWidget {
         this.ui.setInputEnabled(true);
         this.ui.setGenerating(false);
         break;
+
+      case 'rag-context-result': {
+        const resolver = this.ragContextResolvers.get(msg.requestId);
+        if (resolver) {
+          this.ragContextResolvers.delete(msg.requestId);
+          resolver(msg.context);
+        }
+        break;
+      }
     }
+  }
+
+  /**
+   * Ask the worker to retrieve RAG context for a query and resolve with
+   * the resulting context string (or '' on no match). Used by the cloud
+   * path to ground messages before forwarding to the proxy.
+   */
+  private requestRAGContext(query: string): Promise<string> {
+    const requestId = String(++this.ragRequestId);
+    return new Promise<string>((resolve) => {
+      this.ragContextResolvers.set(requestId, resolve);
+      // Bail out after 5s rather than blocking the user-facing request
+      // forever if the worker hasn't loaded chunks yet.
+      setTimeout(() => {
+        if (this.ragContextResolvers.has(requestId)) {
+          this.ragContextResolvers.delete(requestId);
+          resolve('');
+        }
+      }, 5000);
+      this.postMessage({ type: 'rag-context', requestId, query });
+    });
   }
 
   private setState(state: ChatState): void {
@@ -257,10 +290,19 @@ export class ChatWidget {
       return;
     }
 
-    // Prepare messages for Groq API (no system - worker adds it)
-    const chatHistory = this.messages
+    // Prepare messages for Groq API. The Cloudflare worker prepends its
+    // own SYSTEM_PROMPT, but doesn't do RAG retrieval — we pre-retrieve
+    // here and inject as an extra system message so cloud users get the
+    // same grounded answers as local-WebGPU users.
+    const chatHistoryRaw = this.messages
       .filter(m => m.role !== 'system')
       .map(m => ({ role: m.role, content: m.content }));
+
+    const lastUser = [...chatHistoryRaw].reverse().find(m => m.role === 'user');
+    const ragContext = lastUser ? await this.requestRAGContext(lastUser.content) : '';
+    const chatHistory = ragContext
+      ? [{ role: 'system' as const, content: ragContext }, ...chatHistoryRaw]
+      : chatHistoryRaw;
 
     this.abortController = new AbortController();
     let hasAddedMessage = false;

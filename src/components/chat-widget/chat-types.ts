@@ -96,7 +96,8 @@ export type WorkerMessage =
   | { type: 'token'; token: string }
   | { type: 'generation-complete'; fullResponse: string }
   | { type: 'generation-error'; error: string }
-  | { type: 'aborted' };
+  | { type: 'aborted' }
+  | { type: 'rag-context-result'; requestId: string; context: string };
 
 // Main thread -> Worker messages
 export type MainMessage =
@@ -104,4 +105,5 @@ export type MainMessage =
   | { type: 'load-model'; modelId: string }
   | { type: 'load-embedding-model' }
   | { type: 'generate'; messages: ChatMessage[] }
-  | { type: 'abort' };
+  | { type: 'abort' }
+  | { type: 'rag-context'; requestId: string; query: string };
