@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FWLB — VFX Build-Out Grind</title>
+<style>
+  :root{
+    --bg:#0c0f0d; --panel:#141a16; --panel2:#182019; --ink:#e6efe4; --dim:#9fb3a2;
+    --line:#26332a; --accent:#7fe3a0; --warm:#ffb347; --cool:#6fc4ff; --mag:#e07be0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background-image:radial-gradient(1200px 600px at 70% -10%,#12211a 0%,transparent 60%);}
+  a{color:var(--accent)}
+  header.top{padding:56px 24px 30px;max-width:1000px;margin:0 auto}
+  .kicker{letter-spacing:.28em;text-transform:uppercase;font-size:12px;color:var(--accent);font-weight:600}
+  h1{font-size:clamp(30px,5vw,48px);margin:.25em 0 .1em;line-height:1.05;
+    background:linear-gradient(120deg,#fff,#8fe6b0 60%,#6fc4ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--dim);max-width:70ch;font-size:17px}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:14px}
+  .stat b{color:var(--accent)}
+  main{max-width:1000px;margin:0 auto;padding:0 24px 90px}
+  section.wave{margin-top:52px;border-top:1px solid var(--line);padding-top:34px}
+  .wave-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .wave-n{font:600 13px/1 ui-monospace,monospace;color:var(--bg);background:var(--accent);
+    padding:6px 9px;border-radius:6px;letter-spacing:.05em}
+  h2{font-size:26px;margin:0}
+  .lede{color:var(--dim);margin:.5em 0 0;max-width:78ch}
+  .fx{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    overflow:hidden;margin-top:26px;box-shadow:0 10px 40px -24px #000}
+  .fx video{width:100%;display:block;background:#000;aspect-ratio:16/9}
+  .fx .body{padding:20px 22px 24px}
+  .fx h3{margin:0 0 4px;font-size:20px}
+  .fx .meta{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 14px}
+  .tag{font:600 11px/1 ui-monospace,monospace;padding:5px 8px;border-radius:5px;border:1px solid var(--line);color:var(--dim)}
+  .tag.k{color:var(--cool);border-color:#25455f}
+  .tag.c{color:var(--warm);border-color:#5a4320}
+  .fx p{margin:.7em 0;color:#cfe0cf}
+  .fx .look{border-left:3px solid var(--accent);padding:2px 0 2px 14px;color:var(--ink);margin:14px 0}
+  .fx .look b{color:var(--accent)}
+  .grid2{display:grid;gap:26px}
+  @media(min-width:860px){.grid2{grid-template-columns:1fr 1fr}}
+  .note{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--warm);
+    border-radius:10px;padding:14px 18px;margin-top:16px;color:#e9ddc7}
+  .decisions{margin-top:52px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .decisions h2{margin-top:0}
+  ol.q{padding-left:20px} ol.q li{margin:10px 0}
+  ul.tasks{columns:2;column-gap:34px;padding-left:18px} ul.tasks li{margin:6px 0;break-inside:avoid;color:var(--dim)}
+  @media(max-width:640px){ul.tasks{columns:1}}
+  footer{max-width:1000px;margin:0 auto;padding:30px 24px 60px;color:var(--dim);font-size:14px;border-top:1px solid var(--line)}
+  code{background:#0f1512;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.9em;color:#bfe8cd}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="kicker">For What Lies Beneath · Godot 4.6.3 · 100% code</div>
+  <h1>VFX Build-Out Grind</h1>
+  <p class="sub">Fourteen VFX systems built, verified, and committed in one unattended run — each proven on
+  the native render lane and frame-read before landing. Watch the clips; each has a writeup on what it is,
+  how it works, and what to look for.</p>
+  <div class="stats">
+    <div class="stat"><b>14</b> commits</div>
+    <div class="stat"><b>6</b> waves</div>
+    <div class="stat"><b>8</b> new demo studios</div>
+    <div class="stat"><b>6</b> reusable modules</div>
+    <div class="stat">launch any: <code>FWLB_STUDIO=&lt;name&gt;</code></div>
+  </div>
+</header>
+
+<main>
+
+<!-- WAVE 1 -->
+<section class="wave">
+  <div class="wave-h"><span class="wave-n">WAVE 1</span><h2>HD sprites in the pixel world</h2></div>
+  <p class="lede">The "inverse FFT" question — can a crisp hi-res character live convincingly inside the chunky
+  480×270 voxel world? Two pieces: proving per-pixel depth occlusion works, and measuring why zoomed-in sprites
+  look janky.</p>
+
+  <div class="fx">
+    <video src="out/depthclip.mp4" controls loop muted playsinline preload="metadata"></video>
+    <div class="body">
+      <h3>Depth-clip probe — per-pixel occlusion by the pixel world</h3>
+      <div class="meta"><span class="tag k">FWLB_STUDIO=depthclip</span><span class="tag c">b304fb1 · 35e8b41</span></div>
+      <p>A native-resolution HD sprite (a chroma-keyed skeleton) is <b>occluded per-pixel by the 480 world</b>.
+      The trick: occluders render their linear view-depth into a separate 480×270 SubViewport, and the sprite's
+      canvas shader samples that depth with NEAREST filtering — so the bite edge <b>snaps to the world's pixel
+      grid</b> (chunky, not smooth). That's deliberate: the sprite stays crisp inside, but where it meets the
+      world it's occluded <em>by the world's own pixels</em>, which is what makes the res-contrast read as
+      authored rather than a floating cutout.</p>
+      <p>It also demonstrates correctness, not just "any geometry hides it": the orange pillar bites the left,
+      the blue block bites the head, the magenta block bites the shins — all simultaneously and per-pixel — while
+      the <b>teal block behind the sprite does NOT bite</b> (the skeleton's ribs draw over it). That's true depth.
+      A first-pass world-light + shadow transfer is wired too (the sprite tints to the scene light; a ground shadow).</p>
+      <div class="look"><b>Watch for:</b> the bite edges are stair-stepped at the world's pixel size (cohesive),
+      and as the camera orbits the bites track live; the teal behind-block never cuts into the figure.</div>
+    </div>
+  </div>
+
+  <div class="fx">
+    <video src="out/spriteab.mp4" controls loop muted playsinline preload="metadata"></video>
+    <div class="body">
+      <h3>Resolution A/B — why zoomed-in sprites go janky</h3>
+      <div class="meta"><span class="tag k">FWLB_STUDIO=sprite_ab</span><span class="tag c">9c440f3</span></div>
+      <p>The same portrait, the same breathing scale-sin, three ways at matched on-screen size. <b>480-smooth</b>
+      (billboard in the world, sub-pixel scale) resamples to mush. <b>480-snap</b> (scale quantized to the pixel
+      grid) is crisp but the animation steps — it kills a smooth idle. <b>Native-HD</b> (on the overlay layer) is
+      the only path that's crisp <em>and</em> smooth, retaining ~3× the detail.</p>
+      <div class="look"><b>Takeaway:</b> the 480 buffer forces smooth-but-muddy OR crisp-but-steppy. Animated HD
+      characters need the native layer — which is exactly what the depth-clip probe above composites. Full
+      decision matrix in <code>docs/SPRITE-RESOLUTION-PATHS.md</code>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE 2 -->
+<section class="wave">
+  <div class="wave-h"><span class="wave-n">WAVE 2</span><h2>Energy trails</h2></div>
+  <div class="fx">
+    <video src="out/trail.mp4" controls loop muted playsinline preload="metadata"></video>
+    <div class="body">
+      <h3>Plasma · electric · ember — one ribbon, three looks</h3>
+      <div class="meta"><span class="tag k">FWLB_STUDIO=trail</span><span class="tag c">b30b7fe</span></div>
+      <p>A projectile/spell trail is a camera-facing ribbon rebuilt every frame from a ring buffer of the head's
+      recent positions (the same strip technique the effects library uses for its ribbons). The shader scrolls
+      two-rate noise along the length with a bright transverse centerline; a <code>ridge</code> lever thresholds
+      it thin for the electric arc. Head→tail fade and taper are carried in the vertex color.</p>
+      <div class="look"><b>Watch for:</b> the soft cyan <b>plasma</b> body, the thin jittery white-cyan
+      <b>electric</b> filament, and the warm posterized <b>ember</b> trail — then a fast diagonal sword-slash arc.
+      <code>VfxTrail.attach()</code> follows any moving node; <code>sweep()</code> is a one-shot arc.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE 3 -->
+<section class="wave">
+  <div class="wave-h"><span class="wave-n">WAVE 3</span><h2>Cashing in the noise engine</h2></div>
+  <p class="lede">One posterized FBM+domain-warp shader was already driving lava/water/orbs. This wave spends it
+  across five real gameplay systems.</p>
+
+  <div class="grid2">
+    <div class="fx">
+      <video src="out/dissolve.mp4" controls loop muted playsinline preload="metadata"></video>
+      <div class="body">
+        <h3>Dissolve / materialize</h3>
+        <div class="meta"><span class="tag k">FWLB_STUDIO=dissolve</span><span class="tag c">1992f45</span></div>
+        <p>A sprite is eaten away (or built up) along a noise threshold, leaving a hot HDR burn edge. Directional
+        bias sweeps the burn up for death, down for spawn.</p>
+        <div class="look"><b>Watch for:</b> a blob enemy materializes (cyan burn), idles, then dissolves on
+        death (ember burn) — the interior discards, not fades.</div>
+      </div>
+    </div>
+    <div class="fx">
+      <video src="out/status.mp4" controls loop muted playsinline preload="metadata"></video>
+      <div class="body">
+        <h3>Status auras</h3>
+        <div class="meta"><span class="tag k">FWLB_STUDIO=status</span><span class="tag c">9133c7a</span></div>
+        <p>A noise billboard per status (burning/poison/frost/shield/rage) that tracks the unit and composes with
+        the existing emote tints. Stacks cleanly.</p>
+        <div class="look"><b>Watch for:</b> the character walks under the first aura (it follows), cycles all
+        five, then holds burning + poison stacked.</div>
+      </div>
+    </div>
+    <div class="fx">
+      <video src="out/field.mp4" controls loop muted playsinline preload="metadata"></video>
+      <div class="body">
+        <h3>AoE fields + hazard tiles</h3>
+        <div class="meta"><span class="tag k">FWLB_STUDIO=field</span><span class="tag c">f61dddc</span></div>
+        <p>Timed circular spell fields (fire nova / poison cloud / frost zone) that pop in, sustain, and fade;
+        plus persistent per-cell tile hazards snapped to the game grid.</p>
+        <div class="look"><b>Watch for:</b> the three fields, then an L-shaped lava strip + a toxic pool with a
+        character crossing them.</div>
+      </div>
+    </div>
+    <div class="fx">
+      <video src="out/weather.mp4" controls loop muted playsinline preload="metadata"></video>
+      <div class="body">
+        <h3>Weather</h3>
+        <div class="meta"><span class="tag k">FWLB_STUDIO=weather</span><span class="tag c">7c74eb4</span></div>
+        <p>Wires the sky sim's drifting cloud-cover (which shadows the terrain) plus a falling-particle overlay
+        for rain/snow/ash.</p>
+        <div class="look"><b>Watch for:</b> clear → rain → storm (darkened, a rumble) → snowfall; the terrain
+        mottles as cloud shadows drift.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE 4 -->
+<section class="wave">
+  <div class="wave-h"><span class="wave-n">WAVE 4</span><h2>The distortion family</h2></div>
+  <div class="fx">
+    <video src="out/distort2.mp4" controls loop muted playsinline preload="metadata"></video>
+    <div class="body">
+      <h3>Summon black hole · dimensional cut · shockwave — one kernel</h3>
+      <div class="meta"><span class="tag k">FWLB_STUDIO=distort</span><span class="tag c">3b5ed55</span></div>
+      <p>The cinematic-tier screen-space posts, refactored onto a single <code>ScreenFX</code> rig (CanvasLayer +
+      back-buffer copy + full-screen shader). A small diegetic in-world rift opens the reel; then the full-screen
+      <b>summon black hole</b> (gravitational lensing + chromatic aberration, verified pixel-identical after the
+      refactor), the <b>dimensional cut</b> (a slash tears the screen apart onto an energy void), and the new
+      <b>shockwave</b> (an expanding radial impact ring).</p>
+      <div class="look"><b>Watch for:</b> the world spiralling into the event horizon; the two halves sliding apart
+      along the sword cut; the ring pushing the scene outward on impact.</div>
+    </div>
+  </div>
+  <div class="fx">
+    <video src="out/haze.mp4" controls loop muted playsinline preload="metadata"></video>
+    <div class="body">
+      <h3>Heat-haze over lava <span style="color:var(--warm);font-size:14px">— caveat</span></h3>
+      <div class="meta"><span class="tag k">FWLB_STUDIO=liquid</span><span class="tag c">e3cfa58</span></div>
+      <p>A diegetic screen-read shimmer rising off a hot surface. Also the best look at the <b>molten lava</b>
+      (Worley crust + glowing cracks + downhill flow on the real fluid sim).</p>
+      <div class="note"><b>Honest caveat:</b> the underlying <code>distort_fx</code> is a full-<em>replace</em>
+      refraction (built for the black hole), so over the very bright, high-contrast molten crust the haze reads as
+      prominent patches, not a subtle shimmer. Shipped as a valid primitive (subtle over lower-contrast surfaces);
+      the real fix — a dedicated additive-<em>perturbation</em> haze shader — is logged as a follow-on.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE 5 -->
+<section class="wave">
+  <div class="wave-h"><span class="wave-n">WAVE 5</span><h2>Anti-occlusion &amp; the info layer</h2></div>
+  <div class="fx">
+    <video src="out/occ.mp4" controls loop muted playsinline preload="metadata"></video>
+    <div class="body">
+      <h3>Wall-fade · x-ray silhouette · gated nameplate</h3>
+      <div class="meta"><span class="tag k">FWLB_STUDIO=occlusion</span><span class="tag c">e50b125 · 29092ad</span></div>
+      <p>For a unit you <em>command</em>, total occlusion is bad UX — so this is the anti-occlusion doctrine. A
+      camera→unit raycast (against a real collider pillar) drives three responses as the camera orbits:
+      <b>wall-fade</b> (the blocking pillar goes translucent), <b>x-ray silhouette</b> (a cyan ghost shows the unit
+      through the wall), and a <b>gated nameplate</b> (the label fades while the unit is hidden). Note: dither
+      "screen-door" fade was verified unimplemented in this renderer, so wall-fade uses real alpha.</p>
+      <div class="look"><b>Watch for:</b> the standout is the x-ray — Ryu fully behind the pillar reads as a clean
+      cyan silhouette drawn over it, then snaps back to solid when he clears.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE 6 -->
+<section class="wave">
+  <div class="wave-h"><span class="wave-n">WAVE 6</span><h2>Cellular follow-ons</h2></div>
+  <div class="grid2">
+    <div class="fx">
+      <video src="out/caustics.mp4" controls loop muted playsinline preload="metadata"></video>
+      <div class="body">
+        <h3>Water caustics</h3>
+        <div class="meta"><span class="tag k">FWLB_STUDIO=liquid ARG=water</span><span class="tag c">ee90f66</span></div>
+        <p>A drifting Worley cell-web brightens the deeper water body — the classic caustic network. Gated so only
+        the water preset has it; lava and the other fluids are untouched.</p>
+        <div class="look"><b>Watch for:</b> the bright cell-web is denser in the deep zones, fainter in the
+        shallows.</div>
+      </div>
+    </div>
+    <div class="fx">
+      <video src="out/cracked.mp4" controls loop muted playsinline preload="metadata"></video>
+      <div class="body">
+        <h3>Cracked ground · obsidian</h3>
+        <div class="meta"><span class="tag k">FWLB_STUDIO=noise</span><span class="tag c">d5b69b9</span></div>
+        <p>A Worley <code>cell</code> lever on the noise engine adds two ground presets: <b>cracked</b> (dark earth
+        with glowing ember veins) and <b>obsidian</b> (blue-black with cyan veins). The original presets are
+        unchanged (the lever defaults off).</p>
+        <div class="look"><b>Watch for:</b> the two new pools in the lower row, alongside the original lava/toxic/
+        water/orbs which all still read the same.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DECISIONS -->
+<div class="decisions">
+  <h2>Your decisions (when you're ready)</h2>
+  <ol class="q">
+    <li><b>HD sprites</b> — which characters go HD (heroes/bosses vs all units)? Lighting depth (the v1 light-tint
+      vs per-pixel directional + a silhouette shadow)? Asset pipeline (commission alpha cutouts vs standardize the
+      chroma-key bake)? Detail in <code>docs/SPRITE-RESOLUTION-PATHS.md</code>.</li>
+    <li><b>iso_main integration</b> — which systems into the real battle first? My ranking: status auras + hazard
+      tiles → dissolve (death/spawn) → readable-text migration → the rest as spell content.</li>
+    <li><b>Tuning</b> — several defaults are dialed for demo legibility (aura size, caustics strength, weather
+      density). Trivial to adjust to taste.</li>
+  </ol>
+
+  <h2 style="margin-top:28px">Suggested follow-ons</h2>
+  <ul class="tasks">
+    <li>iso_main hi-res text migration + wire the occlusion gate</li>
+    <li>Additive-perturbation heat-haze shader (the real subtle haze)</li>
+    <li>HD-sprite lighting v2 — per-pixel directional + silhouette shadow</li>
+    <li>Wire noise systems into gameplay (hazard damage, aura on-apply, field on-cast, dissolve on-death)</li>
+    <li>Projectile auto-trail seam (<code>on_head</code> on the projectile verb)</li>
+    <li>White-hole / eclipse summon variant (cut from this grind)</li>
+    <li>Dedicated status-icon art (replace placeholder glyphs)</li>
+    <li>GemField → iso_main adoption (documented seam)</li>
+    <li>Flow-map two-phase advection for lava (researched)</li>
+    <li><code>out/</code> render cleanup (~90 clips → keep the finals)</li>
+  </ul>
+</div>
+
+</main>
+
+<footer>
+  Full writeup: <code>docs/VFX-GRIND-REPORT.md</code> · sprite decision: <code>docs/SPRITE-RESOLUTION-PATHS.md</code>
+  · 14 commits <code>b304fb1..d5b69b9</code>, all local (not pushed). Worldbuilding repo, <code>ellyseum</code> identity.
+</footer>
+</body>
+</html>
