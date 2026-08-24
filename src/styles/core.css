@@ -30,6 +30,7 @@
 @import './pages/archive.css';
 @import './pages/about.css';
 @import './pages/search.css';
+@import './pages/portfolio.css';
 
 /* 5. Utilities - These come last for override capability */
 @import './utilities/animations.css';

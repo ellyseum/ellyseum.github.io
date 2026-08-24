@@ -48,6 +48,7 @@
       <a href="{{ '/' | relative_url }}" class="site-title">{{ site.data.site.site.title | default: site.title }}</a>
       <nav class="site-nav" aria-label="Main">
         <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>Home</a>
+        <a href="{{ '/portfolio/' | relative_url }}" {% if page.url == '/portfolio/' %}aria-current="page"{% endif %}>Work</a>
         <a href="{{ '/archive/' | relative_url }}" {% if page.url == '/archive/' %}aria-current="page"{% endif %}>Archive</a>
         <a href="{{ '/search/' | relative_url }}" {% if page.url == '/search/' %}aria-current="page"{% endif %}>Search</a>
         <a href="{{ '/about/' | relative_url }}" {% if page.url == '/about/' %}aria-current="page"{% endif %}>About</a>

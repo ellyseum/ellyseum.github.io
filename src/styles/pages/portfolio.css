@@ -1,0 +1,119 @@
+/* ==========================================================================
+   Portfolio Index + Item Pages
+   ========================================================================== */
+.portfolio-index {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem 2rem;
+  }
+}
+
+.portfolio-intro {
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+  max-width: 40rem;
+}
+
+.portfolio-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.portfolio-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.portfolio-list-item a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+
+.portfolio-list-item a:hover {
+  color: var(--primary-light);
+}
+
+.portfolio-list-desc {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.portfolio-item {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem 2rem;
+  }
+}
+
+.portfolio-item-back a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.portfolio-item-back a:hover {
+  color: var(--primary-light);
+}
+
+.portfolio-item-header {
+  margin: 1.5rem 0 2rem;
+}
+
+.portfolio-status {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.portfolio-status-placeholder {
+  color: var(--text-dim);
+  background: var(--surface);
+}
+
+.portfolio-status-live {
+  color: var(--primary-light);
+  background: var(--surface);
+}
+
+.portfolio-item-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.portfolio-item-subtitle {
+  color: var(--text-dim);
+  margin: 0 0 0.75rem;
+}
+
+.portfolio-item-repo {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.portfolio-item-repo:hover {
+  color: var(--primary-light);
+}
+
+.portfolio-item-content {
+  color: var(--text);
+  line-height: 1.7;
+}

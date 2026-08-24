@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<article class="portfolio-item">
+  <nav class="portfolio-item-back">
+    <a href="{{ '/portfolio/' | relative_url }}">&larr; All work</a>
+  </nav>
+
+  <header class="portfolio-item-header">
+    <span class="portfolio-status portfolio-status-{{ page.status | default: 'placeholder' }}">
+      {% if page.status == 'live' %}Live{% else %}Coming soon{% endif %}
+    </span>
+    <h1 class="portfolio-item-title">{{ page.title }}</h1>
+    {% if page.subtitle %}
+    <p class="portfolio-item-subtitle">{{ page.subtitle }}</p>
+    {% endif %}
+    {% if page.repo %}
+    <a href="https://github.com/{{ page.repo }}" class="portfolio-item-repo" target="_blank" rel="noopener">
+      github.com/{{ page.repo }}
+    </a>
+    {% endif %}
+  </header>
+
+  <div class="portfolio-item-content">
+    {{ content }}
+  </div>
+</article>
