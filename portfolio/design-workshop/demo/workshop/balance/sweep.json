@@ -1,0 +1,1646 @@
+{
+ "builds_scored": 386640,
+ "flags": [
+  {
+   "axis": "dps",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 229.3434,
+    "dps": 229.3434,
+    "ehp": 13.920000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.3335664279456327,
+     "miniboss": 0.22237727872913932,
+     "wave0": 0.05232328464651697,
+     "wave1": 0.15014507768130958,
+     "wave2": 0.16721831291353872,
+     "wave3": 0.20902289114192343,
+     "wave4": 0.1603822420686716
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 10.66
+  },
+  {
+   "axis": "dps",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 229.3434,
+    "dps": 229.3434,
+    "ehp": 11.04,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.3335664279456327,
+     "miniboss": 0.22237727872913932,
+     "wave0": 0.05232328464651697,
+     "wave1": 0.15014507768130958,
+     "wave2": 0.16721831291353872,
+     "wave3": 0.20902289114192343,
+     "wave4": 0.1603822420686716
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 10.66
+  },
+  {
+   "axis": "dps",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 249.77700000000004,
+    "ehp": 16.240000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.29831541643753884,
+     "miniboss": 0.20061302077166943,
+     "wave0": 0.04804285422596956,
+     "wave1": 0.1362281822051937,
+     "wave2": 0.15142552939784693,
+     "wave3": 0.18928191174730863,
+     "wave4": 0.14551646735554782
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 10.47
+  },
+  {
+   "axis": "dps",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 249.77700000000004,
+    "ehp": 12.879999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.29831541643753884,
+     "miniboss": 0.20061302077166943,
+     "wave0": 0.04804285422596956,
+     "wave1": 0.1362281822051937,
+     "wave2": 0.15142552939784693,
+     "wave3": 0.18928191174730863,
+     "wave4": 0.14551646735554782
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}"
+   ],
+   "z": 10.47
+  },
+  {
+   "axis": "dps",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 270.6858,
+    "ehp": 18.560000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.2691791786337892,
+     "miniboss": 0.18233982044609287,
+     "wave0": 0.044331841566864615,
+     "wave1": 0.1244210532864266,
+     "wave2": 0.1380747035924449,
+     "wave3": 0.17259337949055611,
+     "wave4": 0.13290430691959204
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 10.23
+  },
+  {
+   "axis": "dps",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 270.6858,
+    "ehp": 14.719999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.2691791786337892,
+     "miniboss": 0.18233982044609287,
+     "wave0": 0.044331841566864615,
+     "wave1": 0.1244210532864266,
+     "wave2": 0.1380747035924449,
+     "wave3": 0.17259337949055611,
+     "wave4": 0.13290430691959204
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}"
+   ],
+   "z": 10.23
+  },
+  {
+   "axis": "dps",
+   "band": "L7-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 7,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 292.0698,
+    "dps": 292.0698,
+    "ehp": 20.880000000000003,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.24471258654127948,
+     "miniboss": 0.16679189730431485,
+     "wave0": 0.041086069151962994,
+     "wave1": 0.11428538775603496,
+     "wave2": 0.12664870893514554,
+     "wave3": 0.15831088616893194,
+     "wave4": 0.12207757328485552
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 12, \"wit\": 6, \"ten\": 3}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 10.02
+  },
+  {
+   "axis": "dps",
+   "band": "L7-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 7,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 292.0698,
+    "dps": 292.0698,
+    "ehp": 16.56,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.24471258654127948,
+     "miniboss": 0.16679189730431485,
+     "wave0": 0.041086069151962994,
+     "wave1": 0.11428538775603496,
+     "wave2": 0.12664870893514554,
+     "wave3": 0.15831088616893194,
+     "wave4": 0.12207757328485552
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 12, \"wit\": 6, \"ten\": 3}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}"
+   ],
+   "z": 10.02
+  },
+  {
+   "axis": "dps",
+   "band": "L1-v0",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 1,
+    "memories": [
+     "Overclock"
+    ]
+   },
+   "scores": {
+    "alpha": 137.48399999999998,
+    "dps": 137.48399999999998,
+    "ehp": 24.0,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.691511076674415,
+     "miniboss": 0.42211962178081897,
+     "wave0": 0.08728288382648164,
+     "wave1": 0.274317634883228,
+     "wave2": 0.32142971939185505,
+     "wave3": 0.4017871492398188,
+     "wave4": 0.302576146184193
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Overclock {\"frt\": -3, \"wit\": 7}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.8
+  },
+  {
+   "axis": "alpha",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 229.3434,
+    "dps": 152.8956,
+    "ehp": 13.920000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.506455785799712,
+     "miniboss": 0.3372543295715653,
+     "wave0": 0.07848492696977545,
+     "wave1": 0.22521761652196434,
+     "wave2": 0.2534765898526984,
+     "wave3": 0.316845737315873,
+     "wave4": 0.24057336310300736
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "gear:Boomerang Knife {\"ten\": 1}"
+   ],
+   "z": 9.67
+  },
+  {
+   "axis": "alpha",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 229.3434,
+    "dps": 152.8956,
+    "ehp": 11.04,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.506455785799712,
+     "miniboss": 0.3372543295715653,
+     "wave0": 0.07848492696977545,
+     "wave1": 0.22521761652196434,
+     "wave2": 0.2534765898526984,
+     "wave3": 0.316845737315873,
+     "wave4": 0.24057336310300736
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "gear:Boomerang Knife {\"ten\": 1}"
+   ],
+   "z": 9.67
+  },
+  {
+   "axis": "alpha",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 229.3434,
+    "dps": 229.3434,
+    "ehp": 13.920000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.3335664279456327,
+     "miniboss": 0.22237727872913932,
+     "wave0": 0.05232328464651697,
+     "wave1": 0.15014507768130958,
+     "wave2": 0.16721831291353872,
+     "wave3": 0.20902289114192343,
+     "wave4": 0.1603822420686716
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.67
+  },
+  {
+   "axis": "alpha",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 229.3434,
+    "dps": 229.3434,
+    "ehp": 11.04,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.3335664279456327,
+     "miniboss": 0.22237727872913932,
+     "wave0": 0.05232328464651697,
+     "wave1": 0.15014507768130958,
+     "wave2": 0.16721831291353872,
+     "wave3": 0.20902289114192343,
+     "wave4": 0.1603822420686716
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.67
+  },
+  {
+   "axis": "alpha",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "javelin"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 229.3434,
+    "dps": 152.8956,
+    "ehp": 13.920000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.506455785799712,
+     "miniboss": 0.3372543295715653,
+     "wave0": 0.07848492696977545,
+     "wave1": 0.22521761652196434,
+     "wave2": 0.2534765898526984,
+     "wave3": 0.316845737315873,
+     "wave4": 0.24057336310300736
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "gear:Javelin {\"ten\": 2}"
+   ],
+   "z": 9.67
+  },
+  {
+   "axis": "alpha",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "smoke_charm"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 229.3434,
+    "dps": 152.8956,
+    "ehp": 13.920000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.506455785799712,
+     "miniboss": 0.3372543295715653,
+     "wave0": 0.07848492696977545,
+     "wave1": 0.22521761652196434,
+     "wave2": 0.2534765898526984,
+     "wave3": 0.316845737315873,
+     "wave4": 0.24057336310300736
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}"
+   ],
+   "z": 9.67
+  },
+  {
+   "axis": "alpha",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "smoke_charm"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 229.3434,
+    "dps": 152.8956,
+    "ehp": 11.04,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.506455785799712,
+     "miniboss": 0.3372543295715653,
+     "wave0": 0.07848492696977545,
+     "wave1": 0.22521761652196434,
+     "wave2": 0.2534765898526984,
+     "wave3": 0.316845737315873,
+     "wave4": 0.24057336310300736
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}"
+   ],
+   "z": 9.67
+  },
+  {
+   "axis": "dps",
+   "band": "L3-v0",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 3,
+    "memories": [
+     "Overclock"
+    ]
+   },
+   "scores": {
+    "alpha": 158.304,
+    "dps": 158.304,
+    "ehp": 28.0,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.5595012753932688,
+     "miniboss": 0.350719838093924,
+     "wave0": 0.07580351728320193,
+     "wave1": 0.23162185836533927,
+     "wave2": 0.2695272492048947,
+     "wave3": 0.3369090615061183,
+     "wave4": 0.2553104575163399
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Overclock {\"frt\": -3, \"wit\": 7}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.66
+  },
+  {
+   "axis": "dps",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "dps",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 209.385,
+    "dps": 209.385,
+    "ehp": 20.48,
+    "kit_notes": [],
+    "ttk": {
+     "boss": 0.3770399907693342,
+     "miniboss": 0.24871362053640597,
+     "wave0": 0.057310695608567955,
+     "wave1": 0.16677715653286967,
+     "wave2": 0.18617271941327665,
+     "wave3": 0.23271589926659583,
+     "wave4": 0.17814832629647442
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.61
+  },
+  {
+   "axis": "dps",
+   "band": "L1-v1",
+   "build": {
+    "archetype": "dps",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 1,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 209.385,
+    "dps": 209.385,
+    "ehp": 16.64,
+    "kit_notes": [],
+    "ttk": {
+     "boss": 0.3770399907693342,
+     "miniboss": 0.24871362053640597,
+     "wave0": 0.057310695608567955,
+     "wave1": 0.16677715653286967,
+     "wave2": 0.18617271941327665,
+     "wave3": 0.23271589926659583,
+     "wave4": 0.17814832629647442
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.61
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 166.51800000000003,
+    "ehp": 16.240000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.45235058805576445,
+     "miniboss": 0.3039180517358204,
+     "wave0": 0.07206428133895433,
+     "wave1": 0.20434227330779053,
+     "wave2": 0.2293084915800788,
+     "wave3": 0.2866356144750985,
+     "wave4": 0.2182747010333217
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}",
+    "gear:Boomerang Knife {\"ten\": 1}"
+   ],
+   "z": 9.51
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 166.51800000000003,
+    "ehp": 12.879999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.45235058805576445,
+     "miniboss": 0.3039180517358204,
+     "wave0": 0.07206428133895433,
+     "wave1": 0.20434227330779053,
+     "wave2": 0.2293084915800788,
+     "wave3": 0.2866356144750985,
+     "wave4": 0.2182747010333217
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}"
+   ],
+   "z": 9.51
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 249.77700000000004,
+    "ehp": 16.240000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.29831541643753884,
+     "miniboss": 0.20061302077166943,
+     "wave0": 0.04804285422596956,
+     "wave1": 0.1362281822051937,
+     "wave2": 0.15142552939784693,
+     "wave3": 0.18928191174730863,
+     "wave4": 0.14551646735554782
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.51
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 249.77700000000004,
+    "ehp": 12.879999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.29831541643753884,
+     "miniboss": 0.20061302077166943,
+     "wave0": 0.04804285422596956,
+     "wave1": 0.1362281822051937,
+     "wave2": 0.15142552939784693,
+     "wave3": 0.18928191174730863,
+     "wave4": 0.14551646735554782
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}"
+   ],
+   "z": 9.51
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "javelin"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 166.51800000000003,
+    "ehp": 16.240000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.45235058805576445,
+     "miniboss": 0.3039180517358204,
+     "wave0": 0.07206428133895433,
+     "wave1": 0.20434227330779053,
+     "wave2": 0.2293084915800788,
+     "wave3": 0.2866356144750985,
+     "wave4": 0.2182747010333217
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}",
+    "gear:Javelin {\"ten\": 2}"
+   ],
+   "z": 9.51
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "smoke_charm"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 166.51800000000003,
+    "ehp": 16.240000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.45235058805576445,
+     "miniboss": 0.3039180517358204,
+     "wave0": 0.07206428133895433,
+     "wave1": 0.20434227330779053,
+     "wave2": 0.2293084915800788,
+     "wave3": 0.2866356144750985,
+     "wave4": 0.2182747010333217
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}"
+   ],
+   "z": 9.51
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "smoke_charm"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 166.51800000000003,
+    "ehp": 12.879999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.45235058805576445,
+     "miniboss": 0.3039180517358204,
+     "wave0": 0.07206428133895433,
+     "wave1": 0.20434227330779053,
+     "wave2": 0.2293084915800788,
+     "wave3": 0.2866356144750985,
+     "wave4": 0.2182747010333217
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}"
+   ],
+   "z": 9.51
+  },
+  {
+   "axis": "dps",
+   "band": "L5-v0",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 5,
+    "memories": [
+     "Overclock"
+    ]
+   },
+   "scores": {
+    "alpha": 180.3384,
+    "dps": 180.3384,
+    "ehp": 32.0,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.4651501650442453,
+     "miniboss": 0.3004502813889275,
+     "wave0": 0.0665415685178531,
+     "wave1": 0.1988032047076599,
+     "wave2": 0.23008605218351666,
+     "wave3": 0.28760756522939585,
+     "wave4": 0.2189941551857816
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Overclock {\"frt\": -3, \"wit\": 7}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.49
+  },
+  {
+   "axis": "alpha",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 180.4572,
+    "ehp": 18.560000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.40773577935501115,
+     "miniboss": 0.27598463172791715,
+     "wave0": 0.06649776235029692,
+     "wave1": 0.18663157992963988,
+     "wave2": 0.20891492200944817,
+     "wave3": 0.2611436525118102,
+     "wave4": 0.19935646037938806
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}",
+    "gear:Boomerang Knife {\"ten\": 1}"
+   ],
+   "z": 9.32
+  },
+  {
+   "axis": "alpha",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 180.4572,
+    "ehp": 14.719999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.40773577935501115,
+     "miniboss": 0.27598463172791715,
+     "wave0": 0.06649776235029692,
+     "wave1": 0.18663157992963988,
+     "wave2": 0.20891492200944817,
+     "wave3": 0.2611436525118102,
+     "wave4": 0.19935646037938806
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}"
+   ],
+   "z": 9.32
+  },
+  {
+   "axis": "alpha",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 270.6858,
+    "ehp": 18.560000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.2691791786337892,
+     "miniboss": 0.18233982044609287,
+     "wave0": 0.044331841566864615,
+     "wave1": 0.1244210532864266,
+     "wave2": 0.1380747035924449,
+     "wave3": 0.17259337949055611,
+     "wave4": 0.13290430691959204
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.32
+  },
+  {
+   "axis": "alpha",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 270.6858,
+    "ehp": 14.719999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.2691791786337892,
+     "miniboss": 0.18233982044609287,
+     "wave0": 0.044331841566864615,
+     "wave1": 0.1244210532864266,
+     "wave2": 0.1380747035924449,
+     "wave3": 0.17259337949055611,
+     "wave4": 0.13290430691959204
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}"
+   ],
+   "z": 9.32
+  },
+  {
+   "axis": "alpha",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "javelin"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 180.4572,
+    "ehp": 18.560000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.40773577935501115,
+     "miniboss": 0.27598463172791715,
+     "wave0": 0.06649776235029692,
+     "wave1": 0.18663157992963988,
+     "wave2": 0.20891492200944817,
+     "wave3": 0.2611436525118102,
+     "wave4": 0.19935646037938806
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}",
+    "gear:Javelin {\"ten\": 2}"
+   ],
+   "z": 9.32
+  },
+  {
+   "axis": "alpha",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "smoke_charm"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 180.4572,
+    "ehp": 18.560000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.40773577935501115,
+     "miniboss": 0.27598463172791715,
+     "wave0": 0.06649776235029692,
+     "wave1": 0.18663157992963988,
+     "wave2": 0.20891492200944817,
+     "wave3": 0.2611436525118102,
+     "wave4": 0.19935646037938806
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}"
+   ],
+   "z": 9.32
+  },
+  {
+   "axis": "alpha",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "smoke_charm"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 180.4572,
+    "ehp": 14.719999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.40773577935501115,
+     "miniboss": 0.27598463172791715,
+     "wave0": 0.06649776235029692,
+     "wave1": 0.18663157992963988,
+     "wave2": 0.20891492200944817,
+     "wave3": 0.2611436525118102,
+     "wave4": 0.19935646037938806
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}"
+   ],
+   "z": 9.32
+  },
+  {
+   "axis": "alpha",
+   "band": "L7-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 7,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 292.0698,
+    "dps": 194.7132,
+    "ehp": 20.880000000000003,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.3703445900240768,
+     "miniboss": 0.25225708056677615,
+     "wave0": 0.06162910372794449,
+     "wave1": 0.17142808163405243,
+     "wave2": 0.1914888014955275,
+     "wave3": 0.2393610018694094,
+     "wave4": 0.18311635992728328
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 12, \"wit\": 6, \"ten\": 3}",
+    "gear:Boomerang Knife {\"ten\": 1}"
+   ],
+   "z": 9.15
+  },
+  {
+   "axis": "alpha",
+   "band": "L7-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 7,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 292.0698,
+    "dps": 194.7132,
+    "ehp": 16.56,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.3703445900240768,
+     "miniboss": 0.25225708056677615,
+     "wave0": 0.06162910372794449,
+     "wave1": 0.17142808163405243,
+     "wave2": 0.1914888014955275,
+     "wave3": 0.2393610018694094,
+     "wave4": 0.18311635992728328
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 12, \"wit\": 6, \"ten\": 3}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}"
+   ],
+   "z": 9.15
+  },
+  {
+   "axis": "alpha",
+   "band": "L7-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 7,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 292.0698,
+    "dps": 292.0698,
+    "ehp": 20.880000000000003,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.24471258654127948,
+     "miniboss": 0.16679189730431485,
+     "wave0": 0.041086069151962994,
+     "wave1": 0.11428538775603496,
+     "wave2": 0.12664870893514554,
+     "wave3": 0.15831088616893194,
+     "wave4": 0.12207757328485552
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 12, \"wit\": 6, \"ten\": 3}",
+    "gear:Duplicate Chit {\"atk\": 1}"
+   ],
+   "z": 9.15
+  },
+  {
+   "axis": "alpha",
+   "band": "L7-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "duplicate_chit"
+    ],
+    "level": 7,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "scores": {
+    "alpha": 292.0698,
+    "dps": 292.0698,
+    "ehp": 16.56,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.24471258654127948,
+     "miniboss": 0.16679189730431485,
+     "wave0": 0.041086069151962994,
+     "wave1": 0.11428538775603496,
+     "wave2": 0.12664870893514554,
+     "wave3": 0.15831088616893194,
+     "wave4": 0.12207757328485552
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 12, \"wit\": 6, \"ten\": 3}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}"
+   ],
+   "z": 9.15
+  },
+  {
+   "axis": "alpha",
+   "band": "L7-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "javelin"
+    ],
+    "level": 7,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 292.0698,
+    "dps": 194.7132,
+    "ehp": 20.880000000000003,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.3703445900240768,
+     "miniboss": 0.25225708056677615,
+     "wave0": 0.06162910372794449,
+     "wave1": 0.17142808163405243,
+     "wave2": 0.1914888014955275,
+     "wave3": 0.2393610018694094,
+     "wave4": 0.18311635992728328
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 12, \"wit\": 6, \"ten\": 3}",
+    "gear:Javelin {\"ten\": 2}"
+   ],
+   "z": 9.15
+  },
+  {
+   "axis": "alpha",
+   "band": "L7-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "smoke_charm"
+    ],
+    "level": 7,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "scores": {
+    "alpha": 292.0698,
+    "dps": 194.7132,
+    "ehp": 20.880000000000003,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.3703445900240768,
+     "miniboss": 0.25225708056677615,
+     "wave0": 0.06162910372794449,
+     "wave1": 0.17142808163405243,
+     "wave2": 0.1914888014955275,
+     "wave3": 0.2393610018694094,
+     "wave4": 0.18311635992728328
+    }
+   },
+   "tier": "outlier",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 12, \"wit\": 6, \"ten\": 3}"
+   ],
+   "z": 9.15
+  }
+ ],
+ "knobs": false,
+ "plant": false,
+ "pruning": "gear pairs limited to top-12 movers; memory pairs to top-10; faction 0 only"
+}

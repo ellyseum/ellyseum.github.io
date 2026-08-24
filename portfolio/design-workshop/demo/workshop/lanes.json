@@ -1,0 +1,91 @@
+{
+  "lanes": [
+    {
+      "class": "review",
+      "id": "vfx",
+      "kind": "clip",
+      "label": "VFX",
+      "render": {
+        "clip_dir": "out/audition",
+        "scene": "res://fx_lab.tscn",
+        "studio_env": "vfx_audition",
+        "writer": "movie"
+      },
+      "watch": {}
+    },
+    {
+      "class": "review",
+      "id": "battle_feel",
+      "kind": "clip",
+      "label": "Battle Feel",
+      "render": {
+        "clip_dir": "out/workshop/battle_feel",
+        "max_frames": 1800,
+        "scene": "res://iso_main.tscn",
+        "speed": 1.0,
+        "writer": "recorder"
+      },
+      "watch": {}
+    },
+    {
+      "class": "review",
+      "id": "mechanics",
+      "kind": "table",
+      "label": "Mechanics",
+      "render": {},
+      "watch": {}
+    },
+    {
+      "class": "watch",
+      "id": "playthrough",
+      "kind": "trace",
+      "label": "Playthrough",
+      "render": {},
+      "watch": {
+        "checks": [
+          "determinism",
+          "golden",
+          "timeout",
+          "balance",
+          "perf"
+        ],
+        "evidence_dir": "out/workshop/playthrough",
+        "grid": 16,
+        "mode": "battle",
+        "seeds": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "thresholds": {
+          "max_secs": 90.0,
+          "min_fps": 20.0,
+          "win_rate_hi": 0.65,
+          "win_rate_lo": 0.35
+        }
+      }
+    },
+    {
+      "class": "watch",
+      "id": "flow",
+      "kind": "flow",
+      "label": "Flow",
+      "render": {},
+      "watch": {}
+    },
+    {
+      "class": "lab",
+      "id": "balance",
+      "kind": "page",
+      "label": "BALANCE",
+      "page": "balance/index.html",
+      "render": {},
+      "watch": {}
+    }
+  ]
+}

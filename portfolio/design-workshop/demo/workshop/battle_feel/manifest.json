@@ -1,0 +1,67 @@
+{
+  "candidates": [
+    {
+      "blurb": "the shipped FFT cadence \u2014 held anticipation, ~1s per basic. The reference to A/B against.",
+      "clip": "out/workshop/battle_feel/feel_baseline.mp4",
+      "feel": {},
+      "grid": 16,
+      "history": [],
+      "id": "feel_baseline",
+      "name": "Baseline",
+      "notes": "",
+      "seed": 7,
+      "verdict": ""
+    },
+    {
+      "blurb": "arcade weight: short wind-up, fat real-time hitstop, quick recovery \u2014 hits snap.",
+      "clip": "out/workshop/battle_feel/feel_punchy.mp4",
+      "feel": {
+        "hitstop": 0.12,
+        "post_hit": 0.16,
+        "windup": 0.22
+      },
+      "grid": 16,
+      "history": [],
+      "id": "feel_punchy",
+      "name": "Punchy",
+      "notes": "",
+      "seed": 7,
+      "verdict": ""
+    },
+    {
+      "blurb": "slow and deliberate \u2014 long held anticipation, longer skill announce, breath between turns.",
+      "clip": "out/workshop/battle_feel/feel_cinematic.mp4",
+      "feel": {
+        "ai_pre": 0.7,
+        "cast_hold": 0.75,
+        "post_hit": 0.5,
+        "windup": 0.7
+      },
+      "grid": 16,
+      "history": [],
+      "id": "feel_cinematic",
+      "name": "Cinematic",
+      "notes": "",
+      "seed": 7,
+      "verdict": ""
+    },
+    {
+      "blurb": "basics keep the held beat, but SKILLS fire fast \u2014 shorter cast_hold + post_cast settle.",
+      "clip": "out/workshop/battle_feel/feel_snappy_cast.mp4",
+      "feel": {
+        "cast_hold": 0.3,
+        "post_cast": 0.15
+      },
+      "grid": 16,
+      "history": [],
+      "id": "feel_snappy_cast",
+      "name": "Snappy Cast",
+      "notes": "",
+      "seed": 7,
+      "verdict": ""
+    }
+  ],
+  "pass": 1,
+  "passes": [],
+  "requests": []
+}

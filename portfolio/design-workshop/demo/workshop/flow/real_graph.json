@@ -1,0 +1,560 @@
+{
+  "edges": [
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "BOOT_CARDS",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/boot_cards.gd:43",
+      "to": "PICK",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "BOOT_CARDS",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/boot_cards.gd:51",
+      "to": "TITLE",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "CAMP",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/camp.gd:91",
+      "to": "PICK",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "EXPO",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/expo.gd:353",
+      "to": "PICK",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "PICK",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/hub.gd:194",
+      "to": "MAP",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "PICK",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/hub.gd:200",
+      "to": "PREAMBLE",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "VIGNETTE",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/intro.gd:445",
+      "to": "BATTLE",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "VIGNETTE",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/intro.gd:447",
+      "to": "MAP",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "BATTLE",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/iso_main.gd:4848",
+      "to": "MAP",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "RESULTS",
+      "guard": "",
+      "kind": "overlay-push",
+      "reversible": null,
+      "source": "game/iso_main.gd:6281",
+      "to": "CEREMONY",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "CEREMONY",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/iso_main.gd:6351",
+      "to": "WIN",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/main.gd:156",
+      "to": "EXPO",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/main.gd:158",
+      "to": "BATTLE",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/main.gd:167",
+      "to": "VIGNETTE",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "substate",
+      "reversible": null,
+      "source": "game/main.gd:213",
+      "to": "MAP:event",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "substate",
+      "reversible": null,
+      "source": "game/main.gd:222",
+      "to": "MAP:reward_pick",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "substate",
+      "reversible": null,
+      "source": "game/main.gd:234",
+      "to": "MAP:seed_pick",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "substate",
+      "reversible": null,
+      "source": "game/main.gd:244",
+      "to": "MAP:shop",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "substate",
+      "reversible": null,
+      "source": "game/main.gd:341",
+      "to": "MAP:reward_give",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "substate",
+      "reversible": null,
+      "source": "game/main.gd:355",
+      "to": "MAP:seed_give",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "substate",
+      "reversible": null,
+      "source": "game/main.gd:378",
+      "to": "MAP:shop_give",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "MAP",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/main.gd:419",
+      "to": "CAMP",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "PREAMBLE",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/preamble.gd:46",
+      "to": "MAP",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "PREAMBLE",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/preamble.gd:358",
+      "to": "PICK",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "SAVES",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/saves.gd:429",
+      "to": "EXPO",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "SAVES",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/saves.gd:429",
+      "to": "PICK",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "TITLE",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/title.gd:295",
+      "to": "PICK",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "TITLE",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/title.gd:298",
+      "to": "SAVES",
+      "trigger": ""
+    },
+    {
+      "confirm": null,
+      "evidence": "static",
+      "from": "WIN",
+      "guard": "",
+      "kind": "scene-swap",
+      "reversible": null,
+      "source": "game/win.gd:275",
+      "to": "CAMP",
+      "trigger": ""
+    }
+  ],
+  "generated": "static",
+  "meta": {
+    "edges": 29,
+    "states": 16
+  },
+  "nodes": [
+    {
+      "id": "BOOT_CARDS",
+      "label": "BOOT_CARDS",
+      "scene_file": "res://boot_cards.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "TITLE",
+      "label": "TITLE",
+      "scene_file": "res://title.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "SAVES",
+      "label": "SAVES",
+      "scene_file": "res://saves.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "EXPO",
+      "label": "EXPO",
+      "scene_file": "res://expo.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "VIGNETTE",
+      "label": "VIGNETTE",
+      "scene_file": "res://intro.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "PICK",
+      "label": "PICK",
+      "scene_file": "res://hub.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "CAMP",
+      "label": "CAMP",
+      "scene_file": "res://camp.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "PREAMBLE",
+      "label": "PREAMBLE",
+      "scene_file": "res://preamble.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "MAP",
+      "label": "MAP",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "EVENT",
+      "label": "EVENT",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "overlay",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "TOWN",
+      "label": "TOWN",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "overlay",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "PLACEMENT",
+      "label": "PLACEMENT",
+      "scene_file": "res://iso_main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "overlay",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "BATTLE",
+      "label": "BATTLE",
+      "scene_file": "res://iso_main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "RESULTS",
+      "label": "RESULTS",
+      "scene_file": "res://iso_main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "overlay",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "CEREMONY",
+      "label": "CEREMONY",
+      "scene_file": "res://iso_main.tscn",
+      "screenshot": null,
+      "stub": true,
+      "type": "overlay",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "WIN",
+      "label": "WIN",
+      "scene_file": "res://win.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "scene",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "MAP:event",
+      "label": "event",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "substate",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "MAP:reward_pick",
+      "label": "reward_pick",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "substate",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "MAP:seed_pick",
+      "label": "seed_pick",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "substate",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "MAP:shop",
+      "label": "shop",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "substate",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "MAP:reward_give",
+      "label": "reward_give",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "substate",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "MAP:seed_give",
+      "label": "seed_give",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "substate",
+      "x": null,
+      "y": null
+    },
+    {
+      "id": "MAP:shop_give",
+      "label": "shop_give",
+      "scene_file": "res://main.tscn",
+      "screenshot": null,
+      "stub": false,
+      "type": "substate",
+      "x": null,
+      "y": null
+    }
+  ]
+}

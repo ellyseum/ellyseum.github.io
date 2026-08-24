@@ -1,0 +1,116 @@
+{
+ "beat": "confirm",
+ "tally": {},
+ "rows": [
+  {
+   "left": "archive_r1",
+   "right": "casino_fanfare_r1",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "archive_r1",
+   "swapped_pass": "casino_fanfare_r1",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 archive_r1__vs__casino_fanfare_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s vessel selection screen has more legible text and sharper contrast against the dark background, while the RIGHT side\u2019s menu feels dimmer and less committed to action. LOSER\u2019S ONE FIX: Brighten the RIGHT side\u2019s text and interface elements to match the LEFT\u2019s clarity and contrast.\n",
+   "narration_swapped": "# SFX descriptions \u2014 casino_fanfare_r1__vs__archive_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s menu transitions feel more deliberate and grounded, with the cursor\u2019s motion and the screen\u2019s commitment to the next state feeling more tactile and less abrupt. The RIGHT side\u2019s transition feels sterile and rushed, with the screen\u2019s idle state feeling flat and unalive.\nLOSER\u2019S ONE FIX: Add a subtle, organic camera drift or particle bloom to the RIGHT side\u2019s transition to mimic the LEFT\u2019s grounded, tactile feel.\n"
+  },
+  {
+   "left": "archive_r1",
+   "right": "cold_ledger_r1",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "archive_r1",
+   "swapped_pass": "cold_ledger_r1",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 archive_r1__vs__cold_ledger_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s vessel selection screen has more legible text and sharper contrast against the dark background, while the RIGHT side\u2019s text is slightly softer and less committed to the next action. The LEFT side\u2019s idle feels more alive with subtle motion in the UI elements, whereas the RIGHT side\u2019s static feel is less engaging.\nLOSER'S ONE FIX: Add a subtle glow or motion blur to the RIGHT side\u2019s text to match the LEFT\u2019s dynamic feel.\n",
+   "narration_swapped": "# SFX descriptions \u2014 cold_ledger_r1__vs__archive_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s menu transitions feel more deliberate with clearer motion blur and a stronger visual commitment to the next screen, while the RIGHT side\u2019s transition is abrupt and lacks the same sense of idle life. LOSER'S ONE FIX: Add subtle motion blur and a slight fade-out to the RIGHT side\u2019s transition to match the LEFT\u2019s cinematic weight.\n"
+  },
+  {
+   "left": "archive_r1",
+   "right": "slow_burn_r2",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "archive_r1",
+   "swapped_pass": "slow_burn_r2",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 archive_r1__vs__slow_burn_r2__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s vessel selection screen has sharper, more legible text and cleaner contrast against the dark background, while the RIGHT side\u2019s text appears slightly blurred and less defined. The LEFT side\u2019s idle animation feels more alive with subtle motion in the vessel icons, whereas the RIGHT side\u2019s static feel is more sterile.\nLOSER'S ONE FIX: Add a subtle glow or motion blur to the RIGHT side\u2019s vessel icons to match the LEFT\u2019s dynamic feel.\n",
+   "narration_swapped": "# SFX descriptions \u2014 slow_burn_r2__vs__archive_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s vessel selection screen has more dynamic contrast in the diamond shapes and clearer text legibility against the dark background, while the RIGHT side\u2019s interface feels flat and less committed visually. The LEFT\u2019s idle animation subtly pulses the selection box, making it feel more alive and intentional.\nLOSER'S ONE FIX: Add a subtle glow or motion blur to the RIGHT side\u2019s vessel diamonds to match the LEFT\u2019s kinetic energy and elevate its visual commitment.\n"
+  },
+  {
+   "left": "archive_r1",
+   "right": "stamp_strike_r1",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "archive_r1",
+   "swapped_pass": "stamp_strike_r1",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 archive_r1__vs__stamp_strike_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s subtle ambient glow and motion blur on the cursor feel more alive and immersive, while the RIGHT\u2019s static, overly sharp edges and harsher contrast make it feel sterile. The LEFT\u2019s gentle motion commits the player to the next action without visual aggression.\nLOSER\u2019S ONE FIX: Soften the RIGHT side\u2019s sharp edges and reduce the contrast to match the LEFT\u2019s ambient glow, making it feel more organic and less clinical.\n",
+   "narration_swapped": "# SFX descriptions \u2014 stamp_strike_r1__vs__archive_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s menu transitions feel more deliberate with smoother motion and clearer contrast in the amber highlight, while the RIGHT side\u2019s text is less legible due to lower contrast against the dark background. LOSER'S ONE FIX: Increase the text contrast on the RIGHT side to match the LEFT\u2019s clarity.\n"
+  },
+  {
+   "left": "casino_fanfare_r1",
+   "right": "cold_ledger_r1",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "casino_fanfare_r1",
+   "swapped_pass": "cold_ledger_r1",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 casino_fanfare_r1__vs__cold_ledger_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s menu transitions feel more deliberate and grounded, with the cursor\u2019s motion and the screen\u2019s dimming creating a heavier, more ritualistic commitment to the next screen. The RIGHT side\u2019s transition is too abrupt and sterile, lacking the tactile weight that makes the LEFT feel like a sacred, chosen action.\nLOSER\u2019S ONE FIX: Add a subtle, slow fade-out of the LEFT\u2019s background while the RIGHT\u2019s background should instead darken with a soft, pulsing vignette to match its more clinical feel.\n",
+   "narration_swapped": "# SFX descriptions \u2014 cold_ledger_r1__vs__casino_fanfare_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s menu transition feels more deliberate and grounded, with the cursor\u2019s motion and screen fade creating a stronger sense of commitment to the next screen. The RIGHT side\u2019s idle feels slightly too static and lacks the subtle motion that makes the LEFT feel alive.\nLOSER'S ONE FIX: Add a slight camera pan or screen shake to the RIGHT side\u2019s idle to match the LEFT\u2019s kinetic energy.\n"
+  },
+  {
+   "left": "casino_fanfare_r1",
+   "right": "slow_burn_r2",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "casino_fanfare_r1",
+   "swapped_pass": "slow_burn_r2",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 casino_fanfare_r1__vs__slow_burn_r2__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s idle animation feels more alive with subtle particle motion around the light source, while the RIGHT side\u2019s static vessel icons feel inert. The LEFT\u2019s contrast preserves legibility without harshness, whereas the RIGHT\u2019s dark vessels create visual noise that competes with the text.\nLOSER\u2019S ONE FIX: Add motion to the RIGHT\u2019s vessel icons \u2014 even a slow pulse or faint glow \u2014 to match the LEFT\u2019s dynamic idle energy.\n",
+   "narration_swapped": "# SFX descriptions \u2014 slow_burn_r2__vs__casino_fanfare_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s vessel selection screen has clearer, more legible text and a more deliberate, committed transition to the next screen with a visible fade-out, while the RIGHT side\u2019s menu feels static and less alive. LOSER\u2019S ONE FIX: Add subtle motion blur or a slight screen shake to the RIGHT side\u2019s idle screen to make it feel more alive.\n"
+  },
+  {
+   "left": "casino_fanfare_r1",
+   "right": "stamp_strike_r1",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "casino_fanfare_r1",
+   "swapped_pass": "stamp_strike_r1",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 casino_fanfare_r1__vs__stamp_strike_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s menu navigation feels more deliberate with its subtle motion blur on selection, while the RIGHT\u2019s static highlight feels flat. The LEFT\u2019s cream text contrasts better against the dark background, making it feel more alive and legible.\nLOSER\u2019S ONE FIX: Add motion blur to the RIGHT\u2019s selection highlight to match the LEFT\u2019s kinetic feel.\n",
+   "narration_swapped": "# SFX descriptions \u2014 stamp_strike_r1__vs__casino_fanfare_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s vessel selection screen has clearer, more legible text and a more deliberate visual commitment with the amber highlight and stamp-like design, while the RIGHT side\u2019s menu feels visually cluttered and less committed to its administrative ledger aesthetic. LOSER\u2019S ONE FIX: Replace the RIGHT side\u2019s dim, washed-out background with a cream-colored ledger texture to match the LEFT\u2019s clean, high-contrast design.\n"
+  },
+  {
+   "left": "cold_ledger_r1",
+   "right": "slow_burn_r2",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "cold_ledger_r1",
+   "swapped_pass": "slow_burn_r2",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 cold_ledger_r1__vs__slow_burn_r2__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s menu transitions feel more deliberate and grounded, with smoother motion and better contrast between text and background, while the RIGHT side\u2019s screen feels abruptly shattered and visually fragmented. The LEFT\u2019s idle feels more alive with subtle motion, whereas the RIGHT\u2019s transition looks like a glitchy, broken screen.\nLOSER'S ONE FIX: Replace the shattered, glitchy transition on the RIGHT with a clean, smooth fade-in like the LEFT\u2019s, and add a subtle ambient glow to the vessel icons to match the LEFT\u2019s warm, administrative aesthetic.\n",
+   "narration_swapped": "# SFX descriptions \u2014 slow_burn_r2__vs__cold_ledger_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s vessel selection screen has more legible text and sharper contrast against the dark background, while the RIGHT side\u2019s text is slightly washed out and less distinct. The LEFT side\u2019s idle animation feels more alive with subtle motion in the UI elements, whereas the RIGHT side\u2019s screen feels static and flat.\nLOSER'S ONE FIX: Add a subtle glow or vignette effect to the RIGHT side\u2019s text to boost contrast and legibility, making it feel more dynamic and alive.\n"
+  },
+  {
+   "left": "cold_ledger_r1",
+   "right": "stamp_strike_r1",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "cold_ledger_r1",
+   "swapped_pass": "stamp_strike_r1",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 cold_ledger_r1__vs__stamp_strike_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s subtle motion blur on the menu cursor feels more alive and intentional, while the RIGHT\u2019s static cursor feels flat. The LEFT\u2019s lower text \u201cSAVES: communearch\u201d has better contrast against the dark background, making it legible without competing with the main UI.\nLOSER\u2019S ONE FIX: Add a slight motion blur to the RIGHT\u2019s cursor and darken the RIGHT\u2019s \u201cSAVES\u201d text background to match the LEFT\u2019s contrast.\n",
+   "narration_swapped": "# SFX descriptions \u2014 stamp_strike_r1__vs__cold_ledger_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s menu selection glows with a warmer, more intentional amber highlight that feels alive and tactile, while the RIGHT\u2019s highlight is flat and clinical. The LEFT\u2019s text contrast against the dark background is sharper and more legible, making the interface feel more authoritative and immersive.\nLOSER\u2019S ONE FIX: Replace the RIGHT\u2019s flat, grayish highlight with a glowing amber gradient that matches the LEFT\u2019s warmth and depth.\n"
+  },
+  {
+   "left": "slow_burn_r2",
+   "right": "stamp_strike_r1",
+   "beat": "confirm",
+   "winner": null,
+   "first_pass": "slow_burn_r2",
+   "swapped_pass": "stamp_strike_r1",
+   "agreed": false,
+   "narration": "# SFX descriptions \u2014 slow_burn_r2__vs__stamp_strike_r1__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s \u201cCHOOSE A VESSEL\u201d screen has more legible, higher-contrast text and a more deliberate, grounded transition from the menu, while the RIGHT side\u2019s screen feels flat and lacks visual commitment. LOSER\u2019S ONE FIX: Add a subtle glowing amber border to the RIGHT\u2019s vessel icons to match the LEFT\u2019s visual hierarchy and warmth.\n",
+   "narration_swapped": "# SFX descriptions \u2014 stamp_strike_r1__vs__slow_burn_r2__confirm.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-6s\n\nWINNER: LEFT\nWHY: The LEFT side\u2019s menu transitions feel more deliberate and grounded, with smoother motion and better contrast that makes the text and selections pop without visual clutter. The RIGHT side\u2019s transition feels rushed and visually muddy, with a distracting, overly saturated glow that muddies the administrative ledger aesthetic.\nLOSER'S ONE FIX: Replace the RIGHT side\u2019s neon glow with a subtle amber highlight matching the LEFT\u2019s, and reduce the screen\u2019s saturation to match the LEFT\u2019s muted, official tone.\n"
+  }
+ ]
+}

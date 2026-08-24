@@ -1,0 +1,289 @@
+{
+ "results": [
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "measured": {
+    "avg_rounds": 3.6666666666666665,
+    "predicted_ttk": 0.45235058805576445,
+    "win_rate": 0.3333333333333333
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 166.51800000000003,
+    "ehp": 12.879999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.45235058805576445,
+     "miniboss": 0.3039180517358204,
+     "wave0": 0.07206428133895433,
+     "wave1": 0.20434227330779053,
+     "wave2": 0.2293084915800788,
+     "wave3": 0.2866356144750985,
+     "wave4": 0.2182747010333217
+    }
+   },
+   "tier": "outlier",
+   "verdict": "REFUTED",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}"
+   ],
+   "z": 9.12
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "javelin"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "measured": {
+    "avg_rounds": 6.333333333333333,
+    "predicted_ttk": 0.45235058805576445,
+    "win_rate": 0.0
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 166.51800000000003,
+    "ehp": 16.240000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.45235058805576445,
+     "miniboss": 0.3039180517358204,
+     "wave0": 0.07206428133895433,
+     "wave1": 0.20434227330779053,
+     "wave2": 0.2293084915800788,
+     "wave3": 0.2866356144750985,
+     "wave4": 0.2182747010333217
+    }
+   },
+   "tier": "outlier",
+   "verdict": "REFUTED",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}",
+    "gear:Javelin {\"ten\": 2}"
+   ],
+   "z": 9.12
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "smoke_charm"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "measured": {
+    "avg_rounds": 5.666666666666667,
+    "predicted_ttk": 0.45235058805576445,
+    "win_rate": 0.3333333333333333
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 166.51800000000003,
+    "ehp": 16.240000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.45235058805576445,
+     "miniboss": 0.3039180517358204,
+     "wave0": 0.07206428133895433,
+     "wave1": 0.20434227330779053,
+     "wave2": 0.2293084915800788,
+     "wave3": 0.2866356144750985,
+     "wave4": 0.2182747010333217
+    }
+   },
+   "tier": "outlier",
+   "verdict": "REFUTED",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}"
+   ],
+   "z": 9.12
+  },
+  {
+   "axis": "alpha",
+   "band": "L3-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "smoke_charm"
+    ],
+    "level": 3,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "measured": {
+    "avg_rounds": 4.0,
+    "predicted_ttk": 0.45235058805576445,
+    "win_rate": 0.0
+   },
+   "scores": {
+    "alpha": 249.77700000000004,
+    "dps": 166.51800000000003,
+    "ehp": 12.879999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.45235058805576445,
+     "miniboss": 0.3039180517358204,
+     "wave0": 0.07206428133895433,
+     "wave1": 0.20434227330779053,
+     "wave2": 0.2293084915800788,
+     "wave3": 0.2866356144750985,
+     "wave4": 0.2182747010333217
+    }
+   },
+   "tier": "outlier",
+   "verdict": "REFUTED",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 4, \"wit\": 2, \"ten\": 1}"
+   ],
+   "z": 9.12
+  },
+  {
+   "axis": "alpha",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown"
+    ]
+   },
+   "measured": {
+    "avg_rounds": 7.333333333333333,
+    "predicted_ttk": 0.40773577935501115,
+    "win_rate": 0.0
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 180.4572,
+    "ehp": 18.560000000000002,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.40773577935501115,
+     "miniboss": 0.27598463172791715,
+     "wave0": 0.06649776235029692,
+     "wave1": 0.18663157992963988,
+     "wave2": 0.20891492200944817,
+     "wave3": 0.2611436525118102,
+     "wave4": 0.19935646037938806
+    }
+   },
+   "tier": "outlier",
+   "verdict": "REFUTED",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}",
+    "gear:Boomerang Knife {\"ten\": 1}"
+   ],
+   "z": 8.98
+  },
+  {
+   "axis": "alpha",
+   "band": "L5-v1",
+   "build": {
+    "archetype": "caster",
+    "boons": [],
+    "faction": 0,
+    "gear": [
+     "boomerang_knife"
+    ],
+    "level": 5,
+    "memories": [
+     "Glass Crown",
+     "Conscription"
+    ]
+   },
+   "measured": {
+    "avg_rounds": 3.3333333333333335,
+    "predicted_ttk": 0.40773577935501115,
+    "win_rate": 0.6666666666666666
+   },
+   "scores": {
+    "alpha": 270.6858,
+    "dps": 180.4572,
+    "ehp": 14.719999999999999,
+    "kit_notes": [
+     "heals 12",
+     "debuff {\"frt\": -4}"
+    ],
+    "ttk": {
+     "boss": 0.40773577935501115,
+     "miniboss": 0.27598463172791715,
+     "wave0": 0.06649776235029692,
+     "wave1": 0.18663157992963988,
+     "wave2": 0.20891492200944817,
+     "wave3": 0.2611436525118102,
+     "wave4": 0.19935646037938806
+    }
+   },
+   "tier": "outlier",
+   "verdict": "REFUTED",
+   "why": [
+    "memory:Glass Crown {\"frt\": -10, \"move\": 1, \"wit\": 16}",
+    "memory:Conscription {\"frt\": -2, \"ten\": 7}",
+    "level:Level {\"hp\": 8, \"wit\": 4, \"ten\": 2}"
+   ],
+   "z": 8.98
+  }
+ ],
+ "seeds": 3
+}

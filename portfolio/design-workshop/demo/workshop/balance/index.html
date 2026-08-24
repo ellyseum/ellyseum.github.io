@@ -1,0 +1,832 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="icon" href="favicon.png">
+<script src="static-shim.js"></script>
+<title>BALANCE — THE SCALING LEDGER</title>
+<style>
+  :root{
+    --bg:#14161c; --bg2:#1b1e26; --line:#2b2f3a; --ink:#e8ddc0; --ink-dim:#8b8677;
+    --amber:#e0a85a; --vermillion:#c8402a; --green:#5a9e6f; --gray:#5c6270;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"Consolas","SF Mono","Cascadia Mono",monospace;font-size:13px;
+    overflow-x:hidden;}
+  ::selection{background:var(--amber);color:#14161c;}
+  a{color:var(--amber);}
+
+  #head{
+    border-bottom:1px solid var(--line); padding:10px 16px; display:flex;
+    align-items:baseline; gap:18px; background:var(--bg2); flex-wrap:wrap;
+  }
+  #head h1{font-size:15px; margin:0; letter-spacing:.12em; font-weight:700; color:var(--ink);}
+  #head .stat{color:var(--ink-dim); letter-spacing:.04em;}
+  #head .stat b{color:var(--amber); font-weight:700;}
+
+  #tabs{display:flex; border-bottom:1px solid var(--line); background:var(--bg2);}
+  #tabs button{
+    background:none; border:none; color:var(--ink-dim); font:inherit; letter-spacing:.1em;
+    padding:9px 18px; cursor:pointer; border-right:1px solid var(--line); text-transform:uppercase;
+  }
+  #tabs button:hover{color:var(--ink);}
+  #tabs button.active{color:var(--amber); background:var(--bg); border-bottom:2px solid var(--amber);}
+  #tabs .key{color:var(--ink-dim); opacity:.6; font-size:11px; margin-right:6px;}
+
+  main{padding:16px; max-width:100%; overflow-x:auto;}
+  .pane{display:none;}
+  .pane.active{display:block;}
+
+  h2.section{font-size:12px; letter-spacing:.14em; color:var(--amber); margin:18px 0 8px;
+    text-transform:uppercase; border-bottom:1px solid var(--line); padding-bottom:4px;}
+  h2.section:first-child{margin-top:0;}
+
+  .note{color:var(--ink-dim); font-size:11px; padding:10px; border:1px dashed var(--line);
+    background:var(--bg2); margin:8px 0;}
+  .banner{padding:8px 12px; border:1px solid var(--amber); color:var(--amber); background:#241d12;
+    margin:8px 0; letter-spacing:.03em; font-size:12px;}
+  .banner.err{border-color:var(--vermillion); color:var(--vermillion); background:#241414;}
+
+  table{border-collapse:collapse; width:100%; font-size:12px;}
+  th,td{border:1px solid var(--line); padding:5px 8px; text-align:left; vertical-align:top;}
+  th{color:var(--ink-dim); text-transform:uppercase; letter-spacing:.06em; font-weight:600;
+    cursor:pointer; user-select:none; background:var(--bg2); position:sticky; top:0;}
+  th:hover{color:var(--amber);}
+  th.sorted{color:var(--amber);}
+  tbody tr:hover{background:var(--bg2);}
+  td.num{text-align:right; font-variant-numeric:tabular-nums;}
+  .z-hi{color:var(--vermillion); font-weight:700;}
+  .z-mid{color:var(--amber);}
+  .badge{display:inline-block; padding:1px 6px; font-size:10px; letter-spacing:.06em;
+    border:1px solid currentColor;}
+  .badge.CONFIRMED{color:var(--green);}
+  .badge.REFUTED{color:var(--gray);}
+  .badge.SKIPPED{color:var(--ink-dim); opacity:.6;}
+  .why-chain{color:var(--ink-dim); font-size:11px;}
+  .why-chain div{padding:1px 0;}
+
+  /* ---- MODEL tab ---- */
+  #modelSvgWrap{border:1px solid var(--line); background:var(--bg2); overflow:auto;}
+  .node-stat{fill:var(--bg); stroke:var(--amber); stroke-width:1.2;}
+  .node-form{fill:var(--bg); stroke:var(--ink-dim); stroke-width:1;}
+  .node-out{fill:var(--bg); stroke:var(--vermillion); stroke-width:1.4;}
+  .node-label{fill:var(--ink); font-size:11px; font-weight:700; letter-spacing:.04em;}
+  .node-sub{fill:var(--ink-dim); font-size:9px;}
+  .edge{stroke:var(--line); stroke-width:1.4; fill:none;}
+  .edge-label{fill:var(--ink-dim); font-size:9px;}
+  .edge-label tspan.v{fill:var(--amber);}
+
+  /* ---- SWEEP heatmap ---- */
+  #heatWrap{overflow:auto; border:1px solid var(--line);}
+  table.heat{border-collapse:collapse;}
+  table.heat th, table.heat td{border:1px solid var(--line); padding:0; text-align:center;}
+  table.heat th{font-size:9px; padding:4px 3px; max-width:90px; white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis; writing-mode:vertical-rl; text-orientation:mixed;
+    height:110px; cursor:default;}
+  table.heat th.rowhead{writing-mode:horizontal-tb; text-align:right; height:auto; max-width:160px;}
+  table.heat td.cell{width:34px; height:34px; cursor:default; position:relative; font-size:9px;
+    color:#0000; }
+  table.heat td.cell:hover{outline:1px solid var(--ink);}
+
+  #tooltip{
+    position:fixed; pointer-events:none; background:#0d0e12; border:1px solid var(--amber);
+    color:var(--ink); padding:8px 10px; font-size:11px; max-width:340px; z-index:50; display:none;
+    line-height:1.5;
+  }
+  #tooltip b{color:var(--amber);}
+
+  /* ---- KNOBS ---- */
+  .knobgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:6px 14px;}
+  .knobrow{display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding:4px 6px; border:1px solid var(--line); background:var(--bg2);}
+  .knobrow label{color:var(--ink-dim); font-size:11px; letter-spacing:.02em; flex:1;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .knobrow input{width:80px; background:var(--bg); border:1px solid var(--line); color:var(--ink);
+    font:inherit; padding:2px 4px; text-align:right;}
+  .knobrow.changed{border-color:var(--amber);}
+  .knobrow.changed input{border-color:var(--amber); color:var(--amber);}
+  #saveBar{display:flex; align-items:center; gap:12px; margin:12px 0;}
+  #saveBtn{background:var(--amber); color:#14161c; border:none; padding:8px 20px; font:inherit;
+    font-weight:700; letter-spacing:.08em; cursor:pointer; text-transform:uppercase;}
+  #saveBtn:hover{background:#f0bd77;}
+  #saveBtn:active{background:#c88f46;}
+  .diffcol{display:flex; gap:14px; flex-wrap:wrap;}
+  .diffcol > div{flex:1; min-width:260px;}
+  .diffcol h3{font-size:11px; letter-spacing:.08em; margin:0 0 6px; text-transform:uppercase;}
+  .diffcol .resolved h3{color:var(--gray);}
+  .diffcol .new h3{color:var(--vermillion);}
+  .diffcol ul{margin:0; padding-left:16px; font-size:11px; color:var(--ink-dim);}
+</style>
+
+<div id="head">
+  <h1>BALANCE — THE SCALING LEDGER</h1>
+  <span class="stat">BUILDS SCORED <b id="statBuilds">—</b></span>
+  <span class="stat">FLAGS <b id="statFlags">—</b></span>
+</div>
+
+<div id="tabs">
+  <button data-tab="model" class="active"><span class="key">1</span>MODEL</button>
+  <button data-tab="sweep"><span class="key">2</span>SWEEP</button>
+  <button data-tab="knobs"><span class="key">3</span>KNOBS</button>
+  <button data-tab="verify"><span class="key">4</span>VERIFY</button>
+</div>
+
+<main>
+  <section class="pane active" id="pane-model">
+    <h2 class="section">Combat &amp; Growth Model</h2>
+    <div id="modelNote" class="note" style="display:none;"></div>
+    <div id="modelSvgWrap"></div>
+  </section>
+
+  <section class="pane" id="pane-sweep">
+    <h2 class="section">Gear × Memory Heatmap (max z, top movers)</h2>
+    <div id="sweepNote" class="note" style="display:none;"></div>
+    <div id="heatWrap"><div id="heatmap"></div></div>
+    <h2 class="section">Flags</h2>
+    <div id="flagsTableWrap"><table id="flagsTable">
+      <thead><tr>
+        <th data-key="rank">RANK</th>
+        <th data-key="z">Z</th>
+        <th data-key="axis">AXIS</th>
+        <th data-key="band">BAND</th>
+        <th data-key="tier">TIER</th>
+        <th data-key="build">BUILD</th>
+        <th data-key="why">WHY-CHAIN</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+  <section class="pane" id="pane-knobs">
+    <h2 class="section">Combat Rules</h2>
+    <div id="knobsCombat" class="knobgrid"></div>
+    <h2 class="section">Economy</h2>
+    <div id="knobsEconomy" class="knobgrid"></div>
+    <h2 class="section">Growth (per-archetype)</h2>
+    <div id="knobsGrowth"></div>
+    <div id="saveBar">
+      <button id="saveBtn">SAVE KNOBS</button>
+      <span id="saveStatus" style="color:var(--ink-dim);"></span>
+    </div>
+    <div id="knobsBanner"></div>
+    <h2 class="section">Diff vs. Knobbed Sweep</h2>
+    <div id="knobsDiffNote" class="note" style="display:none;"></div>
+    <div id="knobsDiff" class="diffcol"></div>
+  </section>
+
+  <section class="pane" id="pane-verify">
+    <h2 class="section">Verify — Seeded Playout Results</h2>
+    <div id="verifyNote" class="note" style="display:none;"></div>
+    <table id="verifyTable">
+      <thead><tr>
+        <th>VERDICT</th><th>BUILD</th><th>AXIS</th><th>PREDICTED TTK</th>
+        <th>MEASURED WIN-RATE</th><th>AVG ROUNDS</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+</main>
+
+<div id="tooltip"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------------------------------------------------------------- state
+  var MODEL = null, SWEEP = null, VERIFY = null, KNOBS = {}, SWEEP_KNOBBED = null;
+  var HAVE_VERIFY = false, HAVE_KNOBBED = false;
+
+  // ---------------------------------------------------------------- tabs
+  var tabs = document.querySelectorAll("#tabs button");
+  var panes = document.querySelectorAll(".pane");
+  function showTab(name){
+    tabs.forEach(function(b){ b.classList.toggle("active", b.dataset.tab === name); });
+    panes.forEach(function(p){ p.classList.toggle("active", p.id === "pane-" + name); });
+  }
+  tabs.forEach(function(b){ b.addEventListener("click", function(){ showTab(b.dataset.tab); }); });
+  document.addEventListener("keydown", function(e){
+    if (e.target.tagName === "INPUT") return;
+    var map = {"1":"model","2":"sweep","3":"knobs","4":"verify"};
+    if (map[e.key]) showTab(map[e.key]);
+  });
+
+  function fmt(n, d){
+    if (n === null || n === undefined || isNaN(n)) return "—";
+    d = d === undefined ? 2 : d;
+    return (Math.round(n * Math.pow(10,d)) / Math.pow(10,d)).toString();
+  }
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function get(obj, path, dflt){
+    var parts = path.split(".");
+    var cur = obj;
+    for (var i=0;i<parts.length;i++){
+      if (cur === null || cur === undefined) return dflt;
+      cur = cur[parts[i]];
+    }
+    return cur === undefined ? dflt : cur;
+  }
+
+  // ================================================================ FETCH
+  function fetchJson(name){
+    return fetch(name, {cache:"no-store"}).then(function(r){
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    });
+  }
+
+  fetchJson("model.json").then(function(d){
+    MODEL = d;
+    renderModelTab();
+    renderKnobsTab();
+  }).catch(function(e){
+    document.getElementById("modelNote").style.display = "block";
+    document.getElementById("modelNote").textContent =
+      "model.json — not yet generated (run tools/balance/<x>.py)";
+  });
+
+  fetchJson("sweep.json").then(function(d){
+    SWEEP = d;
+    document.getElementById("statBuilds").textContent = get(d,"builds_scored",0);
+    document.getElementById("statFlags").textContent = (d.flags || []).length;
+    renderSweepTab();
+  }).catch(function(e){
+    document.getElementById("sweepNote").style.display = "block";
+    document.getElementById("sweepNote").textContent =
+      "sweep.json — not yet generated (run tools/balance/<x>.py)";
+  });
+
+  fetchJson("verify.json").then(function(d){
+    VERIFY = d; HAVE_VERIFY = true;
+    renderVerifyTab();
+  }).catch(function(e){
+    document.getElementById("verifyNote").style.display = "block";
+    document.getElementById("verifyNote").textContent =
+      "verify.json — not yet generated (run tools/balance/<x>.py)";
+  });
+
+  fetchJson("knobs.json").then(function(d){
+    KNOBS = d || {};
+    renderKnobsTab();
+  }).catch(function(e){
+    // sparse/missing knobs is a normal, silent baseline state
+    KNOBS = {};
+  });
+
+  fetchJson("sweep_knobbed.json").then(function(d){
+    SWEEP_KNOBBED = d; HAVE_KNOBBED = true;
+    renderKnobsDiff();
+  }).catch(function(e){
+    document.getElementById("knobsDiffNote").style.display = "block";
+    document.getElementById("knobsDiffNote").textContent =
+      "sweep_knobbed.json — not yet generated (run tools/balance/sweep.py --knobs workshop/balance/knobs.json --out workshop/balance/sweep_knobbed.json)";
+  });
+
+  // ================================================================ TAB 1: MODEL
+  function renderModelTab(){
+    var cr = MODEL.combat_rules || {};
+    var eco = MODEL.economy || {};
+    var growth = MODEL.growth || {};
+    var gd = MODEL.growth_default || {per:{}, alt:{}};
+
+    var f = cr.facing || {};
+    var front = f.front || {acc:0,crit:0,dmg:1};
+    var side = f.side || {acc:0,crit:0,dmg:1};
+    var back = f.back || {acc:0,crit:0,dmg:1};
+
+    var W = 1520, H = 900;
+    var svg = [];
+    svg.push('<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">');
+    svg.push('<rect width="'+W+'" height="'+H+'" fill="#14161c"/>');
+
+    // ---- node registry: id -> {x,y,w,h,label,sub,cls}
+    var nodes = {};
+    function N(id,x,y,w,h,label,sub,cls){
+      nodes[id] = {x:x,y:y,w:w,h:h,label:label,sub:sub||"",cls:cls||"node-stat"};
+    }
+    // column 1: raw stats
+    N("TEN", 30, 40, 130, 46, "TEN", "attack + initiative", "node-stat");
+    N("FRT", 30, 110, 130, 46, "FRT", "defense / durability", "node-stat");
+    N("WIT", 30, 180, 130, 46, "WIT", "caster / heal / acc / crit", "node-stat");
+    N("HP",  30, 250, 130, 46, "HP", "max health", "node-stat");
+    N("MOVE",30, 320, 130, 46, "MOVE", "tiles / turn", "node-stat");
+    N("LEVEL",30, 400, 130, 46, "LEVEL", "growth ticks", "node-stat");
+
+    // column 2: formula boxes
+    N("ACC",  260, 40,  220, 60, "ACCURACY", "base " + fmt(1-cr.miss,2) + " + wit_acc·ΔWIT ± facing", "node-form");
+    N("CRIT", 260, 118, 220, 60, "CRIT", "base " + fmt(cr.crit,2) + " + wit_crit·ΔWIT ± facing", "node-form");
+    N("DMG",  260, 196, 220, 60, "DAMAGE", "power·mult, floor " + fmt(cr.dmg_floor,2), "node-form");
+    N("INIT", 260, 274, 220, 50, "INITIATIVE", "= TEN (deterministic, RNG only splits ties)", "node-form");
+    N("ECON", 260, 344, 220, 60, "ACTION ECONOMY", "kill_xp " + fmt(eco.kill_xp,2) + " · boon every " + fmt(eco.boon_every,0), "node-form");
+    N("GROW", 260, 424, 220, 60, "GROWTH", "per-level stat gain by archetype", "node-form");
+
+    // column 3: outcomes
+    N("DPS", 560, 90, 190, 60, "DPS", "acc × (1 + crit·(crit_mult-1)) × dmg", "node-out");
+    N("EHP", 560, 180, 190, 60, "EHP", "HP ÷ (1 - mitigation)", "node-out");
+    N("ALPHA",560, 270, 190, 60, "ALPHA", "first-strike burst potential", "node-out");
+    N("TTK", 560, 360, 190, 60, "TTK", "time-to-kill vs wave/miniboss/boss", "node-out");
+
+    // ---- facing sub-box (own column, feeds ACC/CRIT/DMG)
+    N("FACING", 260, 500, 220, 130, "FACING", "front/side/back modifiers", "node-form");
+
+    // ---- clamp box
+    N("CLAMP", 560, 500, 190, 90, "CLAMPS", "acc ["+fmt(cr.acc_clamp?cr.acc_clamp[0]:0,2)+","+fmt(cr.acc_clamp?cr.acc_clamp[1]:0,2)+"]  crit ["+fmt(cr.crit_clamp?cr.crit_clamp[0]:0,2)+","+fmt(cr.crit_clamp?cr.crit_clamp[1]:0,2)+"]", "node-form");
+
+    // ---- cover
+    N("COVER", 830, 500, 190, 60, "COVER", "flat mitigation " + fmt(cr.cover,2), "node-form");
+
+    // draw edges first (under nodes)
+    var edges = [
+      ["TEN","ACC","+wit_acc via WIT below"],
+      ["WIT","ACC","wit_acc = " + fmt(cr.wit_acc,3)],
+      ["WIT","CRIT","wit_crit = " + fmt(cr.wit_crit,3)],
+      ["TEN","DMG","power scales with TEN"],
+      ["ACC","DPS",""],
+      ["CRIT","DPS","crit_mult = " + fmt(cr.crit_mult,2)],
+      ["DMG","DPS",""],
+      ["TEN","INIT","init = TEN"],
+      ["HP","EHP",""],
+      ["FRT","EHP","mitigation"],
+      ["FACING","ACC","Δacc"],
+      ["FACING","CRIT","Δcrit"],
+      ["FACING","DMG","Δdmg mult"],
+      ["CLAMP","ACC","bounds"],
+      ["CLAMP","CRIT","bounds"],
+      ["COVER","EHP","flat mitigation"],
+      ["DPS","ALPHA",""],
+      ["DPS","TTK",""],
+      ["EHP","TTK","survives longer"],
+      ["LEVEL","GROW",""],
+      ["GROW","TEN","per-level +stat"],
+      ["GROW","FRT","per-level +stat"],
+      ["GROW","WIT","per-level +stat"],
+      ["GROW","HP","per-level +stat"],
+      ["ECON","GROW","kill_xp → level"],
+      ["MOVE","TTK","closes distance"]
+    ];
+
+    function cx(n){ return n.x + n.w; }
+    function cy(n){ return n.y + n.h/2; }
+    function lx(n){ return n.x; }
+
+    edges.forEach(function(e){
+      var a = nodes[e[0]], b = nodes[e[1]];
+      if (!a || !b) return;
+      var x1 = (b.x > a.x) ? cx(a) : lx(a);
+      var y1 = cy(a);
+      var x2 = (b.x > a.x) ? lx(b) : cx(b);
+      var y2 = cy(b);
+      // route straight-ish orthogonal-feel curve
+      var mx = (x1+x2)/2;
+      svg.push('<path class="edge" d="M '+x1+' '+y1+' C '+mx+' '+y1+', '+mx+' '+y2+', '+x2+' '+y2+'"/>');
+      if (e[2]){
+        var tx = mx, ty = (y1+y2)/2 - 4;
+        svg.push('<text class="edge-label" x="'+tx+'" y="'+ty+'" text-anchor="middle">'+esc(e[2])+'</text>');
+      }
+    });
+
+    // draw nodes
+    Object.keys(nodes).forEach(function(id){
+      var n = nodes[id];
+      svg.push('<rect class="'+n.cls+'" x="'+n.x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="2"/>');
+      svg.push('<text class="node-label" x="'+(n.x+10)+'" y="'+(n.y+20)+'">'+esc(n.label)+'</text>');
+      // wrap sub text crudely at ~34 chars
+      var sub = n.sub, lines = [];
+      while (sub.length > 34){
+        var cut = sub.lastIndexOf(" ", 34);
+        if (cut < 0) cut = 34;
+        lines.push(sub.slice(0,cut));
+        sub = sub.slice(cut).trim();
+      }
+      if (sub) lines.push(sub);
+      lines.forEach(function(ln, i){
+        svg.push('<text class="node-sub" x="'+(n.x+10)+'" y="'+(n.y+34+i*11)+'">'+esc(ln)+'</text>');
+      });
+    });
+
+    // facing detail text block (front/side/back numbers) inside FACING node
+    var fn = nodes.FACING;
+    var facingLines = [
+      "front  acc+"+fmt(front.acc,2)+"  crit+"+fmt(front.crit,2)+"  dmg×"+fmt(front.dmg,2),
+      "side   acc+"+fmt(side.acc,2)+"  crit+"+fmt(side.crit,2)+"  dmg×"+fmt(side.dmg,2),
+      "back   acc+"+fmt(back.acc,2)+"  crit+"+fmt(back.crit,2)+"  dmg×"+fmt(back.dmg,2)
+    ];
+    facingLines.forEach(function(ln,i){
+      svg.push('<text class="node-sub" x="'+(fn.x+10)+'" y="'+(fn.y+50+i*15)+'" style="font-size:10px;">'+esc(ln)+'</text>');
+    });
+
+    // growth detail node (below GROW, list archetypes)
+    var gy = 610;
+    var archKeys = Object.keys(growth);
+    N("GROWDETAIL", 30, gy, 720, 30 + archKeys.length*16 + 20, "GROWTH TABLE (per level-up)", "", "node-form");
+    var gnode = nodes.GROWDETAIL;
+    svg.push('<rect class="'+gnode.cls+'" x="'+gnode.x+'" y="'+gnode.y+'" width="'+gnode.w+'" height="'+gnode.h+'" rx="2"/>');
+    svg.push('<text class="node-label" x="'+(gnode.x+10)+'" y="'+(gnode.y+20)+'">GROWTH TABLE (per level-up)</text>');
+    var gyy = gnode.y + 38;
+    svg.push('<text class="node-sub" x="'+(gnode.x+10)+'" y="'+(gyy-4)+'">default: per '+esc(JSON.stringify(gd.per||{}))+'  alt '+esc(JSON.stringify(gd.alt||{}))+'</text>');
+    archKeys.forEach(function(k, i){
+      var row = growth[k];
+      var txt = k.toUpperCase() + "  per " + JSON.stringify(row.per||{}) + "  alt " + JSON.stringify(row.alt||{});
+      svg.push('<text class="node-sub" x="'+(gnode.x+10)+'" y="'+(gyy + 14 + i*16)+'" style="font-size:10px;">'+esc(txt)+'</text>');
+    });
+
+    // economy detail node
+    N("ECONDETAIL", 830, 40, 190, 250, "ECONOMY DETAIL", "", "node-form");
+    var en = nodes.ECONDETAIL;
+    svg.push('<rect class="'+en.cls+'" x="'+en.x+'" y="'+en.y+'" width="'+en.w+'" height="'+en.h+'" rx="2"/>');
+    svg.push('<text class="node-label" x="'+(en.x+10)+'" y="'+(en.y+20)+'">ECONOMY DETAIL</text>');
+    var econRows = [
+      "kill_xp "+fmt(eco.kill_xp,2),
+      "exp_base "+fmt(eco.exp_base,2),
+      "exp_mult "+fmt(eco.exp_mult,2),
+      "boon_every "+fmt(eco.boon_every,0),
+      "lucky_odds 1/"+fmt(eco.lucky_odds,0),
+      "jackpot_odds 1/"+fmt(eco.jackpot_odds,0),
+      "sweep_div "+fmt(eco.sweep_div,2),
+      "chest_gear_odds 1/"+fmt(eco.chest_gear_odds,0)
+    ];
+    econRows.forEach(function(ln,i){
+      svg.push('<text class="node-sub" x="'+(en.x+10)+'" y="'+(en.y+40+i*16)+'" style="font-size:10px;">'+esc(ln)+'</text>');
+    });
+
+    svg.push('</svg>');
+    document.getElementById("modelSvgWrap").innerHTML = svg.join("");
+  }
+
+  // ================================================================ TAB 2: SWEEP
+  var sweepSort = {key:"z", dir:-1};
+
+  function buildLabel(build){
+    var parts = [];
+    parts.push((build.archetype||"?").toUpperCase() + " L" + (build.level!==undefined?build.level:"?"));
+    if (build.gear && build.gear.length){
+      var names = build.gear.map(function(id){
+        return get(MODEL, "gear."+id+".name", id);
+      });
+      parts.push("gear:" + names.join(", "));
+    }
+    if (build.memories && build.memories.length){
+      parts.push("mem:" + build.memories.join(", "));
+    }
+    if (build.boons && build.boons.length){
+      parts.push("boon:" + build.boons.join(", "));
+    }
+    return parts.join(" | ");
+  }
+
+  function renderSweepTab(){
+    if (!SWEEP) return;
+    var flags = (SWEEP.flags || []).slice();
+    flags.forEach(function(f,i){ f._rank = i+1; });
+    renderFlagsTable(flags);
+    renderHeatmap(flags);
+
+    document.querySelectorAll("#flagsTable th").forEach(function(th){
+      th.addEventListener("click", function(){
+        var key = th.dataset.key;
+        if (sweepSort.key === key) sweepSort.dir *= -1;
+        else { sweepSort.key = key; sweepSort.dir = key === "z" ? -1 : 1; }
+        renderFlagsTable(flags);
+      });
+    });
+  }
+
+  function renderFlagsTable(flags){
+    var key = sweepSort.key, dir = sweepSort.dir;
+    var sorted = flags.slice().sort(function(a,b){
+      var va, vb;
+      if (key === "rank") { va=a._rank; vb=b._rank; }
+      else if (key === "z") { va=a.z; vb=b.z; }
+      else if (key === "build") { va=buildLabel(a.build); vb=buildLabel(b.build); }
+      else if (key === "why") { va=(a.why||[]).length; vb=(b.why||[]).length; }
+      else { va=a[key]; vb=b[key]; }
+      if (typeof va === "string"){ va = va.toLowerCase(); vb = (vb||"").toLowerCase(); }
+      if (va < vb) return -1*dir;
+      if (va > vb) return 1*dir;
+      return 0;
+    });
+
+    document.querySelectorAll("#flagsTable th").forEach(function(th){
+      th.classList.toggle("sorted", th.dataset.key === key);
+    });
+
+    var tbody = document.querySelector("#flagsTable tbody");
+    tbody.innerHTML = sorted.map(function(f){
+      var zCls = f.z >= 6 ? "z-hi" : (f.z >= 3 ? "z-mid" : "");
+      var whyHtml = (f.why||[]).map(function(w){ return "<div>"+esc(w)+"</div>"; }).join("");
+      return "<tr>" +
+        "<td class='num'>"+f._rank+"</td>" +
+        "<td class='num "+zCls+"'>"+fmt(f.z,2)+"</td>" +
+        "<td>"+esc(f.axis||"")+"</td>" +
+        "<td>"+esc(f.band||"")+"</td>" +
+        "<td>"+esc(f.tier||"")+"</td>" +
+        "<td>"+esc(buildLabel(f.build))+"</td>" +
+        "<td class='why-chain'>"+whyHtml+"</td>" +
+        "</tr>";
+    }).join("");
+  }
+
+  function renderHeatmap(flags){
+    // count gear/memory occurrence weighted by z to find top movers
+    var gearZ = {}, memZ = {};
+    flags.forEach(function(f){
+      (f.build.gear||[]).forEach(function(id){
+        var name = get(MODEL, "gear."+id+".name", id);
+        gearZ[name] = Math.max(gearZ[name]||0, f.z||0);
+      });
+      (f.build.memories||[]).forEach(function(name){
+        memZ[name] = Math.max(memZ[name]||0, f.z||0);
+      });
+    });
+    var topGear = Object.keys(gearZ).sort(function(a,b){ return gearZ[b]-gearZ[a]; }).slice(0,12);
+    var topMem = Object.keys(memZ).sort(function(a,b){ return memZ[b]-memZ[a]; }).slice(0,12);
+
+    if (!topGear.length || !topMem.length){
+      document.getElementById("heatmap").innerHTML =
+        "<div class='note'>not enough gear/memory pairs in the flag set to build a heatmap.</div>";
+      return;
+    }
+
+    // cell[g][m] = max z among flags containing both
+    var cell = {};
+    topGear.forEach(function(g){ cell[g] = {}; });
+    flags.forEach(function(f){
+      var gnames = (f.build.gear||[]).map(function(id){ return get(MODEL,"gear."+id+".name", id); });
+      var mnames = f.build.memories || [];
+      gnames.forEach(function(g){
+        if (topGear.indexOf(g) === -1) return;
+        mnames.forEach(function(m){
+          if (topMem.indexOf(m) === -1) return;
+          cell[g][m] = Math.max(cell[g][m] || 0, f.z || 0);
+          cell[g]["_flag_"+m] = cell[g]["_flag_"+m] || f;
+        });
+      });
+    });
+
+    var maxZ = 1;
+    topGear.forEach(function(g){ topMem.forEach(function(m){ if (cell[g][m]) maxZ = Math.max(maxZ, cell[g][m]); }); });
+
+    function colorFor(z){
+      if (!z) return "#22252d";
+      var t = Math.min(1, z / maxZ);
+      // gray -> amber -> vermillion
+      if (t < 0.5){
+        var u = t/0.5;
+        return lerpColor([0x5c,0x62,0x70],[0xe0,0xa8,0x5a],u);
+      } else {
+        var u2 = (t-0.5)/0.5;
+        return lerpColor([0xe0,0xa8,0x5a],[0xc8,0x40,0x2a],u2);
+      }
+    }
+    function lerpColor(a,b,t){
+      var r = Math.round(a[0]+(b[0]-a[0])*t);
+      var g = Math.round(a[1]+(b[1]-a[1])*t);
+      var bl = Math.round(a[2]+(b[2]-a[2])*t);
+      return "rgb("+r+","+g+","+bl+")";
+    }
+
+    var html = "<table class='heat'><thead><tr><th class='rowhead'></th>";
+    topMem.forEach(function(m){ html += "<th title='"+esc(m)+"'>"+esc(m)+"</th>"; });
+    html += "</tr></thead><tbody>";
+    topGear.forEach(function(g){
+      html += "<tr><th class='rowhead'>"+esc(g)+"</th>";
+      topMem.forEach(function(m){
+        var z = cell[g][m];
+        var flag = cell[g]["_flag_"+m];
+        var bg = colorFor(z);
+        html += "<td class='cell' style='background:"+bg+"' data-gear='"+esc(g)+"' data-mem='"+esc(m)+"' data-z='"+(z||0)+"' " +
+          (flag ? "data-flagidx='"+flags.indexOf(flag)+"'" : "") + ">"+(z?fmt(z,1):"")+"</td>";
+      });
+      html += "</tr>";
+    });
+    html += "</tbody></table>";
+    document.getElementById("heatmap").innerHTML = html;
+
+    var tip = document.getElementById("tooltip");
+    document.querySelectorAll("table.heat td.cell").forEach(function(td){
+      td.addEventListener("mousemove", function(e){
+        var g = td.dataset.gear, m = td.dataset.mem, z = td.dataset.z;
+        var idx = td.dataset.flagidx;
+        var body = "<b>"+esc(g)+"</b> × <b>"+esc(m)+"</b><br>max z: "+esc(z);
+        if (idx !== undefined && flags[idx]){
+          var f = flags[idx];
+          body += "<br>axis "+esc(f.axis)+" · band "+esc(f.band)+" · tier "+esc(f.tier);
+          body += "<br>"+esc(buildLabel(f.build));
+        } else {
+          body += "<br><span style='color:var(--ink-dim);'>no flag pairs this gear with this memory</span>";
+        }
+        tip.innerHTML = body;
+        tip.style.display = "block";
+        tip.style.left = (e.clientX + 14) + "px";
+        tip.style.top = (e.clientY + 14) + "px";
+      });
+      td.addEventListener("mouseleave", function(){ tip.style.display = "none"; });
+    });
+  }
+
+  // ================================================================ TAB 3: KNOBS
+  var KNOB_FIELDS_COMBAT = [
+    ["combat_rules.miss","MISS"],
+    ["combat_rules.crit","CRIT"],
+    ["combat_rules.wit_acc","WIT_ACC"],
+    ["combat_rules.wit_crit","WIT_CRIT"],
+    ["combat_rules.cover","COVER"],
+    ["combat_rules.dmg_floor","DMG_FLOOR"],
+    ["combat_rules.crit_mult","CRIT_MULT"],
+    ["combat_rules.acc_clamp.0","ACC_CLAMP_LO"],
+    ["combat_rules.acc_clamp.1","ACC_CLAMP_HI"],
+    ["combat_rules.crit_clamp.0","CRIT_CLAMP_LO"],
+    ["combat_rules.crit_clamp.1","CRIT_CLAMP_HI"],
+    ["combat_rules.facing.front.acc","FACING_FRONT_ACC"],
+    ["combat_rules.facing.front.crit","FACING_FRONT_CRIT"],
+    ["combat_rules.facing.front.dmg","FACING_FRONT_DMG"],
+    ["combat_rules.facing.side.acc","FACING_SIDE_ACC"],
+    ["combat_rules.facing.side.crit","FACING_SIDE_CRIT"],
+    ["combat_rules.facing.side.dmg","FACING_SIDE_DMG"],
+    ["combat_rules.facing.back.acc","FACING_BACK_ACC"],
+    ["combat_rules.facing.back.crit","FACING_BACK_CRIT"],
+    ["combat_rules.facing.back.dmg","FACING_BACK_DMG"]
+  ];
+  var KNOB_FIELDS_ECON = [
+    ["economy.kill_xp","KILL_XP"],
+    ["economy.exp_base","EXP_BASE"],
+    ["economy.exp_mult","EXP_MULT"],
+    ["economy.boon_every","BOON_EVERY"],
+    ["economy.lucky_odds","LUCKY_ODDS"],
+    ["economy.jackpot_odds","JACKPOT_ODDS"],
+    ["economy.sweep_div","SWEEP_DIV"],
+    ["economy.chest_gear_odds","CHEST_GEAR_ODDS"]
+  ];
+
+  var knobEdits = {}; // path -> value (only holds fields the user actually touched)
+
+  function setDeep(obj, path, value){
+    var parts = path.split(".");
+    var cur = obj;
+    for (var i=0;i<parts.length-1;i++){
+      var k = parts[i];
+      if (cur[k] === undefined || typeof cur[k] !== "object" || cur[k] === null) cur[k] = {};
+      cur = cur[k];
+    }
+    cur[parts[parts.length-1]] = value;
+  }
+
+  function currentValue(path){
+    var override = get(KNOBS, path, undefined);
+    if (override !== undefined) return override;
+    return get(MODEL, path, undefined);
+  }
+
+  function renderKnobRow(path, label, container){
+    var val = currentValue(path);
+    var isOverridden = get(KNOBS, path, undefined) !== undefined;
+    var row = document.createElement("div");
+    row.className = "knobrow" + (isOverridden ? " changed" : "");
+    row.dataset.path = path;
+    row.innerHTML = "<label title='"+esc(path)+"'>"+esc(label)+"</label>" +
+      "<input type='number' step='any' value='"+(val===undefined?"":val)+"'/>";
+    var input = row.querySelector("input");
+    input.addEventListener("input", function(){
+      var num = parseFloat(input.value);
+      var base = get(MODEL, path, undefined);
+      knobEdits[path] = num;
+      var changed = isNaN(num) ? false : (num !== base);
+      row.classList.toggle("changed", changed);
+    });
+    container.appendChild(row);
+  }
+
+  function renderKnobsTab(){
+    if (!MODEL) return;
+    var cCombat = document.getElementById("knobsCombat");
+    var cEcon = document.getElementById("knobsEconomy");
+    cCombat.innerHTML = "";
+    cEcon.innerHTML = "";
+    KNOB_FIELDS_COMBAT.forEach(function(pair){ renderKnobRow(pair[0], pair[1], cCombat); });
+    KNOB_FIELDS_ECON.forEach(function(pair){ renderKnobRow(pair[0], pair[1], cEcon); });
+
+    var growthWrap = document.getElementById("knobsGrowth");
+    growthWrap.innerHTML = "";
+    var archetypes = Object.keys(MODEL.growth || {});
+    archetypes.forEach(function(arch){
+      var box = document.createElement("div");
+      box.style.marginBottom = "10px";
+      var title = document.createElement("div");
+      title.style.cssText = "color:var(--ink-dim);font-size:11px;letter-spacing:.06em;margin:6px 0 4px;text-transform:uppercase;";
+      title.textContent = arch;
+      box.appendChild(title);
+      var grid = document.createElement("div");
+      grid.className = "knobgrid";
+      var per = MODEL.growth[arch].per || {};
+      var alt = MODEL.growth[arch].alt || {};
+      Object.keys(per).forEach(function(stat){
+        renderKnobRow("growth."+arch+".per."+stat, "PER."+stat.toUpperCase(), grid);
+      });
+      Object.keys(alt).forEach(function(stat){
+        renderKnobRow("growth."+arch+".alt."+stat, "ALT."+stat.toUpperCase(), grid);
+      });
+      box.appendChild(grid);
+      growthWrap.appendChild(box);
+    });
+  }
+
+  document.getElementById("saveBtn").addEventListener("click", function(){
+    // build sparse diff: only paths where the edited value differs from model.json base
+    var diff = {};
+    var any = false;
+    Object.keys(knobEdits).forEach(function(path){
+      var num = knobEdits[path];
+      if (isNaN(num)) return;
+      var base = get(MODEL, path, undefined);
+      if (num === base) return;
+      setDeep(diff, path, num);
+      any = true;
+    });
+    var status = document.getElementById("saveStatus");
+    if (!any){
+      status.textContent = "no changes to save.";
+      status.style.color = "var(--ink-dim)";
+      return;
+    }
+    status.textContent = "saving...";
+    status.style.color = "var(--ink-dim)";
+    fetch("/balance/knobs", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify(diff)
+    }).then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(res){
+        status.textContent = res && res.ok ? "saved." : "save returned an unexpected response.";
+        status.style.color = res && res.ok ? "var(--green)" : "var(--vermillion)";
+        var banner = document.getElementById("knobsBanner");
+        banner.innerHTML = "<div class='banner'>knobs saved — re-run: " +
+          "<code>python tools/balance/sweep.py --knobs workshop/balance/knobs.json --out workshop/balance/sweep_knobbed.json</code></div>";
+      }).catch(function(e){
+        status.textContent = "save failed: " + e.message;
+        status.style.color = "var(--vermillion)";
+        var banner = document.getElementById("knobsBanner");
+        banner.innerHTML = "<div class='banner err'>could not reach /balance/knobs — is tools/serve_workshop.py running?</div>";
+      });
+  });
+
+  function flagSig(f){
+    var b = f.build;
+    return [b.archetype, b.level, (b.gear||[]).slice().sort().join(","),
+      (b.memories||[]).slice().sort().join(","), (b.boons||[]).slice().sort().join(",")].join("|") + "::" + f.axis;
+  }
+
+  function renderKnobsDiff(){
+    if (!SWEEP || !SWEEP_KNOBBED) return;
+    var baseFlags = SWEEP.flags || [];
+    var knobFlags = SWEEP_KNOBBED.flags || [];
+    var baseSigs = {}, knobSigs = {};
+    baseFlags.forEach(function(f){ baseSigs[flagSig(f)] = f; });
+    knobFlags.forEach(function(f){ knobSigs[flagSig(f)] = f; });
+
+    var resolved = baseFlags.filter(function(f){ return !knobSigs[flagSig(f)]; });
+    var fresh = knobFlags.filter(function(f){ return !baseSigs[flagSig(f)]; });
+
+    var wrap = document.getElementById("knobsDiff");
+    function listHtml(list){
+      if (!list.length) return "<div style='color:var(--ink-dim);font-size:11px;'>none</div>";
+      return "<ul>" + list.slice(0,50).map(function(f){
+        return "<li>z="+fmt(f.z,2)+" · "+esc(f.axis)+" · "+esc(buildLabel(f.build))+"</li>";
+      }).join("") + "</ul>";
+    }
+    wrap.innerHTML =
+      "<div class='resolved'><h3>Resolved (baseline only)</h3>"+listHtml(resolved)+"</div>" +
+      "<div class='new'><h3>New (knobbed only)</h3>"+listHtml(fresh)+"</div>";
+  }
+
+  // ================================================================ TAB 4: VERIFY
+  function renderVerifyTab(){
+    if (!VERIFY) return;
+    var results = VERIFY.results || [];
+    var tbody = document.querySelector("#verifyTable tbody");
+    tbody.innerHTML = results.map(function(r){
+      var verdict = r.verdict || "SKIPPED";
+      var measured = r.measured || {};
+      var predicted = get(r, "build.scores.ttk", null);
+      var predTtk = measured.predicted_ttk;
+      return "<tr>" +
+        "<td><span class='badge "+esc(verdict)+"'>"+esc(verdict)+"</span></td>" +
+        "<td>"+esc(buildLabel(r.build||{}))+"</td>" +
+        "<td>"+esc(r.axis||"")+"</td>" +
+        "<td class='num'>"+fmt(predTtk,3)+"</td>" +
+        "<td class='num'>"+fmt(measured.win_rate,3)+"</td>" +
+        "<td class='num'>"+fmt(measured.avg_rounds,2)+"</td>" +
+        "</tr>";
+    }).join("");
+    if (VERIFY.seeds !== undefined){
+      var note = document.getElementById("verifyNote");
+      note.style.display = "block";
+      note.style.borderStyle = "solid";
+      note.textContent = "seeds: " + VERIFY.seeds + " · results: " + results.length;
+    }
+  }
+
+})();
+</script>

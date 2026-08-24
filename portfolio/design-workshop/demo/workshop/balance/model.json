@@ -1,0 +1,1541 @@
+{
+ "abilities": {
+  "blast": {
+   "chips": 0.1,
+   "damage_type": "magic",
+   "effect": "damage",
+   "effects": [
+    "inflict_bleed"
+   ],
+   "fx": "bolt",
+   "name": "Blast",
+   "power": 6,
+   "radius": 1,
+   "range": 3,
+   "shape": "square",
+   "target": "enemy"
+  },
+  "blessing": {
+   "cast_set": "barrier_dome",
+   "effect": "heal",
+   "fx": "cure",
+   "name": "Blessing",
+   "power": 18,
+   "range": 3,
+   "target": "ally"
+  },
+  "bloom": {
+   "damage_type": "magic",
+   "effect": "damage",
+   "fx": "bloom",
+   "name": "Bloom",
+   "power": 6,
+   "radius": 1,
+   "range": 3,
+   "shape": "square",
+   "target": "enemy"
+  },
+  "bolt": {
+   "conducts": true,
+   "damage_type": "magic",
+   "effect": "damage",
+   "fx": "bolt",
+   "name": "Bolt",
+   "power": 7,
+   "range": 3,
+   "target": "enemy"
+  },
+  "boomerang": {
+   "damage_type": "phys",
+   "effect": "damage",
+   "fx": "impact",
+   "name": "Boomerang",
+   "power": 6,
+   "range": 3,
+   "target": "enemy"
+  },
+  "brightness": {
+   "abbr": "K",
+   "effect": "buff",
+   "fx": "brightness",
+   "mods": {
+    "ten": 8
+   },
+   "name": "Brightness",
+   "range": 1,
+   "status_name": "Kindled",
+   "target": "ally",
+   "turns": 3
+  },
+  "buyout": {
+   "abbr": "O",
+   "effect": "debuff",
+   "fx": "coins",
+   "mods": {
+    "frt": -6
+   },
+   "name": "Buyout",
+   "range": 3,
+   "status_name": "Bought Out",
+   "target": "enemy",
+   "turns": 3
+  },
+  "certify": {
+   "abbr": "C",
+   "cost_hp": 5,
+   "effect": "buff",
+   "fx": "certify",
+   "mods": {
+    "ten": 10
+   },
+   "name": "Certify",
+   "range": 1,
+   "status_name": "Certified",
+   "target": "ally",
+   "turns": 3
+  },
+  "cure": {
+   "douses": true,
+   "effect": "heal",
+   "fx": "cure",
+   "name": "Cure",
+   "power": 12,
+   "range": 3,
+   "target": "ally"
+  },
+  "divine_strike": {
+   "cinematic": true,
+   "damage_type": "magic",
+   "effect": "damage",
+   "fx": "divine",
+   "name": "Divine Strike",
+   "power": 11,
+   "range": 3,
+   "target": "enemy"
+  },
+  "firebolt": {
+   "damage_type": "fire",
+   "effect": "damage",
+   "fx": "fire",
+   "name": "Firebolt",
+   "power": 8,
+   "range": 3,
+   "target": "enemy"
+  },
+  "foreclose": {
+   "damage_type": "magic",
+   "effect": "damage",
+   "fx": "bolt",
+   "name": "Foreclose",
+   "power": 8,
+   "range": 4,
+   "slash_opts": {
+    "look": "ink"
+   },
+   "slash_set": "X",
+   "target": "enemy"
+  },
+  "gasbomb": {
+   "damage_type": "magic",
+   "effect": "damage",
+   "fx": "bolt",
+   "gas": 5.0,
+   "name": "Gas Bomb",
+   "power": 2,
+   "range": 3,
+   "target": "enemy"
+  },
+  "golem_work": {
+   "effect": "summon",
+   "fx": "golem",
+   "name": "Golem-Work",
+   "range": 1,
+   "target": "ally"
+  },
+  "grade": {
+   "abbr": "G",
+   "effect": "debuff",
+   "fx": "bolt",
+   "mods": {
+    "wit": -5
+   },
+   "name": "Grade",
+   "range": 3,
+   "status_name": "Graded",
+   "target": "enemy",
+   "turns": 3
+  },
+  "grievance_song": {
+   "abbr": "L",
+   "effect": "debuff",
+   "fx": "song",
+   "mods": {
+    "frt": -4
+   },
+   "name": "Grievance Song",
+   "range": 3,
+   "status_name": "Grieved",
+   "target": "enemy",
+   "turns": 3
+  },
+  "hasten": {
+   "abbr": "I",
+   "consume_brightness": 4,
+   "effect": "buff",
+   "fx": "brightness",
+   "mods": {
+    "move": 2,
+    "ten": 12
+   },
+   "name": "Hasten",
+   "range": 2,
+   "status_name": "Ignited",
+   "target": "ally",
+   "turns": 2
+  },
+  "hex": {
+   "abbr": "H",
+   "effect": "debuff",
+   "fx": "bolt",
+   "mods": {
+    "frt": -4
+   },
+   "name": "Hex",
+   "range": 3,
+   "status_name": "Hexed",
+   "target": "enemy",
+   "turns": 3
+  },
+  "inscribe": {
+   "abbr": "I",
+   "effect": "buff",
+   "fx": "inscribe",
+   "mods": {
+    "ten": 5
+   },
+   "name": "Inscribe",
+   "range": 2,
+   "status_name": "Inscribed",
+   "target": "ally",
+   "turns": 3
+  },
+  "javelin": {
+   "damage_type": "phys",
+   "effect": "damage",
+   "fx": "impact",
+   "name": "Javelin",
+   "power": 8,
+   "range": 4,
+   "target": "enemy"
+  },
+  "offering": {
+   "cost_hp": 6,
+   "effect": "miracle",
+   "fx": "cure",
+   "name": "Offering",
+   "range": 2,
+   "target": "ally"
+  },
+  "rally": {
+   "abbr": "R",
+   "effect": "buff",
+   "fx": "cure",
+   "mods": {
+    "ten": 5
+   },
+   "name": "Rally",
+   "range": 2,
+   "status_name": "Rallied",
+   "target": "ally",
+   "turns": 3
+  },
+  "shove": {
+   "damage_type": "phys",
+   "effect": "damage",
+   "effects": [
+    "push"
+   ],
+   "fx": "impact",
+   "name": "Shove",
+   "power": 3,
+   "range": 1,
+   "slash_set": [
+    {
+     "angle": 0.0,
+     "dur": 0.15,
+     "mag": 1.1
+    }
+   ],
+   "target": "enemy"
+  },
+  "smoke": {
+   "abbr": "S",
+   "effect": "buff",
+   "fx": "cure",
+   "mods": {
+    "frt": 5
+   },
+   "name": "Smoke",
+   "range": 1,
+   "status_name": "Smokescreen",
+   "target": "ally",
+   "turns": 2
+  },
+  "the_rolls_speak": {
+   "abbr": "W",
+   "effect": "buff",
+   "fx": "inscribe",
+   "mods": {
+    "frt": 5
+   },
+   "name": "Rolls Speak",
+   "range": 2,
+   "status_name": "Witnessed",
+   "target": "ally",
+   "turns": 3
+  },
+  "transfer_wound": {
+   "cost_hp": 8,
+   "effect": "heal",
+   "fx": "certify",
+   "name": "Transfer Wound",
+   "power": 14,
+   "range": 2,
+   "target": "ally"
+  },
+  "warhorn": {
+   "abbr": "R",
+   "effect": "buff",
+   "fx": "cure",
+   "mods": {
+    "frt": 2,
+    "ten": 6
+   },
+   "name": "Warhorn",
+   "range": 2,
+   "status_name": "Rallied",
+   "target": "ally",
+   "turns": 2
+  }
+ },
+ "combat_rules": {
+  "acc_clamp": [
+   0.35,
+   0.99
+  ],
+  "cover": 0.25,
+  "crit": 0.2,
+  "crit_clamp": [
+   0.0,
+   0.6
+  ],
+  "crit_mult": 2,
+  "dmg_floor": 1,
+  "facing": {
+   "back": {
+    "acc": 0.25,
+    "crit": 0.1,
+    "dmg": 1.25
+   },
+   "front": {
+    "acc": 0.0,
+    "crit": 0.0,
+    "dmg": 1.0
+   },
+   "side": {
+    "acc": 0.1,
+    "crit": 0.0,
+    "dmg": 1.0
+   }
+  },
+  "miss": 0.15,
+  "wit_acc": 0.01,
+  "wit_crit": 0.01
+ },
+ "economy": {
+  "boon_every": 3,
+  "chest_gear_odds": 3,
+  "chest_gold": {
+   "common": 20,
+   "legendary": 120,
+   "rare": 70,
+   "uncommon": 40
+  },
+  "chest_rarity_w": {
+   "common": 60,
+   "legendary": 2,
+   "rare": 10,
+   "uncommon": 28
+  },
+  "exp_base": 10,
+  "exp_mult": 1.5,
+  "gem_exp": {
+   "large": 8,
+   "med": 3,
+   "small": 1
+  },
+  "jackpot_odds": 12,
+  "kill_xp": 5,
+  "lucky_odds": 8,
+  "sweep_div": 2
+ },
+ "fc_arc": {
+  "boss": {
+   "ai": "magnate",
+   "atk": 5,
+   "extra_turns": 1,
+   "frt": 9,
+   "hp": 72,
+   "legendary": 2,
+   "max_hp": 72,
+   "move": 3,
+   "name": "THE MAGNATE ASCENDANT",
+   "range": 1,
+   "skills": [
+    "buyout",
+    "foreclose",
+    "golem_work"
+   ],
+   "ten": 10,
+   "weight": "heavy",
+   "wit": 4
+  },
+  "boss_expo": "fc_boss",
+  "miniboss": {
+   "ai": "magnate",
+   "atk": 4,
+   "frt": 7,
+   "hp": 52,
+   "legendary": 1,
+   "max_hp": 52,
+   "move": 3,
+   "name": "THE COMPTROLLER",
+   "range": 1,
+   "skills": [
+    "buyout",
+    "foreclose"
+   ],
+   "ten": 8,
+   "weight": "heavy",
+   "wit": 3
+  },
+  "miniboss_expo": "fc_miniboss",
+  "win_expo": "fc_win"
+ },
+ "gear": {
+  "boomerang_knife": {
+   "flavor": "It always comes back. Mostly.",
+   "mods": {
+    "ten": 1
+   },
+   "name": "Boomerang Knife",
+   "price": 30,
+   "rarity": "common",
+   "slot": "weapon",
+   "use": {
+    "ability": "boomerang",
+    "refund_on_kill": true,
+    "uses": 3
+   }
+  },
+  "chainmail": {
+   "flavor": "A thousand small rings, one purpose.",
+   "mods": {
+    "frt": 1,
+    "hp": 14
+   },
+   "name": "Chainmail",
+   "price": 55,
+   "rarity": "uncommon",
+   "slot": "body"
+  },
+  "courier_boots": {
+   "flavor": "The message outlives the messenger.",
+   "mods": {
+    "move": 2
+   },
+   "name": "Courier Boots",
+   "price": 45,
+   "rarity": "uncommon",
+   "slot": "boots"
+  },
+  "crest_helm": {
+   "flavor": "The rank is the armor.",
+   "mods": {
+    "frt": 3,
+    "ten": 1
+   },
+   "name": "Crest Helm",
+   "price": 100,
+   "rarity": "rare",
+   "slot": "helm"
+  },
+  "duelist_edge": {
+   "flavor": "One clean line, no argument.",
+   "mods": {
+    "atk": 1,
+    "ten": 2
+   },
+   "name": "Duelist's Edge",
+   "price": 120,
+   "rarity": "rare",
+   "slot": "weapon"
+  },
+  "duplicate_chit": {
+   "flavor": "Filed twice. Paid once.",
+   "keywords": [
+    "act_twice"
+   ],
+   "mods": {
+    "atk": 1
+   },
+   "name": "Duplicate Chit",
+   "price": 30,
+   "rarity": "common",
+   "slot": "weapon"
+  },
+  "ghoststep": {
+   "flavor": "No prints. No weight. No rest.",
+   "mods": {
+    "frt": 1,
+    "move": 2
+   },
+   "name": "Ghoststep",
+   "price": 90,
+   "rarity": "rare",
+   "slot": "boots"
+  },
+  "hunters_eye": {
+   "flavor": "It blinks when you should strike.",
+   "mods": {
+    "ten": 1,
+    "wit": 3
+   },
+   "name": "Hunter's Eye",
+   "price": 95,
+   "rarity": "rare",
+   "slot": "accessory"
+  },
+  "iron_band": {
+   "flavor": "Plain. Heavy. Honest.",
+   "mods": {
+    "frt": 2
+   },
+   "name": "Iron Band",
+   "price": 20,
+   "rarity": "common",
+   "slot": "accessory"
+  },
+  "iron_helm": {
+   "flavor": "Dents inward, never through.",
+   "mods": {
+    "frt": 3
+   },
+   "name": "Iron Helm",
+   "price": 45,
+   "rarity": "uncommon",
+   "slot": "helm"
+  },
+  "javelin": {
+   "flavor": "Thrown once, remembered twice.",
+   "mods": {
+    "ten": 2
+   },
+   "name": "Javelin",
+   "price": 60,
+   "rarity": "uncommon",
+   "slot": "weapon",
+   "use": {
+    "ability": "javelin",
+    "refund_on_kill": true,
+    "uses": 2
+   }
+  },
+  "leather_cap": {
+   "flavor": "Better than nothing, barely.",
+   "mods": {
+    "frt": 1
+   },
+   "name": "Leather Cap",
+   "price": 15,
+   "rarity": "common",
+   "slot": "helm"
+  },
+  "leech_clause": {
+   "flavor": "Paragraph nine. Read it bleeding.",
+   "keywords": [
+    "lifesteal"
+   ],
+   "mods": {
+    "atk": 1
+   },
+   "name": "Leech Clause",
+   "price": 45,
+   "rarity": "uncommon",
+   "slot": "weapon"
+  },
+  "noxious_filing": {
+   "flavor": "Do not shelve near food or hope.",
+   "keywords": [
+    "inflict_poison"
+   ],
+   "mods": {
+    "atk": 1
+   },
+   "name": "Noxious Filing",
+   "price": 25,
+   "rarity": "common",
+   "slot": "weapon"
+  },
+  "oath_ring": {
+   "flavor": "Sworn once. Kept since.",
+   "mods": {
+    "ten": 2
+   },
+   "name": "Oath Ring",
+   "price": 50,
+   "rarity": "uncommon",
+   "slot": "accessory"
+  },
+  "overexposure": {
+   "flavor": "Seen too clearly, too long.",
+   "keywords": [
+    "brightness"
+   ],
+   "mods": {
+    "ten": 3,
+    "wit": -1
+   },
+   "name": "Overexposure",
+   "price": 120,
+   "rarity": "rare",
+   "slot": "accessory"
+  },
+  "padded_vest": {
+   "flavor": "Straw and hope.",
+   "mods": {
+    "hp": 6
+   },
+   "name": "Padded Vest",
+   "price": 20,
+   "rarity": "common",
+   "slot": "body"
+  },
+  "platemail": {
+   "flavor": "You hear it before you fear it.",
+   "mods": {
+    "frt": 2,
+    "hp": 24
+   },
+   "name": "Platemail",
+   "price": 110,
+   "rarity": "rare",
+   "slot": "body"
+  },
+  "purity_seal": {
+   "flavor": "Certified clean. Certifier unnamed.",
+   "keywords": [
+    "purity"
+   ],
+   "mods": {
+    "frt": 1,
+    "ten": 1
+   },
+   "name": "Purity Seal",
+   "price": 50,
+   "rarity": "uncommon",
+   "slot": "helm"
+  },
+  "scale_coat": {
+   "flavor": "Every scale bought separately.",
+   "mods": {
+    "frt": 2,
+    "hp": 10
+   },
+   "name": "Scale Coat",
+   "price": 60,
+   "rarity": "uncommon",
+   "slot": "body"
+  },
+  "severed_locket": {
+   "flavor": "Someone's face, scratched out.",
+   "mods": {
+    "ten": 1,
+    "wit": 2
+   },
+   "name": "Severed Locket",
+   "price": 50,
+   "rarity": "uncommon",
+   "slot": "accessory"
+  },
+  "siege_maul": {
+   "flavor": "Doors, walls, men. In that order.",
+   "mods": {
+    "move": -1,
+    "ten": 4
+   },
+   "name": "Siege Maul",
+   "price": 105,
+   "rarity": "rare",
+   "slot": "weapon"
+  },
+  "smoke_charm": {
+   "flavor": "Be elsewhere.",
+   "mods": {},
+   "name": "Smoke Charm",
+   "price": 25,
+   "rarity": "common",
+   "slot": "accessory",
+   "use": {
+    "ability": "smoke",
+    "refund_on_kill": false,
+    "uses": 2
+   }
+  },
+  "standing_order": {
+   "flavor": "It outranks whoever reads it.",
+   "keywords": [
+    "purity"
+   ],
+   "mods": {
+    "frt": 2
+   },
+   "name": "Standing Order",
+   "price": 50,
+   "rarity": "uncommon",
+   "slot": "body"
+  },
+  "training_waiver": {
+   "flavor": "Injuries anticipated. Signatures collected.",
+   "keywords": [
+    "brightness"
+   ],
+   "mods": {
+    "atk": 1
+   },
+   "name": "Training Waiver",
+   "price": 20,
+   "rarity": "common",
+   "slot": "weapon"
+  },
+  "war_pick": {
+   "flavor": "Argues with armor. Wins.",
+   "mods": {
+    "ten": 3
+   },
+   "name": "War Pick",
+   "price": 55,
+   "rarity": "uncommon",
+   "slot": "weapon"
+  },
+  "warden_crown": {
+   "flavor": "Worn by those who counted the dead.",
+   "mods": {
+    "frt": 4,
+    "wit": 1
+   },
+   "name": "Warden's Crown",
+   "price": 95,
+   "rarity": "rare",
+   "slot": "helm"
+  },
+  "warhorn": {
+   "flavor": "A sound the line obeys.",
+   "mods": {
+    "wit": 2
+   },
+   "name": "Warhorn",
+   "price": 100,
+   "rarity": "rare",
+   "slot": "weapon",
+   "use": {
+    "ability": "warhorn",
+    "refund_on_kill": false,
+    "uses": 1
+   }
+  },
+  "witness_stone": {
+   "flavor": "It saw. It says nothing yet.",
+   "keywords": [
+    "witnessed"
+   ],
+   "mods": {
+    "frt": 2
+   },
+   "name": "Witness Stone",
+   "price": 95,
+   "rarity": "rare",
+   "slot": "accessory"
+  },
+  "worn_boots": {
+   "flavor": "Walked further than their owner.",
+   "mods": {
+    "move": 1
+   },
+   "name": "Worn Boots",
+   "price": 15,
+   "rarity": "common",
+   "slot": "boots"
+  }
+ },
+ "gear_slots": [
+  "weapon",
+  "accessory",
+  "boots",
+  "helm",
+  "body"
+ ],
+ "growth": {
+  "caster": {
+   "alt": {
+    "ten": 1
+   },
+   "per": {
+    "hp": 2,
+    "wit": 1
+   }
+  },
+  "dps": {
+   "alt": {
+    "wit": 1
+   },
+   "per": {
+    "hp": 3,
+    "ten": 1
+   }
+  },
+  "glass": {
+   "alt": {
+    "wit": 1
+   },
+   "per": {
+    "hp": 2,
+    "ten": 1
+   }
+  },
+  "tank": {
+   "alt": {
+    "ten": 1
+   },
+   "per": {
+    "frt": 1,
+    "hp": 5
+   }
+  }
+ },
+ "growth_default": {
+  "alt": {},
+  "per": {
+   "hp": 3,
+   "ten": 1
+  }
+ },
+ "level_boons": {
+  "adept": {
+   "flavor": "Quick of foot and of mind.",
+   "mods": {
+    "move": 1,
+    "wit": 1
+   },
+   "name": "Adept"
+  },
+  "bulwark": {
+   "flavor": "More of you comes home.",
+   "mods": {
+    "hp": 6
+   },
+   "name": "Bulwark"
+  },
+  "ferocity": {
+   "flavor": "The first cut goes deeper.",
+   "mods": {
+    "atk": 1
+   },
+   "name": "Ferocity"
+  },
+  "focus": {
+   "flavor": "Eyes clear; the spell lands true.",
+   "mods": {
+    "wit": 2
+   },
+   "name": "Focus"
+  },
+  "guard": {
+   "flavor": "Shoulders set; the wall holds.",
+   "mods": {
+    "frt": 2
+   },
+   "name": "Guard"
+  },
+  "haste": {
+   "flavor": "Faster than the rumor of you.",
+   "mods": {
+    "move": 1
+   },
+   "name": "Haste"
+  },
+  "might": {
+   "flavor": "The whole line hits harder.",
+   "mods": {
+    "ten": 2
+   },
+   "name": "Might"
+  },
+  "scavenger": {
+   "flavor": "Gems lean toward the greedy.",
+   "mods": {
+    "vacuum": 1
+   },
+   "name": "Scavenger"
+  },
+  "warband": {
+   "flavor": "Together, harder to break.",
+   "mods": {
+    "frt": 1,
+    "ten": 1
+   },
+   "name": "Warband"
+  }
+ },
+ "memories": [
+  {
+   "flavor": "A hand remembers the edge it kept.",
+   "keywords": [],
+   "mods": {
+    "ten": 4
+   },
+   "name": "Whetstone",
+   "rarity": "common"
+  },
+  {
+   "flavor": "The wall outlived the reason for the wall.",
+   "keywords": [],
+   "mods": {
+    "frt": 4
+   },
+   "name": "Ramparts",
+   "rarity": "common"
+  },
+  {
+   "flavor": "It learned faster than it was permitted to.",
+   "keywords": [],
+   "mods": {
+    "wit": 4
+   },
+   "name": "Quick Study",
+   "rarity": "common"
+  },
+  {
+   "flavor": "Need, dressed as appetite.",
+   "keywords": [
+    "lifesteal"
+   ],
+   "mods": {
+    "frt": -2,
+    "ten": 6
+   },
+   "name": "Bloodlust",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Filed to leave a question that won't close.",
+   "keywords": [
+    "inflict_bleed"
+   ],
+   "mods": {
+    "ten": 3
+   },
+   "name": "Serration",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Someone paid for this protection. Not you.",
+   "keywords": [],
+   "mods": {
+    "frt": 5,
+    "wit": 3
+   },
+   "name": "Hexward",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Two motions, one permission slip.",
+   "keywords": [
+    "act_twice"
+   ],
+   "mods": {
+    "move": 1
+   },
+   "name": "Twinstep",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "The cure was filed under the same heading.",
+   "keywords": [
+    "inflict_poison"
+   ],
+   "mods": {
+    "wit": 5
+   },
+   "name": "Venom Coat",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "Their strength was unrivaled. That is why they had to be held down.",
+   "keywords": [
+    "inflict_bleed"
+   ],
+   "mods": {
+    "ten": 20,
+    "wit": -10
+   },
+   "name": "Oppression",
+   "rarity": "legendary"
+  },
+  {
+   "flavor": "Be loved for what you give up. Give up everything.",
+   "keywords": [
+    "lifesteal"
+   ],
+   "mods": {
+    "frt": 12,
+    "move": -1,
+    "ten": 8
+   },
+   "name": "Martyrdom",
+   "rarity": "legendary"
+  },
+  {
+   "flavor": "The body files its own complaints.",
+   "keywords": [],
+   "mods": {
+    "frt": 3,
+    "ten": 1
+   },
+   "name": "Callus",
+   "rarity": "common"
+  },
+  {
+   "flavor": "Smaller than hate, and it lasts longer.",
+   "keywords": [],
+   "mods": {
+    "ten": 4,
+    "wit": -1
+   },
+   "name": "Spite",
+   "rarity": "common"
+  },
+  {
+   "flavor": "Said enough times, a rule begins to feel like a reason.",
+   "keywords": [],
+   "mods": {
+    "frt": 1,
+    "wit": 3
+   },
+   "name": "Recitation",
+   "rarity": "common"
+  },
+  {
+   "flavor": "It no longer remembers being asked.",
+   "keywords": [],
+   "mods": {
+    "frt": 2,
+    "ten": 2
+   },
+   "name": "Drilled",
+   "rarity": "common"
+  },
+  {
+   "flavor": "Answer every blow as if it were a question.",
+   "keywords": [],
+   "mods": {
+    "frt": 4,
+    "ten": 3
+   },
+   "name": "Riposte",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Approved for external use. There is no internal use.",
+   "keywords": [
+    "inflict_poison"
+   ],
+   "mods": {
+    "frt": -2,
+    "wit": 6
+   },
+   "name": "Witch-Oil",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Volunteers, retroactively.",
+   "keywords": [],
+   "mods": {
+    "frt": -2,
+    "ten": 7
+   },
+   "name": "Conscription",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Decide who is worth the bandage. Be sure they hear you decide.",
+   "keywords": [
+    "lifesteal"
+   ],
+   "mods": {
+    "frt": 2,
+    "wit": 4
+   },
+   "name": "Triage",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "The wound is the receipt and the payment.",
+   "keywords": [
+    "lifesteal",
+    "inflict_bleed"
+   ],
+   "mods": {
+    "ten": 6
+   },
+   "name": "Bloodrite",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "Arrive before the order to arrive.",
+   "keywords": [],
+   "mods": {
+    "move": 1,
+    "wit": 4
+   },
+   "name": "Quicksilver",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "A wall is only afraid one brick at a time.",
+   "keywords": [],
+   "mods": {
+    "frt": 9,
+    "wit": -2
+   },
+   "name": "Phalanx",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "Think twice. It costs exactly twice.",
+   "keywords": [
+    "act_twice"
+   ],
+   "mods": {
+    "frt": -3,
+    "wit": 7
+   },
+   "name": "Overclock",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "The order was kept. Ask the order what it cost; it will not answer.",
+   "keywords": [
+    "inflict_bleed"
+   ],
+   "mods": {
+    "frt": 15,
+    "move": -2,
+    "ten": 10
+   },
+   "name": "Tyranny",
+   "rarity": "legendary"
+  },
+  {
+   "flavor": "Remembered precisely, by no one who loved them.",
+   "keywords": [
+    "inflict_poison"
+   ],
+   "mods": {
+    "ten": -8,
+    "wit": 18
+   },
+   "name": "The Unmourned",
+   "rarity": "legendary"
+  },
+  {
+   "flavor": "Everything in its place, including you.",
+   "keywords": [],
+   "mods": {
+    "frt": 2,
+    "wit": 2
+   },
+   "name": "Quartermaster",
+   "rarity": "common"
+  },
+  {
+   "flavor": "Kept warm, kept fed, kept.",
+   "keywords": [],
+   "mods": {
+    "ten": 3,
+    "wit": 1
+   },
+   "name": "Grudge",
+   "rarity": "common"
+  },
+  {
+   "flavor": "Counted twice, worth the same.",
+   "keywords": [],
+   "mods": {
+    "ten": -1,
+    "wit": 4
+   },
+   "name": "Census",
+   "rarity": "common"
+  },
+  {
+   "flavor": "What the fire forgave, it forgave on credit.",
+   "keywords": [
+    "brightness"
+   ],
+   "mods": {
+    "frt": -2,
+    "ten": 5
+   },
+   "name": "Embers",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "The flag does not retreat; it is carried.",
+   "keywords": [
+    "purity"
+   ],
+   "mods": {
+    "frt": 4,
+    "ten": 2
+   },
+   "name": "Standard-Bearer",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Unsent, therefore honest.",
+   "keywords": [],
+   "mods": {
+    "frt": 1,
+    "wit": 5
+   },
+   "name": "Letters Home",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Practiced at carrying what cannot complain.",
+   "keywords": [
+    "witnessed"
+   ],
+   "mods": {
+    "frt": 7,
+    "move": -1,
+    "ten": 3
+   },
+   "name": "Pallbearer",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "Every door owed someone an apology.",
+   "keywords": [],
+   "mods": {
+    "move": 1,
+    "wit": 6
+   },
+   "name": "Skeleton Key",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "Met, at the usual rate of meeting it.",
+   "keywords": [
+    "inflict_bleed"
+   ],
+   "mods": {
+    "frt": 6,
+    "ten": 14,
+    "wit": -8
+   },
+   "name": "The Quota",
+   "rarity": "legendary"
+  },
+  {
+   "flavor": "Authority you can see through, worn anyway.",
+   "keywords": [
+    "act_twice"
+   ],
+   "mods": {
+    "frt": -10,
+    "move": 1,
+    "wit": 16
+   },
+   "name": "Glass Crown",
+   "rarity": "legendary"
+  },
+  {
+   "flavor": "Knows every line. Waits anyway.",
+   "keywords": [
+    "act_twice"
+   ],
+   "mods": {
+    "atk": 1,
+    "ten": 2
+   },
+   "name": "The Understudy",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "Both are yours. One is recent.",
+   "keywords": [
+    "act_twice"
+   ],
+   "mods": {
+    "ten": 1,
+    "wit": 1
+   },
+   "name": "Two Signatures",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Balanced nightly, in the old way.",
+   "keywords": [
+    "lifesteal",
+    "inflict_bleed"
+   ],
+   "mods": {
+    "hp": 6,
+    "ten": 1
+   },
+   "name": "Blood Ledger",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "Renews automatically. Cancel in person.",
+   "keywords": [
+    "lifesteal"
+   ],
+   "mods": {
+    "hp": 4
+   },
+   "name": "Second Wind Contract",
+   "rarity": "common"
+  },
+  {
+   "flavor": "Nothing found. Nothing looked for.",
+   "keywords": [
+    "purity",
+    "witnessed"
+   ],
+   "mods": {
+    "frt": 2,
+    "wit": 1
+   },
+   "name": "Clean Record",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "Aimed at the workers, not the work.",
+   "keywords": [
+    "brightness"
+   ],
+   "mods": {
+    "ten": 2
+   },
+   "name": "Floodlamp",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "Scheduled for repair. Rescheduled.",
+   "keywords": [
+    "inflict_poison"
+   ],
+   "mods": {
+    "wit": 2
+   },
+   "name": "Slow Leak",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "The missing pages balanced perfectly.",
+   "keywords": [
+    "inflict_bleed"
+   ],
+   "mods": {
+    "ten": 1
+   },
+   "name": "Torn Ledger",
+   "rarity": "uncommon"
+  },
+  {
+   "flavor": "It accrues whether you understand it or not.",
+   "keywords": [
+    "inflict_poison",
+    "inflict_bleed"
+   ],
+   "mods": {
+    "ten": 1,
+    "wit": 2
+   },
+   "name": "Compound Interest",
+   "rarity": "rare"
+  },
+  {
+   "flavor": "Documented daily. Prevented never.",
+   "keywords": [
+    "inflict_poison",
+    "inflict_bleed",
+    "witnessed"
+   ],
+   "mods": {
+    "ten": 1,
+    "wit": 3
+   },
+   "name": "Witnessed Decay",
+   "rarity": "legendary"
+  }
+ ],
+ "unit_defs": {
+  "brute": {
+   "ai": "brawler",
+   "atk": 4,
+   "frt": 6,
+   "hp": 52,
+   "legendary": 1,
+   "max_hp": 52,
+   "move": 3,
+   "name": "Crusher",
+   "range": 1,
+   "skills": [
+    "shove"
+   ],
+   "ten": 12,
+   "weight": "heavy",
+   "wit": 1
+  },
+  "caster": {
+   "ai": "caster",
+   "atk": 2,
+   "frt": 3,
+   "hp": 24,
+   "max_hp": 24,
+   "move": 4,
+   "name": "Sage",
+   "range": 1,
+   "skills": [
+    "bolt",
+    "firebolt",
+    "gasbomb",
+    "cure",
+    "blast",
+    "rally",
+    "hex"
+   ],
+   "ten": 3,
+   "wit": 7
+  },
+  "construct": {
+   "ai": "brawler",
+   "atk": 4,
+   "blood": "(0.13, 0.13, 0.16, 1.0)",
+   "frt": 7,
+   "hp": 34,
+   "max_hp": 34,
+   "move": 3,
+   "name": "Golem",
+   "range": 1,
+   "skills": [],
+   "ten": 7,
+   "weight": "heavy",
+   "wit": 0
+  },
+  "dps": {
+   "ai": "brawler",
+   "atk": 3,
+   "frt": 4,
+   "hp": 32,
+   "max_hp": 32,
+   "move": 4,
+   "name": "Edge",
+   "range": 1,
+   "skills": [
+    "bolt",
+    "blast"
+   ],
+   "ten": 10,
+   "wit": 5
+  },
+  "glass": {
+   "ai": "brawler",
+   "atk": 2,
+   "frt": 2,
+   "hp": 18,
+   "max_hp": 18,
+   "move": 5,
+   "name": "Spark",
+   "range": 1,
+   "skills": [
+    "bolt"
+   ],
+   "ten": 8,
+   "wit": 4
+  },
+  "healer": {
+   "ai": "healer",
+   "atk": 2,
+   "frt": 4,
+   "hp": 26,
+   "max_hp": 26,
+   "move": 4,
+   "name": "Mender",
+   "range": 1,
+   "skills": [
+    "cure",
+    "bolt"
+   ],
+   "ten": 2,
+   "wit": 7
+  },
+  "tank": {
+   "ai": "brawler",
+   "atk": 3,
+   "frt": 8,
+   "hp": 46,
+   "max_hp": 46,
+   "move": 3,
+   "name": "Bastion",
+   "range": 1,
+   "skills": [
+    "shove"
+   ],
+   "ten": 6,
+   "weight": "heavy",
+   "wit": 2
+  }
+ },
+ "waves": [
+  [
+   "glass",
+   "glass"
+  ],
+  [
+   "glass",
+   "brute",
+   "glass"
+  ],
+  [
+   "healer",
+   "brute",
+   "glass"
+  ],
+  [
+   "healer",
+   "brute",
+   "caster",
+   "glass"
+  ],
+  [
+   "brute",
+   "caster",
+   "glass"
+  ]
+ ]
+}

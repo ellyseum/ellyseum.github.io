@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FWLB Design Workshop - static build</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #14120f; --panel: #1d1a16; --edge: #35302a; --ink: #d8d2c4; --dim: #8a8274;
+    --keep: #4f9d5c; --tweak: #c9963c; --kill: #b5473c; --accent: #c9963c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+  header { position: sticky; top: 0; z-index: 5; background: var(--bg);
+    border-bottom: 1px solid var(--edge); padding: 10px 18px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  header h1 { font-size: 16px; margin: 0; letter-spacing: 0.06em; }
+  header .tally { color: var(--dim); font-size: 13px; }
+  header .tally b { color: var(--ink); }
+  .lanes { display: flex; gap: 4px; }
+  .lanes button { padding: 5px 12px; border-radius: 4px; border: 1px solid var(--edge);
+    background: transparent; color: var(--dim); font: 600 12px/1 inherit; letter-spacing: 0.06em;
+    cursor: pointer; }
+  .lanes button.on { background: var(--panel); color: var(--ink); border-color: var(--accent); }
+  .tabs { display: flex; gap: 4px; margin-left: auto; }
+  .tabs button { padding: 6px 16px; border-radius: 4px 4px 0 0; border: 1px solid var(--edge);
+    border-bottom: none; background: transparent; color: var(--dim);
+    font: 600 13px/1 inherit; letter-spacing: 0.08em; cursor: pointer; }
+  .tabs button.on { background: var(--panel); color: var(--ink); border-color: var(--accent); }
+  h2 { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim);
+    margin: 26px 18px 10px; border-bottom: 1px solid var(--edge); padding-bottom: 6px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 14px; padding: 0 18px; }
+  .grid.small { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .card { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px;
+    overflow: hidden; display: flex; flex-direction: column; }
+  .card.v-keep { border-color: var(--keep); }
+  .card.v-tweak { border-color: var(--tweak); }
+  .card.v-kill { border-color: var(--kill); opacity: 0.7; }
+  .card video { width: 100%; aspect-ratio: 16/9; background: #000; display: block; cursor: pointer; }
+  .clipwrap { position: relative; }
+  .clipbtns { position: absolute; top: 6px; right: 6px; display: flex; gap: 4px;
+    opacity: 0; transition: opacity 0.12s; }
+  .clipwrap:hover .clipbtns { opacity: 1; }
+  .clipbtn { width: 30px; height: 30px; border: none; border-radius: 6px; color: #fff;
+    background: rgba(0,0,0,0.55); font-size: 15px; line-height: 1; cursor: pointer;
+    display: grid; place-items: center; }
+  .clipbtn:hover { background: rgba(0,0,0,0.85); }
+  .card video:fullscreen { object-fit: contain; background: #000; cursor: default; }
+  .card .body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+  .card .top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .card .name { font-weight: 600; }
+  .card .id { color: var(--dim); font-size: 12px; font-family: Consolas, monospace; }
+  .card .chip { margin-left: auto; font-size: 11px; color: var(--dim);
+    border: 1px solid var(--edge); border-radius: 10px; padding: 1px 8px; }
+  .card .blurb { color: var(--dim); font-size: 13px; }
+  .hist { font-size: 12px; color: var(--dim); border-left: 2px solid var(--edge); padding-left: 8px; }
+  .hist .hv { font-weight: 700; letter-spacing: 0.06em; }
+  .hist .hv.keep { color: var(--keep); } .hist .hv.tweak { color: var(--tweak); }
+  .hist .hv.kill { color: var(--kill); }
+  .verdicts { display: flex; gap: 6px; }
+  .verdicts button { flex: 1; padding: 5px 0; border-radius: 4px; border: 1px solid var(--edge);
+    background: transparent; color: var(--dim); font: 600 12px/1 inherit; letter-spacing: 0.08em;
+    cursor: pointer; }
+  .verdicts button:hover { color: var(--ink); }
+  .verdicts button.on-keep { background: var(--keep); border-color: var(--keep); color: #fff; }
+  .verdicts button.on-tweak { background: var(--tweak); border-color: var(--tweak); color: #221a08; }
+  .verdicts button.on-kill { background: var(--kill); border-color: var(--kill); color: #fff; }
+  .reopen { padding: 5px 10px; border-radius: 4px; border: 1px solid var(--edge);
+    background: transparent; color: var(--dim); font: 600 12px/1 inherit; cursor: pointer; }
+  .reopen:hover { color: var(--ink); border-color: var(--tweak); }
+  textarea { background: #14110d; color: var(--ink); border: 1px solid var(--edge);
+    border-radius: 4px; padding: 6px 8px; font: 13px/1.4 inherit; resize: vertical;
+    min-height: 34px; }
+  textarea:focus { outline: 1px solid var(--accent); }
+  input, select { background: #14110d; color: var(--ink); border: 1px solid var(--edge);
+    border-radius: 4px; padding: 5px 8px; font: 13px/1.4 inherit; }
+  input:focus, select:focus { outline: 1px solid var(--accent); }
+  .cardbtn { align-self: flex-start; padding: 4px 10px; border-radius: 4px; border: 1px dashed var(--edge);
+    background: transparent; color: var(--dim); font: 600 11px/1 inherit; letter-spacing: 0.06em; cursor: pointer; }
+  .cardbtn:hover { color: var(--ink); border-color: var(--accent); }
+  .cardform { display: none; flex-direction: column; gap: 6px; margin-top: 4px;
+    border: 1px solid var(--edge); border-radius: 4px; padding: 8px; }
+  .cardform .row { display: flex; gap: 6px; }
+  .cardform .row select { flex: 1; }
+  .cardform input.title { width: 100%; }
+  .wc { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px;
+    padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+  .wc.s-open { border-left: 3px solid var(--tweak); }
+  .wc.s-dispatched, .wc.s-in_progress { border-left: 3px solid var(--accent); }
+  .wc.s-done { border-left: 3px solid var(--keep); }
+  .wc.s-dropped { border-left: 3px solid var(--dim); opacity: 0.6; }
+  .wctop { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .wc .wcmeta { color: var(--dim); font-size: 11px; font-family: Consolas, monospace; }
+  .wc .wcbody { font-size: 13px; color: var(--ink); }
+  .tp-gameplay-change { color: var(--kill); } .tp-bug { color: var(--tweak); }
+  .tp-tweak { color: var(--accent); } .tp-note { color: var(--dim); }
+  .card.roll-critical { border-color: var(--kill); }
+  .card.roll-judgment { border-color: var(--tweak); }
+  .card.roll-pass { border-color: var(--keep); }
+  .badge { display: inline-block; font: 700 10px/1.4 inherit; letter-spacing: 0.06em;
+    padding: 2px 7px; border-radius: 10px; margin: 0 4px 2px 0; }
+  .badge.pass { background: var(--keep); color: #fff; }
+  .badge.critical { background: var(--kill); color: #fff; }
+  .badge.judgment { background: var(--tweak); color: #221a08; }
+  .ano { font-size: 12px; color: var(--dim); margin: 3px 0; }
+  .metric { font: 11px/1.5 Consolas, monospace; color: var(--dim); }
+  .bar { height: 6px; background: var(--edge); border-radius: 3px; margin: 2px 0 7px; overflow: hidden; }
+  .bar > span { display: block; height: 100%; border-radius: 3px; }
+  .tiles { display: flex; gap: 12px; flex-wrap: wrap; padding: 0 18px; }
+  .tile { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px;
+    padding: 12px 16px; min-width: 150px; }
+  .tile .lbl { font: 700 10px/1.4 inherit; letter-spacing: 0.1em; color: var(--dim); }
+  .tile .val { font: 700 22px/1.2 inherit; margin-top: 4px; }
+  .tile .sub { font: 11px/1.4 Consolas, monospace; color: var(--dim); margin-top: 2px; }
+  .tile.ok { border-color: var(--keep); } .tile.ok .val { color: var(--keep); }
+  .tile.bad { border-color: var(--kill); } .tile.bad .val { color: var(--kill); }
+  .tile.warn { border-color: var(--tweak); } .tile.warn .val { color: var(--tweak); }
+  .balrow { display: grid; grid-template-columns: 130px 1fr 60px; gap: 10px; align-items: center;
+    padding: 3px 0; font-size: 13px; }
+  .balrow .bar { margin: 0; }
+  .askkind { font: 700 10px/1.4 inherit; letter-spacing: 0.08em; padding: 2px 7px; border-radius: 10px; }
+  .askkind.question { background: var(--accent); color: #221a08; }
+  .askkind.approval { background: var(--keep); color: #fff; }
+  .askkind.note { background: var(--edge); color: var(--ink); }
+  .card.ask-approval { border-left: 3px solid var(--keep); }
+  .card.ask-question { border-left: 3px solid var(--accent); }
+  .card.ask-s-open { border-color: var(--accent); }
+  .askbody { background: #14110d; border: 1px solid var(--edge); border-radius: 4px; padding: 8px 10px;
+    font: 12px/1.5 Consolas, monospace; color: var(--ink); white-space: pre-wrap; max-height: 320px;
+    overflow: auto; margin: 6px 0; }
+  .opt { text-align: left; padding: 7px 10px; border-radius: 4px; border: 1px solid var(--edge);
+    background: transparent; color: var(--ink); font: 600 12px/1.3 inherit; cursor: pointer; }
+  .opt:hover { border-color: var(--accent); }
+  .opt.on { background: var(--accent); color: #221a08; border-color: var(--accent); }
+  .opt .optdesc { font: 400 11px/1.3 inherit; color: var(--dim); margin-top: 2px; }
+  .opt.on .optdesc { color: #221a08; }
+  .scrub { display: flex; align-items: center; gap: 8px; padding: 4px 0 0; }
+  .scrub input[type=range] { flex: 1; accent-color: var(--accent); }
+  .scrub .pinbtn { font: 600 11px/1 inherit; padding: 3px 8px; border-radius: 4px;
+    border: 1px solid var(--edge); background: transparent; color: var(--dim); cursor: pointer; }
+  .scrub .pinbtn.on { border-color: var(--accent); color: var(--ink); }
+  .frameread { font: 11px/1.3 Consolas, monospace; color: var(--dim); min-height: 14px; }
+  .frameread b { color: var(--accent); }
+  .missing { display: flex; align-items: center; justify-content: center; aspect-ratio: 16/9;
+    background: #000; color: var(--kill); font-size: 13px; letter-spacing: 0.1em; }
+  .ledger { margin: 14px 18px; background: var(--panel); border: 1px solid var(--edge);
+    border-radius: 6px; padding: 12px 16px; }
+  .ledger table { border-collapse: collapse; font-size: 13px; width: 100%; }
+  .ledger th { text-align: left; color: var(--dim); font-weight: 600; letter-spacing: 0.08em;
+    font-size: 11px; text-transform: uppercase; padding: 4px 14px 4px 0; }
+  .ledger td { border-top: 1px solid var(--edge); padding: 6px 14px 6px 0; }
+  .saved { position: fixed; right: 16px; bottom: 14px; background: var(--panel);
+    border: 1px solid var(--edge); border-radius: 4px; padding: 6px 12px; font-size: 12px;
+    color: var(--dim); opacity: 0; transition: opacity 0.25s; pointer-events: none; }
+  .saved.show { opacity: 1; }
+  /* FLOW tab — the scene-transition graph (flow-figma) */
+  .flowbar { display: flex; gap: 8px; align-items: center; padding: 10px 18px; border-bottom: 1px solid var(--edge); }
+  .flowtoggle { padding: 5px 12px; border-radius: 4px; border: 1px solid var(--edge); background: transparent;
+    color: var(--dim); font: 600 12px/1 inherit; letter-spacing: 0.06em; cursor: pointer; }
+  .flowtoggle.on { background: var(--panel); color: var(--ink); border-color: var(--accent); }
+  .flowcount { color: var(--dim); font: 11px/1 Consolas, monospace; margin-left: 8px; }
+  .flowwrap { display: flex; height: calc(100vh - 130px); }
+  .flowsvg { flex: 1; background: #100e0b; touch-action: none; cursor: grab; }
+  .flownode text { pointer-events: none; user-select: none; }
+  .flowinsp { flex: 0 0 288px; border-left: 1px solid var(--edge); padding: 14px 16px; overflow: auto; background: var(--panel); }
+  .flowih { font: 700 10px/1.4 inherit; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim);
+    margin: 14px 0 6px; border-bottom: 1px solid var(--edge); padding-bottom: 4px; }
+  .flowih:first-child { margin-top: 0; }
+  .flowir { display: flex; gap: 10px; font: 12px/1.4 Consolas, monospace; padding: 2px 0; justify-content: space-between; word-break: break-all; }
+  .flowik { color: var(--dim); flex: 0 0 auto; }
+</style>
+<link rel="icon" href="favicon.png">
+<style>
+#staticnote{font:12px/1.55 system-ui,sans-serif;background:#191f2b;color:#c3cede;
+  border-bottom:1px solid #33405a;padding:9px 16px}
+#staticnote strong{color:#ffd479}
+#staticnote code{background:#0f1420;padding:1px 4px;border-radius:3px;color:#9fd0ff}
+#staticnote a{color:#7fb8ff;cursor:pointer}
+#staticdetail{margin-top:7px;color:#8b9db4;max-width:100ch}
+#staticdetail ul{margin:5px 0 0;padding-left:18px}
+.missing{flex-direction:column;text-align:center;padding:14px;font-size:11px}
+</style>
+</head>
+<body>
+<script src="bundled-clips.js"></script>
+<script src="static-shim.js"></script>
+
+<div id="staticnote">
+  <strong>Static build - read-only.</strong> This is the FWLB Design Workshop board served as
+  files, with no authoring server behind it. Every lane, candidate, verdict, note, pass history,
+  work-card, milestone and flow graph shown here is the recorded data, unedited. What the live
+  board writes - verdicts, answers, re-render requests, work-cards, milestones, flow edits - is
+  intercepted and refused with the reason, so nothing silently no-ops.
+  <a id="staticmore">what the live board does with these</a>
+  <div id="staticdetail" hidden>
+    <ul>
+      <li><strong>Verdict</strong> (keep / tweak / kill plus a note) writes back into the lane's
+        <code>manifest.json</code> and wakes an orchestrator agent, which dispatches a worker to act
+        on the note. The verdicts here are the output of that loop having run for four passes.</li>
+      <li><strong>Work-card</strong> pins a note to a specific frame of a clip, so a critique names
+        a moment rather than a clip.</li>
+      <li><strong>Request</strong> queues a re-render; a worker renders the candidate again and the
+        board live-reloads over SSE when the new file lands.</li>
+      <li><strong>Ask</strong> is the reverse channel - the agent's question waiting for an answer.</li>
+      <li><strong>Flow</strong> diffs a hand-drawn intended scene graph against one extracted from
+        the code and a runtime trace; edits to the intended graph are written back.</li>
+      <li><strong>Clips are sampled.</strong> All candidate metadata ships; 28 of the rendered mp4s
+        do, chosen to show the range of judgments rather than the best-looking results. The full set
+        is 763 MB. A candidate without its clip is labelled in place.</li>
+    </ul>
+  </div>
+</div>
+
+<header>
+  <h1>FWLB · DESIGN WORKSHOP</h1>
+  <div class="lanes" id="lanes"></div>
+  <span class="tally" id="tally"></span>
+  <div class="tabs">
+    <button id="tab-dashboard">◈ COCKPIT</button>
+    <button id="tab-inbox">📥 INBOX</button>
+    <button id="tab-active" class="on">ACTIVE</button>
+    <button id="tab-cards">CARDS</button>
+    <button id="tab-milestones">MILESTONES</button>
+    <button id="tab-requests">REQUESTS</button>
+    <button id="tab-flow">⇄ FLOW</button>
+    <button id="tab-history">HISTORY</button>
+  </div>
+</header>
+<main id="main"></main>
+<div class="saved" id="saved">saved</div>
+<script>
+"use strict";
+const VERDICTS = ["keep", "tweak", "kill"];
+const CARD_TYPES = ["note", "tweak", "gameplay-change", "bug"];
+const PRIORITIES = ["p2", "p0", "p1", "p3"];
+// Per-event model override the orchestrator honors when it dispatches this item's worker. "default" -> ""
+// on the wire (the skill's sonnet default). See .claude/skills/workshop-listen.
+const MODELS = ["default", "sonnet", "opus", "haiku", "fable"];
+const modelWire = (v) => (v && v !== "default" ? v : "");
+
+// Autonomous Shell — the CLIENT half of the hard-data trail (baked-in, always-on). A bounded ring buffer
+// of comms/reconcile events; window.__shell.dump() hands it to the Playwright driver, which correlates it
+// with the server trail (workshop_trace.jsonl) to grade disruptiveness — hard numbers, not screenshots.
+// Spec: docs/superpowers/specs/2026-07-23-workshop-autonomous-shell-design.md
+const __SHELL = {
+  buf: [], cap: 800, on: true,
+  log(ev, data) {
+    if (!this.on) return;
+    this.buf.push({ t: Date.now(), src: "client", ev, data: data || {} });
+    if (this.buf.length > this.cap) this.buf.shift();
+  },
+  dump() { return this.buf.slice(); },
+  clear() { this.buf.length = 0; },
+};
+window.__shell = __SHELL;
+const shellLog = (ev, data) => __SHELL.log(ev, data);
+let LANES = [];
+let LANE = null;   // current lane id
+let DOC = null;
+let CARDS = [];    // the cross-lane work-card queue (filtered to LANE for display)
+let MILESTONES = []; // goals + snapshots (filtered to LANE for display)
+let VITALS = null;   // the cockpit's cross-lane game vitals (workshop/vitals.json)
+let ASKS = [];       // the reverse channel: the agent's questions/approvals for you (workshop/asks.json)
+let FLOW_REAL = null, FLOW_ASPIRATIONAL = null;  // the scene-transition graphs (flow-figma tab)
+let FLOW_VIEW = "real";      // "real" | "aspirational"
+let FLOW_SEL = null;         // {node:id} | {edge:e} — the inspector selection
+const FLOW_CAM = { tx: 40, ty: 20, k: 1 };  // pan/zoom, persisted across re-renders
+let FLOW_EDGEMODE = false;   // aspirational: CONNECT mode (click source -> click target)
+let FLOW_PENDING = null;     // the connect-source node id while in edge mode
+let TAB = "active";
+const STATES = {}; // clip path -> [{frame_index,t,state}] sidecar (frame anchoring), lazily fetched
+
+// Fetch the states.jsonl sidecar beside a clip (<id>.mp4 -> <id>.states.jsonl). Absent (e.g. VFX
+// MovieWriter clips) -> [] and the scrubber still pins a frame NUMBER, just no state readout.
+async function loadStates(clip) {
+  if (clip in STATES) return STATES[clip];
+  const url = clip.replace(/\.mp4$/, ".states.jsonl") + "?v=" + CLIP_V;
+  try {
+    const r = await fetch(url);
+    STATES[clip] = r.ok ? (await r.text()).trim().split("\n").filter(Boolean).map(JSON.parse) : [];
+  } catch (e) { STATES[clip] = []; }
+  return STATES[clip];
+}
+
+// A compact one-line readout of a frame's pinned state (feel knobs + phase), for the scrubber.
+function stateSummary(st) {
+  if (!st) return "";
+  const keys = ["windup", "post_hit", "hitstop", "cast_hold"].filter(k => k in st);
+  const feel = keys.map(k => `${k} ${st[k]}`).join("  ");
+  return [st.phase ? "phase " + st.phase : "", feel].filter(Boolean).join("  ·  ");
+}
+let CLIP_V = 0;    // bumped on live-reload so replaced clip files re-fetch past the cache
+let ES = null;     // the current lane's SSE connection
+
+const manifestUrl = () => `workshop/${LANE}/manifest.json`;
+const isAccepted = c => c.verdict === "keep";
+const isKilled = c => c.verdict === "kill";
+const isActive = c => !isAccepted(c) && !isKilled(c);
+
+function toast(msg, bad) {
+  shellLog("toast", { msg, bad: !!bad });
+  const el = document.getElementById("saved");
+  el.textContent = msg;
+  el.style.color = bad ? "var(--kill)" : "var(--dim)";
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), bad ? 1400 : 900);
+}
+
+async function boot() {
+  const li = await (await fetch("workshop/lanes.json")).json();
+  LANES = li.lanes || [];
+  LANE = (LANES[0] || { id: null }).id;
+  renderLanes();
+  await load();
+  connectEvents();
+}
+
+function renderLanes() {
+  const wrap = document.getElementById("lanes");
+  wrap.innerHTML = "";
+  for (const l of LANES) {
+    const b = document.createElement("button");
+    b.textContent = l.label;
+    if (l.id === LANE) b.className = "on";
+    b.onclick = async () => {
+      if (l.id === LANE) return;
+      LANE = l.id; TAB = "active";
+      renderLanes(); await load(); connectEvents();
+    };
+    wrap.appendChild(b);
+  }
+}
+
+async function fetchAll() {
+  DOC = await (await fetch(manifestUrl() + "?v=" + Date.now())).json();
+  const cr = await fetch("workshop/workcards.json?v=" + Date.now());
+  CARDS = cr.ok ? ((await cr.json()).cards || []) : [];
+  const mr = await fetch("workshop/milestones.json?v=" + Date.now());
+  MILESTONES = mr.ok ? ((await mr.json()).milestones || []) : [];
+  const vr = await fetch("workshop/vitals.json?v=" + Date.now());
+  VITALS = vr.ok ? await vr.json() : null;
+  const ar = await fetch("workshop/asks.json?v=" + Date.now());
+  ASKS = ar.ok ? ((await ar.json()).asks || []) : [];
+  const fr = await fetch("workshop/flow/real_graph.json?v=" + Date.now());
+  FLOW_REAL = fr.ok ? await fr.json() : null;
+  const fa = await fetch("workshop/flow/aspirational_graph.json?v=" + Date.now());
+  FLOW_ASPIRATIONAL = fa.ok ? await fa.json() : null;
+}
+
+// load = fetch + FULL render (navigation: boot, lane/tab switch — user-initiated, rebuild is fine).
+async function load() { await fetchAll(); render(); }
+
+// --- reactive update layer: an SSE-driven refresh must NEVER reset a field you're typing in, and must
+// NOT flash/restart the video-rich ACTIVE panel. ------------------------------------------------------
+let _deferredRefresh = false;
+let _deferredKeys = [];   // the changed-keys accumulated while refreshes were deferred (null = full)
+
+function isTyping() {
+  const a = document.activeElement, m = document.getElementById("main");
+  return a && m && m.contains(a) && ["TEXTAREA", "INPUT", "SELECT"].includes(a.tagName);
+}
+function isEditing(node) {
+  return node.contains(document.activeElement) || node.querySelector('[data-dirty="1"]');
+}
+const sigOf = (item) => JSON.stringify(item);   // cheap change-detection: unchanged data -> no re-render
+
+// Keyed reconciliation: patch a grid's children against `items` without wiping. Unchanged nodes (same
+// sig) AND nodes being edited are left untouched — so video/scrub state, scroll, and focus survive.
+function reconcile(grid, items, keyFn, renderFn) {
+  const existing = new Map();
+  for (const ch of [...grid.children]) if (ch.dataset.key != null) existing.set(ch.dataset.key, ch);
+  const seen = new Set();
+  let prev = null, replaced = 0, added = 0, removed = 0, skippedEdit = 0;
+  for (const item of items) {
+    const key = String(keyFn(item)), sig = sigOf(item);
+    seen.add(key);
+    let node = existing.get(key);
+    if (node) {
+      if (node.dataset.sig !== sig && !isEditing(node)) {
+        const fresh = renderFn(item); fresh.dataset.key = key; fresh.dataset.sig = sig;
+        grid.replaceChild(fresh, node); node = fresh; replaced++;
+      } else if (node.dataset.sig !== sig) { skippedEdit++; }   // a CHANGED card left untouched because it's being edited — the D1-safety count
+    } else {
+      node = renderFn(item); node.dataset.key = key; node.dataset.sig = sig;
+      if (prev) prev.after(node); else grid.prepend(node); added++;
+    }
+    prev = node;
+  }
+  for (const [key, node] of existing) if (!seen.has(key)) { if (isEditing(node)) skippedEdit++; else { node.remove(); removed++; } }
+  shellLog("reconcile", { grid: grid.dataset.grid || "", replaced, added, removed, skippedEdit });
+}
+
+// Which watched surfaces each tab actually depends on — an SSE naming only irrelevant keys is IGNORED
+// (a watch run writing vitals never touches the VFX review you're typing in).
+const TAB_DEPS = {
+  dashboard: ["vitals", "workcards", "manifest"], active: ["manifest", "gen"], cards: ["workcards"],
+  milestones: ["milestones", "workcards"], requests: ["manifest"], history: ["manifest"], inbox: ["asks"],
+  flow: ["flow"],
+};
+
+function updateInboxBadge() {
+  const n = ASKS.filter(a => a.status === "open").length;
+  document.getElementById("tab-inbox").textContent = "📥 INBOX" + (n ? " (" + n + ")" : "");
+}
+
+// The SSE-driven update. Defer entirely while typing (flushed on blur) so a field is NEVER reset mid-edit;
+// skip changes this view doesn't care about; keep the INBOX badge live globally; reconcile ACTIVE/INBOX in
+// place (no flash) unless a render batch (`gen`) landed — then full-render so new clips show.
+async function refresh(changed) {
+  if (isTyping()) {
+    shellLog("refresh", { decision: "defer", reason: "typing", changed });
+    _deferredRefresh = true;
+    // Accumulate the DEFERRED keys so the flush replays exactly what was postponed. null = an
+    // unscoped (full) refresh was deferred. Without this the flush called refresh() bare, which reads
+    // as a gen batch: CLIP_V++ + refreshClips() reloading every idle video off a mere verdict change.
+    if (changed && _deferredKeys) { for (const k of changed) if (!_deferredKeys.includes(k)) _deferredKeys.push(k); }
+    else _deferredKeys = null;
+    return;
+  }
+  const deps = TAB_DEPS[TAB];
+  const asksChanged = !changed || changed.includes("asks");   // the INBOX is an attention surface — always update its badge
+  const viewRelevant = !changed || !changed.length || !deps || changed.some(k => deps.includes(k));
+  if (!asksChanged && !viewRelevant) { shellLog("refresh", { decision: "skip", reason: "irrelevant", tab: TAB, changed }); return; }
+  await fetchAll();
+  updateInboxBadge();
+  const genBatch = !changed || changed.includes("gen");
+  if (genBatch) CLIP_V++;   // a render batch changed the clip bytes at the same paths — bust the cache
+  if (!viewRelevant) { shellLog("refresh", { decision: "badge-only", tab: TAB, changed }); return; }   // e.g. an ask arrived while you're on ACTIVE: badge updated, your view untouched
+  // Reconcile IN PLACE on ACTIVE/INBOX — including a gen batch. A gen batch's new clip BYTES don't change the
+  // candidate DATA, so reconcile's data-sig leaves cards put; refreshClips() then re-points each idle <video>
+  // at the bumped CLIP_V so the new take loads WITHOUT a full teardown (scroll / open forms / a scrub survive).
+  // Full render() is the fallback ONLY when the grid structure changed (a category appeared/disappeared).
+  if (TAB === "active" && reconcileActive()) { if (genBatch) refreshClips(); tally(); shellLog("refresh", { decision: "reconcile-active", genBatch, tab: TAB, changed }); toast(genBatch ? "new takes" : "updated"); return; }
+  if (!genBatch && TAB === "inbox" && reconcileInbox()) { shellLog("refresh", { decision: "reconcile-inbox", tab: TAB, changed }); toast("updated"); return; }
+  shellLog("refresh", { decision: "full-render", reason: "structure-changed", tab: TAB, genBatch, changed });   // full #main teardown — the D1 red flag if it lands during interaction
+  render();
+  toast("updated");
+}
+
+// A render batch replaced clip files at the same paths. Re-point each idle <video> at the bumped CLIP_V so
+// the new take loads in place. SKIP a clip being scrubbed (data-scrubbing), a paused (being-inspected) clip,
+// or a card being edited — never yank a clip out from under an interaction. Idle autoplay-loop clips just
+// restart with the new bytes (a near-invisible reload of a short muted loop).
+function refreshClips() {
+  let reloaded = 0, skipped = 0;
+  for (const v of document.querySelectorAll('#main video')) {
+    if (v.dataset.scrubbing === "1" || v.paused) { skipped++; continue; }
+    const card = v.closest('[data-key]');
+    if (card && isEditing(card)) { skipped++; continue; }
+    const base = v.src.split('?')[0];
+    if (!base) { skipped++; continue; }
+    v.src = base + "?v=" + CLIP_V; v.load(); v.play().catch(() => {}); reloaded++;
+  }
+  shellLog("refreshClips", { reloaded, skipped });
+}
+
+// Reconcile the ACTIVE tab's per-category grids in place. Returns false (caller full-renders) if the
+// grid structure no longer matches (a category appeared/disappeared).
+function reconcileActive() {
+  const act = DOC.candidates.filter(isActive);
+  if (!act.length) return false;   // empty state -> full render (which now preserves drafts)
+  const cats = [...new Set(act.map(c => c.cat || "_all"))];
+  const live = new Set(cats);
+  // a NEW category has no grid yet -> full render (draft-safe now)
+  if (cats.some(cat => !document.querySelector(`[data-grid="active:${CSS.escape(cat)}"]`))) return false;
+  // remove sections whose category EMPTIED (grid + its preceding h2) — a local verdict that killed the last
+  // card in a category left a ghost section + stale count (the round-4 softRefresh regression).
+  for (const g of [...document.querySelectorAll('#main [data-grid^="active:"]')]) {
+    if (!live.has(g.dataset.grid.slice(7))) {
+      const h = g.previousElementSibling; if (h && h.tagName === "H2") h.remove(); g.remove();
+    }
+  }
+  for (const cat of cats) {
+    const cs = act.filter(c => (c.cat || "_all") === cat);
+    const g = document.querySelector(`[data-grid="active:${CSS.escape(cat)}"]`);
+    reconcile(g, cs, c => c.id, candidateCard);
+    const h = g.previousElementSibling;   // keep the section count honest without a full teardown
+    if (h && h.tagName === "H2") h.textContent = (cs[0].cat_label || "candidates") + " — " + cs.length;
+  }
+  return true;
+}
+
+// A LOCAL user mutation (a verdict click, a feedback submit) must refresh the view WITHOUT a full #main
+// teardown — render() destroys an open, un-submitted draft on ANOTHER card. On the ACTIVE tab, reconcile
+// in place (reconcileActive skips held/edited cards, so drafts survive); fall back to render() only when
+// the grid structure changed (a category appeared/disappeared) or we're on another tab.
+async function softRefresh() {
+  await fetchAll();
+  if (TAB === "active" && reconcileActive()) { refreshClips(); tally(); return; }
+  render();
+}
+
+async function postMilestone(payload) {
+  const r = await fetch("/milestone", { method: "POST",
+    headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  toast(r.ok ? "milestone saved" : "MILESTONE FAILED", !r.ok);
+  return r.ok;
+}
+
+async function postCard(payload) {
+  const r = await fetch("/workcard", { method: "POST",
+    headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  toast(r.ok ? "card saved" : "CARD FAILED", !r.ok);
+  return r.ok;
+}
+
+function mkSelect(opts, cls) {
+  const s = document.createElement("select");
+  if (cls) s.className = cls;
+  for (const o of opts) { const op = document.createElement("option"); op.value = op.textContent = o; s.appendChild(op); }
+  return s;
+}
+
+// Inline "drop a feedback card on this clip" form. `pin.frame` (set by the scrubber) anchors the
+// card to a moment; null = clip-level. The form header reflects the current anchor.
+function feedbackForm(c, pin) {
+  const f = document.createElement("div"); f.className = "cardform";
+  const anchorLbl = document.createElement("div"); anchorLbl.className = "frameread";
+  const refreshAnchor = () => { anchorLbl.innerHTML = pin.frame == null
+    ? "anchor: <b>clip-level</b> (scrub + PIN to anchor a frame)" : `anchor: <b>frame ${pin.frame}</b>`; };
+  refreshAnchor();
+  const typ = mkSelect(CARD_TYPES); const pri = mkSelect(PRIORITIES); const mdl = mkSelect(MODELS);
+  mdl.title = "which model the orchestrator spawns for this card (default = sonnet)";
+  const row = document.createElement("div"); row.className = "row"; row.append(typ, pri, mdl);
+  const title = document.createElement("input"); title.className = "title"; title.placeholder = "short title (the ask)";
+  const body = document.createElement("textarea"); body.placeholder = "what to change…";
+  // per-candidate ids so the trace/dirty-hold identifies THIS card's fields (all forms shared the same
+  // placeholder-fallback identity otherwise — a diagnostic collision across cards)
+  title.id = "fbtitle-" + c.id; body.id = "fbbody-" + c.id;
+  const submit = document.createElement("button"); submit.className = "reopen"; submit.textContent = "ADD CARD";
+  submit.onclick = async () => {
+    if (!title.value.trim()) { title.focus(); return; }
+    const ok = await postCard({ action: "add", lane: LANE, candidate_id: c.id, frame: pin.frame,
+      type: typ.value, priority: pri.value, title: title.value.trim(), body: body.value.trim(),
+      model: modelWire(mdl.value) });
+    if (ok) { title.value = ""; body.value = ""; delete title.dataset.dirty; delete body.dataset.dirty; f.style.display = "none"; await softRefresh(); }
+  };
+  f.append(anchorLbl, row, title, body, submit);
+  f._refreshAnchor = refreshAnchor;   // the scrubber calls this when the pin moves
+  return f;
+}
+
+// A clip block: the video + a scrubber that seeks/pauses it, maps position -> frame index (via the
+// states sidecar length, or duration-proportional for sidecar-less clips), shows the pinned state,
+// and PINs the frame onto `pin` for the feedback form.
+function clipBlock(c, pin, form) {
+  const wrap = document.createElement("div");
+  const vid = clipEl(c);
+  const scrub = document.createElement("div"); scrub.className = "scrub";
+  const range = document.createElement("input"); range.type = "range"; range.min = 0; range.max = 1000; range.value = 0;
+  const pinBtn = document.createElement("button"); pinBtn.className = "pinbtn"; pinBtn.textContent = "PIN";
+  scrub.append(range, pinBtn);
+  const read = document.createElement("div"); read.className = "frameread";
+  let states = [];
+  // only recorder-writer lanes ship a states sidecar; skip the fetch (and its 404) for movie lanes,
+  // where the scrubber still pins a frame NUMBER (duration-proportional), just without a state readout.
+  const laneHasStates = ((LANES.find(l => l.id === LANE) || {}).render || {}).writer === "recorder";
+  if (laneHasStates) loadStates(c.clip).then(s => { states = s; });
+  const frameAt = () => {
+    const n = states.length || 0;
+    if (!vid.duration) return null;
+    const frac = vid.currentTime / vid.duration;
+    return n ? Math.min(n - 1, Math.round(frac * (n - 1))) : Math.round(frac * 1000);
+  };
+  const paint = () => {
+    const fi = frameAt();
+    const st = (states[fi] || {}).state;
+    read.innerHTML = fi == null ? "" : `frame <b>${fi}</b>${states.length ? "/" + (states.length - 1) : ""}` +
+      (st ? "  ·  " + stateSummary(st) : "");
+  };
+  // Scrubbing: while the user drags, PAUSE and stop autoplay from moving the slider back under them
+  // (the ontimeupdate<->drag fight that made scrubbing feel dead). `scrubbing` gates the playback sync.
+  let scrubbing = false;
+  const seekTo = () => { if (vid.duration) { vid.currentTime = range.value / 1000 * vid.duration; } };
+  // dataset.scrubbing is the attribute refreshClips() reads to skip a mid-scrub clip — keep it in
+  // lockstep with the closure flag (the paused check alone is incidental protection, not the contract)
+  range.addEventListener("pointerdown", () => { scrubbing = true; vid.dataset.scrubbing = "1"; vid.pause(); });
+  range.addEventListener("input", () => { scrubbing = true; vid.dataset.scrubbing = "1"; if (!vid.paused) vid.pause(); seekTo(); });
+  range.addEventListener("change", () => { seekTo(); paint(); scrubbing = false; delete vid.dataset.scrubbing; });
+  vid.addEventListener("seeked", paint);
+  vid.addEventListener("timeupdate", () => {
+    if (scrubbing || vid.paused || !vid.duration) return;   // playback sync only when actually playing + not scrubbing
+    range.value = Math.round((vid.currentTime / vid.duration) * 1000);
+    paint();
+  });
+  // PIN is a clean toggle: anything pinned -> clicking UNPINS (regardless of where you've scrubbed);
+  // nothing pinned -> pins the current frame. The label shows the state so it's never a mystery.
+  pinBtn.onclick = () => {
+    if (pin.frame != null) {
+      pin.frame = null; pinBtn.classList.remove("on"); pinBtn.textContent = "PIN";
+    } else {
+      pin.frame = frameAt(); pinBtn.classList.add("on"); pinBtn.textContent = "UNPIN ✕";
+      if (form.style.display !== "flex") form.style.display = "flex";   // reveal the form on pin only
+    }
+    if (form && form._refreshAnchor) form._refreshAnchor();
+  };
+  // the video gets fullscreen + popout-into-a-window (PiP) buttons, overlaid on the frame only
+  // (not the scrubber). `vid` stays the raw <video> so all the scrub logic above is untouched.
+  const vwrap = document.createElement("div"); vwrap.className = "clipwrap";
+  const btns = document.createElement("div"); btns.className = "clipbtns";
+  const popBtn = document.createElement("button");
+  popBtn.className = "clipbtn"; popBtn.title = "Pop out into a floating window"; popBtn.textContent = "⧉";
+  popBtn.onclick = (e) => { e.stopPropagation(); popOut(vid, c.clip); };
+  const fsBtn = document.createElement("button");
+  fsBtn.className = "clipbtn"; fsBtn.title = "Fullscreen (or double-click)"; fsBtn.textContent = "⛶";
+  fsBtn.onclick = (e) => { e.stopPropagation(); goFullscreen(vid); };
+  vid.ondblclick = () => goFullscreen(vid);
+  btns.append(popBtn, fsBtn);
+  vwrap.append(vid, btns);
+  wrap.append(vwrap, scrub, read);
+  return wrap;
+}
+
+function tally() {
+  const act = DOC.candidates.filter(isActive).length;
+  const acc = DOC.candidates.filter(isAccepted).length;
+  const kil = DOC.candidates.filter(isKilled).length;
+  document.getElementById("tally").innerHTML =
+    `pass <b>${DOC.pass}</b> · <b>${act}</b> in review · ` +
+    `<b style="color:var(--keep)">${acc}</b> accepted · ` +
+    `<b style="color:var(--kill)">${kil}</b> killed`;
+}
+
+async function save(c, patch) {
+  Object.assign(c, patch);
+  const r = await fetch("/verdict", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ lane: LANE, id: c.id, ...patch }) });
+  toast(r.ok ? "saved" : "SAVE FAILED", !r.ok);
+  tally();
+}
+
+function histBlock(c) {
+  if (!c.history || !c.history.length) return null;
+  const d = document.createElement("div");
+  d.className = "hist";
+  for (const h of c.history) {
+    const row = document.createElement("div");
+    const hv = document.createElement("span"); hv.className = "hv " + h.verdict;
+    hv.textContent = String(h.verdict).toUpperCase();
+    row.append("pass " + h.pass + " — ", hv);
+    if (h.notes) row.append(" · " + h.notes);
+    if (h.fulfilled) row.append(" ✓");
+    d.appendChild(row);
+  }
+  return d;
+}
+
+function clipEl(c) {
+  const vid = document.createElement("video");
+  vid.src = c.clip + "?v=" + CLIP_V; vid.loop = vid.muted = vid.autoplay = true; vid.playsInline = true;
+  vid.preload = "metadata";
+  vid.onerror = () => { const m = document.createElement("div"); m.className = "missing";
+    m.textContent = "CLIP MISSING — " + c.clip; vid.replaceWith(m); };
+  vid.onclick = () => { vid.currentTime = 0; vid.play(); };
+  return vid;
+}
+
+// ---- clip viewing: fullscreen + pop-out-into-a-window (ported from the vfx auditioner) ----
+function goFullscreen(vid) {
+  const fn = vid.requestFullscreen || vid.webkitRequestFullscreen || vid.webkitEnterFullscreen;
+  if (fn) { fn.call(vid); vid.controls = true; }
+}
+// leaving fullscreen: strip the native control bar back off every tile (keep the grid clean)
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) document.querySelectorAll(".card video").forEach(v => v.controls = false);
+});
+// pop out into a floating, movable window: native Picture-in-Picture, else a small browser window
+function popOut(vid, clipUrl) {
+  if (document.pictureInPictureEnabled && vid.requestPictureInPicture && !vid.disablePictureInPicture) {
+    (vid.paused ? vid.play() : Promise.resolve()).then(() => vid.requestPictureInPicture())
+      .catch(() => openClipWindow(clipUrl));
+  } else {
+    openClipWindow(clipUrl);
+  }
+}
+function openClipWindow(clipUrl) {
+  const w = window.open("", "_blank", "width=680,height=400");
+  if (!w) return;
+  // STATIC skeleton only (no interpolation) then set the src as a DOM PROPERTY — assigning
+  // .src never parses HTML, so a clip path can't break out of the attribute (no XSS).
+  w.document.write('<title>clip</title><body style="margin:0;background:#000">' +
+    '<video autoplay loop muted controls playsinline ' +
+    'style="width:100%;height:100%;object-fit:contain"></video></body>');
+  w.document.close();
+  const v = w.document.querySelector("video");
+  if (v) v.src = clipUrl + "?v=" + CLIP_V;
+}
+
+// chip: lane-agnostic — VFX shows wave·backdrop, battle-feel shows seed·grid, else nothing.
+function chipText(c) {
+  if (c.wave !== undefined) return `w${c.wave} · ${c.backdrop}`;
+  if (c.seed !== undefined) return `seed ${c.seed}${c.grid ? " · g" + c.grid : ""}`;
+  return "";
+}
+
+// Built from DOM nodes + textContent (never innerHTML with data) so a crafted name/id/blurb in a
+// manifest can't inject markup.
+function span(cls, text) { const s = document.createElement("span"); s.className = cls; s.textContent = text; return s; }
+
+function topRow(c) {
+  const t = document.createElement("div");
+  t.className = "top";
+  t.append(span("name", c.name), span("id", c.id));
+  const chip = chipText(c);
+  if (chip) t.append(span("chip", chip));
+  return t;
+}
+
+function activeCard(c) {
+  const d = document.createElement("div");
+  d.className = "card" + (c.verdict ? " v-" + c.verdict : "");
+  const pin = { frame: null };
+  const form = feedbackForm(c, pin);
+  d.appendChild(clipBlock(c, pin, form));
+  const body = document.createElement("div"); body.className = "body";
+  body.appendChild(topRow(c));
+  const bl = document.createElement("div"); bl.className = "blurb"; bl.textContent = c.blurb || "";
+  body.appendChild(bl);
+  const hb = histBlock(c);
+  if (hb) body.appendChild(hb);
+  const vs = document.createElement("div"); vs.className = "verdicts";
+  for (const v of VERDICTS) {
+    const b = document.createElement("button");
+    b.textContent = v.toUpperCase();
+    if (c.verdict === v) b.className = "on-" + v;
+    b.onclick = async () => { await save(c, { verdict: c.verdict === v ? "" : v }); await softRefresh(); };
+    vs.appendChild(b);
+  }
+  body.appendChild(vs);
+  const notes = document.createElement("textarea");
+  notes.placeholder = "notes for the next pass…";
+  notes.value = c.notes || "";
+  notes.onchange = () => save(c, { notes: notes.value });
+  body.appendChild(notes);
+  const openN = CARDS.filter(x => x.lane === LANE && x.candidate_id === c.id
+    && x.status !== "done" && x.status !== "dropped").length;
+  const tog = document.createElement("button"); tog.className = "cardbtn";
+  tog.textContent = "+ FEEDBACK" + (openN ? " · " + openN + " open" : "");
+  tog.onclick = () => { form.style.display = form.style.display === "flex" ? "none" : "flex"; };
+  body.appendChild(tog); body.appendChild(form);
+  d.appendChild(body);
+  return d;
+}
+
+// Shared verdict + notes controls (trace/report cards reuse these; the clip activeCard has its own +
+// the frame-anchored feedback form).
+function appendVerdicts(body, c) {
+  const vs = document.createElement("div"); vs.className = "verdicts";
+  for (const v of VERDICTS) {
+    const b = document.createElement("button"); b.textContent = v.toUpperCase();
+    if (c.verdict === v) b.className = "on-" + v;
+    b.onclick = async () => { await save(c, { verdict: c.verdict === v ? "" : v }); await softRefresh(); };
+    vs.appendChild(b);
+  }
+  body.appendChild(vs);
+  const notes = document.createElement("textarea");
+  notes.placeholder = "notes…"; notes.value = c.notes || "";
+  notes.onchange = () => save(c, { notes: notes.value });
+  body.appendChild(notes);
+}
+
+// A `trace` candidate — one seed's playthrough result: outcome + anomaly badges + metrics + (on a
+// critical) the evidence clip, reviewable like any candidate.
+function traceCard(c) {
+  const roll = c.status_roll || "pass";
+  const d = document.createElement("div");
+  d.className = "card roll-" + roll + (c.verdict ? " v-" + c.verdict : "");
+  if ((c.anomalies || []).some(a => a.sev === "critical")) {
+    const vid = clipEl(c); vid.onerror = () => vid.remove(); d.appendChild(vid);   // evidence (may not exist)
+  }
+  const body = document.createElement("div"); body.className = "body";
+  const top = document.createElement("div"); top.className = "top";
+  top.append(span("name", c.name), span("id", "seed " + c.seed));
+  const badge = document.createElement("span"); badge.className = "badge " + roll;
+  badge.textContent = roll.toUpperCase(); badge.style.marginLeft = "auto"; top.append(badge);
+  body.appendChild(top);
+  const oc = c.outcome || {};
+  const winner = String(c.sig || "").split("/")[1] || "?";
+  const m = document.createElement("div"); m.className = "metric";
+  m.textContent = `${winner} · r${oc.round} · ${oc.n_survivors} survivors · ${c.secs}s · ${c.fps}fps`;
+  body.appendChild(m);
+  if (!(c.anomalies || []).length) {
+    const p = document.createElement("div"); p.className = "ano";
+    const b = document.createElement("span"); b.className = "badge pass"; b.textContent = "PASS";
+    p.append(b, " all invariants held"); body.appendChild(p);
+  }
+  for (const a of (c.anomalies || [])) {
+    const row = document.createElement("div"); row.className = "ano";
+    const b = document.createElement("span"); b.className = "badge " + a.sev; b.textContent = a.type.toUpperCase();
+    row.append(b, " " + a.msg); body.appendChild(row);
+  }
+  appendVerdicts(body, c);
+  d.appendChild(body);
+  return d;
+}
+
+// The run-report — the watch suite's JUDGMENT calls (balance win-rate bars + perf flags) the agent triages.
+function reportCard(c) {
+  const d = document.createElement("div"); d.className = "card";
+  const body = document.createElement("div"); body.className = "body";
+  body.append(span("name", c.name));
+  const bal = c.balance || {};
+  for (const fac of Object.keys(bal)) {
+    const o = bal[fac]; const rate = Math.round((o.win_rate || 0) * 100);
+    const row = document.createElement("div"); row.className = "metric";
+    row.textContent = `${fac}: ${rate}% win (${o.n})`; body.appendChild(row);
+    const bar = document.createElement("div"); bar.className = "bar";
+    const fill = document.createElement("span");
+    fill.style.width = rate + "%";
+    fill.style.background = (rate < 35 || rate > 65) ? "var(--tweak)" : "var(--keep)";
+    bar.appendChild(fill); body.appendChild(bar);
+  }
+  for (const j of (c.judgment || [])) {
+    const row = document.createElement("div"); row.className = "ano";
+    const b = document.createElement("span"); b.className = "badge judgment"; b.textContent = j.type.toUpperCase();
+    row.append(b, " " + j.msg); body.appendChild(row);
+  }
+  appendVerdicts(body, c);
+  d.appendChild(body);
+  return d;
+}
+
+// A `table` candidate — an invisible-mechanic (stat effectiveness, later Memory/trait/build) charted from
+// a computed forecast() grid. SVG line chart + a compact readout, reviewable like any candidate.
+const SERIES_COLOR = { hit: "var(--keep)", crit: "var(--tweak)", dmg: "var(--accent)", crit_dmg: "var(--kill)" };
+
+function lineChart(grid) {
+  const NS = "http://www.w3.org/2000/svg";
+  const W = 360, H = 190, PL = 40, PR = 12, PT = 12, PB = 28;
+  const xs = grid.x_vals || [], series = grid.series || {}, names = Object.keys(series);
+  const isPct = names.length > 0 && names.every(n => n === "hit" || n === "crit");
+  let ymax = 0;
+  for (const n of names) for (const v of series[n]) ymax = Math.max(ymax, v);
+  ymax = isPct ? 1 : (Math.ceil(ymax / 5) * 5 || 1);
+  const xmin = xs[0] || 0, xmax = xs[xs.length - 1] || 1;
+  const px = (i) => PL + (xs.length <= 1 ? 0 : (xs[i] - xmin) / (xmax - xmin)) * (W - PL - PR);
+  const py = (v) => PT + (1 - v / ymax) * (H - PT - PB);
+  const el = (tag, a, txt) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; return e; };
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%" }); svg.style.cssText = "background:#14110d;border-radius:4px;display:block";
+  svg.append(el("line", { x1: PL, y1: PT, x2: PL, y2: H - PB, stroke: "var(--edge)" }));
+  svg.append(el("line", { x1: PL, y1: H - PB, x2: W - PR, y2: H - PB, stroke: "var(--edge)" }));
+  for (const yv of [0, ymax / 2, ymax]) {
+    svg.append(el("text", { x: PL - 5, y: py(yv) + 3, "text-anchor": "end", fill: "var(--dim)", "font-size": "9" },
+      isPct ? Math.round(yv * 100) + "%" : yv));
+  }
+  for (const xi of [0, Math.floor((xs.length - 1) / 2), xs.length - 1]) {
+    if (xi < 0) continue;
+    svg.append(el("text", { x: px(xi), y: H - PB + 12, "text-anchor": "middle", fill: "var(--dim)", "font-size": "9" }, xs[xi]));
+  }
+  svg.append(el("text", { x: (PL + W - PR) / 2, y: H - 4, "text-anchor": "middle", fill: "var(--dim)", "font-size": "9" }, grid.x));
+  for (const n of names) {
+    svg.append(el("polyline", { points: series[n].map((v, i) => `${px(i)},${py(v)}`).join(" "),
+      fill: "none", stroke: SERIES_COLOR[n] || "var(--ink)", "stroke-width": "2" }));
+  }
+  return svg;
+}
+
+function tableCard(c) {
+  const d = document.createElement("div"); d.className = "card" + (c.verdict ? " v-" + c.verdict : "");
+  const body = document.createElement("div"); body.className = "body";
+  body.append(topRow(c));
+  const bl = document.createElement("div"); bl.className = "blurb"; bl.textContent = c.blurb || ""; body.append(bl);
+  if (c.table && c.table.x_vals && c.table.x_vals.length) {
+    body.append(lineChart(c.table));
+    const leg = document.createElement("div"); leg.className = "metric"; leg.style.marginTop = "4px";
+    for (const n of Object.keys(c.table.series || {})) {
+      const s = document.createElement("span"); s.style.cssText = `color:${SERIES_COLOR[n] || "var(--ink)"};margin-right:12px`;
+      s.textContent = "■ " + n; leg.append(s);
+    }
+    if (c.table.rng_unchanged === false) { const w = document.createElement("span"); w.style.color = "var(--kill)"; w.textContent = "⚠ NON-DETERMINISTIC"; leg.append(w); }
+    body.append(leg);
+  } else {
+    const e = document.createElement("div"); e.className = "missing";
+    e.textContent = "no table — run: python tools/workshop_mechanics.py"; body.append(e);
+  }
+  appendVerdicts(body, c);
+  d.append(body);
+  return d;
+}
+
+// Dispatch a candidate to its per-kind renderer (the typed-candidate switch).
+function candidateCard(c) {
+  if (c.kind === "trace") return traceCard(c);
+  if (c.kind === "report") return reportCard(c);
+  if (c.kind === "table") return tableCard(c);
+  return activeCard(c);   // clip (default)
+}
+
+function historyCard(c) {
+  if (c.kind === "trace" || c.kind === "report") return candidateCard(c);
+  const d = document.createElement("div");
+  d.className = "card v-" + c.verdict;
+  d.appendChild(clipEl(c));
+  const body = document.createElement("div"); body.className = "body";
+  body.appendChild(topRow(c));
+  const hb = histBlock(c);
+  if (hb) body.appendChild(hb);
+  const row = document.createElement("div"); row.className = "verdicts";
+  const btn = document.createElement("button");
+  btn.className = "reopen";
+  btn.textContent = isAccepted(c) ? "REOPEN FOR TWEAKS" : "RESURRECT";
+  btn.onclick = async () => { await save(c, { verdict: "tweak" }); await softRefresh(); };
+  row.appendChild(btn);
+  body.appendChild(row);
+  d.appendChild(body);
+  return d;
+}
+
+function section(main, label, cards, cls) {
+  if (!cards.length) return;
+  const h = document.createElement("h2");
+  h.textContent = label + " — " + cards.length;
+  main.appendChild(h);
+  const g = document.createElement("div"); g.className = "grid" + (cls ? " " + cls : "");
+  for (const c of cards) g.appendChild(c);
+  main.appendChild(g);
+}
+
+function render() {
+  // CLASS-LEVEL draft preservation: ANY trigger reaching a full #main teardown — a local mutation, an SSE
+  // STRUCTURE change (a new category grid appearing), a tab flip — would otherwise destroy an open,
+  // un-submitted feedback draft. reconcile()'s isEditing skip covers the in-place path; this covers the
+  // teardown path. Together they close the whole draft-destroy class (rounds 3-5 kept finding one member).
+  const _drafts = [];
+  for (const el of document.querySelectorAll('#main .cardform [data-dirty="1"]'))
+    if (el.id) _drafts.push({ id: el.id, value: el.value });
+  shellLog("render", { tab: TAB, full_teardown: true, typing: isTyping(), drafts_held: _drafts.length });
+  for (const t of ["dashboard", "inbox", "active", "cards", "milestones", "requests", "flow", "history"])
+    document.getElementById("tab-" + t).className = TAB === t ? "on" : "";
+  updateInboxBadge();
+  const main = document.getElementById("main");
+  main.innerHTML = "";
+  if (TAB === "dashboard") {
+    renderDashboard(main);
+  } else if (TAB === "inbox") {
+    renderInbox(main);
+  } else if (TAB === "cards") {
+    renderCards(main);
+  } else if (TAB === "milestones") {
+    renderMilestones(main);
+  } else if (TAB === "requests") {
+    renderRequests(main);
+  } else if (TAB === "flow") {
+    renderFlow(main);
+  } else if (TAB === "active") {
+    const act = DOC.candidates.filter(isActive);
+    const cats = [...new Set(act.map(c => c.cat || "_all"))];
+    for (const cat of cats) {
+      const cs = act.filter(c => (c.cat || "_all") === cat);
+      const h = document.createElement("h2");
+      h.textContent = (cs[0].cat_label || "candidates") + " — " + cs.length;
+      main.appendChild(h);
+      const g = document.createElement("div"); g.className = "grid"; g.dataset.grid = "active:" + cat;
+      reconcile(g, cs, c => c.id, candidateCard);   // keyed so a later refresh() patches in place
+      main.appendChild(g);
+    }
+    if (!act.length) {
+      const h = document.createElement("h2");
+      h.textContent = "nothing in review — everything is verdicted";
+      main.appendChild(h);
+    }
+  } else {
+    if (DOC.passes && DOC.passes.length) {
+      const lg = document.createElement("div"); lg.className = "ledger";
+      lg.innerHTML = "<table><tr><th>pass</th><th>date</th><th>accepted</th>" +
+        "<th>killed</th><th>sent back</th><th>unreviewed</th></tr>" +
+        DOC.passes.map(p => `<tr><td>${p.pass}</td><td>${p.date}</td>` +
+          `<td style="color:var(--keep)">${p.accepted}</td>` +
+          `<td style="color:var(--kill)">${p.killed}</td>` +
+          `<td style="color:var(--tweak)">${p.sent_back}</td><td>${p.unreviewed}</td></tr>`).join("") +
+        "</table>";
+      main.appendChild(lg);
+    }
+    section(main, "accepted — the visual dichotomy", DOC.candidates.filter(isAccepted).map(historyCard), "small");
+    section(main, "killed", DOC.candidates.filter(isKilled).map(historyCard), "small");
+  }
+  for (const d of _drafts) {   // re-hydrate held drafts onto the freshly-rendered cards (by per-candidate id)
+    const el = document.getElementById(d.id);
+    if (el) { el.value = d.value; el.dataset.dirty = "1"; const f = el.closest(".cardform"); if (f) f.style.display = "flex"; }
+  }
+  tally();
+}
+
+document.getElementById("tab-dashboard").onclick = () => { TAB = "dashboard"; render(); };
+document.getElementById("tab-inbox").onclick = () => { TAB = "inbox"; render(); };
+document.getElementById("tab-active").onclick = () => { TAB = "active"; render(); };
+document.getElementById("tab-cards").onclick = () => { TAB = "cards"; render(); };
+document.getElementById("tab-milestones").onclick = () => { TAB = "milestones"; render(); };
+document.getElementById("tab-requests").onclick = () => { TAB = "requests"; render(); };
+document.getElementById("tab-flow").onclick = () => { TAB = "flow"; render(); };
+document.getElementById("tab-history").onclick = () => { TAB = "history"; render(); };
+
+function workCardEl(c) {
+  const d = document.createElement("div"); d.className = "wc s-" + c.status;
+  const top = document.createElement("div"); top.className = "wctop";
+  const ty = document.createElement("b"); ty.className = "tp-" + c.type; ty.textContent = c.type.toUpperCase();
+  const pr = document.createElement("span"); pr.className = "wcmeta"; pr.textContent = String(c.priority || "").toUpperCase();
+  if (c.source === "watch") {   // auto-filed by a watch-lane playthrough — distinguish from reviewer cards
+    const w = document.createElement("span"); w.className = "wcmeta"; w.style.color = "var(--kill)";
+    w.textContent = "⚠ WATCH" + (c.seen > 1 ? " ×" + c.seen : "");
+    top.append(w);
+  }
+  const ti = document.createElement("span"); ti.className = "name"; ti.textContent = c.title || "(untitled)";
+  top.append(ty, pr, ti);
+  const meta = document.createElement("div"); meta.className = "wcmeta";
+  const anchor = (c.frame !== null && c.frame !== undefined) ? ("@f" + c.frame) : "clip-level";
+  const seed = (c.seed !== null && c.seed !== undefined) ? ` · seed ${c.seed}` : "";
+  meta.textContent = `#${c.id} · ${c.candidate_id || "—"} · ${anchor}${seed} · ${c.status}`;
+  d.append(top, meta);
+  if (c.body) { const b = document.createElement("div"); b.className = "wcbody"; b.textContent = c.body; d.appendChild(b); }
+  const row = document.createElement("div"); row.className = "verdicts";
+  if (c.status === "done" || c.status === "dropped") {
+    const re = document.createElement("button"); re.className = "reopen"; re.textContent = "REOPEN";
+    re.onclick = async () => { if (await postCard({ action: "update", id: c.id, status: "open" })) await load(); };
+    row.appendChild(re);
+  } else {
+    const drop = document.createElement("button"); drop.className = "reopen"; drop.textContent = "DROP";
+    drop.onclick = async () => { if (await postCard({ action: "update", id: c.id, status: "dropped" })) await load(); };
+    row.appendChild(drop);
+  }
+  d.appendChild(row);
+  return d;
+}
+
+function renderCards(main) {
+  const intro = document.createElement("div"); intro.className = "ledger";
+  intro.innerHTML = "<h2 style='margin:0'>feedback work-cards — the agent's queue " +
+    "(an OPEN card wakes a worker; drop cards on a clip in the ACTIVE tab)</h2>";
+  main.appendChild(intro);
+  const laneCards = CARDS.filter(c => c.lane === LANE);
+  if (!laneCards.length) {
+    const e = document.createElement("h2"); e.textContent = "no cards yet for this lane";
+    main.appendChild(e); return;
+  }
+  for (const st of ["open", "dispatched", "in_progress", "done", "dropped"]) {
+    const cs = laneCards.filter(c => c.status === st);
+    if (!cs.length) continue;
+    const h = document.createElement("h2"); h.textContent = st.replace("_", " ") + " — " + cs.length;
+    main.appendChild(h);
+    const g = document.createElement("div"); g.className = "grid small";
+    for (const c of cs) g.appendChild(workCardEl(c));
+    main.appendChild(g);
+  }
+}
+
+// The INBOX — the reverse channel: the agent's questions/approvals for you (workshop/asks.json).
+async function answer(a, payload) {
+  const r = await fetch("/answer", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: a.id, ...payload }) });
+  toast(r.ok ? "answer sent" : "ANSWER FAILED", !r.ok);
+  if (r.ok) await load();
+}
+
+function questionControls(a) {
+  const wrap = document.createElement("div"); wrap.style.cssText = "display:flex;flex-direction:column;gap:6px;margin-top:6px";
+  const selected = new Set();
+  const opts = document.createElement("div"); opts.style.cssText = "display:flex;flex-direction:column;gap:6px";
+  for (const o of (a.options || [])) {
+    const b = document.createElement("button"); b.className = "opt"; b.append(document.createTextNode(o.label));
+    if (o.description) { const dsc = document.createElement("div"); dsc.className = "optdesc"; dsc.textContent = o.description; b.append(dsc); }
+    b.onclick = () => {
+      if (a.multi) { if (selected.has(o.label)) { selected.delete(o.label); b.classList.remove("on"); }
+        else { selected.add(o.label); b.classList.add("on"); } }
+      else { answer(a, { choices: [o.label] }); }   // single-select = AskUserQuestion-style one-click
+    };
+    opts.append(b);
+  }
+  wrap.append(opts);
+  const other = document.createElement("input"); other.className = "title"; other.placeholder = "Other / free-text…";
+  const submit = document.createElement("button"); submit.className = "reopen";
+  submit.textContent = a.multi ? "SUBMIT SELECTION" : "SUBMIT OTHER";
+  submit.onclick = () => answer(a, { choices: [...selected], text: other.value.trim() });
+  wrap.append(other, submit);
+  return wrap;
+}
+
+function approvalControls(a) {
+  const wrap = document.createElement("div"); wrap.style.cssText = "display:flex;flex-direction:column;gap:6px;margin-top:6px";
+  const notes = document.createElement("textarea"); notes.placeholder = "notes / requested changes…";
+  const row = document.createElement("div"); row.className = "verdicts";
+  const mk = (label, decision, cls) => { const b = document.createElement("button"); b.textContent = label;
+    b.className = cls; b.onclick = () => answer(a, { decision, notes: notes.value.trim() }); return b; };
+  row.append(mk("APPROVE", "approve", "on-keep"), mk("REQUEST CHANGES", "changes", "on-tweak"),
+    mk("REJECT", "reject", "on-kill"));
+  wrap.append(notes, row);
+  return wrap;
+}
+
+function askEl(a) {
+  const d = document.createElement("div"); d.className = "card ask-" + a.kind + " ask-s-" + a.status;
+  const body = document.createElement("div"); body.className = "body";
+  const top = document.createElement("div"); top.className = "wctop";
+  const k = document.createElement("b"); k.className = "askkind " + a.kind; k.textContent = a.kind.toUpperCase();
+  top.append(k);
+  if (a.thread) top.append(span("wcmeta", a.thread + (a.stage ? " · " + a.stage : "")));
+  const st = document.createElement("span"); st.className = "wcmeta"; st.style.marginLeft = "auto"; st.textContent = a.status;
+  top.append(st); body.append(top);
+  const t = document.createElement("div"); t.className = "name"; t.textContent = a.title; body.append(t);
+  if (a.body) { const pre = document.createElement("pre"); pre.className = "askbody"; pre.textContent = a.body; body.append(pre); }
+  if (a.status === "open") {
+    if (a.kind === "question") body.append(questionControls(a));
+    else if (a.kind === "approval") body.append(approvalControls(a));
+    else { const b = document.createElement("button"); b.className = "reopen"; b.textContent = "ACKNOWLEDGE";
+      b.style.marginTop = "6px"; b.onclick = () => answer(a, {}); body.append(b); }
+  } else {
+    const ans = a.answer || {}; const parts = [];
+    if (ans.decision) parts.push(ans.decision.toUpperCase());
+    if (ans.choices && ans.choices.length) parts.push(ans.choices.join(", "));
+    if (ans.text) parts.push(ans.text);
+    if (ans.notes) parts.push("— " + ans.notes);
+    const r = document.createElement("div"); r.className = "hist"; r.textContent = "you: " + (parts.join(" · ") || "(ack)");
+    body.append(r);
+  }
+  d.append(body);
+  return d;
+}
+
+function renderInbox(main) {
+  const intro = document.createElement("h2");
+  intro.textContent = "inbox — the agent's questions + approvals for you";
+  main.append(intro);
+  if (!ASKS.length) { const e = document.createElement("div"); e.className = "metric"; e.style.padding = "0 18px";
+    e.textContent = "no asks — the agent hasn't posted anything for your input."; main.append(e); return; }
+  const open = ASKS.filter(a => a.status === "open");
+  const resolved = ASKS.filter(a => a.status !== "open");
+  const g = document.createElement("div"); g.className = "grid"; g.dataset.grid = "inbox:open";
+  reconcile(g, open, a => a.id, askEl); main.append(g);
+  if (resolved.length) {
+    const h = document.createElement("h2"); h.textContent = "resolved — " + resolved.length; main.append(h);
+    const g2 = document.createElement("div"); g2.className = "grid small";
+    for (const a of resolved.slice().reverse()) g2.append(askEl(a)); main.append(g2);
+  }
+}
+
+// reconcile the INBOX open grid in place (like reconcileActive) so a new ask never disrupts a half-typed answer.
+function reconcileInbox() {
+  const g = document.querySelector('[data-grid="inbox:open"]');
+  if (!g) return false;
+  reconcile(g, ASKS.filter(a => a.status === "open"), a => a.id, askEl);
+  return true;
+}
+
+// The COCKPIT — cross-lane game vitals from workshop/vitals.json (produced by the watch-runner).
+function tile(main, cls, label, val, sub) {
+  const t = document.createElement("div"); t.className = "tile " + cls;
+  t.append(span("lbl", label));
+  const v = document.createElement("div"); v.className = "val"; v.textContent = val; t.appendChild(v);
+  if (sub) { const s = document.createElement("div"); s.className = "sub"; s.textContent = sub; t.appendChild(s); }
+  main.appendChild(t);
+}
+
+function renderDashboard(main) {
+  const intro = document.createElement("h2");
+  intro.textContent = "cockpit — game vitals (run: python tools/workshop_watch.py playthrough)";
+  main.appendChild(intro);
+  if (!VITALS) { const h = document.createElement("div"); h.className = "metric"; h.style.padding = "0 18px";
+    h.textContent = "no vitals yet — run a watch suite to populate the cockpit."; main.appendChild(h); return; }
+  const v = VITALS;
+  const tiles = document.createElement("div"); tiles.className = "tiles"; main.appendChild(tiles);
+  const det = v.determinism || {}, gold = v.golden || {}, sl = v.softlocks || {}, perf = v.perf || {}, iss = v.issues || {};
+  const nSoft = (sl.timeouts || []).length + (sl.crashes || []).length;
+  tile(tiles, det.pass ? "ok" : "bad", "DETERMINISM", det.pass ? "PASS" : "FAIL",
+    `${det.seeds || 0} seeds` + ((det.flaky_seeds || []).length ? " · flaky " + det.flaky_seeds.join(",") : ""));
+  tile(tiles, gold.pass ? "ok" : "bad", "GOLDEN GATE", gold.pass ? "PASS" : "FAIL",
+    `${gold.seeds || 0} seeds` + ((gold.mismatch_seeds || []).length ? " · miss " + gold.mismatch_seeds.join(",") : ""));
+  tile(tiles, nSoft ? "bad" : "ok", "SOFTLOCKS", String(nSoft),
+    (sl.timeouts || []).length ? "timeout " + sl.timeouts.join(",") : "none");
+  tile(tiles, (perf.min_fps || 0) >= 20 ? "ok" : "warn", "PERF", (perf.median_fps || 0) + "fps",
+    "min " + (perf.min_fps || 0));
+  tile(tiles, iss.critical_open ? "bad" : (iss.open ? "warn" : "ok"), "OPEN ISSUES", String(iss.open || 0),
+    (iss.critical_open || 0) + " watch-critical");
+  tile(tiles, "", "LAST RUN", (v.ts || "").replace("T", " ").replace("Z", ""), "");
+
+  // balance — per-faction win-rate bars
+  const bal = v.balance || {};
+  if (Object.keys(bal).length) {
+    const h = document.createElement("h2"); h.textContent = "faction balance — win-rate (band 35–65%)"; main.appendChild(h);
+    const wrap = document.createElement("div"); wrap.style.padding = "0 18px"; main.appendChild(wrap);
+    for (const fac of Object.keys(bal)) {
+      const o = bal[fac]; const rate = Math.round((o.win_rate || 0) * 100);
+      const row = document.createElement("div"); row.className = "balrow";
+      const bar = document.createElement("div"); bar.className = "bar";
+      const fill = document.createElement("span"); fill.style.width = rate + "%";
+      fill.style.background = (rate < 35 || rate > 65) ? "var(--tweak)" : "var(--keep)"; bar.appendChild(fill);
+      row.append(span("", fac), bar, span("metric", rate + "% (" + o.n + ")"));
+      wrap.appendChild(row);
+    }
+  }
+
+  // lane health
+  const lanes = v.lanes || {};
+  if (Object.keys(lanes).length) {
+    const h = document.createElement("h2"); h.textContent = "lane health"; main.appendChild(h);
+    const t2 = document.createElement("div"); t2.className = "tiles"; main.appendChild(t2);
+    for (const ln of Object.keys(lanes)) {
+      const o = lanes[ln];
+      tile(t2, "", ln.toUpperCase(), String(o.total), `${o.accepted} keep · ${o.killed} kill`);
+    }
+  }
+}
+
+function milestoneEl(m) {
+  const d = document.createElement("div"); d.className = "ledger";
+  const crit = m.criteria || [];
+  const met = crit.filter(x => x.met).length;
+  const cards = CARDS.filter(c => c.milestone === m.id);
+  const cardsDone = cards.filter(c => c.status === "done").length;
+  const head = document.createElement("div"); head.style.cssText = "display:flex;gap:10px;align-items:baseline";
+  const st = m.status === "met" ? "var(--keep)" : "var(--tweak)";
+  const bb = document.createElement("b"); bb.style.color = st;
+  bb.textContent = "#" + m.id + " " + m.title;
+  const prog = document.createElement("span"); prog.className = "tally";
+  prog.innerHTML = `criteria <b>${met}/${crit.length}</b> · cards <b>${cardsDone}/${cards.length}</b> done`;
+  head.append(bb, prog);
+  d.appendChild(head);
+  // criteria — click to toggle met
+  for (let i = 0; i < crit.length; i++) {
+    const row = document.createElement("div"); row.style.cssText = "cursor:pointer;padding:2px 0";
+    row.textContent = (crit[i].met ? "☑ " : "☐ ") + crit[i].text;   // textContent: the criterion is reviewer-typed, never innerHTML
+    row.style.color = crit[i].met ? "var(--keep)" : "var(--ink)";
+    row.onclick = async () => {
+      const next = crit.map((x, j) => j === i ? { text: x.text, met: !x.met } : x);
+      const allMet = next.every(x => x.met);
+      if (await postMilestone({ action: "update", id: m.id, criteria: next,
+          status: allMet ? "met" : "open" })) await load();
+    };
+    d.appendChild(row);
+  }
+  // add-criterion inline
+  const addc = document.createElement("div"); addc.className = "scrub";
+  const ci = document.createElement("input"); ci.placeholder = "add acceptance criterion…"; ci.style.flex = "1";
+  const cb = document.createElement("button"); cb.className = "pinbtn"; cb.textContent = "+ CRIT";
+  cb.onclick = async () => { if (!ci.value.trim()) return;
+    const next = [...crit, { text: ci.value.trim(), met: false }];
+    if (await postMilestone({ action: "update", id: m.id, criteria: next })) await load(); };
+  addc.append(ci, cb); d.appendChild(addc);
+  // snapshot control + list
+  const snapRow = document.createElement("div"); snapRow.className = "scrub"; snapRow.style.marginTop = "6px";
+  const tag = document.createElement("input"); tag.placeholder = "snapshot tag (e.g. v1)"; tag.style.flex = "1";
+  const snap = document.createElement("button"); snap.className = "reopen"; snap.textContent = "SNAPSHOT ACCEPTED";
+  snap.onclick = async () => { if (await postMilestone({ action: "snapshot", id: m.id, tag: tag.value.trim() })) { tag.value = ""; await load(); } };
+  snapRow.append(tag, snap); d.appendChild(snapRow);
+  for (const s of (m.snapshots || []).slice().reverse()) {
+    const sr = document.createElement("div"); sr.className = "hist";
+    sr.textContent = `${s.ts} · ${s.tag || "(untagged)"} — ${(s.accepted || []).length} accepted clips` + (s.note ? " · " + s.note : "");
+    d.appendChild(sr);
+  }
+  return d;
+}
+
+function renderMilestones(main) {
+  const wrap = document.createElement("div"); wrap.className = "ledger";
+  wrap.innerHTML = "<h2 style='margin:0 0 8px'>milestones — design GOALS (criteria + rolled-up cards) and reference SNAPSHOTS of accepted state</h2>";
+  const ti = document.createElement("input"); ti.placeholder = "new goal title (e.g. 'battle feel v1: hits feel weighty')";
+  ti.style.width = "100%";
+  const btn = document.createElement("button"); btn.className = "reopen"; btn.style.marginTop = "6px"; btn.textContent = "ADD GOAL";
+  btn.onclick = async () => { if (ti.value.trim() && await postMilestone({ action: "add", lane: LANE, title: ti.value.trim() })) { ti.value = ""; await load(); } };
+  wrap.append(ti, btn); main.appendChild(wrap);
+  const laneMs = MILESTONES.filter(m => m.lane === LANE);
+  if (!laneMs.length) { const e = document.createElement("h2"); e.textContent = "no milestones yet for this lane"; main.appendChild(e); return; }
+  for (const m of laneMs.slice().reverse()) main.appendChild(milestoneEl(m));
+}
+
+async function sendRequest(payload) {
+  const r = await fetch("/request", { method: "POST",
+    headers: { "Content-Type": "application/json" }, body: JSON.stringify({ lane: LANE, ...payload }) });
+  if (r.ok) { await load(); }
+}
+
+function renderRequests(main) {
+  const wrap = document.createElement("div"); wrap.className = "ledger";
+  wrap.innerHTML = "<h2 style='margin:0 0 8px'>write what you want next — the agent polls this queue</h2>";
+  const ta = document.createElement("textarea");
+  ta.placeholder = "e.g. 'a poison-nova ult for the toad boss, green, uses the circle + splash grammar' …";
+  ta.style.width = "100%"; ta.style.minHeight = "60px";
+  const row = document.createElement("div"); row.style.cssText = "display:flex;gap:8px;align-items:center;margin-top:6px";
+  const mdl = mkSelect(MODELS); mdl.title = "which model the orchestrator spawns for this request (default = sonnet)";
+  const btn = document.createElement("button"); btn.className = "reopen"; btn.textContent = "SUBMIT REQUEST";
+  btn.onclick = () => { if (ta.value.trim()) { sendRequest({ action: "add", text: ta.value.trim(), model: modelWire(mdl.value) }); ta.value = ""; mdl.value = "default"; } };
+  row.append(mdl, btn);
+  wrap.appendChild(ta); wrap.appendChild(row);
+  main.appendChild(wrap);
+  const reqs = (DOC.requests || []).slice().reverse();
+  for (const rq of reqs) {
+    const d = document.createElement("div"); d.className = "ledger";
+    const chipCol = { open: "var(--tweak)", in_progress: "var(--accent)", done: "var(--keep)", dropped: "var(--dim)" }[rq.status] || "var(--dim)";
+    const head = document.createElement("div"); head.style.cssText = "display:flex;gap:10px;align-items:baseline";
+    const bb = document.createElement("b"); bb.style.color = chipCol;
+    bb.textContent = "#" + rq.id + " " + String(rq.status).toUpperCase();
+    const tly = document.createElement("span"); tly.className = "tally"; tly.textContent = "pass " + rq.pass;
+    head.append(bb, tly);
+    if (rq.model) { const mc = document.createElement("span"); mc.className = "tally";
+      mc.style.color = "var(--accent)"; mc.textContent = "▸ " + rq.model; head.append(mc); }
+    const bodyd = document.createElement("div"); bodyd.style.margin = "6px 0"; bodyd.textContent = rq.text;
+    d.append(head, bodyd);
+    if (rq.response) { const rr = document.createElement("div"); rr.className = "hist"; rr.textContent = "agent: " + rq.response; d.append(rr); }
+    if (rq.status === "open" || rq.status === "in_progress") {
+      const drop = document.createElement("button"); drop.className = "reopen";
+      drop.textContent = "DROP"; drop.onclick = () => sendRequest({ action: "update", id: rq.id, status: "dropped" });
+      d.appendChild(drop);
+    }
+    main.appendChild(d);
+  }
+}
+
+// ============ FLOW tab — the scene-transition graph (flow-figma) =============================
+// Read-only render of workshop/flow/{real,aspirational}_graph.json as a pan/zoom SVG node-graph
+// with a click-to-inspect side panel. (Drag-editing + diff->cards land in later increments.)
+const FLOW_NS = "http://www.w3.org/2000/svg";
+const F_NODE_W = 132, F_NODE_H = 46, F_ROW_H = 96, F_COL_W = 168;
+const F_FILL = { scene: "#1d1a16", overlay: "#152233", substate: "#181510", decision: "#1e1a12" };
+const F_STROKE = { scene: "var(--edge)", overlay: "#3a6ea5", substate: "var(--dim)", decision: "var(--accent)" };
+
+function fsvg(tag, a, txt) {
+  const e = document.createElementNS(FLOW_NS, tag);
+  for (const k in a) e.setAttribute(k, a[k]);
+  if (txt != null) e.textContent = txt;   // textContent: never inject markup from graph data
+  return e;
+}
+function flowGraph() { return FLOW_VIEW === "aspirational" ? FLOW_ASPIRATIONAL : FLOW_REAL; }
+
+// layered layout: BFS-rank from roots (no inbound), ranks top->down, spread within a rank. Honors a
+// node's stored x/y (once the user drags — later increment) over the auto-position.
+function layoutFlow(g) {
+  const ids = new Set(g.nodes.map(n => n.id));
+  const indeg = new Map(g.nodes.map(n => [n.id, 0]));
+  const out = new Map(g.nodes.map(n => [n.id, []]));
+  for (const e of g.edges) if (ids.has(e.from) && ids.has(e.to)) { indeg.set(e.to, indeg.get(e.to) + 1); out.get(e.from).push(e.to); }
+  let cur = g.nodes.filter(n => indeg.get(n.id) === 0).map(n => n.id);
+  if (!cur.length) cur = [g.nodes[0].id];
+  const rank = new Map(cur.map(id => [id, 0])); const seen = new Set(cur);
+  for (let guard = 0; cur.length && guard < g.nodes.length + 2; guard++) {
+    const next = [];
+    for (const id of cur) for (const to of out.get(id)) if (!seen.has(to)) { seen.add(to); rank.set(to, rank.get(id) + 1); next.push(to); }
+    cur = next;
+  }
+  let maxr = 0; for (const v of rank.values()) maxr = Math.max(maxr, v);
+  for (const n of g.nodes) if (!rank.has(n.id)) rank.set(n.id, maxr + 1);
+  const rows = new Map();
+  for (const n of g.nodes) { const r = rank.get(n.id); if (!rows.has(r)) rows.set(r, []); rows.get(r).push(n); }
+  const pos = new Map();
+  for (const [r, ns] of rows) ns.forEach((n, i) => pos.set(n.id, {
+    x: n.x != null ? n.x : (i - (ns.length - 1) / 2) * F_COL_W + 460,
+    y: n.y != null ? n.y : r * F_ROW_H + 44 }));
+  return pos;
+}
+
+function fEdgeColor(e) {
+  if (e.confirm === false) return "var(--kill)";
+  if (e.evidence === "both" || e.evidence === "runtime") return "var(--keep)";   // observed in a live run
+  if (e.kind === "overlay-push" || e.kind === "overlay-pop") return "#3a6ea5";
+  if (e.kind === "substate") return "var(--dim)";
+  if (e.evidence === "declared") return "var(--accent)";
+  return "var(--dim)";
+}
+function fEdgePath(a, b) {
+  const ang = Math.atan2(b.y - a.y, b.x - a.x);
+  const sx = a.x + Math.cos(ang) * 34, sy = a.y + Math.sin(ang) * 24;
+  const ex = b.x - Math.cos(ang) * 34, ey = b.y - Math.sin(ang) * 24;
+  const mx = (sx + ex) / 2, my = (sy + ey) / 2;
+  return `M${sx},${sy} Q${mx + (ey - sy) * 0.07},${my - (ex - sx) * 0.07} ${ex},${ey}`;
+}
+function fMarker(id, color) {
+  const m = fsvg("marker", { id, viewBox: "0 0 10 10", refX: 8, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto" });
+  m.append(fsvg("path", { d: "M0,0 L10,5 L0,10 z", fill: color }));
+  return m;
+}
+
+// editing (aspirational only): drag / add / connect / delete, debounce-persisted to POST /flow/aspirational
+let _flowSaveT = null;
+const flowEditable = () => FLOW_VIEW === "aspirational" && !!FLOW_ASPIRATIONAL;
+async function postFlow() {
+  const g = FLOW_ASPIRATIONAL; if (!g) return;
+  const r = await fetch("/flow/aspirational", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nodes: g.nodes, edges: g.edges }) });
+  if (!r.ok) toast("FLOW SAVE FAILED", true);
+}
+function saveFlowSoon() { clearTimeout(_flowSaveT); _flowSaveT = setTimeout(postFlow, 500); }
+async function flowExtract() {
+  const r = await fetch("/flow/extract", { method: "POST" });
+  const j = r.ok ? await r.json() : null;
+  toast(j && j.ok ? "re-extracted" : "extract failed", !(j && j.ok));
+  await fetchAll(); render();
+}
+function flowAddNode() {
+  const g = FLOW_ASPIRATIONAL; if (!g) return;
+  let i = 1; while (g.nodes.some(n => n.id === "new_" + i)) i++;
+  const id = "new_" + i;
+  g.nodes.push({ id, label: id, type: "scene", scene_file: "", stub: false, screenshot: null,
+    x: (420 - FLOW_CAM.tx) / FLOW_CAM.k, y: (200 - FLOW_CAM.ty) / FLOW_CAM.k });
+  FLOW_SEL = { node: id }; saveFlowSoon(); render();
+}
+function flowDeleteSel() {
+  const g = FLOW_ASPIRATIONAL; if (!g || !FLOW_SEL) return;
+  if (FLOW_SEL.node) {
+    g.nodes = g.nodes.filter(n => n.id !== FLOW_SEL.node);
+    g.edges = g.edges.filter(e => e.from !== FLOW_SEL.node && e.to !== FLOW_SEL.node);
+  } else if (FLOW_SEL.edge) {
+    g.edges = g.edges.filter(x => x !== FLOW_SEL.edge);
+  }
+  FLOW_SEL = null; saveFlowSoon(); render();
+}
+
+// diff engine: real vs aspirational -> flow gaps (missing-confirm / unreachable / dead-end / unbuilt / undesigned)
+function flowUnion() {
+  const real = FLOW_REAL || { nodes: [], edges: [] }, asp = FLOW_ASPIRATIONAL || { nodes: [], edges: [] };
+  const nodes = new Map();
+  for (const n of real.nodes) nodes.set(n.id, n);
+  for (const n of asp.nodes) if (!nodes.has(n.id)) nodes.set(n.id, n);
+  const edges = [], seen = new Set();
+  for (const e of [...real.edges, ...asp.edges]) { const k = e.from + "→" + e.to; if (!seen.has(k)) { seen.add(k); edges.push(e); } }
+  return { nodes: [...nodes.values()], edges };
+}
+function flowGaps() {
+  const real = FLOW_REAL; if (!real) return [];
+  const asp = FLOW_ASPIRATIONAL, gaps = [];
+  const realNodes = new Set(real.nodes.map(n => n.id));
+  const inc = new Map(real.nodes.map(n => [n.id, 0])), out = new Map(real.nodes.map(n => [n.id, 0]));
+  for (const e of real.edges) { if (inc.has(e.to)) inc.set(e.to, inc.get(e.to) + 1); if (out.has(e.from)) out.set(e.from, out.get(e.from) + 1); }
+  const ROOTS = new Set(["BOOT_CARDS"]);
+  for (const n of real.nodes) {
+    if (n.type === "substate") continue;
+    if (!ROOTS.has(n.id) && inc.get(n.id) === 0)
+      gaps.push({ type: "unreachable", sev: "critical", ref: n.id, summary: `${n.id} has no inbound transition — unreachable`, dedup: `flow:unreachable:${n.id}` });
+    if (out.get(n.id) === 0)
+      gaps.push({ type: "dead-end", sev: "warn", ref: n.id, summary: `${n.id} has no outbound transition — dead-end / trap`, dedup: `flow:dead-end:${n.id}` });
+  }
+  if (asp) {
+    const realE = new Set(real.edges.map(e => e.from + "→" + e.to));
+    const aspE = new Set(asp.edges.map(e => e.from + "→" + e.to));
+    const aspN = new Set(asp.nodes.map(n => n.id));
+    for (const e of asp.edges) {
+      const k = e.from + "→" + e.to;
+      if (e.confirm === true) {
+        const re = real.edges.find(x => x.from === e.from && x.to === e.to);
+        if (!re || re.confirm !== true)
+          gaps.push({ type: "missing-confirm", sev: "critical", ref: k, summary: `${e.from}→${e.to} should confirm — code doesn't`, dedup: `flow:missing-confirm:${k}` });
+      }
+      if (!realE.has(k) && aspN.has(e.from))
+        gaps.push({ type: "unbuilt-edge", sev: "warn", ref: k, summary: `intended ${e.from}→${e.to} — not in code`, dedup: `flow:unbuilt-edge:${k}` });
+    }
+    for (const n of asp.nodes) if (!realNodes.has(n.id))
+      gaps.push({ type: "unbuilt-node", sev: "warn", ref: n.id, summary: `intended screen ${n.id} (${n.type}) — not in code`, dedup: `flow:unbuilt-node:${n.id}` });
+    for (const e of real.edges) { const k = e.from + "→" + e.to;
+      if (!aspE.has(k) && aspN.has(e.from) && aspN.has(e.to))
+        gaps.push({ type: "undesigned-edge", sev: "note", ref: k, summary: `code has ${e.from}→${e.to} — not in the intended flow`, dedup: `flow:undesigned-edge:${k}` });
+    }
+  }
+  return gaps;
+}
+async function fileGap(g) {
+  const type = (g.type === "unbuilt-edge" || g.type === "unbuilt-node") ? "gameplay-change"
+    : (g.type === "undesigned-edge" ? "note" : "bug");
+  const priority = g.sev === "critical" ? "p1" : (g.sev === "warn" ? "p2" : "p3");
+  return await postCard({ action: "add", lane: "flow", candidate_id: g.ref, type, priority,
+    title: `[flow ${g.type}] ${g.ref}`, body: g.summary, source: "flow", dedup_key: g.dedup });
+}
+function renderGapPanel(insp, gaps) {
+  const crit = gaps.filter(g => g.sev === "critical").length;
+  insp.append(fih(`gaps · ${gaps.length}` + (crit ? ` · ${crit} critical` : "")));
+  if (!gaps.length) { const h = document.createElement("div"); h.className = "metric";
+    h.textContent = "no gaps — real and aspirational agree"; insp.append(h); return; }
+  const all = document.createElement("button"); all.className = "reopen"; all.style.marginBottom = "6px";
+  all.textContent = "FILE ALL AS CARDS";
+  all.onclick = async () => { let k = 0; for (const g of gaps) { if (await fileGap(g)) k++; } toast(`filed ${k} gap cards`); };
+  insp.append(all);
+  const bySev = { critical: [], warn: [], note: [] };
+  for (const g of gaps) (bySev[g.sev] || bySev.note).push(g);
+  for (const sev of ["critical", "warn", "note"]) {
+    if (!bySev[sev].length) continue;
+    insp.append(fih(sev + " · " + bySev[sev].length));
+    for (const g of bySev[sev]) {
+      const d = document.createElement("div"); d.className = "flowir";
+      const t = document.createElement("span"); t.textContent = g.summary;
+      t.style.cssText = "flex:1;color:" + (sev === "critical" ? "var(--kill)" : "var(--ink)");
+      const b = document.createElement("button"); b.className = "pinbtn"; b.textContent = "＋card";
+      b.onclick = async () => { if (await fileGap(g)) { b.textContent = "✓"; b.disabled = true; } };
+      d.append(t, b); insp.append(d);
+    }
+  }
+}
+
+function renderFlow(main) {
+  const bar = document.createElement("div"); bar.className = "flowbar";
+  const mk = (label, view) => { const b = document.createElement("button"); b.textContent = label;
+    b.className = "flowtoggle" + (FLOW_VIEW === view ? " on" : "");
+    b.onclick = () => { FLOW_VIEW = view; FLOW_SEL = null; FLOW_EDGEMODE = false; FLOW_PENDING = null; render(); }; return b; };
+  bar.append(mk("REAL · as built", "real"), mk("ASPIRATIONAL", "aspirational"), mk("DIFF · gaps", "diff"));
+  const isDiff = FLOW_VIEW === "diff";
+  const g = isDiff ? flowUnion() : flowGraph();
+  const gaps = isDiff ? flowGaps() : [];
+  const gapNode = new Set(gaps.filter(x => ["unreachable", "dead-end", "unbuilt-node"].includes(x.type)).map(x => x.ref));
+  const gapEdge = new Set(gaps.filter(x => ["unbuilt-edge", "missing-confirm", "undesigned-edge"].includes(x.type)).map(x => x.ref));
+  bar.append(span("flowcount", g && g.nodes ? `${g.nodes.length} nodes · ${g.edges.length} edges` : "no graph"));
+  if (flowEditable()) {
+    const add = document.createElement("button"); add.className = "flowtoggle"; add.textContent = "+ NODE"; add.onclick = flowAddNode;
+    const con = document.createElement("button"); con.className = "flowtoggle" + (FLOW_EDGEMODE ? " on" : "");
+    con.textContent = FLOW_EDGEMODE ? (FLOW_PENDING ? "pick target…" : "pick source…") : "⇢ CONNECT";
+    con.onclick = () => { FLOW_EDGEMODE = !FLOW_EDGEMODE; FLOW_PENDING = null; render(); };
+    const del = document.createElement("button"); del.className = "flowtoggle"; del.textContent = "🗑 DELETE"; del.disabled = !FLOW_SEL;
+    del.onclick = flowDeleteSel;
+    bar.append(add, con, del);
+  }
+  const ext = document.createElement("button"); ext.className = "flowtoggle"; ext.textContent = "⟳ RE-EXTRACT";
+  ext.title = "re-run the static extractor from the live code"; ext.onclick = flowExtract;
+  bar.append(ext);
+  main.append(bar);
+
+  const wrap = document.createElement("div"); wrap.className = "flowwrap";
+  if (!g || !g.nodes || !g.nodes.length) {
+    const e = document.createElement("div"); e.className = "metric"; e.style.padding = "20px";
+    e.textContent = "no flow graph — run: python tools/flow_extract.py"; wrap.append(e); main.append(wrap); return;
+  }
+  const editable = flowEditable();
+  const pos = layoutFlow(g);
+  const svg = fsvg("svg", { class: "flowsvg", width: "100%", height: "100%" });
+  const defs = fsvg("defs", {}); defs.append(fMarker("farrow", "var(--dim)")); svg.append(defs);
+  const rootg = fsvg("g", {}); svg.append(rootg);
+  const applyCam = () => rootg.setAttribute("transform", `translate(${FLOW_CAM.tx},${FLOW_CAM.ty}) scale(${FLOW_CAM.k})`);
+  applyCam();
+
+  function selectNode(n) {
+    if (FLOW_EDGEMODE && editable) {
+      if (!FLOW_PENDING) { FLOW_PENDING = n.id; render(); return; }
+      if (FLOW_PENDING !== n.id && !g.edges.some(e => e.from === FLOW_PENDING && e.to === n.id)) {
+        g.edges.push({ from: FLOW_PENDING, to: n.id, trigger: "", kind: "scene-swap", guard: "",
+          reversible: null, confirm: null, evidence: "authored", source: "authored" });
+        saveFlowSoon();
+      }
+      FLOW_PENDING = null; FLOW_EDGEMODE = false; render(); return;
+    }
+    FLOW_SEL = { node: n.id }; render();
+  }
+
+  for (const e of g.edges) {
+    const a = pos.get(e.from), b = pos.get(e.to); if (!a || !b) continue;
+    const selE = FLOW_SEL && FLOW_SEL.edge === e;
+    const eg = isDiff && gapEdge.has(e.from + "→" + e.to);
+    const path = fsvg("path", { d: fEdgePath(a, b), fill: "none",
+      stroke: selE ? "var(--accent)" : (eg ? "var(--kill)" : fEdgeColor(e)),
+      "stroke-width": (selE || eg) ? 2.5 : 1.5, "stroke-dasharray": e.kind === "substate" ? "3 3" : "none", "marker-end": "url(#farrow)" });
+    path.style.cursor = "pointer";
+    path.onclick = (ev) => { ev.stopPropagation(); FLOW_SEL = { edge: e }; render(); };
+    rootg.append(path);
+  }
+  for (const n of g.nodes) {
+    const p = pos.get(n.id); const sel = FLOW_SEL && FLOW_SEL.node === n.id; const pend = FLOW_PENDING === n.id;
+    const ng = isDiff && gapNode.has(n.id);
+    const gn = fsvg("g", { transform: `translate(${p.x - F_NODE_W / 2},${p.y - F_NODE_H / 2})` });
+    gn.append(fsvg("rect", { width: F_NODE_W, height: F_NODE_H, rx: 6, fill: F_FILL[n.type] || "#1d1a16",
+      stroke: sel ? "var(--accent)" : (ng ? "var(--kill)" : (pend ? "var(--keep)" : (n.stub ? "var(--tweak)" : (F_STROKE[n.type] || "var(--edge)")))),
+      "stroke-width": (sel || pend || ng) ? 2.5 : 1.5, "stroke-dasharray": n.stub ? "5 3" : "none" }));
+    gn.append(fsvg("text", { x: F_NODE_W / 2, y: F_NODE_H / 2 - 1, "text-anchor": "middle", fill: "var(--ink)",
+      "font-size": 12, "font-weight": 600 }, n.label));
+    gn.append(fsvg("text", { x: F_NODE_W / 2, y: F_NODE_H / 2 + 12, "text-anchor": "middle", fill: "var(--dim)",
+      "font-size": 9 }, n.type + (n.stub ? " · stub" : "")));
+    gn.style.cursor = editable ? (FLOW_EDGEMODE ? "crosshair" : "move") : "pointer";
+    if (editable) {
+      let dragging = false, dmoved = false, lx = 0, ly = 0;
+      gn.addEventListener("pointerdown", (ev) => {
+        ev.stopPropagation();
+        if (FLOW_EDGEMODE) return;
+        dragging = true; dmoved = false; lx = ev.clientX; ly = ev.clientY;
+        try { gn.setPointerCapture(ev.pointerId); } catch (_) {}
+      });
+      gn.addEventListener("pointermove", (ev) => {
+        if (!dragging) return; dmoved = true;
+        n.x = (n.x == null ? p.x : n.x) + (ev.clientX - lx) / FLOW_CAM.k;
+        n.y = (n.y == null ? p.y : n.y) + (ev.clientY - ly) / FLOW_CAM.k;
+        lx = ev.clientX; ly = ev.clientY;
+        gn.setAttribute("transform", `translate(${n.x - F_NODE_W / 2},${n.y - F_NODE_H / 2})`);
+      });
+      gn.addEventListener("pointerup", (ev) => {
+        if (dragging) { dragging = false; try { gn.releasePointerCapture(ev.pointerId); } catch (_) {}
+          if (dmoved) { saveFlowSoon(); render(); return; } }
+        selectNode(n);
+      });
+    } else {
+      gn.onclick = (ev) => { ev.stopPropagation(); FLOW_SEL = { node: n.id }; render(); };
+    }
+    rootg.append(gn);
+  }
+
+  let panning = false, ox = 0, oy = 0, moved = false;
+  svg.addEventListener("pointerdown", (ev) => { panning = true; moved = false; ox = ev.clientX - FLOW_CAM.tx; oy = ev.clientY - FLOW_CAM.ty; });
+  svg.addEventListener("pointermove", (ev) => { if (!panning) return; moved = true; FLOW_CAM.tx = ev.clientX - ox; FLOW_CAM.ty = ev.clientY - oy; applyCam(); });
+  const endPan = () => { panning = false; };
+  svg.addEventListener("pointerup", endPan); svg.addEventListener("pointerleave", endPan);
+  svg.addEventListener("wheel", (ev) => { ev.preventDefault(); const f = ev.deltaY < 0 ? 1.1 : 1 / 1.1;
+    FLOW_CAM.k = Math.max(0.3, Math.min(2.5, FLOW_CAM.k * f)); applyCam(); }, { passive: false });
+  svg.addEventListener("click", (ev) => { if (!moved && ev.target === svg) { FLOW_SEL = null;
+    if (FLOW_EDGEMODE) { FLOW_EDGEMODE = false; FLOW_PENDING = null; } render(); } });
+  wrap.append(svg);
+
+  const insp = document.createElement("div"); insp.className = "flowinsp";
+  if (isDiff) renderGapPanel(insp, gaps); else flowInspector(insp, g);
+  wrap.append(insp);
+  main.append(wrap);
+}
+
+function fih(t) { const d = document.createElement("div"); d.className = "flowih"; d.textContent = t; return d; }
+function fir(k, v) { const d = document.createElement("div"); d.className = "flowir";
+  d.append(span("flowik", k), span("", v == null ? "—" : String(v))); return d; }
+function fiwarn(t) { const d = document.createElement("div"); d.className = "flowir"; d.style.color = "var(--kill)"; d.textContent = t; return d; }
+function fiedge(e, show) { const d = document.createElement("div"); d.className = "flowir"; d.style.cursor = "pointer";
+  d.textContent = show + "  ·  " + e.kind; d.onclick = () => { FLOW_SEL = { edge: e }; render(); }; return d; }
+function fEditRow(k, v, on) { const d = document.createElement("div"); d.className = "flowir";
+  const inp = document.createElement("input"); inp.value = v; inp.style.cssText = "flex:1;min-width:0";
+  inp.onchange = () => on(inp.value); d.append(span("flowik", k), inp); return d; }
+function fEditSel(k, v, opts, on) { const d = document.createElement("div"); d.className = "flowir";
+  const s = mkSelect(opts); s.value = v; s.onchange = () => on(s.value); d.append(span("flowik", k), s); return d; }
+function fEditTri(k, v, on) { const d = document.createElement("div"); d.className = "flowir";   // null|true|false
+  const s = mkSelect(["unknown", "yes", "no"]); s.value = v == null ? "unknown" : (v ? "yes" : "no");
+  s.onchange = () => on(s.value === "unknown" ? null : s.value === "yes"); d.append(span("flowik", k), s); return d; }
+function fEditBool(k, v, on) { const d = document.createElement("div"); d.className = "flowir";
+  const s = mkSelect(["no", "yes"]); s.value = v ? "yes" : "no"; s.onchange = () => on(s.value === "yes"); d.append(span("flowik", k), s); return d; }
+
+function flowInspector(insp, g) {
+  const editable = flowEditable();
+  if (!FLOW_SEL) { const h = document.createElement("div"); h.className = "metric";
+    h.textContent = editable ? "drag a node to move · click = select · + NODE / CONNECT / DELETE · scroll = zoom"
+      : "click a node or edge · scroll = zoom · drag = pan · switch to ASPIRATIONAL to edit"; insp.append(h); return; }
+  if (FLOW_SEL.node) {
+    const n = g.nodes.find(x => x.id === FLOW_SEL.node); if (!n) return;
+    if (editable) {
+      insp.append(fih("edit node · " + n.id));
+      insp.append(fEditRow("label", n.label, v => { n.label = v || n.id; saveFlowSoon(); render(); }));
+      insp.append(fEditSel("type", n.type, ["scene", "overlay", "substate", "decision"], v => { n.type = v; saveFlowSoon(); render(); }));
+      insp.append(fEditRow("scene", n.scene_file || "", v => { n.scene_file = v; saveFlowSoon(); }));
+      insp.append(fEditBool("stub", !!n.stub, v => { n.stub = v; saveFlowSoon(); render(); }));
+    } else {
+      insp.append(fih(n.label), fir("type", n.type + (n.stub ? " · STUB" : "")), fir("scene", n.scene_file));
+    }
+    const ins = g.edges.filter(e => e.to === n.id), outs = g.edges.filter(e => e.from === n.id);
+    insp.append(fih("in · " + ins.length));
+    if (!ins.length) insp.append(fiwarn("⚠ no inbound — unreachable"));
+    for (const e of ins) insp.append(fiedge(e, e.from));
+    insp.append(fih("out · " + outs.length));
+    if (!outs.length) insp.append(fiwarn("⚠ no outbound — dead-end / trap"));
+    for (const e of outs) insp.append(fiedge(e, e.to));
+  } else if (FLOW_SEL.edge) {
+    const e = FLOW_SEL.edge;
+    insp.append(fih(e.from + " → " + e.to));
+    if (editable) {
+      insp.append(fEditSel("kind", e.kind, ["scene-swap", "overlay-push", "overlay-pop", "substate"], v => { e.kind = v; saveFlowSoon(); render(); }));
+      insp.append(fEditTri("confirm", e.confirm, v => { e.confirm = v; saveFlowSoon(); render(); }));
+      insp.append(fEditTri("reversible", e.reversible, v => { e.reversible = v; saveFlowSoon(); render(); }));
+      insp.append(fEditRow("trigger", e.trigger || "", v => { e.trigger = v; saveFlowSoon(); }));
+    } else {
+      insp.append(fir("kind", e.kind), fir("evidence", e.evidence), fir("reversible", e.reversible),
+        fir("confirm", e.confirm), fir("trigger", e.trigger || "—"), fir("source", e.source));
+    }
+  }
+}
+// ============================================================================================
+
+// Live-reload: the server pushes when the lane's manifest / queues change. EventSource
+// auto-reconnects, so this survives server restarts. Re-scoped per lane on switch.
+function connectEvents() {
+  if (ES) ES.close();
+  ES = new EventSource("/events?lane=" + encodeURIComponent(LANE));
+  ES.onmessage = async (e) => {
+    if (e.data && e.data.startsWith("reload")) {
+      const changed = e.data.split(" ").slice(1);   // the granular changed-key list
+      shellLog("sse", { keys: changed, typing: isTyping() });   // the raw push + whether the user was typing when it landed (D1)
+      await refresh(changed);   // reconcile in place; NEVER wipe / reset a field you're typing in
+    }
+  };
+}
+
+// Dirty-tracking + deferred-refresh flush. A field marks itself dirty on input (protecting its card from
+// reconciliation even if focus briefly moves to a sibling field), clears on commit (change), and flushing a
+// deferred refresh happens the moment focus leaves the field.
+(function () {
+  const fid = (t) => t.id || t.name || t.getAttribute("placeholder") || t.className || t.tagName;
+  const m = document.getElementById("main");
+  m.addEventListener("input", (e) => {
+    if (["TEXTAREA", "INPUT"].includes(e.target.tagName)) {
+      if (e.target.dataset.dirty !== "1") shellLog("field", { state: "dirty", id: fid(e.target) });
+      e.target.dataset.dirty = "1";
+    }
+  });
+  m.addEventListener("change", (e) => {
+    if (e.target.dataset && e.target.dataset.dirty) {
+      // A feedback-card form field with UN-SUBMITTED text stays dirty across blur: `change` fires on
+      // blur, and clearing dirty then would let a reconcile replace the card and eat the draft. The
+      // protection releases when the form is submitted (values cleared), emptied, or hidden.
+      const f = e.target.closest(".cardform");
+      if (f && f.style.display !== "none" && e.target.value && e.target.value.trim()) {
+        shellLog("field", { state: "hold-draft", id: fid(e.target) });
+        return;
+      }
+      delete e.target.dataset.dirty; shellLog("field", { state: "commit", id: fid(e.target) });
+    }
+  });
+  m.addEventListener("focusout", () => {
+    if (_deferredRefresh && !isTyping()) {
+      _deferredRefresh = false;
+      const keys = _deferredKeys; _deferredKeys = [];
+      shellLog("refresh", { decision: "deferred-flush", keys });
+      refresh(keys || undefined);   // replay EXACTLY the deferred keys; bare refresh() would fake a gen batch
+    }
+  });
+})();
+
+boot();
+</script>
+</body>
+<script>
+(function () {
+  const a = document.getElementById('staticmore');
+  const shown = a.textContent;
+  a.onclick = () => {
+    const d = document.getElementById('staticdetail');
+    d.hidden = !d.hidden;
+    a.textContent = d.hidden ? shown : 'hide';
+  };
+})();
+</script>
+</html>

@@ -1,0 +1,69 @@
+{
+  "balance": {
+    "Dominion": {
+      "n": 8,
+      "win_rate": 1.0
+    },
+    "Free Cities": {
+      "n": 8,
+      "win_rate": 1.0
+    },
+    "Severed Court": {
+      "n": 8,
+      "win_rate": 1.0
+    },
+    "The Faith": {
+      "n": 8,
+      "win_rate": 1.0
+    },
+    "The Lamplit": {
+      "n": 8,
+      "win_rate": 1.0
+    },
+    "The Witnessed": {
+      "n": 8,
+      "win_rate": 1.0
+    }
+  },
+  "determinism": {
+    "flaky_seeds": [],
+    "pass": true,
+    "seeds": 8
+  },
+  "golden": {
+    "mismatch_seeds": [],
+    "pass": true,
+    "seeds": 8
+  },
+  "issues": {
+    "by_lane": {},
+    "critical_open": 0,
+    "open": 0
+  },
+  "lanes": {
+    "battle_feel": {
+      "accepted": 0,
+      "killed": 0,
+      "total": 4
+    },
+    "playthrough": {
+      "accepted": 0,
+      "killed": 0,
+      "total": 9
+    },
+    "vfx": {
+      "accepted": 37,
+      "killed": 4,
+      "total": 102
+    }
+  },
+  "perf": {
+    "median_fps": 116.0,
+    "min_fps": 46.0
+  },
+  "softlocks": {
+    "crashes": [],
+    "timeouts": []
+  },
+  "ts": "2026-07-21T00:45:39Z"
+}

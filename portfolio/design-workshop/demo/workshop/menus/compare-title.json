@@ -1,0 +1,82 @@
+{
+ "beat": "title",
+ "tally": {
+  "archive_r1": 2,
+  "slow_burn_r2": 2,
+  "stamp_strike_r1": 1,
+  "casino_fanfare_r1": 3,
+  "cold_ledger_r1": 2
+ },
+ "rows": [
+  {
+   "left": "archive_r1",
+   "right": "casino_fanfare_r1",
+   "beat": "title",
+   "winner": "archive_r1",
+   "narration": "# SFX descriptions \u2014 archive_r1__vs__casino_fanfare_r1__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.52 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: LEFT\nWHY: The light beam\u2019s motion feels more alive and directional in LEFT, subtly pulling the eye toward the center, while RIGHT\u2019s beam is static and flat. LEFT\u2019s lower contrast on the soil layer makes the \u201cPRESS ANY KEY\u201d text feel more integrated into the ledger aesthetic, whereas RIGHT\u2019s brighter soil clashes with the cream text.\nLOSER\u2019S ONE FIX: Desaturate RIGHT\u2019s soil layer by 30% and add a 1px drop shadow to the beam\u2019s glow to match LEFT\u2019s depth.\n"
+  },
+  {
+   "left": "archive_r1",
+   "right": "cold_ledger_r1",
+   "beat": "title",
+   "winner": "archive_r1",
+   "narration": "# SFX descriptions \u2014 archive_r1__vs__cold_ledger_r1__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.53 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: LEFT\nWHY: The LEFT version shows a subtle, organic light bloom that feels alive and immersive, while the RIGHT version\u2019s light is flat and static. The LEFT\u2019s text contrast feels more intentional and legible against the dark soil, committing to the game\u2019s ledger aesthetic better.\nLOSER\u2019S ONE FIX: Replace the RIGHT\u2019s flat light with a soft, pulsing bloom like the LEFT\u2019s to restore motion and atmosphere.\n"
+  },
+  {
+   "left": "archive_r1",
+   "right": "slow_burn_r2",
+   "beat": "title",
+   "winner": "slow_burn_r2",
+   "narration": "# SFX descriptions \u2014 archive_r1__vs__slow_burn_r2__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.46 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: RIGHT\nWHY: The light beam\u2019s glow bleeds more naturally into the ground texture, enhancing immersion; the vermillion stamp\u2019s glow subtly pulses, committing the screen to the next phase with organic motion. \nLOSER\u2019S ONE FIX: Make the LEFT side\u2019s beam static and sharply cut off at the ground, killing its atmospheric bleed.\n"
+  },
+  {
+   "left": "archive_r1",
+   "right": "stamp_strike_r1",
+   "beat": "title",
+   "winner": "stamp_strike_r1",
+   "narration": "# SFX descriptions \u2014 archive_r1__vs__stamp_strike_r1__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.46 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: RIGHT\nWHY: The RIGHT side\u2019s light beam has more natural motion blur and directional glow, making the idle feel alive; its contrast is sharper against the dark background, committing the screen to the next moment with more visual weight.\nLOSER'S ONE FIX: Add a single amber accent glow to the text \u201cBENEATH\u201d on the LEFT side to match the RIGHT\u2019s visual hierarchy and warmth.\n"
+  },
+  {
+   "left": "casino_fanfare_r1",
+   "right": "cold_ledger_r1",
+   "beat": "title",
+   "winner": "casino_fanfare_r1",
+   "narration": "# SFX descriptions \u2014 casino_fanfare_r1__vs__cold_ledger_r1__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.54 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: LEFT\nWHY: The LEFT version\u2019s subtle motion blur on the glowing artifact gives it a living, breathing idle feel, while the RIGHT\u2019s static glow feels flat. The LEFT\u2019s lower-contrast soil texture commits more to the \u201cbeneath\u201d theme by feeling more grounded and textured.\nLOSER\u2019S ONE FIX: Add a slight shimmer or flicker to the RIGHT\u2019s artifact glow to mimic the LEFT\u2019s motion, making it feel alive instead of inert.\n"
+  },
+  {
+   "left": "casino_fanfare_r1",
+   "right": "slow_burn_r2",
+   "beat": "title",
+   "winner": "casino_fanfare_r1",
+   "narration": "# SFX descriptions \u2014 casino_fanfare_r1__vs__slow_burn_r2__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.50 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: LEFT\nWHY: The LEFT version\u2019s light beam has cleaner, more deliberate motion and sharper contrast against the soil, making the idle feel more intentional. The RIGHT version\u2019s beam flickers with inconsistent brightness and smudges the soil texture, making the screen feel less committed to its next state.\nLOSER\u2019S ONE FIX: Replace the RIGHT beam\u2019s flickering with a smooth, consistent glow that matches the LEFT\u2019s precision, and add a subtle amber accent pulse to the soil\u2019s edge to match the ledger aesthetic.\n"
+  },
+  {
+   "left": "casino_fanfare_r1",
+   "right": "stamp_strike_r1",
+   "beat": "title",
+   "winner": "casino_fanfare_r1",
+   "narration": "# SFX descriptions \u2014 casino_fanfare_r1__vs__stamp_strike_r1__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.58 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: LEFT\nWHY: The LEFT version\u2019s beam has cleaner, more deliberate motion blur that feels intentional and cinematic, while the RIGHT\u2019s beam flickers with inconsistent contrast that breaks immersion. The LEFT\u2019s \u201cPRESS ANY KEY\u201d text holds steady and legible against the dark soil, whereas the RIGHT\u2019s text subtly warps in perspective, making it feel less committed to the next screen.\nLOSER\u2019S ONE FIX: Replace the RIGHT\u2019s flickering beam with a smooth, consistent glow and stabilize the text\u2019s perspective to match the LEFT\u2019s clean, ledger-style confidence.\n"
+  },
+  {
+   "left": "cold_ledger_r1",
+   "right": "slow_burn_r2",
+   "beat": "title",
+   "winner": "cold_ledger_r1",
+   "narration": "# SFX descriptions \u2014 cold_ledger_r1__vs__slow_burn_r2__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.68 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: LEFT\nWHY: The LEFT version\u2019s beam has cleaner, more deliberate motion and higher contrast against the soil, making the \u201cPRESS ANY KEY\u201d prompt feel more committed and legible. The RIGHT version\u2019s beam flickers with a distracting, low-contrast glow that breaks the ledger\u2019s administrative stillness.\nLOSER\u2019S ONE FIX: Replace the RIGHT beam\u2019s flickering glow with a single, steady, high-contrast beam that matches the LEFT\u2019s motion and contrast, and remove the distracting amber accent glow.\n"
+  },
+  {
+   "left": "cold_ledger_r1",
+   "right": "stamp_strike_r1",
+   "beat": "title",
+   "winner": "cold_ledger_r1",
+   "narration": "# SFX descriptions \u2014 cold_ledger_r1__vs__stamp_strike_r1__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.63 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: LEFT\nWHY: The LEFT version\u2019s beam has cleaner, more deliberate motion blur that feels intentional, while the RIGHT\u2019s beam flickers with inconsistent contrast. The LEFT\u2019s \u201cPRESS ANY KEY\u201d text holds steadier legibility against the dim background, committing to the next screen without visual hesitation.\nLOSER\u2019S ONE FIX: Replace the RIGHT beam\u2019s flickering with a smooth, consistent glow that matches the LEFT\u2019s motion blur and contrast.\n"
+  },
+  {
+   "left": "slow_burn_r2",
+   "right": "stamp_strike_r1",
+   "beat": "title",
+   "winner": "slow_burn_r2",
+   "narration": "# SFX descriptions \u2014 slow_burn_r2__vs__stamp_strike_r1__title.mp4\n\n\n## model: qwen3-vl\n\n### window 0: 0-8s\n\n(ERROR: CUDA out of memory. Tried to allocate 4.25 GiB. GPU 0 has a total capacity of 15.92 GiB of which 1.33 GiB is free. 12.74 GiB allowed; Of the allocated memory 11.32 GiB is allocated by PyTorch, and 423.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))\n\n### window 1: 8-10s\n\nWINNER: LEFT\nWHY: The light beam\u2019s motion feels more deliberate and alive in LEFT, subtly sweeping across the screen to draw attention, while RIGHT\u2019s beam is static and inert. LEFT\u2019s contrast between the cream text and the dark soil feels more intentional and legible, committing to the game\u2019s ledger aesthetic with sharper visual hierarchy.\nLOSER\u2019S ONE FIX: Add a slow, organic pulse to the beam in RIGHT to mimic LEFT\u2019s dynamic sweep \u2014 that single motion would make the idle feel alive and decisively commit to the next scene.\n"
+  }
+ ]
+}
