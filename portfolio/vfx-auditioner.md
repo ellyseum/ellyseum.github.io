@@ -21,6 +21,11 @@ ship here with their blurb, wave, backdrop, verdict, note and complete per-pass 
 four passes dated 2026-07-19 — counting each candidate's current verdict as captured for this
 build: **68 accepted, 4 killed, 45 still in review**, and 8 changed verdict between passes.
 
+Read the candidates as **ideation-pipeline outputs**: the pipeline's job is to propose at
+volume, and the gallery closes the loop — every proposal enters an **accept / tweak / kill**
+cycle, where an acceptance ships, a tweak note becomes the work order for the next pass, and a
+kill is a recorded decision rather than a silent deletion.
+
 That last group is what a finished effects reel cannot show: `witness_thread` reads tweak on
 pass 1 and kill on passes 2 and 3; `impact_frame` was kept carrying the note *"the sparkle
 effect kills it, needs more work but i like as a starter"* — a critique passed forward rather
