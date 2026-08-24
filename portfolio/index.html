@@ -119,44 +119,35 @@ permalink: /portfolio/
     </div>
   </section>
 
-  <section class="pf-tier">
-    <div class="pf-tier-head">
-      <h2 class="pf-tier-title">The lab</h2>
-      <span class="pf-tier-rule"></span>
-    </div>
-    <div class="pf-grid">
-      <a class="pf-card" href="{{ '/portfolio/tinygpt/' | relative_url }}">
-        <span class="pf-card-tile">gpt()</span>
-        <span class="pf-card-body"><span class="pf-card-title">tinygpt</span>
-        <span class="pf-card-line">A GPT you can watch train, live in the browser.</span></span>
-      </a>
-      <a class="pf-card" href="{{ '/portfolio/ios-pointer-finder/' | relative_url }}">
-        <span class="pf-card-tile">cnn</span>
-        <span class="pf-card-body"><span class="pf-card-title">ios_pointer_finder</span>
-        <span class="pf-card-line">A 338K-parameter CNN with stated error bars.</span></span>
-      </a>
-      <a class="pf-card" href="{{ '/portfolio/zero-cost-platform/' | relative_url }}">
-        <span class="pf-card-tile">$0</span>
-        <span class="pf-card-body"><span class="pf-card-title">This site's own architecture</span>
-        <span class="pf-card-line">This site — WebGPU RAG chat, zero hosting cost.</span></span>
-      </a>
-      <a class="pf-card" href="{{ '/portfolio/ellymud/' | relative_url }}">
-        <span class="pf-card-tile">mud&gt;</span>
-        <span class="pf-card-body"><span class="pf-card-title">ellymud</span>
-        <span class="pf-card-line">A MUD built to be played by agents — 3,500+ tests.</span></span>
-      </a>
-      <a class="pf-card" href="{{ '/portfolio/prompt-injection-benchmark/' | relative_url }}">
-        <span class="pf-card-tile">inject</span>
-        <span class="pf-card-body"><span class="pf-card-title">Prompt-injection benchmark</span>
-        <span class="pf-card-line">18 models, measured before the defense was built.</span></span>
-      </a>
-      <a class="pf-card" href="{{ '/portfolio/cordyceps/' | relative_url }}">
-        <span class="pf-card-tile">rpc</span>
-        <span class="pf-card-body"><span class="pf-card-title">cordyceps</span>
-        <span class="pf-card-line">Four CLI agents, one control plane.</span></span>
-      </a>
-    </div>
-  </section>
+  <details class="portfolio-archive" open>
+    <summary>The lab</summary>
+    <ul class="portfolio-list">
+      <li class="portfolio-list-item">
+        <a href="{{ '/portfolio/tinygpt/' | relative_url }}">tinygpt</a>
+        <span class="portfolio-list-desc">A GPT you can watch train, live in the browser.</span>
+      </li>
+      <li class="portfolio-list-item">
+        <a href="{{ '/portfolio/ios-pointer-finder/' | relative_url }}">ios_pointer_finder</a>
+        <span class="portfolio-list-desc">A 338K-parameter CNN with stated error bars.</span>
+      </li>
+      <li class="portfolio-list-item">
+        <a href="{{ '/portfolio/zero-cost-platform/' | relative_url }}">This site's own architecture</a>
+        <span class="portfolio-list-desc">This site — WebGPU RAG chat, zero hosting cost.</span>
+      </li>
+      <li class="portfolio-list-item">
+        <a href="{{ '/portfolio/ellymud/' | relative_url }}">ellymud</a>
+        <span class="portfolio-list-desc">A MUD built to be played by agents — 3,500+ tests.</span>
+      </li>
+      <li class="portfolio-list-item">
+        <a href="{{ '/portfolio/prompt-injection-benchmark/' | relative_url }}">Prompt-injection benchmark</a>
+        <span class="portfolio-list-desc">18 models, measured before the defense was built.</span>
+      </li>
+      <li class="portfolio-list-item">
+        <a href="{{ '/portfolio/cordyceps/' | relative_url }}">cordyceps</a>
+        <span class="portfolio-list-desc">Four CLI agents, one control plane.</span>
+      </li>
+    </ul>
+  </details>
 
   <details class="portfolio-archive">
     <summary>Archive</summary>
