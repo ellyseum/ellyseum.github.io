@@ -1,16 +1,73 @@
 ---
 layout: page
 title: Work
-description: Selected projects — agent infrastructure, security research, enterprise platform work, and creative tooling.
+description: Selected projects — playable and watchable creative work first, then agent infrastructure, security research, and enterprise platform work.
 permalink: /portfolio/
 ---
 
 <div class="portfolio-index">
   <p class="portfolio-intro">
-    Selected projects, each with its own stable page — live with video or an interactive
-    demo.
+    Selected projects. The creative work runs right here in the browser — play it first;
+    the engineering receipts follow.
   </p>
 
+  <h2>Play it</h2>
+  <ul class="portfolio-list">
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/game/' | relative_url }}">For What Lies Beneath, playable</a>
+      <span class="portfolio-list-desc">Runnable: the Godot web export — faction select, march map, and a tactics battle.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/battle-effect-sequence/' | relative_url }}">A battle-effect sequence, rebuilt and measured</a>
+      <span class="portfolio-list-desc">A WebGL/Canvas2D recreation of a game battle effect, validated against a stated rubric.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/vfx-auditioner/' | relative_url }}">The VFX audition gallery</a>
+      <span class="portfolio-list-desc">Runnable: 117 effect candidates with the verdict, note and per-pass history behind each.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/vfx-report/' | relative_url }}">The VFX build-out report</a>
+      <span class="portfolio-list-desc">Runnable: six build waves narrated with all twelve renders embedded, ending in a decision list.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/design-workshop/' | relative_url }}">The Design Workshop board</a>
+      <span class="portfolio-list-desc">Runnable: six review lanes, four passes, and a balance lab over 386,640 scored builds.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/audio-daw/' | relative_url }}">The audio DAW</a>
+      <span class="portfolio-list-desc">Runnable: 167 SFX cues, 7 music tracks, loop authoring, and a WAV export carrying its loop points.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/sfx-composer/' | relative_url }}">The SFX take composer</a>
+      <span class="portfolio-list-desc">Runnable: 167 reference cues, an effects rack, and an offline WAV render that downloads in the browser.</span>
+    </li>
+  </ul>
+
+  <h2>Creative systems</h2>
+  <ul class="portfolio-list">
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/sfx-vfx-instruments/' | relative_url }}">SFX workstation and VFX auditioner</a>
+      <span class="portfolio-list-desc">Home-grown tools for scoring and reviewing a game's sound and visual effects.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/workshop/' | relative_url }}">workshop</a>
+      <span class="portfolio-list-desc">A multi-lane render, judge, and dispatch system.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/re9-classic-horror/' | relative_url }}">RE9 Classic Horror</a>
+      <span class="portfolio-list-desc">A fixed-camera conversion mod for Resident Evil Requiem, built on the RE Engine's own supported modding hooks.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/cyberpunk-red-guide/' | relative_url }}">cyberpunk-red-guide</a>
+      <span class="portfolio-list-desc">A tabletop RPG reference site where the design is the deliverable.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/generative-music-rubric/' | relative_url }}">Generative music, with the rubric as the craft</a>
+      <span class="portfolio-list-desc">A scored, repeatable creative pipeline built around a generative music model.</span>
+    </li>
+  </ul>
+
+  <h2>Engineering receipts</h2>
   <ul class="portfolio-list">
     <li class="portfolio-list-item">
       <a href="{{ '/portfolio/ellymud/' | relative_url }}">ellymud</a>
@@ -49,60 +106,12 @@ permalink: /portfolio/
       <span class="portfolio-list-desc">A small CNN for locating a UI pointer in a screen capture, with stated error bars.</span>
     </li>
     <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/sfx-vfx-instruments/' | relative_url }}">SFX workstation and VFX auditioner</a>
-      <span class="portfolio-list-desc">Home-grown tools for scoring and reviewing a game's sound and visual effects.</span>
-    </li>
-    <li class="portfolio-list-item">
       <a href="{{ '/portfolio/game-devtools-protocol/' | relative_url }}">A devtools protocol for a Godot game</a>
       <span class="portfolio-list-desc">Instrumentation for driving and inspecting a Godot game from the outside.</span>
     </li>
     <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/re9-classic-horror/' | relative_url }}">RE9 Classic Horror</a>
-      <span class="portfolio-list-desc">A fixed-camera conversion mod for Resident Evil Requiem, built on the RE Engine's own supported modding hooks.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/battle-effect-sequence/' | relative_url }}">A battle-effect sequence, rebuilt and measured</a>
-      <span class="portfolio-list-desc">A WebGL/Canvas2D recreation of a game battle effect, validated against a stated rubric.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/design-workshop/' | relative_url }}">The Design Workshop board</a>
-      <span class="portfolio-list-desc">Runnable: six review lanes, four passes, and a balance lab over 386,640 scored builds.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/vfx-auditioner/' | relative_url }}">The VFX audition gallery</a>
-      <span class="portfolio-list-desc">Runnable: 117 effect candidates with the verdict, note and per-pass history behind each.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/audio-daw/' | relative_url }}">The audio DAW</a>
-      <span class="portfolio-list-desc">Runnable: 167 SFX cues, 7 music tracks, loop authoring, and a WAV export carrying its loop points.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/sfx-composer/' | relative_url }}">The SFX take composer</a>
-      <span class="portfolio-list-desc">Runnable: 167 reference cues, an effects rack, and an offline WAV render that downloads in the browser.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/vfx-report/' | relative_url }}">The VFX build-out report</a>
-      <span class="portfolio-list-desc">Runnable: six build waves narrated with all twelve renders embedded, ending in a decision list.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/game/' | relative_url }}">For What Lies Beneath, playable</a>
-      <span class="portfolio-list-desc">Runnable: the Godot web export — faction select, march map, and a tactics battle.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/cyberpunk-red-guide/' | relative_url }}">cyberpunk-red-guide</a>
-      <span class="portfolio-list-desc">A tabletop RPG reference site where the design is the deliverable.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/generative-music-rubric/' | relative_url }}">Generative music, with the rubric as the craft</a>
-      <span class="portfolio-list-desc">A scored, repeatable creative pipeline built around a generative music model.</span>
-    </li>
-    <li class="portfolio-list-item">
       <a href="{{ '/portfolio/claude-sync/' | relative_url }}">claude-sync</a>
       <span class="portfolio-list-desc">A multi-location convergence engine for coding-agent state.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/workshop/' | relative_url }}">workshop</a>
-      <span class="portfolio-list-desc">A multi-lane render, judge, and dispatch system.</span>
     </li>
     <li class="portfolio-list-item">
       <a href="{{ '/portfolio/tinygpt/' | relative_url }}">tinygpt</a>
