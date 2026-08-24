@@ -17,7 +17,8 @@ per cue, so returning to a cue restores where its shaping left off. The render i
 recording of the preview: it re-synthesizes the chain offline and encodes the WAV itself.
 
 **What a reviewer can do here.** Walk the cue bank, play any reference cue, and switch sources
-on the two cues that carry alternate takes — one with two, one with three. Move the rack's
+on the two cues that carry alternate takes — two takes each, though one cue's source list shows
+three entries because its first take ships in both MP3 and WAV. Move the rack's
 sliders, preview the shaped result, A/B it against the original at any point, and hit Render &
 Download: the file that lands is the offline render, named for its cue.
 
