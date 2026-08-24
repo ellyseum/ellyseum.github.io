@@ -8,11 +8,9 @@ permalink: /portfolio/cordyceps/
 ---
 
 A local-first harness that spawns and drives PTY-based CLI coding agents — Claude Code, Codex,
-Gemini, Ollama — behind one interface, rather than one integration per tool.
+Gemini, Ollama — behind **one interface**, rather than one integration per tool.
 
-Published to npm as `@ellyseum/cordyceps`, v0.5.5, 2026-04-28. The scoped name matters: the
-bare package name `cordyceps` on npm belongs to an unrelated Discord.js utility library from
-2022, so `@ellyseum/cordyceps` is the correct citation.
-
-What will fill out this page further: the measurements and receipts behind it, and — where it
-applies — an embedded demo.
+<small>Published to npm as `@ellyseum/cordyceps`, v0.5.5, 2026-04-28. The scoped name matters:
+the bare package name `cordyceps` on npm belongs to an unrelated Discord.js utility library
+from 2022, so `@ellyseum/cordyceps` is the correct citation. Measurements, receipts, and — where
+it applies — an embedded demo will fill this page out further.</small>
