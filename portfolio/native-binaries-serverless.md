@@ -8,7 +8,8 @@ permalink: /portfolio/native-binaries-serverless/
 
 Getting a native image-processing library and an ML inference runtime loading correctly
 inside a sandboxed serverless action, where the platform's default build pipeline strips
-native binaries out of the deployed bundle.
+native binaries out of the deployed bundle. What it buys is creative throughput: the pixel
+work behind a creative platform's output running at native speed inside the sandbox.
 
 Enterprise platform work; the underlying repository, the platform, and the organization it
 was built for are not named here.

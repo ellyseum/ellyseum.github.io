@@ -14,7 +14,9 @@ permalink: /portfolio/vfx-auditioner/
 <p><small>Three of the 117, playing as rendered: <strong>The X-Cancel</strong>, <strong>Boss Transition</strong>, <strong>Muster Fireworks</strong>.</small></p>
 
 Visual effects for *For What Lies Beneath*, auditioned the way casting works: **batch-generate
-candidates, render each one, keep a verdict per candidate across passes**. All **117 candidates**
+candidates, render each one, keep a verdict per candidate across passes**. What survives these
+passes is what the game gets — the system generates at volume, and human judgment is the
+selection function. All **117 candidates**
 ship here with their blurb, wave, backdrop, verdict, note and complete per-pass history across
 four passes dated 2026-07-19 — counting each candidate's current verdict as captured for this
 build: **68 accepted, 4 killed, 45 still in review**, and 8 changed verdict between passes.

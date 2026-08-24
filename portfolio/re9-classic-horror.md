@@ -7,7 +7,8 @@ permalink: /portfolio/re9-classic-horror/
 ---
 
 A conversion mod for *Resident Evil Requiem* that turns the newest mainline Resident Evil back
-into a **fixed-camera, tank-control classic-horror game** — live, against the shipping RE
+into a **fixed-camera, tank-control classic-horror game** — engine introspection in service of
+one creative outcome: a whole other way the game feels to play. Live, against the shipping RE
 Engine, through Capcom's own supported modding hooks: input handling, per-frame render and
 motion-update entry points, UI panel positioning, and **the dual-projection camera math that
 makes the fixed-camera view work**.

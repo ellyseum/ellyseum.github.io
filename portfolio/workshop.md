@@ -7,7 +7,9 @@ permalink: /portfolio/workshop/
 ---
 
 The machinery behind [the Design Workshop board]({{ '/portfolio/design-workshop/' | relative_url }}) —
-**run the board there**; this page is the engine note.
+**run the board there**; this page is the engine note. This system is how one person's game
+gets a studio's worth of review: renders, judgments and dispatches flow through it so the
+design decisions land as verdicts, not vibes.
 
 An event-driven, multi-lane design-review system: **seven lanes** (balance, battle feel, flow,
 mechanics, menus, playthrough, VFX), state kept as plain JSON/JSONL in the repository, served by

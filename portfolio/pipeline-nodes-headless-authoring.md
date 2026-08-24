@@ -9,6 +9,8 @@ permalink: /portfolio/pipeline-nodes-headless-authoring/
 Custom local-ML pipeline nodes for a visual workflow-builder platform, plus a headless
 authoring and execution plane for the same platform: one published workflow serves unlimited
 variants through runtime parameter overrides, instead of re-authoring a workflow per variant.
+The result is creative production at catalog scale — every variant of a creative asset from
+one authored workflow.
 
 One shipped node is versioned v1.2.2 and in production use today. The headless plane's schema-
 drift gate — a CI check comparing a published workflow's expected parameters against the

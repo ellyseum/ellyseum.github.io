@@ -7,7 +7,8 @@ permalink: /portfolio/agentic-delivery-governance/
 ---
 
 The governance layer of a production delivery process, built entirely from stock GitHub
-features rather than a bespoke tool: provenance traceable end-to-end from a work item through
+features rather than a bespoke tool — the reason the creative systems in this portfolio ship
+as production work rather than pilots: provenance traceable end-to-end from a work item through
 the code that resolved it, blind multi-model review panels, and mutation-proven test guards —
 apply the exact regression, confirm the guard catches it, then restore, rather than trust that
 a test is load-bearing by inspection.

@@ -7,7 +7,8 @@ permalink: /portfolio/audio-daw/
 ---
 
 The audio tool from *For What Lies Beneath*, live in this page with no server behind it —
-**167 synthesized cues, 7 music tracks, waveform cutting, loop authoring**.
+**167 synthesized cues, 7 music tracks, waveform cutting, loop authoring**. This system is why
+the game's music can loop seamlessly in-engine: it authors the exact loop data Godot reads.
 
 <iframe src="{{ '/portfolio/audio-daw/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--surface, #333);border-radius:0.5rem;"

@@ -10,6 +10,8 @@ A library that authors motion-graphics template controllers **byte-identically t
 originating desktop authoring tool itself**, with no instance of that tool and no scripting
 runtime required at authoring time — a pure function: no network, no filesystem, no clock, no
 randomness. The caller decides where the source bytes come from and where the output bytes go.
+The output is a creative artifact: the same template an artist would export by hand, produced
+by code that knows the format from the inside.
 
 <small>Deterministic (same source and plan always produce the same output bytes, backed by a
 dedicated test) and content-addressed per template rather than per export: a real corpus check

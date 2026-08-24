@@ -7,7 +7,9 @@ permalink: /portfolio/sfx-composer/
 ---
 
 Where a cue's sound gets decided: **pick a cue, A/B a generated take against the reference,
-shape it through an effects rack, render the keeper to a WAV** — live in this page.
+shape it through an effects rack, render the keeper to a WAV** — live in this page. The keeper
+takes chosen here are how the game gets its sound: generation supplies the candidates, and a
+human ear makes the call.
 
 <iframe src="{{ '/portfolio/sfx-composer/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--surface, #333);border-radius:0.5rem;"

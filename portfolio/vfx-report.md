@@ -14,7 +14,8 @@ permalink: /portfolio/vfx-report/
 <p><small>Three of the twelve renders: <strong>dissolve / materialize</strong>, <strong>cracked ground · obsidian</strong>, <strong>energy trails</strong>. All twelve are embedded in the report below.</small></p>
 
 One sustained VFX build-out on *For What Lies Beneath* — **fourteen commits across six waves,
-eight new demo studios, six reusable modules** — narrated wave by wave with the renders embedded
+eight new demo studios, six reusable modules** the game's effect work now draws on — narrated
+wave by wave with the renders embedded
 where the prose earns them: HD sprites in the pixel world, energy trails, cashing in the noise
 engine, a distortion family, anti-occlusion and the info layer, and cellular follow-ons.
 

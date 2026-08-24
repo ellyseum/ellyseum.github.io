@@ -7,9 +7,11 @@ permalink: /portfolio/game/
 ---
 
 The game itself — **a from-scratch tactics game built in Godot**, exported to the web and served
-as files. **Click the canvas, then `Enter` confirms, `WASD`/arrows move, `Esc` backs out.** The
-path through it: faction select, the branching march map, then a battle on destructible terrain
-with the action menu and unit stats live.
+as files. This is the creative result the rest of the portfolio's instruments exist to build:
+the DAW's loops, the auditioned effects, and the workshop's verdicts all point here.
+**Click the canvas, then `Enter` confirms, `WASD`/arrows move, `Esc` backs out.** The path
+through it: faction select, the branching march map, then a battle on destructible terrain with
+the action menu and unit stats live.
 
 <iframe src="{{ '/portfolio/game/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/9;min-height:520px;border:1px solid var(--surface, #333);border-radius:0.5rem;"

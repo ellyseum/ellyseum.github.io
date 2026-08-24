@@ -6,8 +6,9 @@ status: live
 permalink: /portfolio/sfx-vfx-instruments/
 ---
 
-Two home-grown tools, built because general-purpose ones didn't fit the actual problem. All four
-faces of them run in the browser:
+Two home-grown tools, built because general-purpose ones didn't fit the actual problem — the
+instruments behind one game's sound and effects, and each instrument's output ships in it. All
+four faces of them run in the browser:
 
 - **[The audio DAW]({{ '/portfolio/audio-daw/' | relative_url }})** — 167 cues, 7 tracks, loop
   authoring, and a WAV export that carries its loop points.

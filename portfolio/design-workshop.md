@@ -13,7 +13,8 @@ permalink: /portfolio/design-workshop/
 </div>
 <p><small>Three takes on battle feel from the board's battle-feel lane: <strong>baseline</strong>, <strong>punchy</strong>, <strong>cinematic</strong> — the kind of side-by-side call the board exists to make.</small></p>
 
-The review surface the design work on *For What Lies Beneath* runs through. **Six lanes — VFX,
+The review surface the design work on *For What Lies Beneath* runs through — this board is
+where the game's design calls get made. **Six lanes — VFX,
 battle feel, mechanics, playthrough, flow and balance** — each with its own candidates, verdicts
 and notes, plus a work-card queue, a milestone list, and a scene-flow view that diffs the
 intended screen graph against a trace captured from live play.

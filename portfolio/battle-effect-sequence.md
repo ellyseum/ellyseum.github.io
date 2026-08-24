@@ -20,9 +20,9 @@ and rings are real WebGL (three.js, a custom shader for the dark-stroke/gradient
 wordmark and ink backdrop are Canvas2D, composited as a **stacked-canvas hybrid** — the same
 2D-over-3D approach the source itself uses.
 
-<small>Converged toward the source with an agentic, rubric-scored validation loop: render,
+<small>The sequence above is the output of an agentic, rubric-scored validation loop — render,
 capture frames headlessly, compare against the reference, score each subsystem with a
-multi-agent panel, rebuild, repeat.</small>
+multi-agent panel, rebuild, repeat — the system that converged it toward the source.</small>
 
 **Fan-work disclaimer.** *Persona 5* and the "AMBUSH!" battle-start sequence are the property
 of ATLUS / SEGA. This is an unaffiliated, non-commercial, clean-room recreation built for
