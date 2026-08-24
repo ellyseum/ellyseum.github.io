@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Battle-Effect Sequence — a clean-room recreation</title>
+<!--
+  Fan-work disclaimer: Persona 5 and the "AMBUSH!" battle-start sequence are (c) ATLUS / SEGA.
+  This is an unaffiliated, non-commercial, clean-room recreation for educational and research
+  purposes. No Persona 5 game assets are included or distributed here.
+  Third-party software vendored in this page: three.js (MIT, (c) three.js Authors) and the
+  Anton typeface (SIL Open Font License 1.1).
+-->
+<style>
+  @font-face{font-family:'Anton';src:url('fonts/Anton-Regular.ttf') format('truetype');font-display:block;}
+  html,body{margin:0;background:#000;overflow:hidden;}
+  #stage{position:fixed;inset:0;display:grid;place-items:center;background:#000;}
+  .wrap{position:relative;width:1280px;height:720px;max-width:100vw;max-height:100vh;}
+  canvas{position:absolute;inset:0;width:1280px;height:720px;}
+  #bloom{mix-blend-mode:screen;pointer-events:none;}   /* additive glow pass: blurred bright beams + letters */
+  #replay{position:fixed;left:12px;bottom:12px;z-index:10;padding:8px 16px;background:#dc0000;color:#fff;
+          border:none;font-weight:bold;cursor:pointer;box-shadow:3px 3px 0 #000;opacity:.5;font-family:sans-serif;}
+  #replay:hover{opacity:1;} body.cap #replay{display:none;}
+  #fanwork{position:fixed;right:8px;bottom:6px;z-index:10;color:#666;font:11px/1.3 sans-serif;
+           max-width:260px;text-align:right;} body.cap #fanwork{display:none;}
+</style>
+</head>
+<body>
+<div id="stage"><div class="wrap">
+  <canvas id="bg" width="1280" height="720"></canvas>
+  <canvas id="gl" width="1280" height="720"></canvas>
+  <canvas id="fg" width="1280" height="720"></canvas>
+  <canvas id="bloom" width="1280" height="720"></canvas>
+</div></div>
+<button id="replay" onclick="play()">replay</button>
+<div id="fanwork">Fan-work: an unaffiliated, non-commercial, clean-room recreation of a battle-start
+flourish from a well-known game. No original game assets included.</div>
+<script src="lib/three.min.js"></script>
+<script>
+// ============================================================================
+//  Persona 5 — "AMBUSH!" battle-start flourish — a clean-room procedural recreation.
+//  three.js (WebGL) for the light bars/rings + Canvas2D for the ink, letters & bloom.
+//  Bars are flat ribbons painted by one ShaderMaterial (gradient grow, tapered width,
+//  white-hot core, black edge-stroke). Timeline (2.3s), all knobs in CFG:
+//    cyan CONE of spokes (spins up its axis) -> AMBUSH! letter slam -> starfield rush
+//    -> base-rooted red/black ink eruption (quills, whips, bubbles) -> dark resolve.
+//  spawnBurst() is a standalone, scalable enemy-spawn blast (kept, currently unwired).
+// ============================================================================
+const W=1280,H=720;
+const bx=document.getElementById('bg').getContext('2d');
+const fgEl=document.getElementById('fg');
+const fx=fgEl.getContext('2d');
+const glc=document.getElementById('gl');
+const blc=document.getElementById('bloom').getContext('2d');
+
+const clamp=(x,a=0,b=1)=>x<a?a:x>b?b:x;
+const seg=(t,a,b)=>clamp((t-a)/Math.max(1,b-a));
+const lerp=(a,b,u)=>a+(b-a)*u;
+const easeOutCubic=u=>1-Math.pow(1-u,3);
+const easeOutBack=(u,k=2.4)=>{const c1=k,c3=c1+1;return 1+c3*Math.pow(u-1,3)+c1*Math.pow(u-1,2);};
+const easeInCubic=u=>u*u*u;
+function rng(s){s=(s>>>0)||1;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+
+const CFG={ total:2300,
+  spawn:{small:{t0:1460,scale:0.6,cx:600,cy:382,seed:71}, big:{t0:1840,scale:1.55,cx:600,cy:352,seed:91}}, // spawnBurst presets (currently UNUSED — kept for later)
+  beams:{t0:40,t1:1320,n:8},       // S2 cyan CONE: 8 thick black-stroked spokes (4 cyan + 4 darker), spin 360 fast + 360 eased, fade
+  rush:{t0:1180,t1:2150,n:9},      // S3 starfield: starts AFTER the cone fades; rays invisible at center, fade in toward the edges
+  letters:{base:35,step:13,dur:220}, // S7: fast staggered slam — every glyph seated by ~0.34s (A@35..!@113) to match source's full-by-0500
+  rings:{t0:1600,t1:1980,n:6},
+  consume:[1700,1980], wipe:[2140,2300],
+  // SAMPLED from the source center region (pure-channel red ramp G~0/B~0; pure black) — palette match
+  col:{black:'#000000',red:'#b00808',redDk:'#520001',redDeep:'#380000',crim:'#d01510',redHot:'#ee2014',redBri:'#e60000',
+       white:'#fff',grey:'#9a9088',cyan:'#5fe0e0',cyanCore:'#e8ffff',cyanDark:'#1d7ea0',cyanBlue:'#1a4cff',ink:'#000'},
+};
+// Measured from gridded high-zoom source crops (1280x720; +r = CW = top tips RIGHT). M & S are warm grey.
+const LET=[{c:'A',x:327,y:251,r:-11,s:1.56},{c:'M',x:466,y:196,r:22,s:0.74,grey:1},{c:'B',x:565,y:308,r:8,s:1.52},
+  {c:'U',x:672,y:244,r:13,s:1.2},{c:'S',x:790,y:305,r:16,s:1.0,grey:1},{c:'H',x:872,y:348,r:-17,s:1.32},
+  {c:'!',x:995,y:256,r:28,s:1.78}];
+
+// ---------- shader bar material ----------
+const VERT=`varying vec2 vUv; void main(){vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`;
+const FRAG=`precision highp float; varying vec2 vUv;
+uniform vec3 uColor,uCore; uniform float uOpacity,uLen,uMaxHW,uAmp,uSpindle,uStroke,uSplat;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+void main(){
+  float u=vUv.x, v=vUv.y;
+  if(u>uLen) discard;
+  float shape = uSpindle>0.5 ? sin(3.14159*u) : (0.05+0.95*u);   // spindle (ring) vs cone (beam)
+  float hw = uAmp*uMaxHW*shape;                                   // visible half-width (0..0.5)
+  float dv = abs(v-0.5);
+  if(dv>hw||hw<=0.001) discard;
+  float edge = dv/hw;                                             // 0 center .. 1 edge
+  vec3 col=mix(uCore,uColor,smoothstep(0.0,0.66,edge));           // wide white-hot core
+  float alpha=uOpacity;
+  if(uStroke>0.0){ col=mix(col,vec3(0.0),smoothstep(1.0-uStroke,1.0,edge)); }   // black edge-stroke
+  else { alpha*=1.0-smoothstep(0.45,1.0,edge); }                 // additive glow falloff
+  if(uSplat>0.5){ float n=hash(floor(vUv*vec2(34.0,7.0)));
+    if(n>0.80) col=mix(col,vec3(0.0),0.75); else if(n<0.12) col=mix(col,vec3(0.42,0.0,0.0),0.6); }
+  alpha*=smoothstep(uLen,uLen-0.05,u);                            // soft growing tip
+  gl_FragColor=vec4(col,alpha);
+}`;
+function barMat(opts){ return new THREE.ShaderMaterial({uniforms:{
+    uColor:{value:new THREE.Color(opts.color)}, uCore:{value:new THREE.Color(opts.core||'#ffffff')},
+    uOpacity:{value:1}, uLen:{value:1}, uMaxHW:{value:0.5}, uAmp:{value:1},
+    uSpindle:{value:opts.spindle?1:0}, uStroke:{value:opts.stroke||0}, uSplat:{value:opts.splat?1:0}},
+    vertexShader:VERT, fragmentShader:FRAG, transparent:true, depthWrite:false,
+    side:THREE.DoubleSide, blending:opts.additive?THREE.AdditiveBlending:THREE.NormalBlending}); }
+
+// straight ribbon spanning x[0..1], y[-0.5..0.5]; UV x=length y=width
+function straightRibbon(){ const g=new THREE.PlaneGeometry(1,1,24,1); g.translate(0.5,0,0); return g; }
+// flat full-ring ribbon at radius R, band width w, UV x=around y=across
+function ringRibbon(R,w,segs){ const g=new THREE.BufferGeometry(); const pos=[],uv=[],idx=[];
+  for(let i=0;i<=segs;i++){const a=i/segs*Math.PI*2, c=Math.cos(a),s=Math.sin(a);
+    pos.push(c*(R-w/2),s*(R-w/2),0, c*(R+w/2),s*(R+w/2),0); uv.push(i/segs,0, i/segs,1);}
+  for(let i=0;i<segs;i++){const a=i*2;idx.push(a,a+1,a+2, a+1,a+3,a+2);}
+  g.setIndex(idx); g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2)); return g; }
+
+// ---------- THREE ----------
+const renderer=new THREE.WebGLRenderer({canvas:glc,alpha:true,antialias:true,preserveDrawingBuffer:true});
+renderer.setSize(W,H,false); renderer.setClearColor(0x000000,0);
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(50,W/H,0.1,100); cam.position.set(0,0,7); cam.lookAt(0,0,0);
+scene.add(new THREE.AmbientLight(0xffffff,1));
+
+function makeTex(draw,w,h){const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);
+  const t=new THREE.CanvasTexture(c);return t;}
+const cubeTex=makeTex((c,w,h)=>{const g=c.createRadialGradient(w/2,h/2,4,w/2,h/2,w*0.72);
+  g.addColorStop(0,'#1a0608');g.addColorStop(1,'#090405');c.fillStyle=g;c.fillRect(0,0,w,h);
+  c.strokeStyle='rgba(70,12,16,0.3)';c.lineWidth=4;c.strokeRect(6,6,w-12,h-12);
+  c.fillStyle='rgba(160,80,30,0.18)';c.beginPath();c.arc(w*0.7,h*0.34,w*0.07,0,7);c.fill();},128,128);
+
+const beamGroup=new THREE.Group(); scene.add(beamGroup);
+const BEAM_X=new THREE.Vector3(1,0,0), _spokeDir=new THREE.Vector3();   // for aiming cone spokes (reused, no per-frame alloc)
+const beams=[]; for(let i=0;i<CFG.beams.n;i++){const m=barMat({color:CFG.col.cyan,core:CFG.col.cyanCore,stroke:0.46});
+  const mesh=new THREE.Mesh(straightRibbon(),m); beams.push(mesh); beamGroup.add(mesh);}
+const rushGroup=new THREE.Group(); scene.add(rushGroup);
+const rush=[]; for(let i=0;i<CFG.rush.n;i++){const m=barMat({color:CFG.col.cyan,core:CFG.col.cyanCore,additive:true});
+  const mesh=new THREE.Mesh(straightRibbon(),m); rush.push(mesh); rushGroup.add(mesh);}
+const ringGroup=new THREE.Group(); scene.add(ringGroup);
+const rings=[]; for(let i=0;i<CFG.rings.n;i++){const m=barMat({color:CFG.col.red,core:CFG.col.redHot,stroke:0.34,splat:true,spindle:true});
+  const mesh=new THREE.Mesh(ringRibbon(1.0,0.9,96),m); mesh.userData.base=1.0; rings.push(mesh); ringGroup.add(mesh);}
+const cube=new THREE.Mesh(new THREE.BoxGeometry(1.7,1.7,1.7),new THREE.MeshBasicMaterial({map:cubeTex,transparent:true}));
+scene.add(cube);
+const FLOOR=[0,-2.3];
+
+function update3D(t){
+  beamGroup.visible=rushGroup.visible=ringGroup.visible=cube.visible=false;
+  // S6 cube: dark backdrop, dolly IN (1.0->1.6), persist to ~1900
+  const cf=clamp(seg(t,150,420))*(1-seg(t,1700,1980));
+  if(cf>0){cube.visible=true;cube.rotation.y=t*0.0008;cube.rotation.x=0.5;
+    cube.scale.setScalar(lerp(0.85,1.15,easeOutCubic(seg(t,1450,1750))));cube.position.set(0,-0.25,-0.6);
+    cube.material.opacity=cf*0.5;}
+  // S2 cyan CONE: 8 THICK black-stroked spokes radiate straight out from the word-base point (4 cyan + 4
+  // darker cyan, opposite spokes share a shade), bursting out then SPINNING — one fast 360, then an eased
+  // 360 that slows down — then fading. (A cone of spokes seen down its axis = a spinning sunburst.)
+  const t0=CFG.beams.t0, bu=seg(t,t0,CFG.beams.t1);
+  if(bu>0&&bu<1){beamGroup.visible=true;beamGroup.position.set(0,-1.55,0.2);beamGroup.rotation.set(0,0,0);
+    const spin=clamp(seg(t,t0,t0+280))*Math.PI*2                                     // 1st turn: FAST
+              +easeOutCubic(clamp(seg(t,t0+280,t0+1060)))*Math.PI*2;                  // 2nd turn: EASED slowdown
+    const fade=clamp(seg(t,t0,t0+130))*(1-clamp(seg(t,t0+840,t0+1180)));             // pop in, then fade out after the 2nd turn
+    const NB=8, jr=rng(211);
+    for(let i=0;i<beams.length;i++){ if(i>=NB){beams[i].visible=false;continue;} beams[i].visible=true;
+      const dark=(i%2===1);                                                          // alternate -> opposite spokes (i, i+4) share a shade: 4 + 4
+      const phi=i/NB*Math.PI*2+spin+(jr()-0.5)*0.22;                                 // azimuth around the UP axis (+ spin + organic jitter)
+      const half=0.6+(jr()-0.5)*0.22;                                                // cone half-angle (~34deg) w/ jitter -> jagged
+      _spokeDir.set(Math.sin(half)*Math.cos(phi),Math.cos(half),Math.sin(half)*Math.sin(phi)); // points UP (+Y) and OUT — a cone about the vertical axis
+      const grow=easeOutCubic(clamp(bu*2.4-i*0.015));                                // burst straight OUT from the apex
+      const m=beams[i]; m.position.set(0,0,0); m.quaternion.setFromUnitVectors(BEAM_X,_spokeDir); // aim the bar up its cone spoke
+      m.scale.set(4.6+jr()*1.5,0.5,1);                                               // long THICK bars
+      m.material.uniforms.uColor.value.set(dark?'#1496bd':'#36ecff');                // cyan + DARKER cyan (teal), NOT blue
+      m.material.uniforms.uCore.value.set(dark?'#7fe0f4':'#dffcff');
+      m.material.uniforms.uLen.value=grow; m.material.uniforms.uAmp.value=1.0;
+      m.material.uniforms.uMaxHW.value=0.5; m.material.uniforms.uOpacity.value=1.7*fade;}
+  }
+  // S3 rush: HYPERSPACE / starfield warp — cyan streaks radiate from a central vanishing point (the word
+  // base), each tail starting at the point and the head ACCELERATING outward off-screen, stretching as it
+  // flies (perspective). The secondary cyan effect AFTER the geyser. Two shades, looping per-streak phases.
+  const ru=seg(t,CFG.rush.t0,CFG.rush.t1);
+  if(ru>0&&ru<1){rushGroup.visible=true;rushGroup.position.set(0,-0.2,1.0);rushGroup.rotation.z=0;
+    const env=Math.sin(clamp(ru)*Math.PI),rr=rng(53); const NR=9, cyc=0.5;
+    for(let i=0;i<rush.length;i++){ if(i>=NR){rush[i].visible=false;continue;} rush[i].visible=true;
+      const ang=(i/NR)*Math.PI*2+rr()*0.6;                                  // radial direction around the vanishing point
+      const birth=rr()*cyc; let p=(((ru-birth)%cyc)+cyc)%cyc/cyc;           // each streak loops on its own phase
+      const head=easeInCubic(p)*8.6, len=lerp(0.3,3.4,p), tail=Math.max(0,head-len);  // accelerate out + stretch
+      const dark=(i%2===1);
+      const m=rush[i]; m.position.set(Math.cos(ang)*tail,Math.sin(ang)*tail,0); m.rotation.z=ang;
+      m.scale.set(Math.max(0.05,head-tail),0.16,1);
+      m.material.uniforms.uColor.value.set(dark?'#1496bd':'#36ecff');
+      m.material.uniforms.uCore.value.set(CFG.col.cyanCore);
+      m.material.uniforms.uLen.value=1; m.material.uniforms.uMaxHW.value=0.28;
+      // INVISIBLE at the center, fade IN only as the streak nears the screen edge (you never see them spawn)
+      const edgeVis=clamp((head-1.9)/3.4);
+      m.material.uniforms.uOpacity.value=2.9*env*edgeVis*(1-clamp((p-0.86)/0.14));}
+  }
+  // S5 red WHIP: black-stroked red ARC-SHARDS (partial rings) wrapping a target, tumbling in 3D, present
+  // mid-card (subtle, behind the letters -> sustains red + gives the whipping motion) then strong into the flood.
+  const gu=seg(t,750,2150);
+  if(gu>0){ringGroup.visible=true;ringGroup.position.set(0,-0.1,1.0);          // behind letters, in front of beams
+    const intens=clamp(seg(t,750,1300))*(0.45+0.55*clamp(seg(t,1500,1850)));   // red climb starts ~750ms (src_0800)
+    const R=lerp(0.6,1.9,easeOutCubic(clamp(seg(t,750,2050))));
+    for(let i=0;i<rings.length;i++){const m=rings[i]; m.visible=true;
+      const amp=0.45+0.65*Math.abs(Math.sin((gu*2.3+i*0.6)*Math.PI));         // pulse fat/thin (grow-then-shrink)
+      m.scale.setScalar(R*(0.7+0.3*i/rings.length)/m.userData.base);
+      m.material.uniforms.uLen.value=lerp(0.16,0.38,clamp(gu*1.4));            // SHORT torn shards (not a hula-hoop ring)
+      m.material.uniforms.uAmp.value=clamp(amp,0.2,1.4); m.material.uniforms.uMaxHW.value=0.5;
+      m.material.uniforms.uOpacity.value=intens*0.45;                         // subtle red 3D accent BEHIND the 2D black eruption
+      m.rotation.set(0.4+i*0.5, t*0.0035+i*0.9, i*0.9+t*0.0026);}             // whip/tumble: a few full turns in 3D
+  }
+  renderer.render(scene,cam);
+}
+
+// ---------- 2D background: JAGGED torn-ink splatter + red arena floor + bubbling smoke ----------
+// JAGGED torn-paper ink shard: MANY vertices (14-22), UNEVEN normalized angular steps, RANDOM (not
+// alternating) radius per vertex, SHARP straight edges (lineTo) -> an irregular angular silhouette that
+// reads as torn ink. Random (not alternating hi/lo) radii is what stops it becoming a symmetric star;
+// sharp edges (vs the earlier smooth bezier metaball) are what make it read as P5 ink, not a lava-lamp.
+function inkblob(c,cx,cy,rad,seed,squash){
+  const r=rng(seed), sq=squash||0.92, n=18+Math.floor(r()*12);     // MORE vertices -> torn-ink edge, not a clean polygon
+  const steps=[]; let tot=0;
+  for(let i=0;i<n;i++){const s=0.4+r()*1.3; steps.push(s); tot+=s;} // uneven angular steps
+  let a=r()*Math.PI*2; c.beginPath();
+  for(let i=0;i<n;i++){ a+=steps[i]/tot*Math.PI*2; const rr=rad*(0.32+r()*1.08)*(r()<0.18?0.55:1); // occasional deep notch -> ragged feathered silhouette
+    const x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr*sq; i?c.lineTo(x,y):c.moveTo(x,y);}
+  c.closePath();}
+// ORGANIC persona-wing membrane: a smooth CURVED silhouette (dir = -1 left / +1 right) sweeping up+out from
+// (cx,cy) — concave upper edge to a tapering tip, curved underside back, with a few soft feather notches.
+// Reads as a billowing wing, NOT a hard polygon spike-fan. Caller fills (red body / black core / hot edge).
+function personaWing(c,cx,cy,len,ht,dir,seed){
+  const r=rng(seed);
+  const tipx=cx+dir*len, tipy=cy-ht*0.32;                          // wing tip: out + slightly up
+  c.beginPath(); c.moveTo(cx,cy);
+  c.bezierCurveTo(cx+dir*len*0.22,cy-ht*(1.05+r()*0.15), cx+dir*len*0.70,cy-ht*(0.92+r()*0.12), tipx,tipy); // concave swept top edge
+  // a few SOFT feather notches along the trailing underside, curving back to the origin
+  const n=3+Math.floor(r()*2); let px=tipx,py=tipy;
+  for(let i=1;i<=n;i++){const f=1-i/(n+1);
+    const nx=cx+dir*len*f, ny=cy+ht*(0.06+0.34*(1-f))+(r()-0.5)*ht*0.12;
+    const cxp=(px+nx)/2+dir*ht*0.10, cyp=(py+ny)/2+ht*0.16;        // bulge between tips -> soft scalloped feather edge
+    c.quadraticCurveTo(cxp,cyp,nx,ny); px=nx; py=ny;}
+  c.quadraticCurveTo(cx+dir*len*0.04,cy+ht*0.10,cx,cy+ht*0.04);
+  c.closePath();}
+// Red-body / BLACK-CORE whipping ribbons: tapered (thin-fat-thin) bezier ribbons fanning OUTWARD from the
+// word base, each on its own grow->travel->shrink->fade cycle, in 2-3 parallel clusters (black-gap banding).
+function drawWhips(t){
+  const env=clamp(seg(t,900,1300))*(0.4+0.6*clamp(seg(t,1500,1950))); if(env<=0) return;
+  const cx=600,cy=460,rr=rng(917),NW=Math.floor(lerp(3,12,env)),cyc=520;
+  for(let i=0;i<NW;i++){
+    const ang=-0.35+(i/Math.max(1,NW)-0.5)*2.4+(rr()-0.5)*0.4;     // fan outward
+    const ox=cx+(rr()-0.5)*120, oy=cy+20+(rr()-0.5)*90;
+    const L=lerp(300,700,rr()), bow=(rr()-0.5)*L*0.7;
+    const dx=Math.cos(ang),dy=Math.sin(ang),px=-dy,py=dx;
+    const P0=[ox,oy],P1=[ox+dx*L*0.33+px*bow,oy+dy*L*0.33+py*bow],
+          P2=[ox+dx*L*0.66+px*bow*0.5,oy+dy*L*0.66+py*bow*0.5],P3=[ox+dx*L,oy+dy*L];
+    const birth=i*90; let p=(((t-birth)%cyc)+cyc)%cyc/cyc;
+    const head=easeOutCubic(clamp(p/0.85));
+    const segLen=lerp(0.12,0.42,Math.sin(clamp(p/0.7)*Math.PI/2))*(1-clamp((p-0.7)/0.3));
+    const tail=clamp(head-segLen); if(head<=tail) continue;
+    const wMax=lerp(13,36,rr())*(0.6+0.4*env), alpha=env*clamp(p/0.18)*(1-clamp((p-0.78)/0.22));
+    if(alpha<=0.01) continue; const N=16, cl=rr()<0.5?2:3, span=(head-tail)||1;
+    for(let cI=0;cI<cl;cI++){const perpOff=(cI-(cl-1)/2)*wMax*1.4, top=[],bot=[];
+      for(let k=0;k<=N;k++){const s=tail+(head-tail)*k/N, mt=1-s;
+        const bxp=mt*mt*mt*P0[0]+3*mt*mt*s*P1[0]+3*mt*s*s*P2[0]+s*s*s*P3[0];
+        const byp=mt*mt*mt*P0[1]+3*mt*mt*s*P1[1]+3*mt*s*s*P2[1]+s*s*s*P3[1];
+        const tx=3*mt*mt*(P1[0]-P0[0])+6*mt*s*(P2[0]-P1[0])+3*s*s*(P3[0]-P2[0]);
+        const ty=3*mt*mt*(P1[1]-P0[1])+6*mt*s*(P2[1]-P1[1])+3*s*s*(P3[1]-P2[1]);
+        const tl=Math.hypot(tx,ty)||1, nx=-ty/tl, ny=tx/tl;
+        const w=wMax*Math.pow(Math.sin(Math.PI*((s-tail)/span)),0.7)/2;
+        const ccx=bxp+nx*perpOff, ccy=byp+ny*perpOff;
+        top.push([ccx+nx*w,ccy+ny*w]); bot.push([ccx-nx*w,ccy-ny*w]);}
+      for(let pass=0;pass<2;pass++){bx.beginPath();bx.moveTo(top[0][0],top[0][1]);
+        for(let k=1;k<top.length;k++)bx.lineTo(top[k][0],top[k][1]);
+        for(let k=bot.length-1;k>=0;k--)bx.lineTo(bot[k][0],bot[k][1]);bx.closePath();
+        if(pass===0){bx.globalAlpha=alpha*0.95;bx.fillStyle='#000';bx.strokeStyle='#000';bx.lineWidth=5;bx.lineJoin='round';bx.stroke();bx.fill();}
+        else{bx.globalAlpha=alpha;bx.fillStyle=p<0.4?CFG.col.redHot:(p<0.7?CFG.col.crim:CFG.col.red);bx.fill();}}}
+  }
+  bx.globalAlpha=1;}
+// Red-with-black BUBBLES: rounded spheres that grow + fade, popping in/out around the word base (~30% pure black).
+function drawBubbles(t){
+  const intens=clamp(seg(t,700,1700))*(1-clamp(seg(t,1700,1900))); if(intens<=0) return;
+  const r=rng(431),cxb=600,cyb=470,N=16,sp=clamp(seg(t,700,1500));
+  for(let i=0;i<N;i++){const life=260+r()*240,birth=r()*life,prog=((t+birth)%life)/life;
+    const radius=easeOutCubic(prog)*lerp(48,135,sp), bx2=cxb+(r()-0.5)*lerp(150,470,sp),
+          by2=cyb-prog*lerp(50,250,r())-r()*90, a=Math.sin(prog*Math.PI)*0.92*intens;
+    if(a<=0.02||radius<2) continue;
+    if(r()<0.3){bx.globalAlpha=a;bx.fillStyle='#000';bx.beginPath();bx.arc(bx2,by2,radius*0.8,0,7);bx.fill();}
+    else{const g=bx.createRadialGradient(bx2,by2,1,bx2,by2,radius);
+      g.addColorStop(0,`rgba(40,0,0,${a})`);g.addColorStop(0.45,`rgba(210,8,8,${a})`);g.addColorStop(1,'rgba(154,0,0,0)');
+      bx.globalAlpha=1;bx.fillStyle=g;bx.beginPath();bx.arc(bx2,by2,radius,0,7);bx.fill();
+      bx.globalAlpha=a*0.9;bx.strokeStyle='#000';bx.lineWidth=Math.max(1,radius*0.16);bx.beginPath();bx.arc(bx2,by2,radius*0.92,0,7);bx.stroke();}}
+  bx.globalAlpha=1;}
+// STANDARDIZED enemy-spawn explosion (clean-room): red BLADES with a thick BLACK STROKE whipping in a
+// 3D-tilted circular orbit around a spawn point (cx,cy), growing then collapsing. ONE `scale` knob drives
+// reach + blade size + stroke weight, so a bigger enemy spawns a bigger blast. Call it small-then-big.
+//   c=2D ctx · t=now · t0=onset ms · (cx,cy)=spawn point · scale≈0.4(small)..1.8(boss) · seed=variant
+function spawnBurst(c,t,t0,cx,cy,scale,seed){
+  const dur=520+300*scale, p=(t-t0)/dur; if(p<=0||p>=1) return;     // bigger blasts last a touch longer
+  const r=rng(seed), env=Math.sin(clamp(p)*Math.PI);                // grow->shrink envelope
+  const ringR=scale*lerp(50,320,easeOutCubic(clamp(p*1.5)))*(1-0.5*clamp((p-0.55)/0.45)); // ring punches out then collapses
+  const whip=easeOutCubic(clamp(p))*1.35*Math.PI*2;                 // the whole set WHIPS ~1.35 turns around the point
+  const ySq=0.62, N=Math.round(9+8*scale), strokeW=scale*lerp(7,26,env); // ySq -> 3D-tilted hoop; thick scaling black stroke
+  c.save();
+  // central red-black CORE pop (black silhouette under a hot-red body)
+  const coreR=scale*lerp(24,170,env);
+  c.globalAlpha=0.92*env; c.fillStyle='#000'; inkblob(c,cx,cy,coreR*1.18,seed+1,1.0); c.fill();
+  const cg=c.createRadialGradient(cx,cy-coreR*0.25,coreR*0.1,cx,cy,coreR);
+  cg.addColorStop(0,'#2a0000'); cg.addColorStop(0.55,CFG.col.crim); cg.addColorStop(1,CFG.col.redHot);
+  c.fillStyle=cg; inkblob(c,cx,cy,coreR,seed+2,1.0); c.fill();
+  // orbiting red blades, drawn back(top)->front(bottom) so the hoop reads as 3D
+  const idx=[...Array(N).keys()].sort((u,v)=>Math.sin(u/N*Math.PI*2+whip)-Math.sin(v/N*Math.PI*2+whip));
+  for(const i of idx){
+    const a=i/N*Math.PI*2+whip+(r()-0.5)*0.18, rr=ringR*(0.78+r()*0.4);
+    const x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr*ySq;
+    const front=0.6+0.4*(Math.sin(a)*0.5+0.5);                      // front (bottom) blades bigger/brighter
+    const bl=scale*lerp(34,150,env)*(0.7+r()*0.6)*front, bw=bl*0.34;
+    c.save(); c.translate(x,y); c.rotate(a+Math.PI/2+0.55*Math.sign(Math.cos(a))); // point outward, swept along the whip
+    c.beginPath(); c.moveTo(0,-bl);                                 // jagged red BLADE (elongated torn petal), tip outward
+    c.lineTo(bw*0.55,-bl*0.42); c.lineTo(bw,-bl*0.05); c.lineTo(bw*0.4,bl*0.3);
+    c.lineTo(0,bl*0.16); c.lineTo(-bw*0.4,bl*0.3); c.lineTo(-bw,-bl*0.05); c.lineTo(-bw*0.55,-bl*0.42);
+    c.closePath(); c.lineJoin='round'; c.globalAlpha=env;
+    c.lineWidth=strokeW; c.strokeStyle='#000'; c.stroke();          // LARGE black stroke (the P5 ink outline)
+    const lg=c.createLinearGradient(0,-bl,0,bl*0.3);               // hot tip -> deep-red base
+    lg.addColorStop(0,'#ff5a1e'); lg.addColorStop(0.4,CFG.col.redHot); lg.addColorStop(1,CFG.col.redDeep);
+    c.fillStyle=lg; c.fill(); c.restore();
+  }
+  c.globalAlpha=1; c.restore();}
+function drawBG(t){
+  bx.clearRect(0,0,W,H);
+  // dim MAROON arena (not a black void) + vignette
+  bx.fillStyle='#1a0608';bx.fillRect(0,0,W,H);
+  const vg=bx.createRadialGradient(640,330,80,640,360,820);vg.addColorStop(0,'rgba(42,10,14,0.55)');vg.addColorStop(1,'rgba(7,2,3,0.92)');
+  bx.fillStyle=vg;bx.fillRect(0,0,W,H);
+  // reddish reflective arena floor, lower ~36% (horizon ~y0.64), with faint red reflection streaks
+  const horizon=Math.round(H*0.64);
+  const fl=bx.createLinearGradient(0,horizon,0,H);fl.addColorStop(0,'rgba(58,13,13,0)');fl.addColorStop(0.5,'rgba(90,20,20,0.6)');fl.addColorStop(1,'rgba(40,10,10,0.96)');
+  bx.fillStyle=fl;bx.fillRect(0,horizon,W,H-horizon);
+  // blurred dark party silhouettes hunched along the bottom edge
+  bx.save();bx.fillStyle='rgba(8,2,3,0.85)';
+  for(let i=0;i<5;i++){const sx=140+i*250,sw=70+((i*53)%40);bx.beginPath();
+    bx.ellipse(sx,H-6,sw*0.5,46,0,Math.PI,0);bx.fill();}
+  bx.restore();
+  bx.save();bx.globalAlpha=0.14;bx.fillStyle='#6e0f12';for(let i=0;i<5;i++)bx.fillRect(110+i*250,H*0.72,7,H*0.28);bx.restore();
+  bx.fillStyle='rgba(110,15,18,0.5)';bx.fillRect(0,Math.round(H*0.7),W,3);
+  bx.fillStyle='rgba(212,160,23,0.55)';bx.fillRect(0,Math.round(H*0.7)-3,W,2);   // gold arena-edge stripe along the far floor
+  // opening red-chaos burst (t0-300)
+  const ob=seg(t,0,300); if(ob<1){bx.save();bx.globalAlpha=(1-ob)*0.55;const r=rng(5);
+    for(let i=0;i<7;i++){inkblob(bx,640+(r()-0.5)*460,360+(r()-0.5)*280,70+r()*120,i*13+1);
+      bx.fillStyle=i%2?CFG.col.redDk:CFG.col.red;bx.fill();}bx.restore();}
+  // red ink-splat ACCENT along the TOP edge + upper corners (mid-card stays dark; the big red is the FLOOR)
+  const cov=clamp(seg(t,200,1500)); const bn=Math.floor(lerp(2,8,cov)); const r2=rng(99);
+  for(let i=0;i<bn;i++){const gx=r2()*W, gy=(r2()*r2())*230;                          // hug the top band
+    const rad=(60+r2()*130)*lerp(0.5,1.0,cov);
+    inkblob(bx,gx,gy,rad,i*53+7,0.7+r2()*0.4); bx.globalAlpha=0.8; bx.fillStyle=[CFG.col.redDk,CFG.col.red,CFG.col.redHot][i%3]; bx.fill();}
+  bx.globalAlpha=1;
+  // bubbling red floor smoke (bottom ~22%)
+  const inten=clamp(seg(t,120,700))*(1-0.5*seg(t,1900,2200)); if(inten>0){const r=rng(303);
+    for(let i=0;i<46;i++){const life=900+r()*1100,birth=r()*life,prog=((t+birth)%life)/life;
+      const x=r()*W+Math.sin(t*0.0014+i*1.6)*20, y=H-prog*(60+r()*120)-4, rad=(10+r()*30)*(0.4+prog);
+      const a=Math.sin(prog*Math.PI)*(0.12+r()*0.16)*inten;
+      bx.globalCompositeOperation=r()<0.4?'screen':'source-over';
+      const g2=bx.createRadialGradient(x,y,1,x,y,rad);
+      g2.addColorStop(0,`rgba(122,10,16,${a})`);g2.addColorStop(1,'rgba(40,0,0,0)');
+      bx.fillStyle=g2;bx.beginPath();bx.arc(x,y,rad,0,7);bx.fill();}
+    bx.globalCompositeOperation='source-over';bx.globalAlpha=1;}
+  // INTRO persona-wing flash (t=0..~190ms): a bright-red FEATHERED wing-pair framing a black core — the
+  // persona-summon flourish the source opens on, receding fast as the letters slam in.
+  const wgIn=Math.pow(1-clamp(seg(t,0,260)),1.2);
+  if(wgIn>0){bx.save();
+    // wide dark-red WING CURTAIN spread across the UPPER third (source opens overhead, not at the floor)
+    bx.globalAlpha=0.5*wgIn;const cg=bx.createLinearGradient(0,40,0,360);
+    cg.addColorStop(0,'rgba(56,0,0,0)');cg.addColorStop(0.5,`rgba(120,4,8,${0.6*wgIn})`);cg.addColorStop(1,'rgba(40,0,0,0)');
+    bx.fillStyle=cg;bx.fillRect(0,40,W,320);
+    bx.globalAlpha=0.9*wgIn;bx.fillStyle='#000';inkblob(bx,640,300,120+46*wgIn,2,1.1);bx.fill();      // black silhouette core (upper)
+    for(let dir=-1;dir<=1;dir+=2){const sd=dir<0?1.12:0.9;                                            // ASYMMETRIC L/R wings (not a mirror)
+      const len=lerp(470,600,wgIn)*sd,ht=lerp(220,290,wgIn)*(dir<0?1.06:0.88),px=640+dir*64;          // taller wings, swept UP across the upper third
+      bx.globalAlpha=0.95*wgIn;bx.fillStyle=CFG.col.crim;personaWing(bx,px,300,len,ht,dir,dir*40+7);bx.fill();
+      bx.globalAlpha=0.62*wgIn;bx.fillStyle=CFG.col.red;personaWing(bx,px,302,len*0.78,ht*0.7,dir,dir*40+9);bx.fill();
+      bx.globalAlpha=0.45*wgIn;bx.globalCompositeOperation='lighter';bx.fillStyle=CFG.col.redHot;        // additive hot inner glow along the membrane
+      personaWing(bx,px,300,len*0.92,ht*0.5,dir,dir*40+11);bx.fill();bx.globalCompositeOperation='source-over';}
+    // central cyan DOUBLE-SLASH crossing the silhouette (source's intro accent)
+    bx.globalAlpha=0.9*wgIn;bx.lineCap='round';bx.strokeStyle='#bff8ff';
+    for(let k=0;k<2;k++){bx.lineWidth=5-k*2;bx.beginPath();bx.moveTo(600-k*30,150);bx.lineTo(690+k*20,430);bx.stroke();}
+    bx.restore();bx.globalAlpha=1;}
+  drawBubbles(t);  // red-black bubbles (grow + fade) popping around the word base
+  drawBanner(t);   // base-rooted red eruption + black-shard FOUNTAIN behind the letters
+  drawWhips(t);    // red-body / black-core whipping ribbons fanning OUT over the word
+}
+// The AMBUSH backing: big JAGGED BLACK ink banner-shards growing behind the letters (the dominant climax
+// shape in the source) + thin curved RED ribbon whips raking across. Drawn on the bg layer so the white
+// caps sit ON the black shards exactly like the source.
+function drawBanner(t){
+  const u=seg(t,750,2100); if(u<=0) return;            // base-rooted red eruption begins ~750ms (no dead gap)
+  const baseX=600, baseY=470;                           // co-located with the beam apex / word foot
+  // CONTINUOUS base-rooted RED burst FOUNTAINING up from the word base, hot leading edge
+  const burst=easeOutCubic(clamp(seg(t,750,1500))); const rb=rng(88);
+  for(let i=0,bn=Math.floor(lerp(2,18,burst));i<bn;i++){
+    const ang=-Math.PI/2+(rb()-0.5)*lerp(1.4,2.8,burst), dist=Math.sqrt(rb())*lerp(60,470,burst);
+    const x=baseX+Math.cos(ang)*dist, y=baseY+Math.sin(ang)*dist*1.1;                 // climbs UP
+    const rad=lerp(110,300,burst)*(0.4+rb()*0.55), lead=dist/470;                     // outer/advancing edge runs hotter
+    inkblob(bx,x,y,rad,i*23+5,0.7+rb()*0.4);
+    bx.globalAlpha=0.88*(1-0.4*clamp(seg(t,1850,2100)));
+    const g=bx.createRadialGradient(x,y-rad*0.2,rad*0.12,x,y,rad);                    // red-body / dark-core depth, white-hot rim
+    g.addColorStop(0,lead>0.55?CFG.col.redDk:CFG.col.redDeep);
+    g.addColorStop(0.5,CFG.col.crim); g.addColorStop(0.85,lead>0.5?CFG.col.redHot:CFG.col.crim);
+    g.addColorStop(1,lead>0.6?'#ff7a40':CFG.col.redHot);                              // blazing leading edge on the advancing shards
+    bx.fillStyle=g; bx.fill();}
+  bx.globalAlpha=1;
+  // additive HOT-RED core GLOW rising from the base — emitted-light bloom so the peak reads BLAZING, not dull maroon
+  const rglow=clamp(seg(t,850,1500))*(1-0.65*clamp(seg(t,1800,2150)));
+  if(rglow>0){bx.save();bx.globalCompositeOperation='lighter';
+    const climb=lerp(60,250,easeOutCubic(clamp(seg(t,850,1600))));                     // the glow CLIMBS up from the base
+    const gg=bx.createRadialGradient(baseX,baseY-climb,10,baseX,baseY-climb,490);
+    gg.addColorStop(0,`rgba(255,120,80,${0.8*rglow})`);gg.addColorStop(0.32,`rgba(244,18,10,${0.5*rglow})`);gg.addColorStop(1,'rgba(120,0,0,0)');
+    bx.fillStyle=gg;bx.fillRect(0,0,W,H);
+    const gc=bx.createRadialGradient(baseX,baseY-climb-30,4,baseX,baseY-climb-30,150); // tight near-white-hot core (luminous leading edge)
+    gc.addColorStop(0,`rgba(255,214,184,${0.55*rglow})`);gc.addColorStop(1,'rgba(255,60,30,0)');
+    bx.fillStyle=gc;bx.fillRect(0,0,W,H);bx.restore();bx.globalAlpha=1;}
+  // CLIMAX feathered-red wing burst (~1500-1800ms) — bookend the persona-wing motif, BEHIND the black shards
+  const wgC=clamp(seg(t,1480,1620))*(1-clamp(seg(t,1780,1980)));
+  if(wgC>0){bx.save();bx.globalAlpha=0.92*wgC;bx.fillStyle='#000';inkblob(bx,640,360,200*wgC+60,2,1.0);bx.fill();
+    for(let dir=-1;dir<=1;dir+=2){const wl=lerp(560,660,wgC),wh2=lerp(210,270,wgC);
+      bx.globalAlpha=0.9*wgC;bx.fillStyle=CFG.col.redHot;personaWing(bx,640,352,wl,wh2,dir,dir*61+9);bx.fill();
+      bx.globalAlpha=0.6*wgC;bx.fillStyle=CFG.col.red;personaWing(bx,640,352,wl*0.8,wh2*0.7,dir,dir*61+12);bx.fill();}
+    bx.restore();bx.globalAlpha=1;}
+  // BLACK-shard eruption FOUNTAIN: tall radial black quills climbing UP from the base (crown-of-thorns) — the
+  // dominant climax shape in the source (jagged black spikes through the red, NOT a clean ring).
+  const s=easeOutCubic(clamp(seg(t,1050,1560))); const r=rng(404);
+  const n=Math.floor(lerp(6,22,s));
+  for(let i=0;i<n;i++){const ang=-Math.PI/2+(r()-0.5)*lerp(0.9,2.5,s), dist=easeOutCubic(s)*540*(0.45+r()*0.85);
+    const x=baseX+Math.cos(ang)*dist, y=baseY+Math.sin(ang)*dist*1.18;
+    bx.save();bx.translate(x,y);bx.rotate(ang+Math.PI/2);bx.scale(0.6,2.0);             // elongate radially -> sharp quills
+    inkblob(bx,0,0,(110+r()*200)*lerp(0.5,1.15,s),i*29+3,0.6+r()*0.45);
+    bx.globalAlpha=0.98;bx.fillStyle='#000000';bx.fill();bx.restore();}
+  bx.globalAlpha=1;
+}
+
+// ---------- 2D foreground: AMBUSH! letters (stagger, scatter, squash) + dash arrows + flash/wipe ----------
+function drawFG(t){
+  fx.clearRect(0,0,W,H);
+  fx.textAlign='center';fx.textBaseline='middle';
+  const clr=clamp(seg(t,1340,1480));                               // S7: word rotates + rises OUT as a unit, GONE by ~1.48s (source clears ~1.4-1.5s)
+  for(let i=0;i<LET.length;i++){const L=LET[i],jr=rng(i*131+17);
+    const d=CFG.letters.base+i*CFG.letters.step,u=seg(t,d,d+CFG.letters.dur); if(u<=0) continue;
+    const pop=easeOutBack(clamp(u),3.0);
+    const yJ=(jr()*2-1)*8, szJ=lerp(0.93,1.07,jr());               // tiny jitter only — let the MEASURED LET layout dominate
+    const glyphCol=L.grey?CFG.col.grey:CFG.col.white;              // signature de-emphasized warm-grey M & S
+    // landing squash (1.3x/0.7y -> settle) + ongoing micro squash/squish vibration
+    const land=clamp(u/0.6), lsx=lerp(1.3,1.0,land), lsy=lerp(0.7,1.0,land);
+    const ph=t*0.05+i*2.1, wob=Math.sin(ph)*0.07, sx=lsx-wob, sy=lsy+wob;
+    const rj=Math.sin(ph*0.7+i)*6;
+    const entry=1-pop, sjx=(jr()*2-1), sjy=(jr()*2-1);           // scatter entry that resolves into the arc fast (~0.35s)
+    const initY=(L.c==='M'?130:(L.c==='H'?110:(L.c==='!'?-110:sjy*150)));  // M & H drop LOW, ! detaches HIGH, others scattered
+    const slamX=entry*sjx*150;                                    // varied horizontal overshoot (reduced so the word assembles quickly)
+    const slamY=entry*initY + clr*-120;
+    const sc=L.s*szJ*lerp(0.32,1,pop)*0.9;                        // grow from small with overshoot; ~10% smaller -> source's compact footprint
+    const al=clamp(u*2.6)*(1-easeInCubic(clr)); if(al<=0) continue;   // fade the word out as a UNIT at the climax
+    // white P5 dash streak trailing the slam
+    if(u<0.6&&clr<=0){fx.save();fx.globalAlpha=(0.6-u)/0.6*al;fx.strokeStyle='#fff';fx.lineWidth=7;
+      fx.beginPath();fx.moveTo(L.x+slamX*1.5,L.y+yJ+slamY);fx.lineTo(L.x+slamX*0.4,L.y+yJ+slamY);fx.stroke();fx.restore();}
+    fx.save();fx.globalAlpha=al;fx.translate(L.x+slamX,L.y+yJ+slamY);
+    fx.rotate((L.r+rj+clr*14)*Math.PI/180);fx.scale(sc*sx,sc*sy);fx.transform(1,0,-0.03,1,0,0);
+    fx.font="140px Anton,'Arial Black',sans-serif";
+    fx.lineJoin='round';fx.lineWidth=24;fx.strokeStyle=CFG.col.ink;fx.strokeText(L.c,0,0);
+    fx.fillStyle=glyphCol;fx.fillText(L.c,0,0);fx.restore();}
+  // brief white slash beat just before the flood — kept SUBTLE (source climax is near-pure black+red)
+  const ws=seg(t,1500,1600);
+  if(ws>0&&ws<1){fx.save();const w=Math.sin(ws*Math.PI);fx.translate(640,360);fx.rotate(-0.6);
+    const g=fx.createLinearGradient(-1000,0,1000,0);
+    g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(0.5,`rgba(255,255,255,${0.45*w})`);g.addColorStop(1,'rgba(255,255,255,0)');
+    fx.fillStyle=g;fx.fillRect(-1000,-(7*w+2),2000,14*w+4);fx.restore();}
+  drawClimax(t);   // red-black eruption resolves -> the scene darkens to the red-lit arena
+  const f=seg(t,1540,1620); if(f>0&&f<1){fx.save();fx.globalAlpha=(1-easeInCubic(f))*0.26;fx.fillStyle='#fff';fx.fillRect(0,0,W,H);fx.restore();} // faint pop, not a wash
+  // tail: settle to the DIM red-lit arena (source ends on the lit reveal, NOT a saturated red flash)
+  const wu=seg(t,CFG.wipe[0],CFG.wipe[1]); if(wu>0){fx.save();fx.globalAlpha=easeOutCubic(wu)*0.5;fx.fillStyle='#12060a';fx.fillRect(0,0,W,H);fx.restore();}
+}
+// S5 climax: the black banner bursts (drawBanner, behind letters) then a brief RED RIM flash -> the scene
+// DARKENS to the red-lit battle (source climax_b). The red floor + ribbons (bg) carry the red; NOT a flood.
+function drawClimax(t){
+  // brief red rim flash at the eruption peak
+  const fl=seg(t,1620,1780);
+  if(fl>0&&fl<1){fx.save();const w=Math.sin(fl*Math.PI);fx.globalAlpha=w*0.4;
+    const g=fx.createRadialGradient(640,360,90,640,360,780);
+    g.addColorStop(0,'rgba(244,0,0,0)');g.addColorStop(0.68,`rgba(154,0,0,${w})`);g.addColorStop(1,'rgba(0,0,0,0)');
+    fx.fillStyle=g;fx.fillRect(0,0,W,H);fx.restore();}
+  // darken transition -> dim red-lit resolve
+  const d=seg(t,1780,2150);
+  if(d>0){fx.save();fx.globalAlpha=easeInCubic(clamp(d))*0.6;fx.fillStyle='#0a0003';fx.fillRect(0,0,W,H);fx.restore();}
+  // late single CYAN slash through the dark
+  const sl=seg(t,1860,2120);
+  if(sl>0){fx.save(); const w=Math.sin(clamp(sl)*Math.PI); fx.translate(640,360); fx.rotate(-0.66);
+    const g=fx.createLinearGradient(-940,0,940,0);
+    g.addColorStop(0,'rgba(0,216,255,0)');g.addColorStop(0.5,`rgba(232,255,255,${0.92*w})`);g.addColorStop(1,'rgba(0,216,255,0)');
+    fx.fillStyle=g; fx.fillRect(-940,-(14*w+3),1880,28*w+6); fx.restore();}
+}
+
+// Additive BLOOM: a blurred bright-pass of the beams (+ letters) screen-blended back so the brights read as
+// EMITTED LIGHT (cores overexpose toward white) instead of flat drawn lines. Beams/letters are bright-on-
+// transparent so this only lifts the bright pixels — blacks stay clean.
+function drawBloom(t){
+  blc.setTransform(1,0,0,1,0,0); blc.globalCompositeOperation='source-over'; blc.globalAlpha=1; blc.clearRect(0,0,W,H);
+  blc.filter='blur(9px)'; blc.globalCompositeOperation='lighter';
+  blc.globalAlpha=0.6; blc.drawImage(glc,0,0);                  // soft beam HALO only (single pass — keep cyan saturation, don't blow cores to white)
+  blc.globalAlpha=0.35; blc.drawImage(fgEl,0,0);               // subtle letter glow
+  blc.filter='none'; blc.globalCompositeOperation='source-over'; blc.globalAlpha=1;
+}
+function renderAt(t){ drawBG(t); update3D(t); drawFG(t); drawBloom(t); }
+let raf=0,startTs=0;
+function loop(ts){if(!startTs)startTs=ts;const t=ts-startTs;renderAt(t);if(t<CFG.total+200)raf=requestAnimationFrame(loop);}
+function play(){cancelAnimationFrame(raf);startTs=0;raf=requestAnimationFrame(loop);}
+const q=new URLSearchParams(location.search);
+const ff=new FontFace('Anton','url(fonts/Anton-Regular.ttf)');
+ff.load().then(x=>document.fonts.add(x)).catch(()=>{}).then(go);
+function go(){ if(q.has('seek')){document.body.classList.add('cap');renderAt(parseFloat(q.get('seek')));} else play(); window.__ready=true; }
+window.renderAt=renderAt; window.draw=renderAt;
+// ---------- AE-export hook: per-element transform stream (read-only; mirrors the draw math) ----------
+// window.sampleMotion(t) returns each letter's + cone-spoke's transform at time t, in the comp's 1280x720
+// screen space (the 3D cone is projected via the camera). Drives tools/ae-export/ -> editable AE layers.
+window.sampleMotion=function(t){
+  const clr=clamp(seg(t,1340,1480));
+  const letters=LET.map((L,i)=>{const jr=rng(i*131+17);
+    const d=CFG.letters.base+i*CFG.letters.step,u=seg(t,d,d+CFG.letters.dur);
+    const pop=easeOutBack(clamp(u),3.0);
+    const yJ=(jr()*2-1)*8, szJ=lerp(0.93,1.07,jr());
+    const land=clamp(u/0.6), lsx=lerp(1.3,1.0,land), lsy=lerp(0.7,1.0,land);
+    const wob=Math.sin(t*0.05+i*2.1)*0.07, sx=lsx-wob, sy=lsy+wob, rj=Math.sin((t*0.05+i*2.1)*0.7+i)*6;
+    const entry=1-pop, sjx=(jr()*2-1), sjy=(jr()*2-1);
+    const initY=(L.c==='M'?130:(L.c==='H'?110:(L.c==='!'?-110:sjy*150)));
+    const slamX=entry*sjx*150, slamY=entry*initY+clr*-120, sc=L.s*szJ*lerp(0.32,1,pop)*0.9;
+    const al=clamp(u*2.6)*(1-easeInCubic(clr));
+    return {char:L.c, grey:!!L.grey, x:+(L.x+slamX).toFixed(2), y:+(L.y+yJ+slamY).toFixed(2),
+      rotDeg:+(L.r+rj+clr*14).toFixed(2), scaleX:+(sc*sx).toFixed(4), scaleY:+(sc*sy).toFixed(4),
+      opacity:+((u<=0?0:al)*100).toFixed(2), hex:(L.grey?CFG.col.grey:CFG.col.white)};
+  });
+  const t0=CFG.beams.t0, bu=seg(t,t0,CFG.beams.t1);
+  const spin=clamp(seg(t,t0,t0+280))*Math.PI*2+easeOutCubic(clamp(seg(t,t0+280,t0+1060)))*Math.PI*2;
+  const fade=clamp(seg(t,t0,t0+130))*(1-clamp(seg(t,t0+840,t0+1180)));
+  const NB=8, jr=rng(211), apexW=new THREE.Vector3(0,-1.55,0.2), endW=new THREE.Vector3();
+  const proj=v=>{const p=v.clone().project(cam);return [+((p.x*0.5+0.5)*W).toFixed(2),+((1-(p.y*0.5+0.5))*H).toFixed(2)];};
+  const apexPx=proj(apexW), spokes=[];
+  for(let i=0;i<NB;i++){const dark=(i%2===1);
+    const phi=i/NB*Math.PI*2+spin+(jr()-0.5)*0.22, half=0.6+(jr()-0.5)*0.22;
+    const len=(4.6+jr()*1.5)*easeOutCubic(clamp(bu*2.4-i*0.015));
+    endW.set(Math.sin(half)*Math.cos(phi),Math.cos(half),Math.sin(half)*Math.sin(phi)).multiplyScalar(len).add(apexW);
+    const e=proj(endW), dx=e[0]-apexPx[0], dy=e[1]-apexPx[1];
+    spokes.push({dark, endPx:e, angleDeg:+(Math.atan2(dy,dx)*180/Math.PI).toFixed(2),
+      lenPx:+Math.hypot(dx,dy).toFixed(2), opacity:+((bu>0&&bu<1?1.7*fade:0)*100).toFixed(2),
+      hex:(dark?'#1496bd':'#36ecff')});}
+  return {letters, cone:{apexPx, spokes}};
+};
+window.CFG_total=CFG.total;
+</script>
+</body>
+</html>
