@@ -23,6 +23,13 @@ export class ViewTransitions {
     return window.innerWidth <= 768;
   }
 
+  // Standalone app pages (the hosted demos) are full documents with no
+  // .site-content for the router to morph into — a SPA transition against one
+  // swaps in an empty main. They must be reached by native navigation.
+  private isStandalonePage(href: string): boolean {
+    return href.includes('/demo/');
+  }
+
   private isClassicTheme(): boolean {
     return document.documentElement.classList.contains('classic');
   }
@@ -105,6 +112,7 @@ export class ViewTransitions {
 
       const href = link.getAttribute('href');
       if (!href || href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:') || href.endsWith('.xml')) return;
+      if (this.isStandalonePage(href)) return;
 
       // Capture clicked card for zoom transition
       const card = e.target.closest('.post-item') as HTMLElement | null;
@@ -136,8 +144,9 @@ export class ViewTransitions {
       let href = link.getAttribute('href');
       if (!href) return;
 
-      // Skip external, hash, mailto, feed links
+      // Skip external, hash, mailto, feed, and standalone-app links
       if (href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:') || href.endsWith('.xml')) return;
+      if (this.isStandalonePage(href)) return;
 
       // Skip already cached or in-flight
       if (href.startsWith('/search/') && href.includes('?')) href = '/search/';
@@ -168,6 +177,7 @@ export class ViewTransitions {
 
   private prefetch(href: string | null): void {
     if (!href || href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:')) return;
+    if (this.isStandalonePage(href)) return;
 
     // Search page with query params - prefetch /search/ instead (same HTML, JS reads params)
     if (href.startsWith('/search/') && href.includes('?')) {
@@ -364,6 +374,16 @@ export class ViewTransitions {
         fetchPromise,
         new Promise(r => setTimeout(r, outAnimationTime))
       ]);
+
+      // A page that yields no .site-content markup is not a Jekyll page this
+      // router can render (standalone demos, non-site documents). Swapping in
+      // its empty extraction would blank the main content — hand the
+      // navigation to the browser instead.
+      if (!prerenderEl || prerenderEl.innerHTML.trim() === '') {
+        document.body.classList.remove('spa-navigating', 'navigating');
+        window.location.href = url;
+        return;
+      }
 
       await new Promise(r => requestAnimationFrame(r));
 
