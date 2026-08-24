@@ -608,6 +608,9 @@ function clipBlock(c, pin, form) {
   fsBtn.onclick = (e) => { e.stopPropagation(); goFullscreen(vid); };
   vid.ondblclick = () => goFullscreen(vid);
   btns.append(popBtn, fsBtn);
+  // an unbundled clip swaps the video for its "missing" panel — the overlay
+  // buttons would keep targeting the detached video, so they go with it
+  vid.addEventListener("error", () => btns.remove());
   vwrap.append(vid, btns);
   wrap.append(vwrap, scrub, read);
   return wrap;

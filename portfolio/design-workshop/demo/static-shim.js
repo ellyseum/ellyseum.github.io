@@ -70,7 +70,9 @@
     set(v) {
       if (/\.mp4/.test(v) && !BUNDLED.has(key(v))) {
         const el = this;
-        setTimeout(() => el.onerror && el.onerror(new Event('error')), 0);
+        // a real dispatch reaches addEventListener('error') listeners too,
+        // not only the onerror property handler
+        setTimeout(() => el.dispatchEvent(new Event('error')), 0);
         return;
       }
       desc.set.call(this, v);
