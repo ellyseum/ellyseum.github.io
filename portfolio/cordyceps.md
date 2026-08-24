@@ -1,14 +1,18 @@
 ---
 layout: portfolio-item
 title: "cordyceps"
-subtitle: "One control plane, any model behind it"
-status: placeholder
+subtitle: "One control plane, any PTY-based CLI agent behind it"
+status: live
 repo: "ellyseum/cordyceps"
 permalink: /portfolio/cordyceps/
 ---
 
-This page is reserved for **cordyceps**. Published to npm as @ellyseum/cordyceps. A JSON-RPC daemon driving Claude, Codex, Gemini, and Ollama through one interface.
+A local-first harness that spawns and drives PTY-based CLI coding agents — Claude Code, Codex,
+Gemini, Ollama — behind one interface, rather than one integration per tool.
 
-What will fill this page: a short write-up, the measurements or receipts that back it,
-and — where it applies — an embedded video or interactive demo. Until that's produced,
-this placeholder holds the URL so it never changes.
+Published to npm as `@ellyseum/cordyceps`, v0.5.5, 2026-04-28. The scoped name matters: the
+bare package name `cordyceps` on npm belongs to an unrelated Discord.js utility library from
+2022, so `@ellyseum/cordyceps` is the correct citation.
+
+What will fill out this page further: the measurements and receipts behind it, and — where it
+applies — an embedded demo.

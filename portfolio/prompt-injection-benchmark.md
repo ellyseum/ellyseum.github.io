@@ -2,13 +2,15 @@
 layout: portfolio-item
 title: "Prompt-injection benchmark"
 subtitle: "Measured before it was defended"
-status: placeholder
-
+status: live
 permalink: /portfolio/prompt-injection-benchmark/
 ---
 
-This page is reserved for **Prompt-injection benchmark**. An 18-model benchmark of prompt-injection vulnerability across self-hosted open models, published in full at ellyseum.me/2026/02/06/i-broke-every-open-source-llm/. This page will summarize the method and link the results table.
+An 18-model prompt-injection vulnerability study across self-hosted open models, run before
+building the security-tooling architecture it informed. The full results table is published
+at <a href="https://ellyseum.me/2026/02/06/i-broke-every-open-source-llm/" target="_blank" rel="noopener">ellyseum.me/2026/02/06/i-broke-every-open-source-llm</a>,
+dated 2026-02-06 — a stranger can check the method and the numbers directly rather than take
+them on report.
 
-What will fill this page: a short write-up, the measurements or receipts that back it,
-and — where it applies — an embedded video or interactive demo. Until that's produced,
-this placeholder holds the URL so it never changes.
+The underlying defense architecture built from this benchmark is a private repo; this page
+cites the published results, not a re-verification of them.

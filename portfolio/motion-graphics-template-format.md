@@ -2,17 +2,25 @@
 layout: portfolio-item
 title: "A motion-graphics template format, authored by hand"
 subtitle: "Cloud rendering measured against an export-based baseline"
-status: placeholder
+status: live
 permalink: /portfolio/motion-graphics-template-format/
 ---
 
-This page is reserved for **A motion-graphics template format, authored by hand**. Enterprise
-platform work: a hand-authored template format for a leading motion-graphics tool, built for
-cloud rendering and measured against the tool's own export path as a baseline. The underlying
-repository is private to the organization it was built for; this page will describe the
-approach and the measured comparison without naming the organization or its internal product
-names.
+A library that authors motion-graphics template controllers byte-identically to the
+originating desktop authoring tool itself, with no instance of that tool and no scripting
+runtime required at authoring time — a pure function: no network, no filesystem, no clock, no
+randomness. The caller decides where the source bytes come from and where the output bytes go.
 
-What will fill this page: a short write-up, the measurements or receipts that back it,
-and — where it applies — an embedded video or interactive demo. Until that's produced,
-this placeholder holds the URL so it never changes.
+It is deterministic (the same source and plan always produce the same output bytes, backed by
+a dedicated test) and content-addressed per template rather than per export: a real corpus
+check confirmed one template, a re-packed copy of it with no changes, and a re-authored copy
+with one control added via the real desktop tool all resolve to the same content identity,
+while an unrelated template resolves to a different one. It batches: one call authors every
+requested output from a single parsed source in one pass, and a plan that fails partway throws
+before anything is written — never a partial output.
+
+Stated scope limit, not a settled design choice: footage is bound by reference rather than
+embedded in each output; collecting and embedding footage is on the roadmap, not yet built.
+
+Enterprise platform work; the underlying repository, the platform, and the organization it was
+built for are not named here.

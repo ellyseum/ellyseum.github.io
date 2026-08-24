@@ -2,13 +2,13 @@
 layout: portfolio-item
 title: "ios_pointer_finder"
 subtitle: "A small CNN with stated error bars"
-status: placeholder
+status: live
 repo: "ellyseum/ios_pointer_finder"
 permalink: /portfolio/ios-pointer-finder/
 ---
 
-This page is reserved for **ios_pointer_finder**. A from-scratch computer-vision project locating a UI pointer in a screen capture.
+A 338K-parameter CNN that locates the iPhone Pointer-Control cursor in a screen capture.
 
-What will fill this page: a short write-up, the measurements or receipts that back it,
-and — where it applies — an embedded video or interactive demo. Until that's produced,
-this placeholder holds the URL so it never changes.
+Per its own README (not independently re-measured here): 30.5px validation error, 95fps on an
+RTX 5080. Code is MIT-licensed; the trained weights carry a separate CC-BY-4.0 license, since a
+CNN's weights and the code that trains it are different artifacts with different rights.
