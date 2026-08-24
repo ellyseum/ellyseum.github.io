@@ -6,36 +6,43 @@ status: live
 permalink: /portfolio/sfx-composer/
 ---
 
-The take-audition half of the SFX pipeline from *For What Lies Beneath*. The
-[audio DAW]({{ '/portfolio/audio-daw/' | relative_url }}) authors loops; this tool decides what a
-cue should sound like in the first place: pick one of 167 reference cues, A/B it against a
-generated take, shape the result through an effects rack, and render the keeper to a WAV.
-
-The rack is the working surface: trim start and end, playback speed, fade in and out, a pitch
-shift, low and high EQ shelves, reverb decay and wet, and output gain — every slider persisted
-per cue, so returning to a cue restores where its shaping left off. The render is not a
-recording of the preview: it re-synthesizes the chain offline and encodes the WAV itself.
-
-**What a reviewer can do here.** Walk the cue bank, play any reference cue, and switch sources
-on the two cues that carry alternate takes — two takes each, though one cue's source list shows
-three entries because its first take ships in both MP3 and WAV. Move the rack's
-sliders, preview the shaped result, A/B it against the original at any point, and hit Render &
-Download: the file that lands is the offline render, named for its cue.
-
-**What this build does differently.** One route is server work: the live tool saves a rendered
-take back into the workspace, and here that save is a browser download of the same bytes —
-the render itself (Tone.js offline synthesis plus the client-side WAV encoder) is unchanged.
-The reference cues originate from *Final Fantasy Tactics* and ship under a stated fan-work
-disclaimer: they are the targets an unaffiliated, non-commercial recreation project was built
-to match, and the tool, its synthesis code, and all generated takes are original work.
-
-<p><a href="{{ '/portfolio/sfx-composer/demo/' | relative_url }}">Run it →</a></p>
+Where a cue's sound gets decided: **pick a cue, A/B a generated take against the reference,
+shape it through an effects rack, render the keeper to a WAV** — live in this page.
 
 <iframe src="{{ '/portfolio/sfx-composer/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--surface, #333);border-radius:0.5rem;"
         loading="lazy" title="SFX take composer — 167 reference cues, an effects rack, and offline WAV rendering">
 </iframe>
 
-The synthesis layer this tool auditions against is described on
-[the instruments]({{ '/portfolio/sfx-vfx-instruments/' | relative_url }}). Part of a private
-personal-project repository.
+<p><a href="{{ '/portfolio/sfx-composer/demo/' | relative_url }}">Run it full-page →</a></p>
+
+Two generated takes of one cue, exactly as the tool auditions them:
+
+<div style="display:grid;gap:0.6rem;margin:0.5rem 0 1.25rem;">
+  <div>
+    <audio controls preload="none" src="{{ '/portfolio/sfx-composer/demo/sfx-raw/x0043%20Menu%20Confirmation%20Yes%20(take1).mp3' | relative_url }}" style="width:100%;" title="Menu Confirmation Yes — take 1"></audio>
+    <small><strong>Menu Confirmation Yes — take 1</strong></small>
+  </div>
+  <div>
+    <audio controls preload="none" src="{{ '/portfolio/sfx-composer/demo/sfx-raw/x0043%20Menu%20Confirmation%20Yes%20(take2).mp3' | relative_url }}" style="width:100%;" title="Menu Confirmation Yes — take 2"></audio>
+    <small><strong>Menu Confirmation Yes — take 2</strong> — A/B either against the reference inside the tool.</small>
+  </div>
+</div>
+
+The rack is the working surface — trim, speed, fades, pitch shift, low and high EQ shelves,
+reverb decay and wet, output gain — **every slider persisted per cue**, so a cue reopens where
+its shaping left off. Render & Download is not a recording of the preview: it **re-synthesizes
+the chain offline** (Tone.js offline synthesis plus a client-side WAV encoder) and the file that
+lands is named for its cue. Two of the 167 cues carry alternate takes — two each, though one
+cue's source list shows three entries because its first take ships in both MP3 and WAV.
+
+<small>One route is server work: the live tool saves a rendered take back into the workspace;
+here that save is a browser download of the same bytes. The reference cues originate from
+*Final Fantasy Tactics* and ship under a stated fan-work disclaimer: they are the targets an
+unaffiliated, non-commercial recreation project was built to match, and the tool, its synthesis
+code, and all generated takes are original work.</small>
+
+The loop-authoring half of the pipeline:
+[the audio DAW]({{ '/portfolio/audio-daw/' | relative_url }}). The synthesis layer it auditions
+against: [the instruments]({{ '/portfolio/sfx-vfx-instruments/' | relative_url }}). Part of a
+private personal-project repository.
