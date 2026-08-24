@@ -1,0 +1,1011 @@
+[
+ {
+  "id": "X0001",
+  "desc": "Confirm Selection",
+  "og": "sfx-ref/x0001 Confirm Selection.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0002",
+  "desc": "Cancel Selection",
+  "og": "sfx-ref/x0002 Cancel Selection.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0003",
+  "desc": "Move Cursor",
+  "og": "sfx-ref/x0003 Move Cursor.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0004",
+  "desc": "Rolling Numbers (gil won)",
+  "og": "sfx-ref/x0004 Rolling Numbers (gil won).mp3",
+  "gens": []
+ },
+ {
+  "id": "X0005",
+  "desc": "Invalid",
+  "og": "sfx-ref/x0005 Invalid.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0006",
+  "desc": "L1_R1_L2_R2 shifting",
+  "og": "sfx-ref/x0006 L1_R1_L2_R2 shifting.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0007",
+  "desc": "Remove Item or Ability",
+  "og": "sfx-ref/x0007 Remove Item or Ability.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0008",
+  "desc": "Power Up",
+  "og": "sfx-ref/x0008 Power Up.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0009",
+  "desc": "Unit Removal",
+  "og": "sfx-ref/x0009 Unit Removal.mp3",
+  "gens": []
+ },
+ {
+  "id": "X000A",
+  "desc": "Set",
+  "og": "sfx-ref/x000A Set.mp3",
+  "gens": []
+ },
+ {
+  "id": "X000B",
+  "desc": "Clockwise Rotation",
+  "og": "sfx-ref/x000B Clockwise Rotation.mp3",
+  "gens": []
+ },
+ {
+  "id": "X000C",
+  "desc": "Anti-Clockwise Rotation",
+  "og": "sfx-ref/x000C Anti-Clockwise Rotation.mp3",
+  "gens": []
+ },
+ {
+  "id": "X000D",
+  "desc": "Stop Rotation",
+  "og": "sfx-ref/x000D Stop Rotation.mp3",
+  "gens": []
+ },
+ {
+  "id": "X000E",
+  "desc": "Zoom In (quick)",
+  "og": "sfx-ref/x000E Zoom In (quick).mp3",
+  "gens": []
+ },
+ {
+  "id": "X000F",
+  "desc": "Zoom In",
+  "og": "sfx-ref/x000F Zoom In.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0010",
+  "desc": "Zoom Out",
+  "og": "sfx-ref/x0010 Zoom Out.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0011",
+  "desc": "Zoom Out (quick)",
+  "og": "sfx-ref/x0011 Zoom Out (quick).mp3",
+  "gens": []
+ },
+ {
+  "id": "X0012",
+  "desc": "Help Message Popup",
+  "og": "sfx-ref/x0012 Help Message Popup.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0013",
+  "desc": "Slash",
+  "og": "sfx-ref/x0013 Slash.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0014",
+  "desc": "Double Slash",
+  "og": "sfx-ref/x0014 Double Slash.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0015",
+  "desc": "Punch, Bag, Cloth Blocked",
+  "og": "sfx-ref/x0015 Punch, Bag, Cloth Blocked.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0016",
+  "desc": "Punch 2",
+  "og": "sfx-ref/x0016 Punch 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0017",
+  "desc": "Punch 3",
+  "og": "sfx-ref/x0017 Punch 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0018",
+  "desc": "Blunt Weapon Hit",
+  "og": "sfx-ref/x0018 Blunt Weapon Hit.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0019",
+  "desc": "Light Weapon Swing",
+  "og": "sfx-ref/x0019 Light Weapon Swing.mp3",
+  "gens": [
+   "sfx-raw/x0019 Light Weapon Swing (take1).mp3",
+   "sfx-raw/x0019 Light Weapon Swing (take2).mp3"
+  ]
+ },
+ {
+  "id": "X001A",
+  "desc": "Medium Weapon Swing",
+  "og": "sfx-ref/x001A Medium Weapon Swing.mp3",
+  "gens": []
+ },
+ {
+  "id": "X001B",
+  "desc": "Heavy Weapon Swing",
+  "og": "sfx-ref/x001B Heavy Weapon Swing.mp3",
+  "gens": []
+ },
+ {
+  "id": "X001C",
+  "desc": "Landing (Dragoon)",
+  "og": "sfx-ref/x001C Landing (Dragoon).mp3",
+  "gens": []
+ },
+ {
+  "id": "X001D",
+  "desc": "Igros Castle Gate Opening",
+  "og": "sfx-ref/x001D Igros Castle Gate Opening.mp3",
+  "gens": []
+ },
+ {
+  "id": "X001E",
+  "desc": "Beta Magic Charging",
+  "og": "sfx-ref/x001E Beta Magic Charging.mp3",
+  "gens": []
+ },
+ {
+  "id": "X001F",
+  "desc": "Magic Charging",
+  "og": "sfx-ref/x001F Magic Charging.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0020",
+  "desc": "Female Scream 1 (Balmafula)",
+  "og": "sfx-ref/x0020 Female Scream 1 (Balmafula).mp3",
+  "gens": []
+ },
+ {
+  "id": "X0021",
+  "desc": "Summoning",
+  "og": "sfx-ref/x0021 Summoning.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0022",
+  "desc": "Trap",
+  "og": "sfx-ref/x0022 Trap.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0023",
+  "desc": "Water Landing 1",
+  "og": "sfx-ref/x0023 Water Landing 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0024",
+  "desc": "Water Landing 2",
+  "og": "sfx-ref/x0024 Water Landing 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0025",
+  "desc": "Walking with soaked shoes",
+  "og": "sfx-ref/x0025 Walking with soaked shoes___.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0026",
+  "desc": "Electronic Ding",
+  "og": "sfx-ref/x0026 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0027",
+  "desc": "Jumping",
+  "og": "sfx-ref/x0027 Jumping.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0028",
+  "desc": "Land 1",
+  "og": "sfx-ref/x0028 Land 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0029",
+  "desc": "Land 2",
+  "og": "sfx-ref/x0029 Land 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X002A",
+  "desc": "Land 3",
+  "og": "sfx-ref/x002A Land 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X002B",
+  "desc": "Female Scream 2",
+  "og": "sfx-ref/x002B Female Scream 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X002C",
+  "desc": "Throw",
+  "og": "sfx-ref/x002C Throw __.mp3",
+  "gens": []
+ },
+ {
+  "id": "X002D",
+  "desc": "Flip Page",
+  "og": "sfx-ref/x002D Flip Page.mp3",
+  "gens": []
+ },
+ {
+  "id": "X002E",
+  "desc": "Shield Block Light",
+  "og": "sfx-ref/x002E Shield Block Light.mp3",
+  "gens": []
+ },
+ {
+  "id": "X002F",
+  "desc": "Shield Block Heavy 1",
+  "og": "sfx-ref/x002F Shield Block Heavy 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0030",
+  "desc": "Blade Grasp / Catch",
+  "og": "sfx-ref/x0030 Blade Grasp _ Catch.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0031",
+  "desc": "Change Camera Angle",
+  "og": "sfx-ref/x0031 Change Camera Angle.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0032",
+  "desc": "Sparkle 1",
+  "og": "sfx-ref/x0032 Sparkle 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0033",
+  "desc": "Sparkle 2",
+  "og": "sfx-ref/x0033 Sparkle 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0034",
+  "desc": "Sparkle 3",
+  "og": "sfx-ref/x0034 Sparkle 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0035",
+  "desc": "Sparkle 4",
+  "og": "sfx-ref/x0035 Sparkle 4.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0036",
+  "desc": "Sparkle 5",
+  "og": "sfx-ref/x0036 Sparkle 5.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0037",
+  "desc": "Sparkle 6",
+  "og": "sfx-ref/x0037 Sparkle 6.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0038",
+  "desc": "Hit with Staff or Rod",
+  "og": "sfx-ref/x0038 Hit with Staff or Rod.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0039",
+  "desc": "Hit 2",
+  "og": "sfx-ref/x0039 Hit 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X003A",
+  "desc": "Land on Wood",
+  "og": "sfx-ref/x003A Land on Wood.mp3",
+  "gens": []
+ },
+ {
+  "id": "X003B",
+  "desc": "Land on Water",
+  "og": "sfx-ref/x003B Land on Water.mp3",
+  "gens": []
+ },
+ {
+  "id": "X003C",
+  "desc": "Menu Cursor Move 1",
+  "og": "sfx-ref/x003C Menu Cursor Move 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X003D",
+  "desc": "Menu Cursor Move 2",
+  "og": "sfx-ref/x003D Menu Cursor Move 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X003E",
+  "desc": "Hit with Pole or Polearm",
+  "og": "sfx-ref/x003E Hit with Pole or Polearm.mp3",
+  "gens": []
+ },
+ {
+  "id": "X003F",
+  "desc": "Explosion Impact",
+  "og": "sfx-ref/x003F _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0040",
+  "desc": "Footsteps Arrive",
+  "og": "sfx-ref/x0040 Footsteps Arrive.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0041",
+  "desc": "Exit Map / Generic Sound",
+  "og": "sfx-ref/x0041 Exit Map_Generic Sound.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0042",
+  "desc": "Cloud Freaking / Murond Death City",
+  "og": "sfx-ref/x0042 Cloud Freaking _ Murond Death City'.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0043",
+  "desc": "Menu Confirmation Yes",
+  "og": "sfx-ref/x0043 Menu Confirmation Yes.mp3",
+  "gens": [
+   "sfx-raw/x0043 Menu Confirmation Yes (take1).mp3",
+   "sfx-raw/x0043 Menu Confirmation Yes (take1).wav",
+   "sfx-raw/x0043 Menu Confirmation Yes (take2).mp3"
+  ]
+ },
+ {
+  "id": "X0044",
+  "desc": "Male Scream",
+  "og": "sfx-ref/x0044 Male Scream.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0045",
+  "desc": "Female Death",
+  "og": "sfx-ref/x0045 Female Death.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0046",
+  "desc": "Monster Death",
+  "og": "sfx-ref/x0046 Monster Death.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0047",
+  "desc": "Blocked Bullet",
+  "og": "sfx-ref/x0047 Blocked Bullet.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0048",
+  "desc": "Locked Door",
+  "og": "sfx-ref/x0048 Locked Door.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0049",
+  "desc": "Blocked Arrow",
+  "og": "sfx-ref/x0049 Blocked Arrow.mp3",
+  "gens": []
+ },
+ {
+  "id": "X004A",
+  "desc": "Snappy Blip",
+  "og": "sfx-ref/x004A _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X004B",
+  "desc": "Banging on / Slamming Door",
+  "og": "sfx-ref/x004B Banging on _ Slamming Door.mp3",
+  "gens": []
+ },
+ {
+  "id": "X004C",
+  "desc": "Open/Close Door",
+  "og": "sfx-ref/x004C Open_Close Door.mp3",
+  "gens": []
+ },
+ {
+  "id": "X004D",
+  "desc": "Proposition Completed 1",
+  "og": "sfx-ref/x004D Proposition Completed 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X004E",
+  "desc": "Proposition Completed 2",
+  "og": "sfx-ref/x004E Proposition Completed 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X004F",
+  "desc": "Proposition Completed 3",
+  "og": "sfx-ref/x004F Proposition Completed 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0050",
+  "desc": "Applause (Propositions)",
+  "og": "sfx-ref/x0050 Applause (Propositions_).mp3",
+  "gens": []
+ },
+ {
+  "id": "X0051",
+  "desc": "Trumpet (Propositions)",
+  "og": "sfx-ref/x0051 Trumpet (Propositions_).mp3",
+  "gens": []
+ },
+ {
+  "id": "X0052",
+  "desc": "Choke Hold 1",
+  "og": "sfx-ref/x0052 Choke Hold 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0053",
+  "desc": "Choke Hold 2",
+  "og": "sfx-ref/x0053 Choke Hold 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0054",
+  "desc": "Arrow 1",
+  "og": "sfx-ref/x0054 Arrow 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0055",
+  "desc": "Arrow 2",
+  "og": "sfx-ref/x0055 Arrow 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0056",
+  "desc": "8-bit Blip",
+  "og": "sfx-ref/x0056 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0057",
+  "desc": "Chiptune Tone",
+  "og": "sfx-ref/x0057 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0058",
+  "desc": "Gunshot Crack",
+  "og": "sfx-ref/x0058 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0059",
+  "desc": "Arrow 3",
+  "og": "sfx-ref/x0059 Arrow 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X005A",
+  "desc": "Gun Load",
+  "og": "sfx-ref/x005A Gun Load.mp3",
+  "gens": []
+ },
+ {
+  "id": "X005B",
+  "desc": "Gun Shot Loud 1",
+  "og": "sfx-ref/x005B Gun Shot Loud 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X005C",
+  "desc": "Gun Shot Loud 2",
+  "og": "sfx-ref/x005C Gun Shot Loud 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X005D",
+  "desc": "Gun Shot Loud 3",
+  "og": "sfx-ref/x005D Gun Shot Loud 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X005E",
+  "desc": "Crush / Explosion",
+  "og": "sfx-ref/x005E Crush _ Explosion.mp3",
+  "gens": []
+ },
+ {
+  "id": "X005F",
+  "desc": "Retro Echo Tone",
+  "og": "sfx-ref/x005F _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0060",
+  "desc": "Double Explosion",
+  "og": "sfx-ref/x0060 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0061",
+  "desc": "Ability Un-Equipped",
+  "og": "sfx-ref/x0061 Ability Un-Equipped.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0062",
+  "desc": "Pain Sting",
+  "og": "sfx-ref/x0062 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0063",
+  "desc": "Slap",
+  "og": "sfx-ref/x0063 Slap.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0064",
+  "desc": "Female Scream 3",
+  "og": "sfx-ref/x0064 Female Scream 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0065",
+  "desc": "Sword Clash",
+  "og": "sfx-ref/x0065 Sword Clash.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0066",
+  "desc": "Zodiac Stone Spirit Howl 1",
+  "og": "sfx-ref/x0066 Zodiac Stone Spirit Howl 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0067",
+  "desc": "Zodiac Stone Spirit Howl 2",
+  "og": "sfx-ref/x0067 Zodiac Stone Spirit Howl 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0068",
+  "desc": "Zodiac Stone Spirit Howl 3",
+  "og": "sfx-ref/x0068 Zodiac Stone Spirit Howl 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0069",
+  "desc": "Door Lever Pull",
+  "og": "sfx-ref/x0069 Door Lever Pull.mp3",
+  "gens": []
+ },
+ {
+  "id": "X006A",
+  "desc": "Teleport Out",
+  "og": "sfx-ref/x006A Teleport Out.mp3",
+  "gens": []
+ },
+ {
+  "id": "X006B",
+  "desc": "Teleport In",
+  "og": "sfx-ref/x006B Teleport In.mp3",
+  "gens": []
+ },
+ {
+  "id": "X006C",
+  "desc": "Random Encounter 1",
+  "og": "sfx-ref/x006C Random Encounter 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X006D",
+  "desc": "Random Encounter 2",
+  "og": "sfx-ref/x006D Random Encounter 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X006E",
+  "desc": "Crossbow Arrow 1",
+  "og": "sfx-ref/x006E Crossbow Arrow 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X006F",
+  "desc": "Crossbow Arrow 2",
+  "og": "sfx-ref/x006F Crossbow Arrow 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0070",
+  "desc": "Riovanes Castle Footsteps",
+  "og": "sfx-ref/x0070 Riovanes Castle Footsteps.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0071",
+  "desc": "In-Battle AT Halt",
+  "og": "sfx-ref/x0071 In-Battle AT Halt.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0072",
+  "desc": "Cinematic Impaling Hit",
+  "og": "sfx-ref/x0072 Cinematic Impaling Hit.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0073",
+  "desc": "Text Typing",
+  "og": "sfx-ref/x0073 Text Typing.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0074",
+  "desc": "Lever Pull",
+  "og": "sfx-ref/x0074 Lever Pull.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0075",
+  "desc": "Sparkle 7",
+  "og": "sfx-ref/x0075 Sparkle 7.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0076",
+  "desc": "New Map Course Drawn",
+  "og": "sfx-ref/x0076 New Map Course Drawn.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0077",
+  "desc": "In-Battle Selection",
+  "og": "sfx-ref/x0077 In-Battle Selection.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0078",
+  "desc": "Reinforcements Footsteps Arrive",
+  "og": "sfx-ref/x0078 Reinforcements Footsteps Arrive.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0079",
+  "desc": "Reed Flute 1",
+  "og": "sfx-ref/x0079 Reed Flute 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X007A",
+  "desc": "Reed Flute 2",
+  "og": "sfx-ref/x007A Reed Flute 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X007B",
+  "desc": "Reed Flute 3",
+  "og": "sfx-ref/x007B Reed Flute 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X007C",
+  "desc": "Failed Reed Flute",
+  "og": "sfx-ref/x007C Failed Reed Flute.mp3",
+  "gens": []
+ },
+ {
+  "id": "X007D",
+  "desc": "Whistle",
+  "og": "sfx-ref/x007D Whistle.mp3",
+  "gens": []
+ },
+ {
+  "id": "X007E",
+  "desc": "Crisp Blip",
+  "og": "sfx-ref/x007E _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X007F",
+  "desc": "Lionel Gate Open",
+  "og": "sfx-ref/x007F Lionel Gate Open.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0080",
+  "desc": "Ghostly Tone",
+  "og": "sfx-ref/x0080 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0081",
+  "desc": "Ghostly Sting",
+  "og": "sfx-ref/x0081 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0082",
+  "desc": "Eerie Tone",
+  "og": "sfx-ref/x0082 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0083",
+  "desc": "Chilling Tone",
+  "og": "sfx-ref/x0083 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0084",
+  "desc": "Bad Breath",
+  "og": "sfx-ref/x0084 Bad Breath.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0085",
+  "desc": "Crystal Pickup",
+  "og": "sfx-ref/x0085 Crystal Pickup.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0086",
+  "desc": "Feather Bomb",
+  "og": "sfx-ref/x0086 Feather Bomb.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0087",
+  "desc": "Scratch Up",
+  "og": "sfx-ref/x0087 Scratch Up.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0088",
+  "desc": "Vocoded Shriek",
+  "og": "sfx-ref/x0088 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0089",
+  "desc": "Altima I Knife Strike",
+  "og": "sfx-ref/x0089 Altima I Knife Strike.mp3",
+  "gens": []
+ },
+ {
+  "id": "X008A",
+  "desc": "Shield Block Heavy 2",
+  "og": "sfx-ref/x008A Shield Block Heavy 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X008B",
+  "desc": "Distorted Explosion",
+  "og": "sfx-ref/x008B _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X008C",
+  "desc": "Lick",
+  "og": "sfx-ref/x008C Lick.mp3",
+  "gens": []
+ },
+ {
+  "id": "X008D",
+  "desc": "Straight Dash",
+  "og": "sfx-ref/x008D Straight Dash.mp3",
+  "gens": []
+ },
+ {
+  "id": "X008E",
+  "desc": "Deep Explosion",
+  "og": "sfx-ref/x008E _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X008F",
+  "desc": "Ghostly Echo Tone",
+  "og": "sfx-ref/x008F _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0090",
+  "desc": "Dash",
+  "og": "sfx-ref/x0090 Dash.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0091",
+  "desc": "Shield Block Heavy 3",
+  "og": "sfx-ref/x0091 Shield Block Heavy 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0092",
+  "desc": "Monster Strike Heavy",
+  "og": "sfx-ref/x0092 Monster Strike Heavy.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0093",
+  "desc": "Equipped",
+  "og": "sfx-ref/x0093 Equipped.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0094",
+  "desc": "Choco Beak Hit",
+  "og": "sfx-ref/x0094 Choco Beak Hit.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0095",
+  "desc": "Distorted Retro Tone",
+  "og": "sfx-ref/x0095 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0096",
+  "desc": "Suspense Tone",
+  "og": "sfx-ref/x0096 _____.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0097",
+  "desc": "Gil-Related",
+  "og": "sfx-ref/x0097 Gil-Related.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0098",
+  "desc": "Ability Learned",
+  "og": "sfx-ref/x0098 Ability Learned.mp3",
+  "gens": []
+ },
+ {
+  "id": "X0099",
+  "desc": "Magic Hit",
+  "og": "sfx-ref/x0099 Magic Hit.mp3",
+  "gens": []
+ },
+ {
+  "id": "X009A",
+  "desc": "Male Death",
+  "og": "sfx-ref/x009A Male Death.mp3",
+  "gens": []
+ },
+ {
+  "id": "X009B",
+  "desc": "Bio Hit",
+  "og": "sfx-ref/x009B Bio Hit.mp3",
+  "gens": []
+ },
+ {
+  "id": "X009C",
+  "desc": "Dictionary / Book Hit",
+  "og": "sfx-ref/x009C Dictionary _ Book Hit.mp3",
+  "gens": []
+ },
+ {
+  "id": "X009D",
+  "desc": "Final Fantasy Theme Harps",
+  "og": "sfx-ref/x009D Final Fantasy Theme Harps.mp3",
+  "gens": []
+ },
+ {
+  "id": "X009E",
+  "desc": "Laugh 1",
+  "og": "sfx-ref/x009E Laugh 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X009F",
+  "desc": "Laugh 2",
+  "og": "sfx-ref/x009F Laugh 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X00A0",
+  "desc": "Laugh 3",
+  "og": "sfx-ref/x00A0 Laugh 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X00A1",
+  "desc": "Zodiac Stone Pulsing Sound",
+  "og": "sfx-ref/x00A1 Zodiac Stone Pulsing Sound.mp3",
+  "gens": []
+ },
+ {
+  "id": "X00A2",
+  "desc": "Church Bells",
+  "og": "sfx-ref/x00A2 Church Bells.mp3",
+  "gens": []
+ },
+ {
+  "id": "X00A3",
+  "desc": "Male Zodiac Death",
+  "og": "sfx-ref/x00A3 Male Zodiac Death.mp3",
+  "gens": []
+ },
+ {
+  "id": "X00A4",
+  "desc": "Impact 1",
+  "og": "sfx-ref/x00A4 Impact 1.mp3",
+  "gens": []
+ },
+ {
+  "id": "X00A5",
+  "desc": "Impact 2",
+  "og": "sfx-ref/x00A5 Impact 2.mp3",
+  "gens": []
+ },
+ {
+  "id": "X00A6",
+  "desc": "Impact 3",
+  "og": "sfx-ref/x00A6 Impact 3.mp3",
+  "gens": []
+ },
+ {
+  "id": "X00A7",
+  "desc": "Zodiac Stone Sparkle",
+  "og": "sfx-ref/x00A7 Zodiac Stone Sparkle.mp3",
+  "gens": []
+ }
+]

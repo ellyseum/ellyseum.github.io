@@ -1,0 +1,158 @@
+<!doctype html><html><head><meta charset="utf-8"><title>FWLB SFX Composer</title>
+<script src="lib/tone.js"></script>
+<style>
+ body{background:#13131a;color:#ddd;font:13px system-ui;margin:0;display:flex;height:100vh}
+ #cues{width:300px;overflow:auto;border-right:1px solid #333;padding:8px}
+ #cues .cue{padding:6px 8px;border-radius:6px;cursor:pointer}
+ #cues .cue:hover{background:#22222c} #cues .cue.sel{background:#34406a}
+ #cues .id{color:#9af;font-weight:600} #cues .gn{color:#6a6;font-size:11px}
+ #cues .ng{color:#a55;font-size:11px}
+ #main{flex:1;overflow:auto;padding:16px}
+ h2{font-size:16px;margin:0 0 4px} .sub{color:#9af}
+ .sources{margin:10px 0} .src{display:inline-block;padding:5px 10px;margin:3px;border:1px solid #444;border-radius:6px;cursor:pointer;background:#1d1d26}
+ .src.sel{background:#5a4;color:#000;border-color:#5a4}
+ .rack{display:grid;grid-template-columns:130px 1fr 60px;gap:8px 12px;align-items:center;max-width:640px;margin:14px 0;background:#1b1b24;padding:14px;border-radius:8px}
+ .rack label{color:#aaa} .rack input[type=range]{width:100%} .rack .val{color:#9af;text-align:right;font-variant-numeric:tabular-nums}
+ .btns{margin:12px 0} button{background:#2a2a36;color:#ddd;border:1px solid #555;border-radius:6px;padding:8px 14px;cursor:pointer;margin-right:8px;font-size:13px}
+ button.go{background:#5a4;color:#000;border-color:#5a4;font-weight:600} button:disabled{opacity:.4;cursor:default}
+ .info{color:#888;margin:8px 0} .ok{color:#6d6} .err{color:#e66}
+ #toast{position:fixed;bottom:16px;right:16px;background:#243;color:#cfc;padding:10px 16px;border-radius:8px;opacity:0;transition:.3s}
+</style></head><body>
+<div id="cues"><div class="info">loading…</div></div>
+<div id="main"><div class="info">Static build. The composer runs entirely in the browser: pick a cue on the left, then a source (OG or a take), tweak, preview, Render &amp; Download — the render is Tone.js offline synthesis and the WAV encoder runs client-side.</div></div>
+<div id="toast"></div>
+<script>
+const PARAMS = [
+ ["trimStart","Trim start (s)",0,6,0.01,0],
+ ["trimEnd","Trim end (s)",0,6,0.01,6],
+ ["fadeIn","Fade in (s)",0,2,0.01,0],
+ ["fadeOut","Fade out (s)",0,3,0.01,0.05],
+ ["gain","Gain (dB)",-24,12,0.5,0],
+ ["pitch","Pitch (semitones)",-24,24,1,0],
+ ["speed","Speed (rate)",0.25,3,0.01,1],
+ ["reverbWet","Reverb wet",0,1,0.01,0.12],
+ ["reverbDecay","Reverb decay (s)",0.1,4,0.05,0.6],
+ ["lowShelf","EQ low (dB)",-18,18,0.5,0],
+ ["highShelf","EQ high (dB)",-18,18,0.5,0],
+];
+let DATA=[], cue=null, srcSel=null, rawBuf=null, p={}, previewPlayer=null, ogPlayer=null;
+
+const toast=(m,cls)=>{const t=document.getElementById('toast');t.textContent=m;t.className=cls||'';t.style.opacity=1;setTimeout(()=>t.style.opacity=0,2600);};
+const keyOf=()=>cue?cue.id+'|'+srcSel:'';
+function defaults(){ const o={}; PARAMS.forEach(([k,,,,,d])=>o[k]=d); return o; }
+function loadParams(){ try{const s=JSON.parse(localStorage.getItem('cmp_'+keyOf())); p = s?{...defaults(),...s}:defaults();}catch(e){p=defaults();} }
+function saveParams(){ localStorage.setItem('cmp_'+keyOf(), JSON.stringify(p)); }
+
+fetch('sfx_data.json').then(r=>r.json()).then(rows=>{ DATA=rows; renderCues(); });
+
+function renderCues(){
+ const c=document.getElementById('cues'); c.innerHTML='';
+ DATA.forEach(r=>{
+  const d=document.createElement('div'); d.className='cue'+(cue&&cue.id===r.id?' sel':'');
+  d.innerHTML=`<span class="id">${r.id}</span> ${r.desc} `+(r.gens.length?`<span class="gn">[${r.gens.length}]</span>`:`<span class="ng">·</span>`);
+  d.onclick=()=>selectCue(r); c.appendChild(d);
+ });
+}
+function selectCue(r){ cue=r; srcSel='og'; renderCues(); renderMain(); }
+
+function renderMain(){
+ const m=document.getElementById('main');
+ const sources=[{k:'og',label:'OG (FFT)',path:cue.og}].concat(cue.gens.map((g,i)=>({k:'gen'+i,label:'take '+(i+1),path:g})));
+ m.innerHTML=`<h2>${cue.id} <span class="sub">${cue.desc}</span></h2>`+
+  (cue.prompt?`<div class="info">${cue.prompt}</div>`:``)+
+  `<div class="sources">`+sources.map(s=>`<span class="src ${srcSel===s.k?'sel':''}" data-k="${s.k}" data-p="${encodeURI(s.path)}">${s.label}</span>`).join('')+`</div>`+
+  `<div id="rack"></div>`+
+  `<div class="btns"><button class="go" id="bplay">▶ Preview</button><button id="bstop">■ Stop</button><button id="bog">▶ OG (A/B)</button><button class="go" id="brender">⬇ Render &amp; Download</button></div>`+
+  `<div class="info" id="dur"></div>`;
+ m.querySelectorAll('.src').forEach(e=>e.onclick=()=>{ srcSel=e.dataset.k; loadSource(decodeURI(e.dataset.p)); m.querySelectorAll('.src').forEach(x=>x.classList.toggle('sel',x===e)); });
+ document.getElementById('bplay').onclick=preview;
+ document.getElementById('bstop').onclick=stopAll;
+ document.getElementById('bog').onclick=playOG;
+ document.getElementById('brender').onclick=renderSave;
+ loadSource(cue.og);
+}
+
+async function loadSource(path){
+ stopAll(); loadParams();
+ const ab=await fetch(path).then(r=>r.arrayBuffer());
+ rawBuf=await Tone.getContext().rawContext.decodeAudioData(ab);
+ // clamp trim defaults to actual length
+ if(p.trimEnd>rawBuf.duration||p.trimEnd===6) p.trimEnd=+rawBuf.duration.toFixed(2);
+ if(p.trimStart>rawBuf.duration) p.trimStart=0;
+ renderRack();
+}
+function renderRack(){
+ const r=document.getElementById('rack'); r.className='rack'; r.innerHTML='';
+ PARAMS.forEach(([k,lab,min,max,step])=>{
+  const mx = (k==='trimStart'||k==='trimEnd') && rawBuf ? +rawBuf.duration.toFixed(2) : max;
+  r.innerHTML+=`<label>${lab}</label><input type="range" data-k="${k}" min="${min}" max="${mx}" step="${step}" value="${p[k]}"><span class="val" id="v_${k}">${p[k]}</span>`;
+ });
+ r.querySelectorAll('input').forEach(inp=>inp.oninput=()=>{ p[inp.dataset.k]=parseFloat(inp.value); document.getElementById('v_'+inp.dataset.k).textContent=inp.value; saveParams(); updDur(); });
+ updDur();
+}
+function trimLen(){ return Math.max(0.02, Math.min(p.trimEnd, rawBuf?rawBuf.duration:p.trimEnd) - p.trimStart); }
+function updDur(){ const d=document.getElementById('dur'); if(d&&rawBuf) d.textContent=`OG/src ${rawBuf.duration.toFixed(2)}s  →  edited ~${(trimLen()/p.speed).toFixed(2)}s`; }
+
+function buildChain(ctxNodes){
+ // returns [player, ...fx, outGain] chained, on the CURRENT Tone context
+ const player=new Tone.Player(rawBuf);
+ player.playbackRate=p.speed; player.fadeIn=p.fadeIn; player.fadeOut=p.fadeOut;
+ const ps=new Tone.PitchShift({pitch:p.pitch});
+ const eq=new Tone.EQ3({low:p.lowShelf, mid:0, high:p.highShelf});
+ const g=new Tone.Gain(Math.pow(10,p.gain/20));
+ return {player,ps,eq,g};
+}
+
+async function preview(){
+ stopAll(); await Tone.start();
+ const {player,ps,eq,g}=buildChain();
+ const rev=new Tone.Reverb({decay:p.reverbDecay,wet:p.reverbWet}); await rev.generate();
+ player.chain(ps,eq,rev,g,Tone.getDestination());
+ previewPlayer={player,ps,eq,rev,g};
+ player.start(undefined,p.trimStart,trimLen());
+}
+async function playOG(){
+ stopAll(); await Tone.start();
+ const player=new Tone.Player(rawBuf).toDestination(); ogPlayer={player};
+ player.start(undefined,0);
+}
+function stopAll(){
+ for(const grp of [previewPlayer,ogPlayer]){ if(!grp)continue; try{grp.player.stop();}catch(e){}
+  setTimeout(()=>Object.values(grp).forEach(n=>{try{n.dispose();}catch(e){}}),100); }
+ previewPlayer=ogPlayer=null;
+}
+
+function encodeWav(buf){
+ const ch=buf.numberOfChannels, len=buf.length, sr=buf.sampleRate;
+ const ab=new ArrayBuffer(44+len*ch*2), v=new DataView(ab);
+ const ws=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+ ws(0,'RIFF');v.setUint32(4,36+len*ch*2,true);ws(8,'WAVE');ws(12,'fmt ');
+ v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,ch,true);
+ v.setUint32(24,sr,true);v.setUint32(28,sr*ch*2,true);v.setUint16(32,ch*2,true);v.setUint16(34,16,true);
+ ws(36,'data');v.setUint32(40,len*ch*2,true);
+ let o=44; const chs=[]; for(let c=0;c<ch;c++)chs.push(buf.getChannelData(c));
+ let peak=1; if(p.normalize){peak=0; for(let c=0;c<ch;c++)for(let i=0;i<len;i++)peak=Math.max(peak,Math.abs(chs[c][i])); peak=peak||1; peak=peak/0.97;}
+ for(let i=0;i<len;i++)for(let c=0;c<ch;c++){let s=chs[c][i]/(p.normalize?peak:1);s=Math.max(-1,Math.min(1,s));v.setInt16(o,s<0?s*0x8000:s*0x7fff,true);o+=2;}
+ return ab;
+}
+
+async function renderSave(){
+ const btn=document.getElementById('brender'); btn.disabled=true; btn.textContent='rendering…';
+ try{
+  const dur=trimLen()/p.speed + p.reverbDecay + p.fadeOut + 0.1;
+  const rendered=await Tone.Offline(async ()=>{
+    const {player,ps,eq,g}=buildChain();
+    const rev=new Tone.Reverb({decay:p.reverbDecay,wet:p.reverbWet}); await rev.generate();
+    player.chain(ps,eq,rev,g,Tone.getDestination());
+    player.start(0,p.trimStart,trimLen());
+  }, dur, 2);
+  const wav=encodeWav(rendered.get());
+  const name=`${cue.id} ${cue.desc}.wav`;
+  const url=URL.createObjectURL(new Blob([wav],{type:'audio/wav'}));
+  const a=document.createElement('a'); a.href=url; a.download=name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),4000);
+  toast('rendered → '+name,'ok');
+ }catch(e){ toast('render error: '+e,'err'); console.error(e); }
+ btn.disabled=false; btn.innerHTML='⬇ Render &amp; Download';
+}
+</script></body></html>
