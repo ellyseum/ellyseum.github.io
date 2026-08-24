@@ -1,16 +1,16 @@
 ---
 layout: portfolio-item
 title: "RE9 Classic Horror"
-subtitle: "Fixed-camera Resident Evil, rebuilt on Capcom's RE Engine"
+subtitle: "Fixed-camera survival horror, rebuilt in Resident Evil Requiem on Capcom's RE Engine"
 status: placeholder
 permalink: /portfolio/re9-classic-horror/
 ---
 
-This page is reserved for **RE9 Classic Horror**: a conversion mod for the newest mainline
-entry in Capcom's Resident Evil series (RE9), built on Capcom's RE Engine. It reads and
-rewrites live state out of the running game through the engine's own supported modding hooks
-to reconstruct a fixed-camera, tank-control classic-horror perspective — including the
-dual-projection camera math that makes the fixed-camera view work.
+This page is reserved for **RE9 Classic Horror**: a conversion mod for *Resident Evil Requiem*,
+the newest mainline entry in Capcom's Resident Evil series, built on Capcom's RE Engine. It
+reads and rewrites live state out of the running game through the engine's own supported
+modding hooks to reconstruct a fixed-camera, tank-control classic-horror perspective —
+including the dual-projection camera math that makes the fixed-camera view work.
 
 The mod uses a community-standard, publicly documented, permissively licensed modding
 framework, targets that framework's own supported API, is single-player scope, and defeats no
