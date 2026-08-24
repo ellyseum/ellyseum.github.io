@@ -27,6 +27,9 @@ recorded trace trails (client and server) against a ground-truth file, grades ea
 green/yellow/red, and takes the worst dimension as the overall grade — logged across six dated
 audit rounds, one of which found two regressions its own previous round had introduced.
 
+The board itself is runnable in a browser, read-only, with its recorded verdicts, notes and pass
+history intact: [the Design Workshop board]({{ '/portfolio/design-workshop/' | relative_url }}).
+
 <!-- DEMO SLOT: drop a <video> tag or embed (YouTube unlisted, etc.) directly below this
      comment when the capture is ready. No layout change needed — this is a plain content
      block inside .portfolio-item-content. -->

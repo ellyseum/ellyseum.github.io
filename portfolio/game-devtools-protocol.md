@@ -18,5 +18,8 @@ An env var lets the bridge bind `0.0.0.0` instead of localhost specifically for 
 NAT only forwards services bound that way through to the Windows host; another lets multiple
 headless instances coexist on different ports.
 
+A web export of the game it drives is playable here:
+[For What Lies Beneath]({{ '/portfolio/game/' | relative_url }}).
+
 First committed 2026-06-14. The project it drives (a from-scratch personal game) is a private
 repository.

@@ -28,4 +28,7 @@ tweak / 4 killed. The review system's own validator deliberately constructs a br
 and requires itself to catch it before it will validate anything real — a self-test wired into
 the CI gate, not a one-off check.
 
+Both are runnable in a browser: [the audio DAW]({{ '/portfolio/audio-daw/' | relative_url }}) and
+[the VFX audition gallery]({{ '/portfolio/vfx-auditioner/' | relative_url }}).
+
 Both are part of a private personal-project repository.
