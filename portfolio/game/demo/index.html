@@ -162,6 +162,34 @@ const engine = new Engine(GODOT_CONFIG);
 		initializing = false;
 	}
 
+	// Deep links: ?boot=<scene> drives the build's own dev-panel keyboard
+	// shortcuts once the engine is up — Ctrl+D opens the scene jumper, N Downs
+	// select the row, Enter boots it. The synthesized events travel the same
+	// canvas input path a reviewer's keyboard uses, so no engine or pack
+	// changes are involved. Row numbers match this export's dev-panel list.
+	function maybeBootScene() {
+		const boot = new URLSearchParams(location.search).get('boot');
+		const ROWS = { fx_lab: 6, sound_lab: 7, sprite_lab: 8, ui_lab: 9, tavern: 12 };
+		if (!(boot in ROWS)) {
+			return;
+		}
+		const canvas = document.getElementById('canvas');
+		const press = (code, key, mods) => {
+			['keydown', 'keyup'].forEach((type) => {
+				canvas.dispatchEvent(new KeyboardEvent(type, Object.assign({ code, key, bubbles: true, cancelable: true }, mods || {})));
+			});
+		};
+		setTimeout(() => {
+			canvas.focus();
+			const seq = [() => press('KeyD', 'd', { ctrlKey: true })];
+			for (let i = 0; i < ROWS[boot]; i++) {
+				seq.push(() => press('ArrowDown', 'ArrowDown'));
+			}
+			seq.push(() => press('Enter', 'Enter'));
+			seq.forEach((fn, i) => setTimeout(fn, i * 120));
+		}, 1800);
+	}
+
 	const missing = Engine.getMissingFeatures({
 		threads: GODOT_THREADS_ENABLED,
 	});
@@ -211,9 +239,22 @@ const engine = new Engine(GODOT_CONFIG);
 			},
 		}).then(() => {
 			setStatusMode('hidden');
+			maybeBootScene();
 		}, displayFailureNotice);
 	}
 }());
+		</script>
+		<script>
+	// The engine reads Tab as an in-game control (the FX-lab tool cycler among
+	// them), but the browser's default Tab behavior moves focus off the canvas
+	// before the engine can use it. Suppress the default while the canvas owns
+	// focus; the engine still receives the keydown through its own canvas
+	// listener, which runs before this one in the dispatch order.
+	window.addEventListener('keydown', function (e) {
+		if (e.key === 'Tab' && document.activeElement === document.getElementById('canvas')) {
+			e.preventDefault();
+		}
+	});
 		</script>
 	<div id="staticnote" style="position:fixed;left:0;right:0;bottom:0;z-index:9999;
   font:12px/1.5 system-ui,sans-serif;background:#111722ee;color:#c3cede;

@@ -32,4 +32,8 @@ four dated review passes: 117 candidates, 154 review-history entries, verdicts o
 57 tweak / 4 killed. The review system's own validator deliberately constructs a broken test
 case and requires itself to catch it before it will validate anything real.
 
+**[Cast the effects yourself]({{ '/portfolio/game/demo/?boot=fx_lab' | relative_url }})** — the
+game build boots straight into its FX Lab: `←`/`→` picks a spell, `Space` casts it at the
+terrain, and `Tab` flips to the liquid studio, where a right-click pours water.
+
 Both are part of a private personal-project repository.

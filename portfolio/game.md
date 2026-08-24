@@ -20,10 +20,19 @@ systems underneath them. And one production detail worth naming plainly: **some 
 sprites are AI-generated retro pixel graphics, produced with Adobe Firefly Services** in the
 character-art pipeline.
 
-**The build ships its own workbenches.** The gear top-right (or `Ctrl+D`) opens a dev panel
-that jumps straight into the studios the game is built with — **FX LAB** (the effects
-workbench: cycle spells, dial an eight-lamp light studio, fog and terrain presets), SOUND LAB,
-SPRITE LAB, UI LAB and the rest — all running right here in the browser.
+**The build ships its own workbenches — jump straight into one:**
+
+- **[FX Lab]({{ '/portfolio/game/demo/?boot=fx_lab' | relative_url }})** — `←`/`→` picks a
+  spell, `Space` casts it, a click casts at the tile you point at. `Tab` flips the side panel
+  to the **liquid studio**: right-click **pours water** onto the terrain (`Q1`–`Q4` switch to
+  poison, lava, swamp). Further `Tab`s reach fog, trees, wind; `Q`/`E` orbits the camera.
+- **[Sound Lab]({{ '/portfolio/game/demo/?boot=sound_lab' | relative_url }})** — `←`/`→`
+  cycles the game's sound effects, `Space` or a click plays one, number keys jump categories.
+- **[UI Lab]({{ '/portfolio/game/demo/?boot=ui_lab' | relative_url }})** — the look-and-feel
+  bench: `W`/`S`/`Enter` drive the menu cascade, drag the bars bottom-left to re-theme every
+  widget live.
+
+The same jumper is available anywhere in the build from the gear top-right (or `Ctrl+D`).
 
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/game/demo/' | relative_url }}"
