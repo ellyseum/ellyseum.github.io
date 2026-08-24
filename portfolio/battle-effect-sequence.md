@@ -6,7 +6,7 @@ status: live
 permalink: /portfolio/battle-effect-sequence/
 ---
 
-A clean-room recreation of a well-known game's battle-start flourish: cyan light-beams, a
+A clean-room recreation of *Persona 5*'s "AMBUSH!" battle-start flourish: cyan light-beams, a
 scattered wordmark, a jagged ink-banner, a red eruption, timed to about 2.3 seconds. The light
 beams and rings are real WebGL (three.js, a custom shader for the dark-stroke/gradient/splat);
 the wordmark and ink backdrop are Canvas2D, composited as a stacked-canvas hybrid — the same
@@ -23,8 +23,8 @@ rubric with a multi-agent panel, synthesize the feedback, rebuild, repeat.
         loading="lazy" title="Battle-effect sequence demo — click the replay button in the corner">
 </iframe>
 
-**Fan-work disclaimer.** The recreated flourish and its source game are the property of their
-original publisher. This is an unaffiliated, non-commercial, clean-room recreation built for
-educational and research purposes; no original game assets are included or distributed. The
-page vendors two open-licensed dependencies: three.js (MIT) and the Anton typeface (SIL Open
-Font License 1.1).
+**Fan-work disclaimer.** *Persona 5* and the "AMBUSH!" battle-start sequence are the property
+of ATLUS / SEGA. This is an unaffiliated, non-commercial, clean-room recreation built for
+educational and research purposes; it is not endorsed by or affiliated with either company,
+and no original game assets are included or distributed. The page vendors two open-licensed
+dependencies: three.js (MIT) and the Anton typeface (SIL Open Font License 1.1).
