@@ -31,6 +31,23 @@ pass 1 and kill on passes 2 and 3; `impact_frame` was kept carrying the note *"t
 effect kills it, needs more work but i like as a starter"* — a critique passed forward rather
 than a rejection.
 
+**The same pipeline shape reaches past effects.** For the game's title screen, a vision model
+watched twelve title-screen references and narrated their beats — what moves, what holds, what
+the first keypress does — and a builder–critic loop coded **five complete Godot title flows**
+from those narrations, judged blind A/B against each other. One control mattered enough to
+name: **the judging seat sees the candidates in swapped order across rounds**, which caught it
+favoring whichever flow it saw first — so describing was split from judging, and the positions
+rotate. The reel below plays all five flows end to end, studio card to save-slot screen.
+
+<div class="pf-frame">
+<video src="{{ '/portfolio/vfx-auditioner/title-flow-reel.mp4' | relative_url }}"
+       controls preload="metadata" playsinline
+       style="width:100%;display:block;"
+       title="Five generated title flows for For What Lies Beneath, played end to end"></video>
+</div>
+<p class="pf-cap">Five candidate title flows, one reel — the audition pattern applied to a
+whole interactive sequence rather than a single effect.</p>
+
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/vfx-auditioner/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
