@@ -1,7 +1,7 @@
 ---
 layout: portfolio-item
-title: "RE9 Classic Horror"
-subtitle: "Fixed-camera survival horror, rebuilt in Resident Evil Requiem on Capcom's RE Engine"
+title: "Live Engine Introspection"
+subtitle: "Reading and rewriting state in a closed AAA engine through its own supported hooks, proven on Resident Evil Requiem"
 status: live
 permalink: /portfolio/re9-classic-horror/
 ---

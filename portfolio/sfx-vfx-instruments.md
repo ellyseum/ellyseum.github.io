@@ -1,7 +1,7 @@
 ---
 layout: portfolio-item
 title: "The instruments"
-subtitle: "An SFX workstation and a VFX auditioner"
+subtitle: "A loop-authoring workstation and a persisted-verdict auditioner, built for SFX and VFX craft"
 status: live
 permalink: /portfolio/sfx-vfx-instruments/
 ---
