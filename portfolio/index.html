@@ -1,17 +1,17 @@
 ---
 layout: page
 title: Work
-description: Selected projects — playable and watchable creative work first, then agent infrastructure, security research, and enterprise platform work.
+description: Selected projects — AI-powered creative production live in the browser, the craft systems behind it, enterprise platform receipts, and the lab.
 permalink: /portfolio/
 ---
 
 <div class="portfolio-index">
   <p class="portfolio-intro">
-    Selected projects. The creative work runs right here in the browser — play it first;
-    the engineering receipts follow.
+    Selected work. The creative production runs right here in the browser — play it first;
+    the systems and receipts behind it follow.
   </p>
 
-  <h2>Play it</h2>
+  <h2>Creative production, live in the browser</h2>
   <ul class="portfolio-list">
     <li class="portfolio-list-item">
       <a href="{{ '/portfolio/game/' | relative_url }}">For What Lies Beneath, playable</a>
@@ -43,7 +43,7 @@ permalink: /portfolio/
     </li>
   </ul>
 
-  <h2>Creative systems</h2>
+  <h2>The craft systems behind it</h2>
   <ul class="portfolio-list">
     <li class="portfolio-list-item">
       <a href="{{ '/portfolio/sfx-vfx-instruments/' | relative_url }}">SFX workstation and VFX auditioner</a>
@@ -67,28 +67,8 @@ permalink: /portfolio/
     </li>
   </ul>
 
-  <h2>Engineering receipts</h2>
+  <h2>Enterprise platform receipts</h2>
   <ul class="portfolio-list">
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/ellymud/' | relative_url }}">ellymud</a>
-      <span class="portfolio-list-desc">A headless-testable MUD built as an MCP server — 3,500+ tests over 14 months.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/cordyceps/' | relative_url }}">cordyceps</a>
-      <span class="portfolio-list-desc">A JSON-RPC daemon driving Claude, Codex, Gemini, and Ollama on one control plane.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/claudio/' | relative_url }}">claudio</a>
-      <span class="portfolio-list-desc">Session-to-session messaging and supervision for coding agents; inter-session control lands 2026-02-14T10:15:51Z, first-party cross-session messaging shipped 2026-08-07.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/prompt-injection-benchmark/' | relative_url }}">Prompt-injection benchmark</a>
-      <span class="portfolio-list-desc">An 18-model self-hosted-LLM injection study backing a security-tooling architecture.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/native-binaries-serverless/' | relative_url }}">Native binaries on a serverless creative platform</a>
-      <span class="portfolio-list-desc">Getting native modules running inside a sandboxed serverless runtime.</span>
-    </li>
     <li class="portfolio-list-item">
       <a href="{{ '/portfolio/motion-graphics-template-format/' | relative_url }}">Motion-graphics template authoring</a>
       <span class="portfolio-list-desc">A hand-authored template format for cloud rendering, measured against an export-based baseline.</span>
@@ -98,28 +78,58 @@ permalink: /portfolio/
       <span class="portfolio-list-desc">Custom local-ML nodes for a workflow builder, plus a headless API for authoring and running workflows.</span>
     </li>
     <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/native-binaries-serverless/' | relative_url }}">Native binaries on a serverless creative platform</a>
+      <span class="portfolio-list-desc">Getting native modules running inside a sandboxed serverless runtime.</span>
+    </li>
+    <li class="portfolio-list-item">
       <a href="{{ '/portfolio/agentic-delivery-governance/' | relative_url }}">Governed agentic delivery</a>
       <span class="portfolio-list-desc">A provenance-linked, review-gated delivery process built onto stock GitHub tooling.</span>
+    </li>
+  </ul>
+
+  <h2>The lab</h2>
+  <ul class="portfolio-list">
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/tinygpt/' | relative_url }}">tinygpt</a>
+      <span class="portfolio-list-desc">A small GPT implementation with a live in-browser training dashboard.</span>
     </li>
     <li class="portfolio-list-item">
       <a href="{{ '/portfolio/ios-pointer-finder/' | relative_url }}">ios_pointer_finder</a>
       <span class="portfolio-list-desc">A small CNN for locating a UI pointer in a screen capture, with stated error bars.</span>
     </li>
     <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/game-devtools-protocol/' | relative_url }}">A devtools protocol for a Godot game</a>
-      <span class="portfolio-list-desc">Instrumentation for driving and inspecting a Godot game from the outside.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/claude-sync/' | relative_url }}">claude-sync</a>
-      <span class="portfolio-list-desc">A multi-location convergence engine for coding-agent state.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/tinygpt/' | relative_url }}">tinygpt</a>
-      <span class="portfolio-list-desc">A small GPT implementation with a live in-browser training dashboard.</span>
-    </li>
-    <li class="portfolio-list-item">
       <a href="{{ '/portfolio/zero-cost-platform/' | relative_url }}">This site's own architecture</a>
       <span class="portfolio-list-desc">A platform that costs nothing to run — the colophon for ellyseum.me itself.</span>
     </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/ellymud/' | relative_url }}">ellymud</a>
+      <span class="portfolio-list-desc">A headless-testable MUD built as an MCP server — 3,500+ tests over 14 months.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/prompt-injection-benchmark/' | relative_url }}">Prompt-injection benchmark</a>
+      <span class="portfolio-list-desc">An 18-model self-hosted-LLM injection study backing a security-tooling architecture.</span>
+    </li>
+    <li class="portfolio-list-item">
+      <a href="{{ '/portfolio/cordyceps/' | relative_url }}">cordyceps</a>
+      <span class="portfolio-list-desc">A JSON-RPC daemon driving Claude, Codex, Gemini, and Ollama on one control plane.</span>
+    </li>
   </ul>
+
+  <details class="portfolio-archive">
+    <summary>Archive</summary>
+    <ul class="portfolio-list">
+      <li class="portfolio-list-item">
+        <a href="{{ '/portfolio/claudio/' | relative_url }}">claudio</a>
+        <span class="portfolio-list-desc">Session-to-session messaging and supervision for coding agents.</span>
+      </li>
+      <li class="portfolio-list-item">
+        <a href="{{ '/portfolio/game-devtools-protocol/' | relative_url }}">A devtools protocol for a Godot game</a>
+        <span class="portfolio-list-desc">Instrumentation for driving and inspecting a Godot game from the outside.</span>
+      </li>
+      <li class="portfolio-list-item">
+        <a href="{{ '/portfolio/claude-sync/' | relative_url }}">claude-sync</a>
+        <span class="portfolio-list-desc">A multi-location convergence engine for coding-agent state.</span>
+      </li>
+    </ul>
+  </details>
 </div>
