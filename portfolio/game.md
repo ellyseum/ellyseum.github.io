@@ -13,6 +13,18 @@ the DAW's loops, the auditioned effects, and the workshop's verdicts all point h
 through it: faction select, the branching march map, then a battle on destructible terrain with
 the action menu and unit stats live.
 
+**Read it as what it is: an early preview of a game being attempted, not a finished one.** The
+look is development graphics — deliberately programmatic — and many screens are simple dev
+placeholders holding a slot for scenes that aren't built yet. What's further along is the
+systems underneath them. And one production detail worth naming plainly: **some of the billboard
+sprites are AI-generated retro pixel graphics, produced with Adobe Firefly Services** in the
+character-art pipeline.
+
+**The build ships its own workbenches.** The gear top-right (or `Ctrl+D`) opens a dev panel
+that jumps straight into the studios the game is built with — **FX LAB** (the effects
+workbench: cycle spells, dial an eight-lamp light studio, fog and terrain presets), SOUND LAB,
+SPRITE LAB, UI LAB and the rest — all running right here in the browser.
+
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/game/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/9;min-height:520px;border:0;display:block;"
