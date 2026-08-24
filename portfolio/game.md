@@ -37,7 +37,7 @@ The same jumper is available anywhere in the build from the gear top-right (or `
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/game/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/9;min-height:520px;border:0;display:block;"
-        loading="lazy" allow="fullscreen; autoplay" title="For What Lies Beneath — Godot web export, click the canvas then press Enter">
+        loading="lazy" allow="fullscreen; autoplay" allowfullscreen title="For What Lies Beneath — Godot web export, click the canvas then press Enter">
 </iframe>
 </div>
 

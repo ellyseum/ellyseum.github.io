@@ -22,7 +22,7 @@ engine, a distortion family, anti-occlusion and the info layer, and cellular fol
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/vfx-report/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
-        loading="lazy" title="VFX build-out report — six waves narrated with twelve embedded renders">
+        loading="lazy" allow="fullscreen; autoplay" allowfullscreen title="VFX build-out report — six waves narrated with twelve embedded renders">
 </iframe>
 </div>
 

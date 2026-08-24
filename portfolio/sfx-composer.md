@@ -14,7 +14,7 @@ human ear makes the call.
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/sfx-composer/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
-        loading="lazy" title="SFX take composer — 167 reference cues, an effects rack, and offline WAV rendering">
+        loading="lazy" allow="fullscreen; autoplay" allowfullscreen title="SFX take composer — 167 reference cues, an effects rack, and offline WAV rendering">
 </iframe>
 </div>
 

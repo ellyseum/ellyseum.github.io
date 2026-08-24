@@ -22,7 +22,7 @@ intended screen graph against a trace captured from live play.
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/design-workshop/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
-        loading="lazy" title="Design Workshop board — six review lanes, four passes, and the balance lab">
+        loading="lazy" allow="fullscreen; autoplay" allowfullscreen title="Design Workshop board — six review lanes, four passes, and the balance lab">
 </iframe>
 </div>
 

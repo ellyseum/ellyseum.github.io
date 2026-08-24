@@ -9,7 +9,7 @@ permalink: /portfolio/battle-effect-sequence/
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/battle-effect-sequence/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/9;border:0;display:block;"
-        loading="lazy" title="Battle-effect sequence demo — click the replay button in the corner">
+        loading="lazy" allow="fullscreen; autoplay" allowfullscreen title="Battle-effect sequence demo — click the replay button in the corner">
 </iframe>
 </div>
 

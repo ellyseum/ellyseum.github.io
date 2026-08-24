@@ -34,7 +34,7 @@ than a rejection.
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/vfx-auditioner/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
-        loading="lazy" title="VFX audition gallery — 117 candidates with per-pass verdict history">
+        loading="lazy" allow="fullscreen; autoplay" allowfullscreen title="VFX audition gallery — 117 candidates with per-pass verdict history">
 </iframe>
 </div>
 

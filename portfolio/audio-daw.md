@@ -13,7 +13,7 @@ the game's music can loop seamlessly in-engine: it authors the exact loop data G
 <div class="pf-frame">
 <iframe src="{{ '/portfolio/audio-daw/demo/' | relative_url }}"
         style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
-        loading="lazy" title="Audio DAW — 167 SFX cues, 7 music tracks, loop authoring and WAV export">
+        loading="lazy" allow="fullscreen; autoplay" allowfullscreen title="Audio DAW — 167 SFX cues, 7 music tracks, loop authoring and WAV export">
 </iframe>
 </div>
 
