@@ -5,115 +5,158 @@ description: Selected projects — AI-powered creative production live in the br
 permalink: /portfolio/
 ---
 
-<div class="portfolio-index">
-  <p class="portfolio-intro">
-    Selected work. The creative production runs right here in the browser — play it first;
-    the systems and receipts behind it follow.
+<div class="pf-index">
+  <p class="pf-intro">
+    Selected work. The creative production <strong>runs right here in the browser</strong> —
+    play it first; the systems and receipts behind it are one click deeper.
   </p>
 
-  <h2>Creative production, live in the browser</h2>
-  <ul class="portfolio-list">
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/game/' | relative_url }}">For What Lies Beneath, playable</a>
-      <span class="portfolio-list-desc">Runnable: the Godot web export — faction select, march map, and a tactics battle.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/battle-effect-sequence/' | relative_url }}">A battle-effect sequence, rebuilt and measured</a>
-      <span class="portfolio-list-desc">A WebGL/Canvas2D recreation of a game battle effect, validated against a stated rubric.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/vfx-auditioner/' | relative_url }}">The VFX audition gallery</a>
-      <span class="portfolio-list-desc">Runnable: 117 effect candidates with the verdict, note and per-pass history behind each.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/vfx-report/' | relative_url }}">The VFX build-out report</a>
-      <span class="portfolio-list-desc">Runnable: six build waves narrated with all twelve renders embedded, ending in a decision list.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/design-workshop/' | relative_url }}">The Design Workshop board</a>
-      <span class="portfolio-list-desc">Runnable: six review lanes, four passes, and a balance lab over 386,640 scored builds.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/audio-daw/' | relative_url }}">The audio DAW</a>
-      <span class="portfolio-list-desc">Runnable: 167 SFX cues, 7 music tracks, loop authoring, and a WAV export carrying its loop points.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/sfx-composer/' | relative_url }}">The SFX take composer</a>
-      <span class="portfolio-list-desc">Runnable: 167 reference cues, an effects rack, and an offline WAV render that downloads in the browser.</span>
-    </li>
-  </ul>
+  <section class="pf-tier">
+    <div class="pf-tier-head">
+      <h2 class="pf-tier-title">Creative production, live</h2>
+      <span class="pf-tier-rule"></span>
+      <a class="pf-tier-link" href="{{ '/portfolio/creative/' | relative_url }}">tier surface →</a>
+    </div>
+    <div class="pf-grid">
+      <a class="pf-card" href="{{ '/portfolio/game/' | relative_url }}">
+        <span class="pf-card-media"><img src="{{ '/images/portfolio/poster-game.jpg' | relative_url }}" alt="For What Lies Beneath — battle on destructible terrain" loading="lazy"><span class="pf-live">LIVE</span></span>
+        <span class="pf-card-body"><span class="pf-card-title">For What Lies Beneath</span>
+        <span class="pf-card-line">The tactics game itself — playable in the browser.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/battle-effect-sequence/' | relative_url }}">
+        <span class="pf-card-media"><img src="{{ '/images/portfolio/poster-battle-effect.jpg' | relative_url }}" alt="AMBUSH battle-effect sequence mid-animation" loading="lazy"><span class="pf-live">LIVE</span></span>
+        <span class="pf-card-body"><span class="pf-card-title">A battle-effect sequence, rebuilt</span>
+        <span class="pf-card-line">A rubric-converged WebGL rebuild of a battle flourish.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/vfx-auditioner/' | relative_url }}">
+        <span class="pf-card-media"><video src="{{ '/portfolio/vfx-auditioner/demo/out/audition/witness_thread.mp4' | relative_url }}" autoplay muted loop playsinline></video><span class="pf-live">LIVE</span></span>
+        <span class="pf-card-body"><span class="pf-card-title">The VFX audition gallery</span>
+        <span class="pf-card-line">117 effect candidates, judged like a casting call.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/vfx-report/' | relative_url }}">
+        <span class="pf-card-media"><video src="{{ '/portfolio/vfx-report/demo/out/dissolve.mp4' | relative_url }}" autoplay muted loop playsinline></video><span class="pf-live">LIVE</span></span>
+        <span class="pf-card-body"><span class="pf-card-title">The VFX build-out report</span>
+        <span class="pf-card-line">Six autonomous build waves, returned for human judgment.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/design-workshop/' | relative_url }}">
+        <span class="pf-card-media"><img src="{{ '/images/portfolio/poster-design-workshop.jpg' | relative_url }}" alt="Design Workshop board — review lanes" loading="lazy"><span class="pf-live">LIVE</span></span>
+        <span class="pf-card-body"><span class="pf-card-title">The Design Workshop board</span>
+        <span class="pf-card-line">The board where the game's design calls get made.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/audio-daw/' | relative_url }}">
+        <span class="pf-card-media"><img src="{{ '/images/portfolio/poster-audio-daw.jpg' | relative_url }}" alt="The audio DAW — music loop authoring" loading="lazy"><span class="pf-live">LIVE</span></span>
+        <span class="pf-card-body"><span class="pf-card-title">The audio DAW</span>
+        <span class="pf-card-line">The instrument behind the game's seamless music loops.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/sfx-composer/' | relative_url }}">
+        <span class="pf-card-media"><img src="{{ '/images/portfolio/poster-sfx-composer.jpg' | relative_url }}" alt="SFX take composer — effects rack" loading="lazy"><span class="pf-live">LIVE</span></span>
+        <span class="pf-card-body"><span class="pf-card-title">The SFX take composer</span>
+        <span class="pf-card-line">Generated takes, a human ear, and the keeper renders.</span></span>
+      </a>
+    </div>
+  </section>
 
-  <h2>The craft systems behind it</h2>
-  <ul class="portfolio-list">
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/sfx-vfx-instruments/' | relative_url }}">SFX workstation and VFX auditioner</a>
-      <span class="portfolio-list-desc">Home-grown tools for scoring and reviewing a game's sound and visual effects.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/workshop/' | relative_url }}">workshop</a>
-      <span class="portfolio-list-desc">A multi-lane render, judge, and dispatch system.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/re9-classic-horror/' | relative_url }}">RE9 Classic Horror</a>
-      <span class="portfolio-list-desc">A fixed-camera conversion mod for Resident Evil Requiem, built on the RE Engine's own supported modding hooks.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/cyberpunk-red-guide/' | relative_url }}">cyberpunk-red-guide</a>
-      <span class="portfolio-list-desc">A tabletop RPG reference site where the design is the deliverable.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/generative-music-rubric/' | relative_url }}">Generative music, with the rubric as the craft</a>
-      <span class="portfolio-list-desc">A scored, repeatable creative pipeline built around a generative music model.</span>
-    </li>
-  </ul>
+  <section class="pf-tier">
+    <div class="pf-tier-head">
+      <h2 class="pf-tier-title">The craft systems behind it</h2>
+      <span class="pf-tier-rule"></span>
+    </div>
+    <div class="pf-grid">
+      <a class="pf-card" href="{{ '/portfolio/sfx-vfx-instruments/' | relative_url }}">
+        <span class="pf-card-tile">♪/fx</span>
+        <span class="pf-card-body"><span class="pf-card-title">The instruments</span>
+        <span class="pf-card-line">The instruments behind one game's sound and effects.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/workshop/' | relative_url }}">
+        <span class="pf-card-tile">lanes</span>
+        <span class="pf-card-body"><span class="pf-card-title">workshop</span>
+        <span class="pf-card-line">One person, a studio's worth of review.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/re9-classic-horror/' | relative_url }}">
+        <span class="pf-card-tile">re:9</span>
+        <span class="pf-card-body"><span class="pf-card-title">RE9 Classic Horror</span>
+        <span class="pf-card-line">A shipping AAA game, re-seen through a classic-horror camera.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/cyberpunk-red-guide/' | relative_url }}">
+        <span class="pf-card-tile">RED</span>
+        <span class="pf-card-body"><span class="pf-card-title">cyberpunk-red-guide</span>
+        <span class="pf-card-line">A reference site where design is the deliverable.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/generative-music-rubric/' | relative_url }}">
+        <span class="pf-card-tile">rubric</span>
+        <span class="pf-card-body"><span class="pf-card-title">Generative music</span>
+        <span class="pf-card-line">A scored, repeatable pipeline around a music model.</span></span>
+      </a>
+    </div>
+  </section>
 
-  <h2>Enterprise platform receipts</h2>
-  <ul class="portfolio-list">
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/motion-graphics-template-format/' | relative_url }}">Motion-graphics template authoring</a>
-      <span class="portfolio-list-desc">A hand-authored template format for cloud rendering, measured against an export-based baseline.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/pipeline-nodes-headless-authoring/' | relative_url }}">Pipeline nodes and a headless authoring plane</a>
-      <span class="portfolio-list-desc">Custom local-ML nodes for a workflow builder, plus a headless API for authoring and running workflows.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/native-binaries-serverless/' | relative_url }}">Native binaries on a serverless creative platform</a>
-      <span class="portfolio-list-desc">Getting native modules running inside a sandboxed serverless runtime.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/agentic-delivery-governance/' | relative_url }}">Governed agentic delivery</a>
-      <span class="portfolio-list-desc">A provenance-linked, review-gated delivery process built onto stock GitHub tooling.</span>
-    </li>
-  </ul>
+  <section class="pf-tier">
+    <div class="pf-tier-head">
+      <h2 class="pf-tier-title">Enterprise platform receipts</h2>
+      <span class="pf-tier-rule"></span>
+    </div>
+    <div class="pf-grid">
+      <a class="pf-card" href="{{ '/portfolio/motion-graphics-template-format/' | relative_url }}">
+        <span class="pf-card-tile">.tpl</span>
+        <span class="pf-card-body"><span class="pf-card-title">Motion-graphics template authoring</span>
+        <span class="pf-card-line">Motion-graphics templates authored byte-identically, by code.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/pipeline-nodes-headless-authoring/' | relative_url }}">
+        <span class="pf-card-tile">nodes</span>
+        <span class="pf-card-body"><span class="pf-card-title">Pipeline nodes, headless authoring</span>
+        <span class="pf-card-line">One authored workflow, every creative variant.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/native-binaries-serverless/' | relative_url }}">
+        <span class="pf-card-tile">.so</span>
+        <span class="pf-card-body"><span class="pf-card-title">Native binaries, serverless</span>
+        <span class="pf-card-line">Native-speed pixels inside a sandboxed creative platform.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/agentic-delivery-governance/' | relative_url }}">
+        <span class="pf-card-tile">gates</span>
+        <span class="pf-card-body"><span class="pf-card-title">Governed agentic delivery</span>
+        <span class="pf-card-line">Why this work ships as production, not pilots.</span></span>
+      </a>
+    </div>
+  </section>
 
-  <h2>The lab</h2>
-  <ul class="portfolio-list">
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/tinygpt/' | relative_url }}">tinygpt</a>
-      <span class="portfolio-list-desc">A small GPT implementation with a live in-browser training dashboard.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/ios-pointer-finder/' | relative_url }}">ios_pointer_finder</a>
-      <span class="portfolio-list-desc">A small CNN for locating a UI pointer in a screen capture, with stated error bars.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/zero-cost-platform/' | relative_url }}">This site's own architecture</a>
-      <span class="portfolio-list-desc">A platform that costs nothing to run — the colophon for ellyseum.me itself.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/ellymud/' | relative_url }}">ellymud</a>
-      <span class="portfolio-list-desc">A headless-testable MUD built as an MCP server — 3,500+ tests over 14 months.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/prompt-injection-benchmark/' | relative_url }}">Prompt-injection benchmark</a>
-      <span class="portfolio-list-desc">An 18-model self-hosted-LLM injection study backing a security-tooling architecture.</span>
-    </li>
-    <li class="portfolio-list-item">
-      <a href="{{ '/portfolio/cordyceps/' | relative_url }}">cordyceps</a>
-      <span class="portfolio-list-desc">A JSON-RPC daemon driving Claude, Codex, Gemini, and Ollama on one control plane.</span>
-    </li>
-  </ul>
+  <section class="pf-tier">
+    <div class="pf-tier-head">
+      <h2 class="pf-tier-title">The lab</h2>
+      <span class="pf-tier-rule"></span>
+    </div>
+    <div class="pf-grid">
+      <a class="pf-card" href="{{ '/portfolio/tinygpt/' | relative_url }}">
+        <span class="pf-card-tile">gpt()</span>
+        <span class="pf-card-body"><span class="pf-card-title">tinygpt</span>
+        <span class="pf-card-line">A GPT you can watch train, live in the browser.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/ios-pointer-finder/' | relative_url }}">
+        <span class="pf-card-tile">cnn</span>
+        <span class="pf-card-body"><span class="pf-card-title">ios_pointer_finder</span>
+        <span class="pf-card-line">A 338K-parameter CNN with stated error bars.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/zero-cost-platform/' | relative_url }}">
+        <span class="pf-card-tile">$0</span>
+        <span class="pf-card-body"><span class="pf-card-title">This site's own architecture</span>
+        <span class="pf-card-line">This site — WebGPU RAG chat, zero hosting cost.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/ellymud/' | relative_url }}">
+        <span class="pf-card-tile">mud&gt;</span>
+        <span class="pf-card-body"><span class="pf-card-title">ellymud</span>
+        <span class="pf-card-line">A MUD built to be played by agents — 3,500+ tests.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/prompt-injection-benchmark/' | relative_url }}">
+        <span class="pf-card-tile">inject</span>
+        <span class="pf-card-body"><span class="pf-card-title">Prompt-injection benchmark</span>
+        <span class="pf-card-line">18 models, measured before the defense was built.</span></span>
+      </a>
+      <a class="pf-card" href="{{ '/portfolio/cordyceps/' | relative_url }}">
+        <span class="pf-card-tile">rpc</span>
+        <span class="pf-card-body"><span class="pf-card-title">cordyceps</span>
+        <span class="pf-card-line">Four CLI agents, one control plane.</span></span>
+      </a>
+    </div>
+  </section>
 
   <details class="portfolio-archive">
     <summary>Archive</summary>

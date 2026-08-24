@@ -11,7 +11,7 @@ permalink: /portfolio/vfx-auditioner/
   <video src="{{ '/portfolio/vfx-auditioner/demo/out/audition/boss_intro_slam.mp4' | relative_url }}" autoplay muted loop playsinline style="width:33.3%;min-width:0;border-radius:0.5rem;" title="Boss Transition"></video>
   <video src="{{ '/portfolio/vfx-auditioner/demo/out/audition/victory_fireworks.mp4' | relative_url }}" autoplay muted loop playsinline style="width:33.3%;min-width:0;border-radius:0.5rem;" title="Muster Fireworks"></video>
 </div>
-<p><small>Three of the 117, playing as rendered: <strong>The X-Cancel</strong>, <strong>Boss Transition</strong>, <strong>Muster Fireworks</strong>.</small></p>
+<p class="pf-cap">Three of the 117, playing as rendered: <strong>The X-Cancel</strong>, <strong>Boss Transition</strong>, <strong>Muster Fireworks</strong>.</p>
 
 Visual effects for *For What Lies Beneath*, auditioned the way casting works: **batch-generate
 candidates, render each one, keep a verdict per candidate across passes**. What survives these
@@ -26,12 +26,14 @@ pass 1 and kill on passes 2 and 3; `impact_frame` was kept carrying the note *"t
 effect kills it, needs more work but i like as a starter"* — a critique passed forward rather
 than a rejection.
 
+<div class="pf-frame">
 <iframe src="{{ '/portfolio/vfx-auditioner/demo/' | relative_url }}"
-        style="width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--surface, #333);border-radius:0.5rem;"
+        style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
         loading="lazy" title="VFX audition gallery — 117 candidates with per-pass verdict history">
 </iframe>
+</div>
 
-<p><a href="{{ '/portfolio/vfx-auditioner/demo/' | relative_url }}">Run it full-page →</a></p>
+<p><a class="pf-btn" href="{{ '/portfolio/vfx-auditioner/demo/' | relative_url }}">Run it full-page →</a></p>
 
 <small>Verdicts are read-only here — in the live gallery a verdict and its note write into the
 manifest and wake an orchestrator agent, which dispatches a worker to act on the note; a request

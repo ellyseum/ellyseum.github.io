@@ -117,3 +117,228 @@
   color: var(--text);
   line-height: 1.7;
 }
+
+/* ==========================================================================
+   Portfolio redesign — generalized tier surfaces + drill-down
+   ========================================================================== */
+.pf-index {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem 2rem;
+  }
+}
+
+.pf-intro {
+  color: var(--text-dim);
+  max-width: 44rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.05rem;
+}
+
+.pf-tier {
+  margin: 3rem 0;
+}
+
+.pf-tier-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.pf-tier-title {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary-light);
+  margin: 0;
+}
+
+.pf-tier-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.pf-tier-link {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pf-tier-link:hover { color: var(--primary-light); }
+
+.pf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.pf-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.pf-card:hover {
+  border-color: var(--border-glow);
+  box-shadow: var(--glow);
+  transform: translateY(-2px);
+}
+
+.pf-card-media {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--deep);
+  overflow: hidden;
+}
+
+.pf-card-media video,
+.pf-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pf-card-tile {
+  display: flex;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  color: var(--primary-light);
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.22), transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.12), transparent 55%),
+    var(--deep);
+}
+
+.pf-live {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--primary-light);
+  background: rgba(1, 1, 8, 0.75);
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+  padding: 0.15rem 0.45rem;
+}
+
+.pf-card-body { display: block; padding: 0.85rem 1rem 1.05rem; }
+
+.pf-card-title {
+  display: block;
+  color: var(--text);
+  font-weight: 650;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.pf-card-line {
+  display: block;
+  color: var(--text-dim);
+  font-size: 0.83rem;
+  line-height: 1.5;
+  margin-top: 0.35rem;
+}
+
+/* Tier surface — feature rows */
+.pf-features {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.pf-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 1.5rem;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pf-feature-media { position: relative; border-radius: 0.6rem; overflow: hidden; background: var(--deep); }
+
+.pf-feature-media video,
+.pf-feature-media img { width: 100%; display: block; }
+
+.pf-feature-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+  color: var(--text);
+}
+
+.pf-feature-line { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; margin: 0 0 0.9rem; }
+
+.pf-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.pf-btn {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.45rem 0.95rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-glow);
+  color: var(--primary-light);
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.pf-btn:hover { background: var(--tag-bg); box-shadow: var(--glow); }
+
+.pf-btn-ghost { border-color: var(--border); color: var(--text-dim); }
+.pf-btn-ghost:hover { color: var(--text); }
+
+/* Drilled item page media framing */
+.pf-frame {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: var(--glow);
+  margin: 1rem 0;
+}
+
+.pf-cap {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.portfolio-archive { margin-top: 3rem; }
+.portfolio-archive summary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.portfolio-archive[open] summary { color: var(--text-dim); }
