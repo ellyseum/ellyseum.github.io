@@ -1,0 +1,1536 @@
+{
+ "version": 2,
+ "generated": "2026-07-18T16:30:49Z",
+ "cues": [
+  {
+   "id": "X0001",
+   "name": "Confirm Selection",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized blip with an instant attack and quick decay, processed with light reverb for an eerie, spooky edge, lo-fi and crisp.",
+   "og": "sfx-ref/x0001 Confirm Selection.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0002",
+   "name": "Cancel Selection",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized tick with an instant attack and quick decay, slight reverberant tail, neutral and dry, lo-fi and crisp.",
+   "og": "sfx-ref/x0002 Cancel Selection.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0003",
+   "name": "Move Cursor",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A crisp, medium-pitched synthesized blip with an instant attack and a very quick dry decay, no reverb, tight UI feedback, lo-fi.",
+   "og": "sfx-ref/x0003 Move Cursor.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0004",
+   "name": "Rolling Numbers (gil won)",
+   "type": "Loop",
+   "category": "progression",
+   "prompt": "A sustained, evenly rolling synthesized electronic tone at a medium pitch, smooth and continuous so it tiles seamlessly, simple clean texture, bright and digital, lo-fi.",
+   "og": "sfx-ref/x0004 Rolling Numbers (gil won).mp3",
+   "takes": []
+  },
+  {
+   "id": "X0005",
+   "name": "Invalid",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A short, sharp, intense synthesized buzz at a medium pitch, processed with distortion and echo for an eerie, foreboding feel, instant attack and quick decay with no lead-in, lo-fi.",
+   "og": "sfx-ref/x0005 Invalid.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0006",
+   "name": "L1_R1_L2_R2 shifting",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized blip with an instant attack and quick decay, lightly distorted with minimal reverb, tight and snappy, lo-fi.",
+   "og": "sfx-ref/x0006 L1_R1_L2_R2 shifting.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0007",
+   "name": "Remove Item or Ability",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, medium-pitched synthesized tone with an instant attack and quick decay, noticeable reverb tail giving a spooky, ominous feel, lo-fi.",
+   "og": "sfx-ref/x0007 Remove Item or Ability.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0008",
+   "name": "Power Up",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, high-pitched synthesized chime with an instant attack and quick decay, processed with reverb for a haunting, ghostly shimmer, around half a second, lo-fi.",
+   "og": "sfx-ref/x0008 Power Up.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0009",
+   "name": "Unit Removal",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, medium-pitched synthesized electronic tone with a gritty distorted texture, instant attack and a medium-quick decay, spacious echoing reverb, eerie and unsettling, lo-fi.",
+   "og": "sfx-ref/x0009 Unit Removal.mp3",
+   "takes": []
+  },
+  {
+   "id": "X000A",
+   "name": "Set",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, punchy, medium-pitched synthesized tone with an instant attack and very quick decay, light echo, haunting and ghostly, no lead-in, lo-fi.",
+   "og": "sfx-ref/x000A Set.mp3",
+   "takes": []
+  },
+  {
+   "id": "X000B",
+   "name": "Clockwise Rotation",
+   "type": "Loop",
+   "category": "ui",
+   "prompt": "A sustained, high-pitched synthesized tone with a long even release, smooth and continuous so it tiles seamlessly, minimal processing, subtly eerie, lo-fi.",
+   "og": "sfx-ref/x000B Clockwise Rotation.mp3",
+   "takes": []
+  },
+  {
+   "id": "X000C",
+   "name": "Anti-Clockwise Rotation",
+   "type": "Loop",
+   "category": "ui",
+   "prompt": "A sustained, high-pitched synthesized tone with a long even release, smooth and continuous so it tiles seamlessly, minimal processing, faintly haunting and otherworldly, lo-fi.",
+   "og": "sfx-ref/x000C Anti-Clockwise Rotation.mp3",
+   "takes": []
+  },
+  {
+   "id": "X000D",
+   "name": "Stop Rotation",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, punchy, medium-pitched synthesized tone with an instant attack and a clean quick fade-out, simple texture, no reverb, lo-fi.",
+   "og": "sfx-ref/x000D Stop Rotation.mp3",
+   "takes": []
+  },
+  {
+   "id": "X000E",
+   "name": "Zoom In (quick)",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A short, sharp, medium-pitched synthesized blip with a single crisp impact and quick decay, simple timbre, no special effects, lo-fi.",
+   "og": "sfx-ref/x000E Zoom In (quick).mp3",
+   "takes": []
+  },
+  {
+   "id": "X000F",
+   "name": "Zoom In",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, low-mid synthesized tone with an instant attack and quick decay, reverberant tail, sudden and intense, lo-fi.",
+   "og": "sfx-ref/x000F Zoom In.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0010",
+   "name": "Zoom Out",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized tone with an instant attack and quick decay, light reverb for an immersive tail, tight and snappy, lo-fi.",
+   "og": "sfx-ref/x0010 Zoom Out.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0011",
+   "name": "Zoom Out (quick)",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A quick, high-pitched synthesized vocoded shriek with an eerie echo and fast fade-out, processed with reverb for a haunting atmosphere, instant attack and tight decay, lo-fi.",
+   "og": "sfx-ref/x0011 Zoom Out (quick).mp3",
+   "takes": []
+  },
+  {
+   "id": "X0012",
+   "name": "Help Message Popup",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized tone with an instant attack and quick decay around half a second, reverberant with a subtle eerie echo, lo-fi.",
+   "og": "sfx-ref/x0012 Help Message Popup.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0013",
+   "name": "Slash",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, high-pitched synthesized slash whoosh with an instant attack and quick decay, lightly distorted with minimal reverb, tense and aggressive, lo-fi.",
+   "og": "sfx-ref/x0013 Slash.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0014",
+   "name": "Double Slash",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, high-pitched synthesized double-slash whoosh with an instant attack and quick decay, processed with reverb for a haunting edge, around half a second, lo-fi.",
+   "og": "sfx-ref/x0014 Double Slash.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0015",
+   "name": "Punch, Bag, Cloth Blocked",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy low-to-mid synthesized impact with a muffled cloth-blocked thud, instant attack and fast decay, minimal reverb, lo-fi.",
+   "og": "sfx-ref/x0015 Punch, Bag, Cloth Blocked.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0016",
+   "name": "Punch 2",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A quick, punchy synthesized impact in the lower-mid range, instant attack and fast decay, light reverb, tight and snappy, lo-fi.",
+   "og": "sfx-ref/x0016 Punch 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0017",
+   "name": "Punch 3",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, powerful synthesized punch impact at a medium pitch, instant attack and quick release, minimal reverb, lo-fi.",
+   "og": "sfx-ref/x0017 Punch 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0018",
+   "name": "Blunt Weapon Hit",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A dull, synthesized blunt thud of a heavy object striking a hard surface, instant attack and fast decay, slight reverberation, lo-fi.",
+   "og": "sfx-ref/x0018 Blunt Weapon Hit.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0019",
+   "name": "Light Weapon Swing",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A quick, sharp synthesized whoosh of a thin blade cutting air, medium-to-high pitch, instant attack and a fast dry decay, almost no reverb, crisp and snappy, lo-fi.",
+   "og": "sfx-ref/x0019 Light Weapon Swing.mp3",
+   "takes": [
+    {
+     "path": "sfx-raw/x0019 Light Weapon Swing (take1).mp3",
+     "keep": false,
+     "params": {}
+    },
+    {
+     "path": "sfx-raw/x0019 Light Weapon Swing (take2).mp3",
+     "keep": false,
+     "params": {}
+    }
+   ]
+  },
+  {
+   "id": "X001A",
+   "name": "Medium Weapon Swing",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy synthesized blade-swing whoosh at a medium pitch, instant attack with a short percussive decay, minimal reverb, lo-fi.",
+   "og": "sfx-ref/x001A Medium Weapon Swing.mp3",
+   "takes": []
+  },
+  {
+   "id": "X001B",
+   "name": "Heavy Weapon Swing",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A deep, booming synthesized swing of a massive weapon in the low-mid range, instant attack with a heavy resonant body and a slow decay, lo-fi.",
+   "og": "sfx-ref/x001B Heavy Weapon Swing.mp3",
+   "takes": []
+  },
+  {
+   "id": "X001C",
+   "name": "Landing (Dragoon)",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, high-pitched synthesized impact with an instant attack and quick decay, eerie echo and a fast reverb tail, sudden and brief with no lead-in, lo-fi.",
+   "og": "sfx-ref/x001C Landing (Dragoon).mp3",
+   "takes": []
+  },
+  {
+   "id": "X001D",
+   "name": "Igros Castle Gate Opening",
+   "type": "One-Shot",
+   "category": "world",
+   "prompt": "A sharp, distorted synthesized electronic beep at a medium pitch, instant attack and rapid decay, harsh and ear-piercing with an urgent alert feel, no reverb, around half a second, lo-fi.",
+   "og": "sfx-ref/x001D Igros Castle Gate Opening.mp3",
+   "takes": []
+  },
+  {
+   "id": "X001E",
+   "name": "Beta Magic Charging",
+   "type": "Loop",
+   "category": "magic",
+   "prompt": "A sustained, building magical synthesized tone at a medium pitch, smooth and continuous so it tiles seamlessly, light reverb and echo for an eerie shimmer, lo-fi.",
+   "og": "sfx-ref/x001E Beta Magic Charging.mp3",
+   "takes": []
+  },
+  {
+   "id": "X001F",
+   "name": "Magic Charging",
+   "type": "Loop",
+   "category": "magic",
+   "prompt": "A sustained, building magical synthesized hum with a faint rising shimmer at a medium pitch, smooth and continuous so it tiles seamlessly, gentle reverb, mystical and tense, lo-fi.",
+   "og": "sfx-ref/x001F Magic Charging.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0020",
+   "name": "Female Scream 1 (Balmafula)",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A quick, high-pitched synthesized vocoded scream with an eerie echo and fast decay, bright and spacious with reverb for a haunting atmosphere, instant attack, lo-fi.",
+   "og": "sfx-ref/x0020 Female Scream 1 (Balmafula).mp3",
+   "takes": []
+  },
+  {
+   "id": "X0021",
+   "name": "Summoning",
+   "type": "Loop",
+   "category": "magic",
+   "prompt": "A long, bright sustained synthesized string-like swell at a medium pitch, smooth and continuous so it tiles seamlessly, slight reverb, grand and ceremonial, lo-fi.",
+   "og": "sfx-ref/x0021 Summoning.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0022",
+   "name": "Trap",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, high-pitched synthesized tone with an instant attack and quick decay, processed with reverb for a haunting, ghostly atmosphere, around half a second, lo-fi.",
+   "og": "sfx-ref/x0022 Trap.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0023",
+   "name": "Water Landing 1",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A short, sharp synthesized watery splash-plip at a medium-high pitch with a quick decay, slightly distorted lo-fi character, dry with minimal reverb.",
+   "og": "sfx-ref/x0023 Water Landing 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0024",
+   "name": "Water Landing 2",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp synthesized water splash at a medium pitch with an instant attack and quick decay, gritty distorted texture, spacious reverb and echo, lo-fi.",
+   "og": "sfx-ref/x0024 Water Landing 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0025",
+   "name": "Walking with soaked shoes",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, high-pitched synthesized wet squelching footstep with an instant attack and quick decay, noticeable reverb, lo-fi.",
+   "og": "sfx-ref/x0025 Walking with soaked shoes___.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0026",
+   "name": "Electronic Ding",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, high-pitched synthesized electronic ding with an instant attack and a long clean release, minimal reverb, bright and futuristic, lo-fi.",
+   "og": "sfx-ref/x0026 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0027",
+   "name": "Jumping",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, high-pitched synthesized hop blip with an instant attack and quick decay, light echo for a faintly ghostly feel, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0027 Jumping.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0028",
+   "name": "Land 1",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, medium-pitched synthesized landing tap with an instant attack and quick decay, simple textureless timbre, no reverb, tight and immediate, lo-fi.",
+   "og": "sfx-ref/x0028 Land 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0029",
+   "name": "Land 2",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, medium-pitched synthesized landing impact with an instant attack and quick decay, minimal reverb and no echo, lo-fi.",
+   "og": "sfx-ref/x0029 Land 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X002A",
+   "name": "Land 3",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, medium-pitched synthesized landing tap with an instant attack and quick decay around half a second, simple timbre, no reverb or echo, lo-fi.",
+   "og": "sfx-ref/x002A Land 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X002B",
+   "name": "Female Scream 2",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A quick, sharp, high-pitched synthesized vocoded scream with a terrifying echo and fast decay, processed with reverb for an eerie atmosphere, instant attack with no lead-in, lo-fi.",
+   "og": "sfx-ref/x002B Female Scream 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X002C",
+   "name": "Throw",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy synthesized throw whoosh at a medium pitch with an instant attack and quick decay, light reverberant tail, around half a second, lo-fi.",
+   "og": "sfx-ref/x002C Throw __.mp3",
+   "takes": []
+  },
+  {
+   "id": "X002D",
+   "name": "Flip Page",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized page-flip flick with an instant attack and quick decay, minimal reverb and no echo, lo-fi.",
+   "og": "sfx-ref/x002D Flip Page.mp3",
+   "takes": []
+  },
+  {
+   "id": "X002E",
+   "name": "Shield Block Light",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, medium-pitched synthesized tap with an instant attack and quick decay, simple clean texture, no effects, lo-fi.",
+   "og": "sfx-ref/x002E Shield Block Light.mp3",
+   "takes": []
+  },
+  {
+   "id": "X002F",
+   "name": "Shield Block Heavy 1",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy synthesized metallic clang of a heavy blow caught on a shield, medium pitch, instant attack and quick decay around half a second, slight reverb, forceful, lo-fi.",
+   "og": "sfx-ref/x002F Shield Block Heavy 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0030",
+   "name": "Blade Grasp / Catch",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp synthesized vocoded grunt at a medium pitch with an instant attack and quick decay around half a second, raw and unprocessed, lo-fi.",
+   "og": "sfx-ref/x0030 Blade Grasp _ Catch.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0031",
+   "name": "Change Camera Angle",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized swish with an instant attack and quick decay, minimal reverb, lo-fi.",
+   "og": "sfx-ref/x0031 Change Camera Angle.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0032",
+   "name": "Sparkle 1",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized sparkle with a bright bell-like quality, staccato attack and a quick shimmering decay, reverb for an otherworldly, magical feel, lo-fi.",
+   "og": "sfx-ref/x0032 Sparkle 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0033",
+   "name": "Sparkle 2",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized bell sparkle with a short sustain and quick fade-out, reverb for a haunting, ghostly shimmer, lo-fi.",
+   "og": "sfx-ref/x0033 Sparkle 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0034",
+   "name": "Sparkle 3",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized sparkle with an instant attack and quick decay, light reverb for a clean haunting shimmer, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0034 Sparkle 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0035",
+   "name": "Sparkle 4",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched shimmering synthesized bell sparkle with a quick decay and a reverb tail for a mystical, magical feel, lo-fi.",
+   "og": "sfx-ref/x0035 Sparkle 4.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0036",
+   "name": "Sparkle 5",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched shimmering metallic synthesized sparkle with an instant attack and quick decay, minimal processing, bright and futuristic, lo-fi.",
+   "og": "sfx-ref/x0036 Sparkle 5.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0037",
+   "name": "Sparkle 6",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized sparkle with an instant attack and quick decay, reverberant tail, around half a second, lo-fi.",
+   "og": "sfx-ref/x0037 Sparkle 6.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0038",
+   "name": "Hit with Staff or Rod",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy synthesized strike of a staff against a body, instant attack and fast decay, slight reverberation, jarring and immediate, lo-fi.",
+   "og": "sfx-ref/x0038 Hit with Staff or Rod.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0039",
+   "name": "Hit 2",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy low-to-medium synthesized impact with an instant attack and quick decay, simple texture, no reverb or echo, lo-fi.",
+   "og": "sfx-ref/x0039 Hit 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X003A",
+   "name": "Land on Wood",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, medium-pitched synthesized woodblock knock with an instant attack and quick decay, slight reverb, crisp and immediate, lo-fi.",
+   "og": "sfx-ref/x003A Land on Wood.mp3",
+   "takes": []
+  },
+  {
+   "id": "X003B",
+   "name": "Land on Water",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, medium-pitched synthesized watery landing plip with an instant attack and quick decay around half a second, simple timbre, minimal processing, lo-fi.",
+   "og": "sfx-ref/x003B Land on Water.mp3",
+   "takes": []
+  },
+  {
+   "id": "X003C",
+   "name": "Menu Cursor Move 1",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A tiny crisp synthesized blip tick at a medium-high pitch, extremely short and dry, neutral UI feedback, no reverb, lo-fi.",
+   "og": "sfx-ref/x003C Menu Cursor Move 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X003D",
+   "name": "Menu Cursor Move 2",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A tiny crisp synthesized blip tick at a medium pitch, extremely short and dry, neutral UI feedback, no reverb, lo-fi.",
+   "og": "sfx-ref/x003D Menu Cursor Move 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X003E",
+   "name": "Hit with Pole or Polearm",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, forceful synthesized metallic clang of a pole striking, instant attack and quick decay, slight echo, brief and punchy, lo-fi.",
+   "og": "sfx-ref/x003E Hit with Pole or Polearm.mp3",
+   "takes": []
+  },
+  {
+   "id": "X003F",
+   "name": "Explosion Impact",
+   "type": "One-Shot",
+   "category": "explosion",
+   "prompt": "A sharp, medium-pitched synthesized explosion-impact with an instant attack and quick decay, processed timbre with light reverb for depth, punchy with no lead-in, lo-fi.",
+   "og": "sfx-ref/x003F _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0040",
+   "name": "Footsteps Arrive",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, medium-pitched synthesized footstep tap on a hard surface with an instant attack and quick decay around half a second, simple unobtrusive timbre, no effects, lo-fi.",
+   "og": "sfx-ref/x0040 Footsteps Arrive.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0041",
+   "name": "Exit Map / Generic Sound",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, high-pitched synthesized tone with an instant attack and quick decay, slightly distorted with a fast fade-out, minimal reverb, urgent, lo-fi.",
+   "og": "sfx-ref/x0041 Exit Map_Generic Sound.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0042",
+   "name": "Cloud Freaking / Murond Death City",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A short, sharp, high-pitched synthesized lead with an instant attack and quick decay, reverb for an eerie, otherworldly sense of space, around one second, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0042 Cloud Freaking _ Murond Death City'.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0043",
+   "name": "Menu Confirmation Yes",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A bright, affirmative little synthesized chime at a medium pitch, instant attack and quick decay, slight reverb, positive and clean, lo-fi.",
+   "og": "sfx-ref/x0043 Menu Confirmation Yes.mp3",
+   "takes": [
+    {
+     "path": "sfx-raw/x0043 Menu Confirmation Yes (take1).mp3",
+     "keep": false,
+     "params": {}
+    },
+    {
+     "path": "sfx-raw/x0043 Menu Confirmation Yes (take1).wav",
+     "keep": false,
+     "params": {}
+    },
+    {
+     "path": "sfx-raw/x0043 Menu Confirmation Yes (take2).mp3",
+     "keep": false,
+     "params": {}
+    }
+   ]
+  },
+  {
+   "id": "X0044",
+   "name": "Male Scream",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A quick, sharp, high-pitched synthesized vocoded scream with a terrifying echo and fast decay, processed with reverb for an eerie atmosphere, instant transient with no lead-in, lo-fi.",
+   "og": "sfx-ref/x0044 Male Scream.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0045",
+   "name": "Female Death",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A sharp, high-pitched synthesized vocoded scream with a quick fade-out, minimal processing, crisp and immediate with no lead-in, lo-fi.",
+   "og": "sfx-ref/x0045 Female Death.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0046",
+   "name": "Monster Death",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A sharp, medium-pitched synthesized monster death groan with an instant attack and quick decay around one second, minimal reverb, lo-fi.",
+   "og": "sfx-ref/x0046 Monster Death.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0047",
+   "name": "Blocked Bullet",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, high-pitched synthesized ricochet ping with an instant attack and quick decay, lightly distorted with minimal reverb, lo-fi.",
+   "og": "sfx-ref/x0047 Blocked Bullet.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0048",
+   "name": "Locked Door",
+   "type": "One-Shot",
+   "category": "world",
+   "prompt": "A sharp, medium-pitched synthesized locked-door rattle-thunk with an instant attack and quick decay, minimal reverb, lo-fi.",
+   "og": "sfx-ref/x0048 Locked Door.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0049",
+   "name": "Blocked Arrow",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, high-pitched synthesized arrow thud with an instant attack and quick decay, slight room reverb, lo-fi.",
+   "og": "sfx-ref/x0049 Blocked Arrow.mp3",
+   "takes": []
+  },
+  {
+   "id": "X004A",
+   "name": "Snappy Blip",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized blip with an instant attack and quick decay, minimal reverb and no echo, tight and snappy, lo-fi.",
+   "og": "sfx-ref/x004A _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X004B",
+   "name": "Banging on / Slamming Door",
+   "type": "One-Shot",
+   "category": "world",
+   "prompt": "A sharp, loud synthesized door-slam thud at a medium pitch, instant attack and quick decay around half a second, reverberant tail, lo-fi.",
+   "og": "sfx-ref/x004B Banging on _ Slamming Door.mp3",
+   "takes": []
+  },
+  {
+   "id": "X004C",
+   "name": "Open/Close Door",
+   "type": "One-Shot",
+   "category": "world",
+   "prompt": "A sharp, medium-pitched synthesized door open-close clack with an instant attack and a straight quick decay, minimal reverb and no echo, lo-fi.",
+   "og": "sfx-ref/x004C Open_Close Door.mp3",
+   "takes": []
+  },
+  {
+   "id": "X004D",
+   "name": "Proposition Completed 1",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, medium-pitched synthesized tone with an instant attack and quick decay, processed timbre with minimal reverb, punchy and neutral, lo-fi.",
+   "og": "sfx-ref/x004D Proposition Completed 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X004E",
+   "name": "Proposition Completed 2",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, medium-pitched synthesized tone with an instant attack and quick decay around half a second, minimal reverb, spooky and mysterious, lo-fi.",
+   "og": "sfx-ref/x004E Proposition Completed 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X004F",
+   "name": "Proposition Completed 3",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, high-pitched synthesized tone with a ghostly echo and quick decay, reverb for a haunting atmosphere, instant attack with no lead-in, lo-fi.",
+   "og": "sfx-ref/x004F Proposition Completed 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0050",
+   "name": "Applause (Propositions)",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, high-pitched synthesized burst with an instant attack and quick decay around half a second, reverb for a haunting, ghostly atmosphere, punchy, lo-fi.",
+   "og": "sfx-ref/x0050 Applause (Propositions_).mp3",
+   "takes": []
+  },
+  {
+   "id": "X0051",
+   "name": "Trumpet (Propositions)",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, high-pitched synthesized trumpet blast with a bright clear tone, instant attack and quick decay around half a second, no special effects, lo-fi.",
+   "og": "sfx-ref/x0051 Trumpet (Propositions_).mp3",
+   "takes": []
+  },
+  {
+   "id": "X0052",
+   "name": "Choke Hold 1",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A sharp, medium-pitched synthesized tone with an instant attack and fast decay, reverb for an eerie, otherworldly effect, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0052 Choke Hold 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0053",
+   "name": "Choke Hold 2",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A sharp, medium-pitched synthesized choking constriction with an instant attack and quick decay, no reverb or echo, simple and immediate, lo-fi.",
+   "og": "sfx-ref/x0053 Choke Hold 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0054",
+   "name": "Arrow 1",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, high-pitched synthesized arrow whoosh with a slight echo, instant attack and quick decay, no lead-in, crisp and fast, lo-fi.",
+   "og": "sfx-ref/x0054 Arrow 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0055",
+   "name": "Arrow 2",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, high-pitched synthesized arrow impact with a dull thud, instant attack and quick decay around half a second, no lead-in, crisp and direct, lo-fi.",
+   "og": "sfx-ref/x0055 Arrow 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0056",
+   "name": "8-bit Blip",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized 8-bit-style blip with an instant attack and quick decay, simple monotone timbre, light reverb for a retro feel, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0056 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0057",
+   "name": "Chiptune Tone",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized chiptune-style tone with a quick intense attack and short sustain, light reverb for a nostalgic feel, lo-fi.",
+   "og": "sfx-ref/x0057 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0058",
+   "name": "Gunshot Crack",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, loud synthesized gunshot crack with an instant attack and quick decay, long reverb tail for a dramatic, epic feel, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0058 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0059",
+   "name": "Arrow 3",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, high-pitched synthesized arrow thud with an instant attack and quick decay, reverb for an ominous tail, lo-fi.",
+   "og": "sfx-ref/x0059 Arrow 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X005A",
+   "name": "Gun Load",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, medium-pitched synthesized gun-loading clack with an instant attack and quick decay around half a second, simple timbre, no effects, lo-fi.",
+   "og": "sfx-ref/x005A Gun Load.mp3",
+   "takes": []
+  },
+  {
+   "id": "X005B",
+   "name": "Gun Shot Loud 1",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A loud, sharp synthesized gunshot at a medium pitch with a gritty texture, instant attack and a tight immediate decay, no reverb, no lead-in, lo-fi.",
+   "og": "sfx-ref/x005B Gun Shot Loud 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X005C",
+   "name": "Gun Shot Loud 2",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A loud, sharp synthesized gunshot at a medium pitch with a gritty distorted texture, instant attack and quick fade-out, minimal reverb and no echo, lo-fi.",
+   "og": "sfx-ref/x005C Gun Shot Loud 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X005D",
+   "name": "Gun Shot Loud 3",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, loud synthesized gunshot at a medium pitch with an instant attack and quick decay around half a second, reverberant tail, no lead-in, lo-fi.",
+   "og": "sfx-ref/x005D Gun Shot Loud 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X005E",
+   "name": "Crush / Explosion",
+   "type": "One-Shot",
+   "category": "explosion",
+   "prompt": "A loud synthesized explosion with a sharp intense attack followed by a deep resonant boom and a long lingering echo, heavy reverb for depth, lo-fi.",
+   "og": "sfx-ref/x005E Crush _ Explosion.mp3",
+   "takes": []
+  },
+  {
+   "id": "X005F",
+   "name": "Retro Echo Tone",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, high-pitched synthesized retro tone with an instant attack and quick decay, echo and processed reverberant quality, crisp and clear, lo-fi.",
+   "og": "sfx-ref/x005F _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0060",
+   "name": "Double Explosion",
+   "type": "One-Shot",
+   "category": "explosion",
+   "prompt": "A sharp, loud synthesized explosion followed by a muffled secondary blast, instant attack and quick decay, reverb for a sense of space, intense and impactful, lo-fi.",
+   "og": "sfx-ref/x0060 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0061",
+   "name": "Ability Un-Equipped",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, high-pitched synthesized 8-bit-style tone with an instant attack and a sharp drop-off, minimal reverb and no echo, nostalgic and retro, lo-fi.",
+   "og": "sfx-ref/x0061 Ability Un-Equipped.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0062",
+   "name": "Pain Sting",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, high-pitched synthesized sting suggesting sudden pain or shock, instant attack and quick decay around half a second, reverb for a haunting atmosphere, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0062 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0063",
+   "name": "Slap",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A bright, sharp synthesized slap with an echoing tail and quick decay, processed with reverb, instant attack with no lead-in, lo-fi.",
+   "og": "sfx-ref/x0063 Slap.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0064",
+   "name": "Female Scream 3",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A quick, sharp synthesized vocoded scream with a terrifying echo and fast decay, processed with reverb for an eerie atmosphere, instant transient with no lead-in, lo-fi.",
+   "og": "sfx-ref/x0064 Female Scream 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0065",
+   "name": "Sword Clash",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, loud synthesized metallic sword clash at a medium pitch, instant attack and quick decay around half a second, light reverb, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0065 Sword Clash.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0066",
+   "name": "Zodiac Stone Spirit Howl 1",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A low-pitched synthesized howl with an echoing reverb tail and a long release, slightly distorted with a quick fade-out, eerie, lo-fi.",
+   "og": "sfx-ref/x0066 Zodiac Stone Spirit Howl 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0067",
+   "name": "Zodiac Stone Spirit Howl 2",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, medium-pitched synthesized roar with a deep menacing timbre, instant attack and quick fade-out into an echoing tail, slightly distorted, lo-fi.",
+   "og": "sfx-ref/x0067 Zodiac Stone Spirit Howl 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0068",
+   "name": "Zodiac Stone Spirit Howl 3",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, medium-pitched synthesized howl with a long release, reverb and echo for an eerie spirit-like feel, slightly distorted, lo-fi.",
+   "og": "sfx-ref/x0068 Zodiac Stone Spirit Howl 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0069",
+   "name": "Door Lever Pull",
+   "type": "One-Shot",
+   "category": "world",
+   "prompt": "A sharp, medium-pitched synthesized lever-pull clunk with an instant attack and quick decay, echoing reverb for an eerie feel, crisp with no lead-in, lo-fi.",
+   "og": "sfx-ref/x0069 Door Lever Pull.mp3",
+   "takes": []
+  },
+  {
+   "id": "X006A",
+   "name": "Teleport Out",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized teleport sting with an instant attack and a fast decay, reverb for a haunting, ghostly tail, mid-range, lo-fi.",
+   "og": "sfx-ref/x006A Teleport Out.mp3",
+   "takes": []
+  },
+  {
+   "id": "X006B",
+   "name": "Teleport In",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, medium-pitched synthesized laser-like zap with an instant attack and quick decay, minimal reverb, lo-fi.",
+   "og": "sfx-ref/x006B Teleport In.mp3",
+   "takes": []
+  },
+  {
+   "id": "X006C",
+   "name": "Random Encounter 1",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, loud synthesized one-note sting at a medium-high pitch, instant attack and quick decay around half a second, simple timbre, no processing, lo-fi.",
+   "og": "sfx-ref/x006C Random Encounter 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X006D",
+   "name": "Random Encounter 2",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, high-pitched synthesized siren-like electronic sting, instant attack and quick decay, reverb for a spacious feel, urgent and intense, lo-fi.",
+   "og": "sfx-ref/x006D Random Encounter 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X006E",
+   "name": "Crossbow Arrow 1",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, high-pitched synthesized arrow whoosh followed by a dull thud on impact, instant attack and quick decay, slight reverb, lo-fi.",
+   "og": "sfx-ref/x006E Crossbow Arrow 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X006F",
+   "name": "Crossbow Arrow 2",
+   "type": "One-Shot",
+   "category": "ranged",
+   "prompt": "A sharp, low-pitched synthesized arrow thud followed by a faint whoosh, instant attack and quick decay around half a second, ominous, lo-fi.",
+   "og": "sfx-ref/x006F Crossbow Arrow 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0070",
+   "name": "Riovanes Castle Footsteps",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, medium-pitched synthesized footstep tap with an instant attack and quick decay around half a second, reverb for an eerie, almost scary feel, lo-fi.",
+   "og": "sfx-ref/x0070 Riovanes Castle Footsteps.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0071",
+   "name": "In-Battle AT Halt",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, medium-pitched synthesized tone with an instant attack and quick decay around half a second, minimal reverb and no echo, tense and urgent, lo-fi.",
+   "og": "sfx-ref/x0071 In-Battle AT Halt.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0072",
+   "name": "Cinematic Impaling Hit",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, loud synthesized impact at a medium pitch with a bright distorted texture, instant attack and fast decay, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0072 Cinematic Impaling Hit.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0073",
+   "name": "Text Typing",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized typewriter tick with an instant attack and quick decay around half a second, monotone texture with light reverb, crisp with no lead-in, lo-fi.",
+   "og": "sfx-ref/x0073 Text Typing.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0074",
+   "name": "Lever Pull",
+   "type": "One-Shot",
+   "category": "world",
+   "prompt": "A crisp, sudden synthesized lever-pull clack in the low-to-medium range, instant attack and quick decay, minimal reverb, lo-fi.",
+   "og": "sfx-ref/x0074 Lever Pull.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0075",
+   "name": "Sparkle 7",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched shimmering synthesized sparkle burst with a quick decay and a reverberant tail for a dreamy, ethereal feel, slightly distorted, lo-fi.",
+   "og": "sfx-ref/x0075 Sparkle 7.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0076",
+   "name": "New Map Course Drawn",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, medium-pitched synthesized sweep with an instant attack and quick decay, processed timbre and reverb for an eerie, otherworldly atmosphere, around one second, lo-fi.",
+   "og": "sfx-ref/x0076 New Map Course Drawn.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0077",
+   "name": "In-Battle Selection",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, medium-pitched synthesized tone with an instant attack and quick decay around half a second, textured with reverb for an eerie effect, ending abruptly at its peak, lo-fi.",
+   "og": "sfx-ref/x0077 In-Battle Selection.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0078",
+   "name": "Reinforcements Footsteps Arrive",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, medium-pitched synthesized burst with a gun-fire-like texture and an eerie echo, instant attack and quick decay, reverb for a haunting feel, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0078 Reinforcements Footsteps Arrive.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0079",
+   "name": "Reed Flute 1",
+   "type": "One-Shot",
+   "category": "music-cue",
+   "prompt": "A high-pitched, shrill synthesized reed-flute tone descending in pitch, bright with a fast decay around one second, minimal reverb, urgent and warning-like, lo-fi.",
+   "og": "sfx-ref/x0079 Reed Flute 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X007A",
+   "name": "Reed Flute 2",
+   "type": "One-Shot",
+   "category": "music-cue",
+   "prompt": "A sharp, high-pitched synthesized reed-flute tone with an instant attack and quick decay, minimal reverb and no echo, an otherworldly quality, lo-fi.",
+   "og": "sfx-ref/x007A Reed Flute 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X007B",
+   "name": "Reed Flute 3",
+   "type": "One-Shot",
+   "category": "music-cue",
+   "prompt": "A sharp, piercing synthesized reed-flute tone in the lower-mid range, instant attack and quick decay around half a second, simple straightforward tone, urgent and alert-like, lo-fi.",
+   "og": "sfx-ref/x007B Reed Flute 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X007C",
+   "name": "Failed Reed Flute",
+   "type": "One-Shot",
+   "category": "music-cue",
+   "prompt": "A short, sharp, distorted synthesized reed-flute squeak, lower-pitched and monotone with audible noise, quick decay, sad and solemn, lo-fi.",
+   "og": "sfx-ref/x007C Failed Reed Flute.mp3",
+   "takes": []
+  },
+  {
+   "id": "X007D",
+   "name": "Whistle",
+   "type": "One-Shot",
+   "category": "music-cue",
+   "prompt": "A high-pitched, sharp clear synthesized whistle with a haunting reverb tail, instant attack and quick decay around half a second, startling, lo-fi.",
+   "og": "sfx-ref/x007D Whistle.mp3",
+   "takes": []
+  },
+  {
+   "id": "X007E",
+   "name": "Crisp Blip",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A crisp, medium-pitched synthesized blip with an instant attack and quick decay, minimal reverb and no echo, immediate and snappy, lo-fi.",
+   "og": "sfx-ref/x007E _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X007F",
+   "name": "Lionel Gate Open",
+   "type": "One-Shot",
+   "category": "world",
+   "prompt": "A sharp, loud synthesized explosion at a medium pitch with an explosive texture, instant attack and quick decay around half a second, no reverb or echo, lo-fi.",
+   "og": "sfx-ref/x007F Lionel Gate Open.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0080",
+   "name": "Ghostly Tone",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized tone with a ghostly echo and quick decay, reverb for a haunting atmosphere, tight and punchy with no lead-in, around half a second, lo-fi.",
+   "og": "sfx-ref/x0080 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0081",
+   "name": "Ghostly Sting",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized sting with an instant attack and a tight immediate decay, reverb for a haunting, ghostly atmosphere, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0081 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0082",
+   "name": "Eerie Tone",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, punchy, medium-pitched synthesized tone with an instant attack and quick decay, reverb for a reverberant quality with an eerie echo, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0082 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0083",
+   "name": "Chilling Tone",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized tone with a steep attack and fast decay, an eerie chilling echo, reverb for a haunting atmosphere, lo-fi.",
+   "og": "sfx-ref/x0083 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0084",
+   "name": "Bad Breath",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A short, sharp synthesized exhale followed by a lingering echoing burp in the low-to-medium range, reverb on both for a spooky, otherworldly atmosphere, lo-fi.",
+   "og": "sfx-ref/x0084 Bad Breath.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0085",
+   "name": "Crystal Pickup",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A bright, sparkling synthesized chime-ting of a small crystal collected at a medium-high pitch, instant attack and a quick shimmering decay, light reverb, pleasant and rewarding, lo-fi.",
+   "og": "sfx-ref/x0085 Crystal Pickup.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0086",
+   "name": "Feather Bomb",
+   "type": "One-Shot",
+   "category": "explosion",
+   "prompt": "A soft synthesized flutter of falling feathers building into a sharp explosive burst, instant attack and quick fade-out with a faint echoing tail, lo-fi.",
+   "og": "sfx-ref/x0086 Feather Bomb.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0087",
+   "name": "Scratch Up",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, high-pitched synthesized scratch with a quick attack and fast decay, reverb for a haunting, ghostly atmosphere, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0087 Scratch Up.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0088",
+   "name": "Vocoded Shriek",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A quick, high-pitched synthesized vocoded shriek with a terrifying echo and fast decay, reverb for a horrifying, ghostly atmosphere, instant attack with no lead-in, around half a second, lo-fi.",
+   "og": "sfx-ref/x0088 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0089",
+   "name": "Altima I Knife Strike",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy synthesized knife strike in the lower-mid range, instant attack and quick decay, a slight touch of reverb, crisp and immediate with no lead-in, lo-fi.",
+   "og": "sfx-ref/x0089 Altima I Knife Strike.mp3",
+   "takes": []
+  },
+  {
+   "id": "X008A",
+   "name": "Shield Block Heavy 2",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, intense synthesized impact at a medium pitch with a bright percussive texture, instant attack and quick decay around half a second, minimal reverb, urgent and forceful, lo-fi.",
+   "og": "sfx-ref/x008A Shield Block Heavy 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X008B",
+   "name": "Distorted Explosion",
+   "type": "One-Shot",
+   "category": "explosion",
+   "prompt": "A sharp, loud synthesized explosion in an empty space with a distorted texture, instant attack and quick decay, minimal reverb for a sense of space, intense, lo-fi.",
+   "og": "sfx-ref/x008B _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X008C",
+   "name": "Lick",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A sharp, high-pitched synthesized blip suggesting a startled creature, instant attack and fast decay, reverb for an eerie effect, brief, lo-fi.",
+   "og": "sfx-ref/x008C Lick.mp3",
+   "takes": []
+  },
+  {
+   "id": "X008D",
+   "name": "Straight Dash",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, high-pitched synthesized dash whoosh with an instant attack and a quick decay despite a faint trailing release, minimal processing, crisp with no lead-in, lo-fi.",
+   "og": "sfx-ref/x008D Straight Dash.mp3",
+   "takes": []
+  },
+  {
+   "id": "X008E",
+   "name": "Deep Explosion",
+   "type": "One-Shot",
+   "category": "explosion",
+   "prompt": "A sharp, intense synthesized explosion with a deep resonant tone that fades into a muffled echoing tail, instant attack and quick decay around half a second, reverb for an intense atmosphere, lo-fi.",
+   "og": "sfx-ref/x008E _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X008F",
+   "name": "Ghostly Echo Tone",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized tone with a ghostly echo and fast decay, reverb for a haunting atmosphere, crisp and tight with no lead-in, lo-fi.",
+   "og": "sfx-ref/x008F _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0090",
+   "name": "Dash",
+   "type": "One-Shot",
+   "category": "movement",
+   "prompt": "A sharp, high-pitched synthesized dash whoosh with an instant attack and quick decay around half a second, lightly distorted with minimal reverb and no echo, lo-fi.",
+   "og": "sfx-ref/x0090 Dash.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0091",
+   "name": "Shield Block Heavy 3",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy synthesized metallic clash at a medium pitch, instant attack and quick decay around half a second, simple timbre, no reverb or echo, violent and intense, lo-fi.",
+   "og": "sfx-ref/x0091 Shield Block Heavy 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0092",
+   "name": "Monster Strike Heavy",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, medium-pitched synthesized heavy impact with an instant attack and quick decay, processed timbre with reverb for an eerie effect, punchy, lo-fi.",
+   "og": "sfx-ref/x0092 Monster Strike Heavy.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0093",
+   "name": "Equipped",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, bright synthesized snap at a high-medium pitch with an instant attack and quick decay around half a second, noticeable reverb, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0093 Equipped.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0094",
+   "name": "Choco Beak Hit",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy, medium-pitched synthesized peck-impact with an instant attack and quick decay around half a second, reverb for an eerie atmosphere, no lead-in, lo-fi.",
+   "og": "sfx-ref/x0094 Choco Beak Hit.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0095",
+   "name": "Distorted Retro Tone",
+   "type": "One-Shot",
+   "category": "ui",
+   "prompt": "A sharp, high-pitched synthesized retro tone with an instant attack and quick decay, slightly distorted with minimal reverb, lo-fi.",
+   "og": "sfx-ref/x0095 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0096",
+   "name": "Suspense Tone",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, distorted synthesized electronic tone at a medium pitch, instant attack and quick decay around half a second, reverb and echo for a suspenseful, intense atmosphere, lo-fi.",
+   "og": "sfx-ref/x0096 _____.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0097",
+   "name": "Gil-Related",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, high-pitched synthesized alert sting with an instant attack and a fast decay, reverb for depth and a spooky edge, medium pitch, short, lo-fi.",
+   "og": "sfx-ref/x0097 Gil-Related.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0098",
+   "name": "Ability Learned",
+   "type": "One-Shot",
+   "category": "progression",
+   "prompt": "A sharp, high-pitched synthesized electronic tone with a quick fade-out, reverb for an eerie, otherworldly atmosphere, around half a second, lo-fi.",
+   "og": "sfx-ref/x0098 Ability Learned.mp3",
+   "takes": []
+  },
+  {
+   "id": "X0099",
+   "name": "Magic Hit",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized magic-hit zap with an instant attack and quick decay around half a second, minimal processing, lo-fi.",
+   "og": "sfx-ref/x0099 Magic Hit.mp3",
+   "takes": []
+  },
+  {
+   "id": "X009A",
+   "name": "Male Death",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A high-pitched synthesized vocoded male scream with a long release and reverb for a scary, intense, haunting atmosphere, lo-fi.",
+   "og": "sfx-ref/x009A Male Death.mp3",
+   "takes": []
+  },
+  {
+   "id": "X009B",
+   "name": "Bio Hit",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized sine-tone zap with a short sustain and quick decay, minimal reverb and no echo, a futuristic sci-fi feel, lo-fi.",
+   "og": "sfx-ref/x009B Bio Hit.mp3",
+   "takes": []
+  },
+  {
+   "id": "X009C",
+   "name": "Dictionary / Book Hit",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, loud synthesized book-slam thud at a medium pitch, instant attack and quick decay around half a second, slight reverb, intense, lo-fi.",
+   "og": "sfx-ref/x009C Dictionary _ Book Hit.mp3",
+   "takes": []
+  },
+  {
+   "id": "X009D",
+   "name": "Final Fantasy Theme Harps",
+   "type": "One-Shot",
+   "category": "music-cue",
+   "prompt": "A medium-pitched synthesized harp pluck with a quick decay, reverb for an eerie atmosphere, bright and clear, lo-fi.",
+   "og": "sfx-ref/x009D Final Fantasy Theme Harps.mp3",
+   "takes": []
+  },
+  {
+   "id": "X009E",
+   "name": "Laugh 1",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A sharp, high-pitched synthesized vocoded laugh with an instant attack and quick decay, reverb for a haunting, ghostly atmosphere, around one second, lo-fi.",
+   "og": "sfx-ref/x009E Laugh 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X009F",
+   "name": "Laugh 2",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A sharp, high-pitched synthesized vocoded laugh with a quick attack and tight decay, reverb for a vintage haunting feel, lo-fi.",
+   "og": "sfx-ref/x009F Laugh 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X00A0",
+   "name": "Laugh 3",
+   "type": "One-Shot",
+   "category": "voice",
+   "prompt": "A sharp, high-pitched synthesized vocoded shriek-laugh with an echo and fast decay, reverb for a horrifying atmosphere, instant attack with no lead-in, lo-fi.",
+   "og": "sfx-ref/x00A0 Laugh 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X00A1",
+   "name": "Zodiac Stone Pulsing Sound",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, medium-pitched synthesized tone with a bright, textured pulsating rhythm, instant attack and quick decay around half a second, no special effects, lo-fi.",
+   "og": "sfx-ref/x00A1 Zodiac Stone Pulsing Sound.mp3",
+   "takes": []
+  },
+  {
+   "id": "X00A2",
+   "name": "Church Bells",
+   "type": "One-Shot",
+   "category": "world",
+   "prompt": "A sharp, high-pitched synthesized church-bell toll with a long resonant release and minimal reverb, ominous and foreboding, lo-fi.",
+   "og": "sfx-ref/x00A2 Church Bells.mp3",
+   "takes": []
+  },
+  {
+   "id": "X00A3",
+   "name": "Male Zodiac Death",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, loud synthesized vocoded death cry at a medium pitch with a bright distorted texture and long haunting echo, instant attack and quick decay, reverb for a chilling atmosphere, lo-fi.",
+   "og": "sfx-ref/x00A3 Male Zodiac Death.mp3",
+   "takes": []
+  },
+  {
+   "id": "X00A4",
+   "name": "Impact 1",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy synthesized impact in the medium-to-high range, instant attack and quick decay, reverberation and a touch of echo for a sense of collision, crisp with no lead-in, lo-fi.",
+   "og": "sfx-ref/x00A4 Impact 1.mp3",
+   "takes": []
+  },
+  {
+   "id": "X00A5",
+   "name": "Impact 2",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy synthesized impact in the lower-mid range, instant attack and quick decay, reverb and echo for a sense of space and depth, lo-fi.",
+   "og": "sfx-ref/x00A5 Impact 2.mp3",
+   "takes": []
+  },
+  {
+   "id": "X00A6",
+   "name": "Impact 3",
+   "type": "One-Shot",
+   "category": "combat",
+   "prompt": "A sharp, punchy synthesized impact at a medium pitch, instant attack and quick decay around half a second, noticeable reverb and a slight echo, lo-fi.",
+   "og": "sfx-ref/x00A6 Impact 3.mp3",
+   "takes": []
+  },
+  {
+   "id": "X00A7",
+   "name": "Zodiac Stone Sparkle",
+   "type": "One-Shot",
+   "category": "magic",
+   "prompt": "A sharp, high-pitched synthesized metallic sparkle-tone with a quick decay, reverb for a haunting, eerie atmosphere, a sudden bright burst with no lead-in, lo-fi.",
+   "og": "sfx-ref/x00A7 Zodiac Stone Sparkle.mp3",
+   "takes": []
+  }
+ ]
+}

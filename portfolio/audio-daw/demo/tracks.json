@@ -1,0 +1,46 @@
+{
+ "tracks": [
+  {
+   "name": "Servo Whine (loop)",
+   "path": "music/Servo Whine (loop).ogg",
+   "dir": "music",
+   "bytes": 1816112
+  },
+  {
+   "name": "come and sit",
+   "path": "music/come and sit.mp3",
+   "dir": "music",
+   "bytes": 3691539
+  },
+  {
+   "name": "town_sadness (loop) v2",
+   "path": "music/town_sadness (loop) v2.ogg",
+   "dir": "music",
+   "bytes": 1574162
+  },
+  {
+   "name": "town_sadness (loop) v3",
+   "path": "music/town_sadness (loop) v3.ogg",
+   "dir": "music",
+   "bytes": 2281910
+  },
+  {
+   "name": "town_sadness (loop)",
+   "path": "music/town_sadness (loop).ogg",
+   "dir": "music",
+   "bytes": 1749047
+  },
+  {
+   "name": "town_sadness",
+   "path": "music/town_sadness.mp3",
+   "dir": "music",
+   "bytes": 3242979
+  },
+  {
+   "name": "you can do it",
+   "path": "music/you can do it.mp3",
+   "dir": "music",
+   "bytes": 2277603
+  }
+ ]
+}

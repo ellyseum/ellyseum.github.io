@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FWLB DAW - static build</title>
+<link rel="stylesheet" href="web/ui/shell.css">
+<link rel="icon" href="favicon.png">
+<style>
+body{grid-template-rows:auto auto 1fr auto}
+#staticnote{font:12px/1.55 system-ui,sans-serif;background:#191f2b;color:#c3cede;
+  border-bottom:1px solid #33405a;padding:9px 16px}
+#staticnote strong{color:#ffd479}
+#staticnote code{background:#0f1420;padding:1px 4px;border-radius:3px;color:#9fd0ff}
+#staticnote a{color:#7fb8ff;cursor:pointer}
+#staticdetail{margin-top:7px;color:#8b9db4;max-width:100ch}
+#staticdetail ul{margin:5px 0 0;padding-left:18px}
+.missing{flex-direction:column;text-align:center;padding:14px;font-size:11px}
+</style>
+</head>
+<body>
+<script src="static-shim.js"></script>
+
+<div id="staticnote">
+  <strong>Static build.</strong> This is the FWLB DAW served as files, with no authoring server
+  behind it. Playback, waveform drawing, cutting, loop-point authoring, crossfade baking and WAV
+  export all run in the browser and work here. Three routes are server work and are disabled with
+  the reason shown on the control: OGG export, keeper flags, and path import. Drag any audio file
+  onto this window to load it.
+  <a id="staticmore">what the live tool adds</a>
+  <div id="staticdetail" hidden>
+    The live tool runs behind <code>tools/serve_daw.py</code>, which lists the music library, writes
+    keeper flags back into <code>sfx_data.json</code>, transcodes exports to OGG with
+    LOOPSTART/LOOPLENGTH Vorbis comments, and copies files from anywhere on disk into the workspace.
+    This build ships 167 SFX cues with their prompts and 7 music tracks. The loop-point reader - WAV
+    <code>smpl</code> chunks and OGG <code>LOOPSTART</code> comments alike - is the same code the
+    live tool runs.
+  </div>
+</div>
+
+
+<!-- TRANSPORT + MODE TABS: persistent chrome. Only the centre swaps on a mode
+     change, so switching never disorients (and audio keeps playing). -->
+<header id="bar">
+  <div class="grp">
+    <button id="play" class="go" title="Space">▶</button>
+    <button id="stop" title="Space">■</button>
+    <span id="clock" class="mono">0:00.000</span>
+  </div>
+
+  <nav id="modes">
+    <button data-mode="sfx"     title="1">SFX</button>
+    <button data-mode="cut"     title="2 · Tab">CUT</button>
+    <button data-mode="music"   title="3 · Tab">MUSIC</button>
+    <button data-mode="arrange" title="4">ARRANGE</button>
+  </nav>
+
+  <div class="grp">
+    <label class="q">vol</label>
+    <input id="vol" type="range" min="0" max="1" step="0.01" value="0.8">
+    <button id="bankToggle" title="Hide the bank to widen the work surface">◧</button>
+  </div>
+</header>
+
+<main id="app">
+  <!-- BANK: the spine. Everything authored anywhere lands here, and ARRANGE
+       consumes from it. This is what the old two-view tool had no room for. -->
+  <aside id="bank">
+    <div class="bankhead">
+      <input id="filter" placeholder="filter…" spellcheck="false">
+      <select id="bankGroup" title="group by">
+        <option value="category">by category</option>
+        <option value="type">by type</option>
+        <option value="flat">flat</option>
+      </select>
+    </div>
+
+    <!-- Import: the page can only fetch what the server serves, so a file in
+         Downloads is otherwise unreachable. Drop loads it instantly; a path copies
+         it into the workspace so it stays browsable. -->
+    <div id="importbox">
+      <label class="imp" title="pick an audio file">
+        ＋ Add file<input id="impFile" type="file" accept="audio/*" multiple hidden>
+      </label>
+      <input id="impPath" placeholder="…or paste a full path + Enter" spellcheck="false">
+      <select id="impDir" title="where a pasted path gets copied">
+        <option value="music-final">→ music-final</option>
+        <option value="music">→ music (live in game)</option>
+        <option value="sfx-final">→ sfx-final</option>
+      </select>
+      <div class="hint dim">or drag a file anywhere onto this window</div>
+    </div>
+
+    <div id="tree"></div>
+  </aside>
+
+  <section id="centre"></section>
+
+  <aside id="inspector">
+    <div id="inspBody" class="q">nothing selected</div>
+  </aside>
+</main>
+
+<footer id="statusbar">
+  <span id="status">ready</span>
+  <span id="saved"></span>
+</footer>
+
+<div id="toast"></div>
+
+<script type="module" src="web/main.js"></script>
+</body>
+<script>
+(function () {
+  const a = document.getElementById('staticmore');
+  const shown = a.textContent;
+  a.onclick = () => {
+    const d = document.getElementById('staticdetail');
+    d.hidden = !d.hidden;
+    a.textContent = d.hidden ? shown : 'hide';
+  };
+})();
+</script>
+</html>

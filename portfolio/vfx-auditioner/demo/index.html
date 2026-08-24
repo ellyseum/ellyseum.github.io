@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FWLB VFX Audition - static build</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #14120f; --panel: #1d1a16; --edge: #35302a; --ink: #d8d2c4; --dim: #8a8274;
+    --keep: #4f9d5c; --tweak: #c9963c; --kill: #b5473c; --accent: #c9963c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+  header { position: sticky; top: 0; z-index: 5; background: var(--bg);
+    border-bottom: 1px solid var(--edge); padding: 10px 18px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  header h1 { font-size: 16px; margin: 0; letter-spacing: 0.06em; }
+  header .tally { color: var(--dim); font-size: 13px; }
+  header .tally b { color: var(--ink); }
+  .tabs { display: flex; gap: 4px; margin-left: auto; }
+  .tabs button { padding: 6px 16px; border-radius: 4px 4px 0 0; border: 1px solid var(--edge);
+    border-bottom: none; background: transparent; color: var(--dim);
+    font: 600 13px/1 inherit; letter-spacing: 0.08em; cursor: pointer; }
+  .tabs button.on { background: var(--panel); color: var(--ink); border-color: var(--accent); }
+  h2 { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim);
+    margin: 26px 18px 10px; border-bottom: 1px solid var(--edge); padding-bottom: 6px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 14px; padding: 0 18px; }
+  .grid.small { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .card { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px;
+    overflow: hidden; display: flex; flex-direction: column; }
+  .card.v-keep { border-color: var(--keep); }
+  .card.v-tweak { border-color: var(--tweak); }
+  .card.v-kill { border-color: var(--kill); opacity: 0.7; }
+  .card video { width: 100%; aspect-ratio: 16/9; background: #000; display: block; cursor: pointer; }
+  .clipwrap { position: relative; }
+  .fsbtn { position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; border: none;
+    border-radius: 6px; background: rgba(0,0,0,0.55); color: #fff; font-size: 16px; line-height: 1;
+    cursor: pointer; opacity: 0; transition: opacity 0.12s; display: grid; place-items: center; }
+  .clipwrap:hover .fsbtn { opacity: 1; }
+  .fsbtn:hover { background: rgba(0,0,0,0.85); }
+  .card video:fullscreen { object-fit: contain; background: #000; cursor: default; }
+  .card .body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+  .card .top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .card .name { font-weight: 600; }
+  .card .id { color: var(--dim); font-size: 12px; font-family: Consolas, monospace; }
+  .card .chip { margin-left: auto; font-size: 11px; color: var(--dim);
+    border: 1px solid var(--edge); border-radius: 10px; padding: 1px 8px; }
+  .card .blurb { color: var(--dim); font-size: 13px; }
+  .hist { font-size: 12px; color: var(--dim); border-left: 2px solid var(--edge); padding-left: 8px; }
+  .hist .hv { font-weight: 700; letter-spacing: 0.06em; }
+  .hist .hv.keep { color: var(--keep); } .hist .hv.tweak { color: var(--tweak); }
+  .hist .hv.kill { color: var(--kill); }
+  .verdicts { display: flex; gap: 6px; }
+  .verdicts button { flex: 1; padding: 5px 0; border-radius: 4px; border: 1px solid var(--edge);
+    background: transparent; color: var(--dim); font: 600 12px/1 inherit; letter-spacing: 0.08em;
+    cursor: pointer; }
+  .verdicts button:hover { color: var(--ink); }
+  .verdicts button.on-keep { background: var(--keep); border-color: var(--keep); color: #fff; }
+  .verdicts button.on-tweak { background: var(--tweak); border-color: var(--tweak); color: #221a08; }
+  .verdicts button.on-kill { background: var(--kill); border-color: var(--kill); color: #fff; }
+  .reopen { padding: 5px 10px; border-radius: 4px; border: 1px solid var(--edge);
+    background: transparent; color: var(--dim); font: 600 12px/1 inherit; cursor: pointer; }
+  .reopen:hover { color: var(--ink); border-color: var(--tweak); }
+  textarea { background: #14110d; color: var(--ink); border: 1px solid var(--edge);
+    border-radius: 4px; padding: 6px 8px; font: 13px/1.4 inherit; resize: vertical;
+    min-height: 34px; }
+  textarea:focus { outline: 1px solid var(--accent); }
+  .missing { display: flex; align-items: center; justify-content: center; aspect-ratio: 16/9;
+    background: #000; color: var(--kill); font-size: 13px; letter-spacing: 0.1em; }
+  .ledger { margin: 14px 18px; background: var(--panel); border: 1px solid var(--edge);
+    border-radius: 6px; padding: 12px 16px; }
+  .ledger table { border-collapse: collapse; font-size: 13px; width: 100%; }
+  .ledger th { text-align: left; color: var(--dim); font-weight: 600; letter-spacing: 0.08em;
+    font-size: 11px; text-transform: uppercase; padding: 4px 14px 4px 0; }
+  .ledger td { border-top: 1px solid var(--edge); padding: 6px 14px 6px 0; }
+  .saved { position: fixed; right: 16px; bottom: 14px; background: var(--panel);
+    border: 1px solid var(--edge); border-radius: 4px; padding: 6px 12px; font-size: 12px;
+    color: var(--dim); opacity: 0; transition: opacity 0.25s; pointer-events: none; }
+  .saved.show { opacity: 1; }
+</style>
+<link rel="icon" href="favicon.png">
+<style>
+#staticnote{font:12px/1.55 system-ui,sans-serif;background:#191f2b;color:#c3cede;
+  border-bottom:1px solid #33405a;padding:9px 16px}
+#staticnote strong{color:#ffd479}
+#staticnote code{background:#0f1420;padding:1px 4px;border-radius:3px;color:#9fd0ff}
+#staticnote a{color:#7fb8ff;cursor:pointer}
+#staticdetail{margin-top:7px;color:#8b9db4;max-width:100ch}
+#staticdetail ul{margin:5px 0 0;padding-left:18px}
+.missing{flex-direction:column;text-align:center;padding:14px;font-size:11px}
+</style>
+</head>
+<body>
+<script src="bundled-clips.js"></script>
+<script src="static-shim.js"></script>
+
+<div id="staticnote">
+  <strong>Static build - read-only.</strong> The audition record ships whole: all 117 candidates
+  with their blurb, wave, backdrop, verdict, note and full per-pass history, across four review
+  passes. What the live gallery writes - a verdict, a note, a request for a new candidate - is
+  intercepted and refused with the reason, so nothing silently no-ops. 24 of the 117 rendered clips
+  are bundled, chosen to span the range of judgments; the rest are labelled in place.
+  <a id="staticmore">how to read this</a>
+  <div id="staticdetail" hidden>
+    <ul>
+      <li>The record, not the reel, is the artifact. 68 candidates were accepted and 4 killed;
+        8 changed verdict between passes, which is the part a finished reel cannot show.</li>
+      <li><code>witness_thread</code> is the clearest single case: tweak on pass 1, then kill on
+        passes 2 and 3. Its clip is bundled.</li>
+      <li>A note on an accepted candidate is a critique carried forward, not a rejection - for
+        example <code>impact_frame</code>, kept with "the sparkle effect kills it, needs more work
+        but i like as a starter".</li>
+      <li>In the live tool a verdict plus its note wakes an orchestrator agent, which dispatches a
+        worker to author the change as a data recipe, renders it headless, and returns the new take
+        to this same page for the next pass.</li>
+    </ul>
+  </div>
+</div>
+
+<header>
+  <h1>FWLB · VFX AUDITION</h1>
+  <span class="tally" id="tally"></span>
+  <div class="tabs">
+    <button id="tab-active" class="on">ACTIVE</button>
+    <button id="tab-requests">REQUESTS</button>
+    <button id="tab-history">HISTORY</button>
+  </div>
+</header>
+<main id="main"></main>
+<div class="saved" id="saved">saved</div>
+<script>
+"use strict";
+const VERDICTS = ["keep", "tweak", "kill"];
+let DOC = null;
+let TAB = "active";
+let CLIP_V = 0;   // bumped on live-reload so replaced clip files re-fetch past the cache
+
+const isAccepted = c => c.verdict === "keep";
+const isKilled = c => c.verdict === "kill";
+const isActive = c => !isAccepted(c) && !isKilled(c);
+
+async function load() {
+  DOC = await (await fetch("vfx_audition.json")).json();
+  render();
+}
+
+function tally() {
+  const act = DOC.candidates.filter(isActive).length;
+  const acc = DOC.candidates.filter(isAccepted).length;
+  const kil = DOC.candidates.filter(isKilled).length;
+  document.getElementById("tally").innerHTML =
+    `pass <b>${DOC.pass}</b> · <b>${act}</b> in review · ` +
+    `<b style="color:var(--keep)">${acc}</b> accepted · ` +
+    `<b style="color:var(--kill)">${kil}</b> killed`;
+}
+
+async function save(c, patch) {
+  Object.assign(c, patch);
+  const r = await fetch("/verdict", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: c.id, ...patch }) });
+  const el = document.getElementById("saved");
+  el.textContent = r.ok ? "saved" : "SAVE FAILED";
+  el.style.color = r.ok ? "var(--dim)" : "var(--kill)";
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), 900);
+  tally();
+}
+
+function histBlock(c) {
+  if (!c.history || !c.history.length) return null;
+  const d = document.createElement("div");
+  d.className = "hist";
+  for (const h of c.history) {
+    const row = document.createElement("div");
+    const hv = document.createElement("span"); hv.className = "hv " + h.verdict;
+    hv.textContent = String(h.verdict).toUpperCase();
+    row.append("pass " + h.pass + " — ", hv);
+    if (h.notes) row.append(" · " + h.notes);
+    if (h.fulfilled) row.append(" ✓");
+    d.appendChild(row);
+  }
+  return d;
+}
+
+function goFullscreen(vid) {
+  const fn = vid.requestFullscreen || vid.webkitRequestFullscreen || vid.webkitEnterFullscreen;
+  if (fn) { fn.call(vid); vid.controls = true; }
+}
+// leaving fullscreen: strip the native control bar off every tile again (keep the grid clean)
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) document.querySelectorAll(".card video").forEach(v => v.controls = false);
+});
+function clipEl(c) {
+  const wrap = document.createElement("div");
+  wrap.className = "clipwrap";
+  const vid = document.createElement("video");
+  vid.src = c.clip + "?v=" + CLIP_V; vid.loop = vid.muted = vid.autoplay = true; vid.playsInline = true;
+  vid.preload = "metadata";
+  vid.onerror = () => { const m = document.createElement("div"); m.className = "missing";
+    m.textContent = "CLIP MISSING — " + c.clip; wrap.replaceWith(m); };
+  vid.onclick = () => { vid.currentTime = 0; vid.play(); };
+  vid.ondblclick = () => goFullscreen(vid);   // double-click = fullscreen
+  const btn = document.createElement("button");
+  btn.className = "fsbtn"; btn.title = "Fullscreen (or double-click)"; btn.textContent = "⛶";
+  btn.onclick = (e) => { e.stopPropagation(); goFullscreen(vid); };
+  wrap.appendChild(vid); wrap.appendChild(btn);
+  return wrap;
+}
+
+function topRow(c) {
+  const t = document.createElement("div");
+  t.className = "top";
+  t.innerHTML = `<span class="name">${c.name}</span><span class="id">${c.id}</span>` +
+    `<span class="chip">w${c.wave} · ${c.backdrop}</span>`;
+  return t;
+}
+
+function activeCard(c) {
+  const d = document.createElement("div");
+  d.className = "card" + (c.verdict ? " v-" + c.verdict : "");
+  d.appendChild(clipEl(c));
+  const body = document.createElement("div"); body.className = "body";
+  body.appendChild(topRow(c));
+  const bl = document.createElement("div"); bl.className = "blurb"; bl.textContent = c.blurb;
+  body.appendChild(bl);
+  const hb = histBlock(c);
+  if (hb) body.appendChild(hb);
+  const vs = document.createElement("div"); vs.className = "verdicts";
+  for (const v of VERDICTS) {
+    const b = document.createElement("button");
+    b.textContent = v.toUpperCase();
+    if (c.verdict === v) b.className = "on-" + v;
+    b.onclick = async () => { await save(c, { verdict: c.verdict === v ? "" : v }); render(); };
+    vs.appendChild(b);
+  }
+  body.appendChild(vs);
+  const notes = document.createElement("textarea");
+  notes.placeholder = "notes for the next pass…";
+  notes.value = c.notes || "";
+  notes.onchange = () => save(c, { notes: notes.value });
+  body.appendChild(notes);
+  d.appendChild(body);
+  return d;
+}
+
+function historyCard(c) {
+  const d = document.createElement("div");
+  d.className = "card v-" + c.verdict;
+  d.appendChild(clipEl(c));
+  const body = document.createElement("div"); body.className = "body";
+  body.appendChild(topRow(c));
+  const hb = histBlock(c);
+  if (hb) body.appendChild(hb);
+  const row = document.createElement("div"); row.className = "verdicts";
+  const btn = document.createElement("button");
+  btn.className = "reopen";
+  btn.textContent = isAccepted(c) ? "REOPEN FOR TWEAKS" : "RESURRECT";
+  btn.onclick = async () => { await save(c, { verdict: "tweak" }); render(); };
+  row.appendChild(btn);
+  body.appendChild(row);
+  d.appendChild(body);
+  return d;
+}
+
+function section(main, label, cards, cls) {
+  if (!cards.length) return;
+  const h = document.createElement("h2");
+  h.textContent = label + " — " + cards.length;
+  main.appendChild(h);
+  const g = document.createElement("div"); g.className = "grid" + (cls ? " " + cls : "");
+  for (const c of cards) g.appendChild(c);
+  main.appendChild(g);
+}
+
+function render() {
+  document.getElementById("tab-active").className = TAB === "active" ? "on" : "";
+  document.getElementById("tab-history").className = TAB === "history" ? "on" : "";
+  const main = document.getElementById("main");
+  main.innerHTML = "";
+  document.getElementById("tab-requests").className = TAB === "requests" ? "on" : "";
+  if (TAB === "requests") {
+    renderRequests(main);
+  } else if (TAB === "active") {
+    const act = DOC.candidates.filter(isActive);
+    const cats = [...new Set(act.map(c => c.cat))];
+    for (const cat of cats) {
+      const cs = act.filter(c => c.cat === cat);
+      section(main, cs[0].cat_label, cs.map(activeCard));
+    }
+    if (!act.length) {
+      const h = document.createElement("h2");
+      h.textContent = "nothing in review — everything is verdicted";
+      main.appendChild(h);
+    }
+  } else {
+    if (DOC.passes && DOC.passes.length) {
+      const lg = document.createElement("div"); lg.className = "ledger";
+      lg.innerHTML = "<table><tr><th>pass</th><th>date</th><th>accepted</th>" +
+        "<th>killed</th><th>sent back</th><th>unreviewed</th></tr>" +
+        DOC.passes.map(p => `<tr><td>${p.pass}</td><td>${p.date}</td>` +
+          `<td style="color:var(--keep)">${p.accepted}</td>` +
+          `<td style="color:var(--kill)">${p.killed}</td>` +
+          `<td style="color:var(--tweak)">${p.sent_back}</td><td>${p.unreviewed}</td></tr>`).join("") +
+        "</table>";
+      main.appendChild(lg);
+    }
+    section(main, "accepted — the visual dichotomy", DOC.candidates.filter(isAccepted).map(historyCard), "small");
+    section(main, "killed", DOC.candidates.filter(isKilled).map(historyCard), "small");
+  }
+  tally();
+}
+
+document.getElementById("tab-active").onclick = () => { TAB = "active"; render(); };
+document.getElementById("tab-requests").onclick = () => { TAB = "requests"; render(); };
+document.getElementById("tab-history").onclick = () => { TAB = "history"; render(); };
+
+async function sendRequest(payload) {
+  const r = await fetch("/request", { method: "POST",
+    headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  if (r.ok) { DOC = await (await fetch("vfx_audition.json")).json(); render(); }
+}
+
+function renderRequests(main) {
+  const wrap = document.createElement("div"); wrap.className = "ledger";
+  wrap.innerHTML = "<h2 style='margin:0 0 8px'>write what you want next — the agent polls this queue</h2>";
+  const ta = document.createElement("textarea");
+  ta.placeholder = "e.g. 'a poison-nova ult for the toad boss, green, uses the circle + splash grammar' …";
+  ta.style.width = "100%"; ta.style.minHeight = "60px";
+  const btn = document.createElement("button"); btn.className = "reopen";
+  btn.style.marginTop = "6px"; btn.textContent = "SUBMIT REQUEST";
+  btn.onclick = () => { if (ta.value.trim()) { sendRequest({ action: "add", text: ta.value.trim() }); ta.value = ""; } };
+  wrap.appendChild(ta); wrap.appendChild(btn);
+  main.appendChild(wrap);
+  const reqs = (DOC.requests || []).slice().reverse();
+  for (const rq of reqs) {
+    const d = document.createElement("div"); d.className = "ledger";
+    const chipCol = { open: "var(--tweak)", in_progress: "var(--accent)", done: "var(--keep)", dropped: "var(--dim)" }[rq.status] || "var(--dim)";
+    const head = document.createElement("div"); head.style.cssText = "display:flex;gap:10px;align-items:baseline";
+    const bb = document.createElement("b"); bb.style.color = chipCol;
+    bb.textContent = "#" + rq.id + " " + String(rq.status).toUpperCase();
+    const tly = document.createElement("span"); tly.className = "tally"; tly.textContent = "pass " + rq.pass;
+    head.append(bb, tly);
+    const bodyd = document.createElement("div"); bodyd.style.margin = "6px 0"; bodyd.textContent = rq.text;
+    d.append(head, bodyd);
+    if (rq.response) { const rr = document.createElement("div"); rr.className = "hist"; rr.textContent = "agent: " + rq.response; d.append(rr); }
+    if (rq.status === "open" || rq.status === "in_progress") {
+      const drop = document.createElement("button"); drop.className = "reopen";
+      drop.textContent = "DROP"; drop.onclick = () => sendRequest({ action: "update", id: rq.id, status: "dropped" });
+      d.appendChild(drop);
+    }
+    main.appendChild(d);
+  }
+}
+load();
+
+// Live-reload: the server pushes when a new batch lands (or the manifest changes).
+// EventSource auto-reconnects, so this survives server restarts and stays connected.
+(function connectEvents() {
+  const es = new EventSource("/events");
+  es.onmessage = async (e) => {
+    if (e.data === "reload") {
+      CLIP_V++;
+      DOC = await (await fetch("vfx_audition.json")).json();
+      render();
+      const el = document.getElementById("saved");
+      el.textContent = "new batch loaded";
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 1400);
+    }
+  };
+})();
+</script>
+</body>
+<script>
+(function () {
+  const a = document.getElementById('staticmore');
+  const shown = a.textContent;
+  a.onclick = () => {
+    const d = document.getElementById('staticdetail');
+    d.hidden = !d.hidden;
+    a.textContent = d.hidden ? shown : 'hide';
+  };
+})();
+</script>
+</html>

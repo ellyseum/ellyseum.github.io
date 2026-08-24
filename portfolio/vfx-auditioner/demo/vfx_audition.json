@@ -1,0 +1,2632 @@
+{
+  "candidates": [
+    {
+      "backdrop": "noon",
+      "blurb": "Free Cities construct-mint: gold sigil ground ring, coin-debris burst, certify stamp.",
+      "cat": "spell",
+      "cat_label": "Spell / Ability",
+      "clip": "out/audition/minted_writ.mp4",
+      "history": [
+        {
+          "notes": "the lava lines look too low quyality",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "the lava lines look too low quyality",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "the lava lines look too low quyality",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "minted_writ",
+      "name": "Minted Writ",
+      "notes": "the lava lines look too low quyality",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Dominion adjacency: white-hot threads link aligned units; shield auras while linked.",
+      "cat": "spell",
+      "cat_label": "Spell / Ability",
+      "clip": "out/audition/purity_lattice.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "purity_lattice",
+      "name": "Purity Lattice",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Redesigned (pass 2): a rune circle seals the ground, the pillar descends, and a rune-lit hemisphere grows over the healed with sparkles.",
+      "cat": "spell",
+      "cat_label": "Spell / Ability",
+      "clip": "out/audition/descending_miracle.mp4",
+      "history": [
+        {
+          "notes": "use the new spakle effect and re-think this design, the godrays + buff effect along with sparkles, maybe a growing hemisphere, with runes",
+          "pass": 1.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "the secondary chunky spin and the madoka circle arent aligning, cwrongly reating an overlapping like a venn diagram)",
+          "pass": 2.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "descending_miracle",
+      "name": "Descending Miracle",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Redesigned (pass 2): two ink slashes cross into an X, a white dupe ghosts up off the mark, then the whole cancel scales and fades.",
+      "cat": "spell",
+      "cat_label": "Spell / Ability",
+      "clip": "out/audition/witness_thread.mp4",
+      "history": [
+        {
+          "notes": "it should jsut be some power effects, + like a X cancel effect being created , then expands with a white overlay dupe of the letteering over the X (as a highlight) and both scale up slightly and fades out, use the ink route effect to create the two slashes for the X, then copy it, turn it white, and use it as the dupe overlay glow effect when scaling it",
+          "pass": 1.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "kill"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "kill"
+        }
+      ],
+      "id": "witness_thread",
+      "name": "The X-Cancel",
+      "notes": "",
+      "verdict": "kill",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Severed Court siphon: the wound is drained target-to-caster; the ground keeps the receipt.",
+      "cat": "spell",
+      "cat_label": "Spell / Ability",
+      "clip": "out/audition/wound_tithe.mp4",
+      "history": [
+        {
+          "notes": "the red overlay effect over ramza is too strong",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "the red overlay effect over ramza is too strong",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "the red overlay effect over ramza is too strong",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "wound_tithe",
+      "name": "The Tithe of Wounds",
+      "notes": "the red overlay effect over ramza is too strong",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Lamplit burn-out: the flame surges brilliant, then gutters into cold smoke; the caster pays.",
+      "cat": "spell",
+      "cat_label": "Spell / Ability",
+      "clip": "out/audition/gutter_flare.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "gutter_flare",
+      "name": "Gutter-Flare",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "void",
+      "blurb": "The parked eclipse-summon variant: reality pushes OUTWARD from a white point; godray + dark rim.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/white_hole.mp4",
+      "history": [
+        {
+          "notes": "looks good, maybe it should rotate for a few seconds while a spacey/void sound effect plays, and show the but our final sparkle effect needs tweak it looks too basic",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "looks good, maybe it should rotate for a few seconds while a spacey/void sound effect plays, and show the but our final sparkle effect needs tweak it looks too basic",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "looks good, maybe it should rotate for a few seconds while a spacey/void sound effect plays, and show the but our final sparkle effect needs tweak it looks too basic",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "white_hole",
+      "name": "White Hole",
+      "notes": "looks good, maybe it should rotate for a few seconds while a spacey/void sound effect plays, and show the but our final sparkle effect needs tweak it looks too basic",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Three staggered dimensional cuts at rotated angles; the last tears open to the void.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/triple_shear.mp4",
+      "history": [
+        {
+          "notes": "looks too amateurish",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "looks too amateurish",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "looks too amateurish",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "triple_shear",
+      "name": "Triple Shear",
+      "notes": "looks too amateurish",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "void",
+      "blurb": "The summon dim, a strike from above under the eclipse, the frame held for one beat.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/eclipse_writ.mp4",
+      "history": [
+        {
+          "notes": "the screen space magic circle needs to be more visually interesting with glyphs and antelier witch-hat like / final fantasy magic circles efffects - use groudned research looking at source material",
+          "pass": 1.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "the yellow spinning sporked madoka (the screen space wheel that rotates clockwise) needs to have the similar variation as the ground space madoka circles\n",
+          "pass": 2.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "eclipse_writ",
+      "name": "Eclipse Writ",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Redesigned (pass 2): no cut \u00e2\u20ac\u201d a clean teleport dissolve, then the re-form lands with a power blast.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/void_teleport.mp4",
+      "history": [
+        {
+          "notes": "remove the slashing effecct and just be a teleport dissolve, reform + power blast",
+          "pass": 1.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "void_teleport",
+      "name": "Void Crossing",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Accumulation incarnate: the floor remembers gold; three tremors, debris, the stain stays.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/hoard_quake.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "hoard_quake",
+      "name": "Hoard-Quake",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "void",
+      "blurb": "The reveal look: everything silvers, ash falls, a slow sigil turns. Restrained on purpose.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/penitent_grade.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "penitent_grade",
+      "name": "The Silver Grade",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "A strike burns the field; then the aftermath \u00e2\u20ac\u201d ash drifts down over the scorch (the composed-attack read).",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/ember_ashfall.mp4",
+      "history": [
+        {
+          "notes": "could as part of a composed attack or something, bsee notes on minted writ",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "could as part of a composed attack or something, bsee notes on minted writ",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "could as part of a composed attack or something, bsee notes on minted writ",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "ember_ashfall",
+      "name": "Ember Ashfall",
+      "notes": "could as part of a composed attack or something, bsee notes on minted writ",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "Heavy air: a poison field breathes at the hollow's floor while miasma coils ring it.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/miasma_creep.mp4",
+      "history": [
+        {
+          "notes": "some of the quads on the terrain get highlighteeed weird",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "some of the quads on the terrain get highlighteeed weird",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "some of the quads on the terrain get highlighteeed weird",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "miasma_creep",
+      "name": "Miasma Creep",
+      "notes": "some of the quads on the terrain get highlighteeed weird",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "night",
+      "blurb": "The one gentle thing: green-gold motes over night grass, a single warm lamp. Veneer bait.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/firefly_motes.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "firefly_motes",
+      "name": "Firefly Motes",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "night",
+      "blurb": "Night storm: rain, tremor, and sky-to-ground strikes on a believable cadence.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/storm_flicker.mp4",
+      "history": [
+        {
+          "notes": "see notes on lightning, add some little splashes of water on the ground that spawn to signal rain hitting the ground, the frequency of which showing how heavy the rain is, how multiplee levels of rain 'quiet rain vs suuper storm'",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "see notes on lightning, add some little splashes of water on the ground that spawn to signal rain hitting the ground, the frequency of which showing how heavy the rain is, how multiplee levels of rain 'quiet rain vs suuper storm'",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "see notes on lightning, add some little splashes of water on the ground that spawn to signal rain hitting the ground, the frequency of which showing how heavy the rain is, how multiplee levels of rain 'quiet rain vs suuper storm'",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "storm_flicker",
+      "name": "Storm Flicker",
+      "notes": "see notes on lightning, add some little splashes of water on the ground that spawn to signal rain hitting the ground, the frequency of which showing how heavy the rain is, how multiplee levels of rain 'quiet rain vs suuper storm'",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "It rains wrong in broad daylight, and the field keeps count: each fall darkens the ground a little more.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/blood_rain.mp4",
+      "history": [
+        {
+          "notes": "see notes on storm flicker",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "see notes on storm flicker",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "see notes on storm flicker",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "blood_rain",
+      "name": "Blood Rain",
+      "notes": "see notes on storm flicker",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "night",
+      "blurb": "A green-violet veil breathing over the night sky, slow as weather.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/aurora_veil.mp4",
+      "history": [
+        {
+          "notes": "cant reallly see it",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "cant reallly see it",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "cant reallly see it",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "aurora_veil",
+      "name": "Aurora Veil",
+      "notes": "cant reallly see it",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "v1 vs v2 over identical lava: full-replace refraction blooms (left); perturbation shimmers (right).",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/heat_haze_v2.mp4",
+      "history": [
+        {
+          "notes": "the lava texture needs to flow a lot more  in these square based designs",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "the lava texture needs to flow a lot more  in these square based designs",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "the lava texture needs to flow a lot more  in these square based designs",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "heat_haze_v2",
+      "name": "Heat Haze v2",
+      "notes": "the lava texture needs to flow a lot more  in these square based designs",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "The bolt kernel's range: strike, taut thread, sky-fall \u00e2\u20ac\u201d one primitive, three reads.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/lightning_arc.mp4",
+      "history": [
+        {
+          "notes": "it looks a little low quality, try adding some more gradients styles not just pure white, iwant to see blues and color in the next try",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "it looks a little low quality, try adding some more gradients styles not just pure white, iwant to see blues and color in the next try",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "it looks a little low quality, try adding some more gradients styles not just pure white, iwant to see blues and color in the next try",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "lightning_arc",
+      "name": "Lightning Arc",
+      "notes": "it looks a little low quality, try adding some more gradients styles not just pure white, iwant to see blues and color in the next try",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The floor language range: plain rings (gold/echo/wide), then two seeded MAGIC CIRCLES \u00e2\u20ac\u201d the JRPG cast register.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/ground_ripple.mp4",
+      "history": [
+        {
+          "notes": "good first attempt on the magic circles, do some grounding research lookdev on witchhat aterlier, and just 'fantasy magic circles' to get a few more interetsting designs to build this from, variations on thickness, interionr wedges, runes, etc - then keep tweaking",
+          "pass": 1.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "ground_ripple",
+      "name": "Ground Ripple",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The 1-frame hit: motion, then the whole frame inverts for a breath \u00e2\u20ac\u201d the juice register.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/impact_frame.mp4",
+      "history": [
+        {
+          "notes": "the sparkle effect kills it, needs more work but i like as a starter",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "the sparkle effect kills it, needs more work but i like as a starter",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "the sparkle effect kills it, needs more work but i like as a starter",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "impact_frame",
+      "name": "Impact Frame",
+      "notes": "the sparkle effect kills it, needs more work but i like as a starter",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "void",
+      "blurb": "The pillar primitive alone: thin-bright, wide-soft, cone \u00e2\u20ac\u201d staggered, overlapping.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/godray_shaft.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "godray_shaft",
+      "name": "Godray Shaft",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The RGB-split punch at two intensities \u00e2\u20ac\u201d the cheap register under crits and ults.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/chroma_pulse.mp4",
+      "history": [
+        {
+          "notes": "re-add the slight vginettes around the focused area but have it be visual distortion along with the slight darker fade gradient, add some radial shift effect from the focal point to show the reality bending, let it kind of subtly vibrate like a heat faze effect",
+          "pass": 1.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "chroma_pulse",
+      "name": "Chroma Pulse",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "MAP-to-BATTLE enter: impact, Voronoi crack-hold, the pane falls apart, the snapshot spins out to black.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/battle_shatter.mp4",
+      "history": [
+        {
+          "notes": "the shard sparkles look great, but instead of a pure back outlione, add some randomiziation in the lines to have some be thicker with a white-to-black look, variations on the thickness, and maybe takee a few local voronois to combine tthem to get different looking pieces of shards instead of everything just llooking like triangles and quads+, \nadd some initial shatter webbing that begins the shattering along with the sparkling then fadeout effect",
+          "pass": 1.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "combine each of those beats into a one two beat \"glass shatters, then fades out\"\nbut add the background is the 'torn parchment burnt parchment black and red' from the previously accepted addition, which then does the 'reverse' effect, fading into the level",
+          "pass": 2.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "instead of a simple cross fade, go back to how the shards dissapeared, can we have the black and red part instead of crossfaded in, bbe whats left over from when the glass shards dissapear, so its alll one continguous animation (breaks, peel away shards, leaving the black, burns away from center showing the new board",
+          "pass": 3.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "battle_shatter",
+      "name": "Battle Shatter",
+      "notes": "combine the first beat the glass break, then secondary shatter, into one single beastt",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The house confirm grammar as juice: slam, micro-shake, ink bleed, dust. One kernel, every ceremony.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/stamp_thud.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "stamp_thud",
+      "name": "Stamp Thud",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The route inks itself across the field \u00e2\u20ac\u201d width jitter, dry-brush tip; a branch follows.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/ink_route_draw.mp4",
+      "history": [
+        {
+          "notes": "lookss good, thicker and less angular lines on the edges if we can add some rounding (more inky) maybe some natural warp and splatter if you want to get fancy",
+          "pass": 1.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "lookss good, thicker and less angular lines on the edges if we can add some rounding (more inky) maybe some natural warp and splatter if you want to get fancy",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "lookss good, thicker and less angular lines on the edges if we can add some rounding (more inky) maybe some natural warp and splatter if you want to get fancy",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "ink_route_draw",
+      "name": "Ink Route Draw",
+      "notes": "lookss good, thicker and less angular lines on the edges if we can add some rounding (more inky) maybe some natural warp and splatter if you want to get fancy",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "How the polite world breaks: the page chars and rips inward; beneath it, the Codex field.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/register_tear.mp4",
+      "history": [
+        {
+          "notes": "add a revverse of this effect where the tear reforms back into game looks",
+          "pass": 1.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "register_tear",
+      "name": "The Register Tear",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 1
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "BATTLE state enter \u00e2\u20ac\u201d the quiet exit sibling: black lifts off the field with a soft chroma settle.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/battle_uncrack.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "kill"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "kill"
+        }
+      ],
+      "id": "battle_uncrack",
+      "name": "Battle Fade-In",
+      "notes": "",
+      "verdict": "kill",
+      "wave": 3
+    },
+    {
+      "backdrop": "void",
+      "blurb": "RESULTS roll-up \u00e2\u20ac\u201d hoard_quake downscaled to a victory arc: casino numbers get casino motion.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/coin_fountain.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "coin_fountain",
+      "name": "Coin Fountain",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 3
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Faction win \u00e2\u20ac\u201d the grade lands as a vermillion stamp; S+ earns the light pillar.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/grade_slam.mp4",
+      "history": [
+        {
+          "notes": "instead of a quick and a long one:\n\none standarddize chrome pulse + grade, only held for 3 seconds, then gone away (clicking can make it go faster) \nthe chrome pulse bands should slowly rotate around the focused area with a  shimmer band effect kind of like a tv scan ray of ripple going up each band of light, could be used for the legendary flaire (common and such wont get that kind of fanfare) think \"balatro inspirration, thick heavy gradients, chunky retro pixel shades\"",
+          "pass": 2.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "i just meant rotate the current existing rgb chroma bands, not add new orange and yellow",
+          "pass": 3.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "grade_slam",
+      "name": "Grade Slam",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 3
+    },
+    {
+      "backdrop": "night",
+      "blurb": "Faction win \u00e2\u20ac\u201d rockets climb and burst into star glints over the muster.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/victory_fireworks.mp4",
+      "history": [
+        {
+          "notes": "need a lot more at once, faster vollys, variation in size and delays, more volleys",
+          "pass": 2.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "victory_fireworks",
+      "name": "Muster Fireworks",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 3
+    },
+    {
+      "backdrop": "void",
+      "blurb": "CEREMONY \u00e2\u20ac\u201d the rare memory earns its three seconds: the card brightens under a light shaft, and the house stamps CLAIMED.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/memory_claim.mp4",
+      "history": [
+        {
+          "notes": "add the same grade slam effect as outlined in its tweak notes",
+          "pass": 2.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "see grand slam",
+          "pass": 3.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "memory_claim",
+      "name": "The Claiming",
+      "notes": "spin it faster, add some more rays (godrays from the top and  radial rays) spn the radials faster and then zip out, like  a quick flourish instead of ahold",
+      "verdict": "keep",
+      "wave": 3
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Defeat RESULTS \u00e2\u20ac\u201d color drains to ash-gray and embers drift UPWARD; loss ferries home under ash.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/defeat_ashen.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "defeat_ashen",
+      "name": "Ashen Wash",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 3
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Save triptych \u00e2\u20ac\u201d communing draws the light IN with a quickening glint cadence; the delete runs it backward into VOID.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/crystal_commune.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "crystal_commune",
+      "name": "Crystal Commune",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 3
+    },
+    {
+      "backdrop": "night",
+      "blurb": "Title screen \u00e2\u20ac\u201d the gentlest thing: dust motes in a window light, the title breathing, a slow vignette pulse.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/title_drift.mp4",
+      "history": [
+        {
+          "notes": "",
+          "pass": 2.0,
+          "verdict": "keep"
+        },
+        {
+          "notes": "",
+          "pass": 3.0,
+          "verdict": "keep"
+        }
+      ],
+      "id": "title_drift",
+      "name": "Title Drift",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 3
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Placement v3 (pass-4 note: less subtle, simpler): clean gradient-pulse legal tiles, the unit just dissolves into the space, one settle glint.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/place_settle.mp4",
+      "history": [
+        {
+          "notes": "come up with a better design, use research from classic JRPG styles and current modern takes                                                             ",
+          "pass": 2.0,
+          "verdict": "tweak"
+        },
+        {
+          "notes": "a lot less subtle, just dissolve into the space maybe, make the 'allowed spots' more of a simple gradient pulse design instead of the lava look",
+          "pass": 3.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "place_settle",
+      "name": "Muster Settle",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 3
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The bread-and-butter melee connect: directional glint + sprite flash + a whisper of biased speedlines.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/hit_spark.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "it should always render over the pixel cut out sprite units, but still be depth checked (like behind the pillar terrain)",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "hit_spark",
+      "name": "Hit Spark",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The crit: one-frame invert + big star + chroma micro-punch (hitstop rides the in-game wiring).",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/crit_moment.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "same notes as hit spark",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "crit_moment",
+      "name": "Crit Moment",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The whiff read: a ghost swipe passes through, dust wisps, a small gray MISS chip.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/miss_whiff.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "it needs to actually spin around the unit in 3d space, not just in screenspace. the eeffect is small enough (some yellow squares, so lets see it actually go around and be depth checked) - the example is behind a pillar",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "miss_whiff",
+      "name": "Miss Whiff",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "THE death language, her cut: blood radiates out in a splat, blood-red pixels fly and land and lie on the ground a few ticks, and the stain stays keeping the receipt.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/death_rites.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "needs more blood splatter, and unit is depth checked, but then pops out and becomes un-depth checked during dissolve (bug)",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "use the pixel explosion but add some leftover bloood splatter",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "just make it blood colored, blood radiating in a splat that stains the land, and leaves blood pixels for a few ticks. instead of using the billboards pixels for color",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "death_rites",
+      "name": "Death Rites",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "A status lands: the aura pops with its chip (F / P) and a ring pulse \u00e2\u20ac\u201d the STATUSES table made visible.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/status_land.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "instead of 1 letter, add full tweaked rotated offset text POISON, FIRE, etc as the status , put it directly over",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "status_land",
+      "name": "Status Land",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The defense cracks: the shield icon shatters and its pieces BOUNCE, land, and lie on the ground a beat before fading - pixel-death physics for a broken guard.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/guard_break.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "it needs to be more of a shield icon that flashes and shatters into pieces",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "the exploded needs to be a lot more physics looking, like how the pixel death works where they shatter and land, maybe even leave the pixels on the floor for a second before they vanish",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "guard_break",
+      "name": "Guard Break",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The Faith TRUE heal, grown lush: spirals at three radii and two waves wind the body, then the shine spark LANDS - hitstop, and the ground around them blooms green light.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/heal_bloom.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "madoka circle should spawn all at once  (instead of pieces at a time) be green, and more green godrays and a circling healing leaves)",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "add more of those spirals at different offsets and intervals and distances and then make the final shine sparrk have some hitstop and add some green lightnig effects to the surrounding area",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "lighting effects, like lights, not lightning",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "heal_bloom",
+      "name": "Heal Bloom",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Post-kill trickle: gold motes arc corpse-to-killer \u00e2\u20ac\u201d the casino register at unit scale.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/xp_drip.mp4",
+      "history": [],
+      "id": "xp_drip",
+      "name": "XP Drip",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Free Cities ult: gold converges from everywhere it was owed, ledger lines ink the void, CERTIFIED slams.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/ult_free_cities.mp4",
+      "history": [],
+      "id": "ult_free_cities",
+      "name": "The Foreclosure",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Dominion ult: a circle under every ally snaps into a taut lattice; the world grades gold-white. Purity, enforced.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/ult_dominion.mp4",
+      "history": [],
+      "id": "ult_dominion",
+      "name": "The Golden Order",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Faith ult: the great asking-circle turns and counter-turns beneath the coin, the miracle descends through it, and the codex flickers. Every miracle is a loan.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/ult_faith.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "the big madoka circle should hold on the screen longer and have more spinning parts with counterspinning element, similar to the ground madokas",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "i meant the screnspace billboard one, its pretty static, not the one on the floor, but add more variation to color and sigils and stuff, and have it draw instantly ",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "ult_faith",
+      "name": "The Asking Price",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Severed Court ult: every wound on the field converges into one blade. The court remembers everything.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/ult_severed.mp4",
+      "history": [],
+      "id": "ult_severed",
+      "name": "The Grievance Ledger",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Lamplit ult: overexposure through an ember storm \u00e2\u20ac\u201d then everything gutters to smoke and ash. The cost, paid gladly.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/ult_lamplit.mp4",
+      "history": [],
+      "id": "ult_lamplit",
+      "name": "The Brightest Hour",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Witnessed ult: the testimony writes itself across the screen, and every stroke lands as a blow. The record is the weapon.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/ult_witnessed.mp4",
+      "history": [],
+      "id": "ult_witnessed",
+      "name": "The Sworn Statement",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "While it lives, the arena is ITS ledger: a greed-gold grade + coin-glint dust falling. Ambient, not an attack.",
+      "cat": "boss",
+      "cat_label": "Boss Tier",
+      "clip": "out/audition/dragon_presence.mp4",
+      "history": [],
+      "id": "dragon_presence",
+      "name": "Dragon Presence",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "The dragon breath gone VOLUMETRIC: the molten wave crosses the field under billowing flame and rolling dark smoke, and leaves Burning in its wake.",
+      "cat": "boss",
+      "cat_label": "Boss Tier",
+      "clip": "out/audition/hoard_breath.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "combine with the billowing fire and smoke to make a more volumetric version of this",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "hoard_breath",
+      "name": "Hoard Breath",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "The four-step spec: the NAME stamp breaks the glass over the map screen, the shards peel away to black-and-crimson, and the splotch field BURNS OFF to reveal the diegetic level.",
+      "cat": "boss",
+      "cat_label": "Boss Tier",
+      "clip": "out/audition/boss_intro_slam.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "kill the final c hrome shift, this could be a cool usage for starting a transition to a boss. the glass should break like the other effect peeling into the darkness and then burn out. the stamp of the encouinter name should be what 'breaks' the glass, so the flow\n1. stamp\n2. break glass\n3. peel glass pieces to black&redsplotches\n4. burn away the b&r to show the diagetic level\nmeant for a transition from the map screeen",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "boss_intro_slam",
+      "name": "Boss Transition",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "One of every march-map node variety, on the real inked parchment: START, BATTLE, ELITE, EVENT, SCENARIO, TOWN, MINIBOSS and the wax-sealed BOSS terminus - each carved with its own letter, toured in turn with a gold arrival pulse naming the type.",
+      "cat": "march",
+      "cat_label": "Overworld March",
+      "clip": "out/audition/node_reached.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "would be better if you could show this on the map itself rather than the iso main",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "show how it would actually look on the map, not just draw on it as a background",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "do examples of what it looks like for each variety of node, we already have the 'epic boss' one as an example so make some of equally cool transitionals, use filters if necessary and make them each memorable",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "node_reached",
+      "name": "Node Reached",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The choice moment on the REAL march map: from the current node the two branches light up along the ACTUAL edges as wiggly hand-inked strokes - RISK up into an elite in oxblood vermillion, REST down into a town in a cooler verdigris ink - each fork-node pulsing under its stamp.",
+      "cat": "march",
+      "cat_label": "Overworld March",
+      "clip": "out/audition/path_fork_glow.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "would be better if you could show this on the map itself rather than the iso main",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "show how it would actually look on the map, not just draw on it as a background",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "it should be drawn kind of wiggly like a real handy with an ink, and maybe use ad iffeerent palette than red blue, make it fit the theme better",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "path_fork_glow",
+      "name": "Path Fork Glow",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "An omen on the REAL march map with an actual event node: an unvisited '?' node dashed one step ahead, the polite paper thinning for a breath - a vermillion pulse wells up under the node while the register-tear flickers at the edge, then a big '?' looms over it and it all closes.",
+      "cat": "march",
+      "cat_label": "Overworld March",
+      "clip": "out/audition/event_omen.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "show on the map with an actual node",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "event_omen",
+      "name": "Event Omen",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "night",
+      "blurb": "The one safe place: hearth glow, fireflies, woodsmoke wisps. Loss ferries you HERE.",
+      "cat": "march",
+      "cat_label": "Overworld March",
+      "clip": "out/audition/camp_hearth.mp4",
+      "history": [],
+      "id": "camp_hearth",
+      "name": "Camp Hearth",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The signature sim event, staged: cracks stamp across the wall, the water wave crosses with foam splashes at the front. (Audition stand-in \u00e2\u20ac\u201d the shipped version rides the REAL LiquidSim.)",
+      "cat": "sim",
+      "cat_label": "Sim Spectacle",
+      "clip": "out/audition/dam_break_beat.mp4",
+      "history": [],
+      "id": "dam_break_beat",
+      "name": "Dam Break Beat",
+      "notes": "",
+      "verdict": "kill",
+      "wave": 4
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "Embers that LAND and catch: splash-lander points ignite into small fire fields downwind.",
+      "cat": "sim",
+      "cat_label": "Sim Spectacle",
+      "clip": "out/audition/wildfire_spread.mp4",
+      "history": [],
+      "id": "wildfire_spread",
+      "name": "Wildfire Spread",
+      "notes": "",
+      "verdict": "kill",
+      "wave": 4
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "The heavy gas obeys the ground: miasma pours downhill and pools in the basin \u00e2\u20ac\u201d the sinking-gas law made visible.",
+      "cat": "sim",
+      "cat_label": "Sim Spectacle",
+      "clip": "out/audition/miasma_sink.mp4",
+      "history": [],
+      "id": "miasma_sink",
+      "name": "Miasma Sink",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Frost crystallizes cell by cell \u00e2\u20ac\u201d the zone plates freeze in sequence with glint ticks at each catch.",
+      "cat": "sim",
+      "cat_label": "Sim Spectacle",
+      "clip": "out/audition/frost_creep.mp4",
+      "history": [],
+      "id": "frost_creep",
+      "name": "Frost Creep",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "The willow/autumn table: amber leaf flecks drifting down, slow as the season.",
+      "cat": "biome",
+      "cat_label": "Biome Weather",
+      "clip": "out/audition/autumn_leaffall.mp4",
+      "history": [],
+      "id": "autumn_leaffall",
+      "name": "Autumn Leaffall",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The snow biome: snowfall that STAYS \u00e2\u20ac\u201d the ground whitens through the stain ledger as it falls.",
+      "cat": "biome",
+      "cat_label": "Biome Weather",
+      "clip": "out/audition/snow_accumulate.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "its rising steadily when it should be fallng and swirling and",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "snow_accumulate",
+      "name": "Snow Accumulate",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "The dead biome: dust devils tumble through, the light itself breathes thin.",
+      "cat": "biome",
+      "cat_label": "Biome Weather",
+      "clip": "out/audition/dead_wind.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "add a scary filter effect",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "dead_wind",
+      "name": "Dead Wind",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The digit grammar rebuilt to her spec: thick-stroked numbers where every digit lands on its own bounce, splatters ink, shakes, then swells and vanishes - shown across six registers.",
+      "cat": "meta",
+      "cat_label": "Meta Juice",
+      "clip": "out/audition/damage_number_pop.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "they're not lining up over top of the u nit (who is obscured by the pillar)",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "larger, thicker stroke, bouncier (individual number bounce) shake effects, more splatter and vanishing, scalnig up and vanishing, show a larger variation of them",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "have them come out at different skews and rotations too",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "damage_number_pop",
+      "name": "Damage Number Pop",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "The forgetting ceremony, deepened: the memory surfaces as a ruled ledger page whose body is written in a FAKE, illegible script - asemic cursive riding the lines, ink clearest at the entry NAME (THE UNPAID TOLL) and decaying toward the margins, so it reads as a memory written in a language you cannot quite read (the Drip register). It holds long enough to try to read it, then the register TEARS into the Codex-black Hole: the page - script and all - is flicked away and FALLS - and as it falls the burn front eats it: a noise-edge dissolve with a glowing ember rim consumes the writ, script and all, embers streaming off. Gone before it lands. Gone forever.",
+      "cat": "meta",
+      "cat_label": "Meta Juice",
+      "clip": "out/audition/memory_forget.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "the screen burn should stay on the screen and the void should stamp as soon as the screen is close to being filled up, then it should finish burning to full black, then quickly unburns back oout",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "have the card exploding when the stamp hits it",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "use some of the work we did in the sepia filter title card task(s) to make a cooler title card thing that is getting voided here, then show a couple variations of the stamp and it shattering them",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "the memory being a piece of notebook paper was brilliant, can we explore this further and m aybe have a fake language we can put on the memorry cards, a gauntlet challenge throwdown to players to translate it and get deeper lore. come up wioth a cursive system using our line renderer and make up a simple a=b type cipher and then render it with the cursive lines, big ta sk use a subagent",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "have the card burn up as its tossed away",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "use the previous animatino where it just tosses it back and it falls, but it should use that same 'burn shader' that the main screen is doing to turn the screens black, but just on the 3d card too as well as some flames and sparks flipbooks as it 'burns up', make it more professional",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "instead of falling down and to the left, have it be slight tossed forward, into the depth of the scene, like its being tossed away - the dissolve is nice, can we have the dissolved pieces scatter a bit as its flying",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "almost there, when its thrown forward, i want the card to kind of fall backwards so that its falling on its back as its flying, so it shows more its a 3d object, very similar to the first way it was \"thrown\" before we began the burning",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "memory_forget",
+      "name": "The Hole",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Hit, hit, SLASH - rebuilt as ONE slash_combo on the v2 engine: ramza faces ryu, winds and whips per cut, two mirrored horizontal crossings land on the tile in front of him, then the heavy overhead vertical with hitstop - every impact synced to the exact moment the blade crosses the attack vector.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/heavy_hit.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "how does thiss differ from a crit effect which is better? go back to the drawing board and come up with something like a spell effect, a bunch of slash effects with a final flourish would be something we really need",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "better, but you need to maybe research how to pull this effect off from open source corpus and come back, maybe have qwen review some versions of it u ntil its good",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "add different angle slashes, different widths, different colors, show a better variety of the 'hit hit slash' mechanics, like two lighter horizontal slashes, (left + right) then one heavy - hitstop + crit overheard slash, with a shatter",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "i mean more left right slash on the tile in front of the unit attacking, like think of a sword how it swings in front of a samurai, where they're doing a left slash, then right slash, then an overheead, but its all starting from the same hinge point, the samurais wrist, so the slashes would be rendered accordingly. also kil that glass plane effect it kind of tries to compensate",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "heavy_hit",
+      "name": "Heavy Hit",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Request #1 \u00e2\u20ac\u201d the combination itself: two quick sparks build into the full crit moment; one escalating beat.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/combo_finisher.mp4",
+      "history": [],
+      "id": "combo_finisher",
+      "name": "Combo Finisher",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 4
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Request #1 \u00e2\u20ac\u201d the interrupt read: cold-blue star + reversed speedline bias + a hard stop; the hit that answers a hit.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/counter_hit.mp4",
+      "history": [],
+      "id": "counter_hit",
+      "name": "Counter Hit",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Request #2 \u00e2\u20ac\u201d the BAD DRAGON counts the field: a gold scan circle under each unit in turn, tally threads rising to the claim, AUDITED.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/the_audit.mp4",
+      "history": [],
+      "id": "the_audit",
+      "name": "The Audit",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Request #2 \u00e2\u20ac\u201d the six ideologies lattice into one: six faction circles link into a hexagram, bloom white, and one circle remains.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/convergence_echo.mp4",
+      "history": [],
+      "id": "convergence_echo",
+      "name": "Convergence Echo",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "void",
+      "blurb": "Request #2 \u00e2\u20ac\u201d the meritocracy engine grades the field: the measuring ray sweeps across, and every unit gets its letter. Nobody asked it to.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/gnomon_measure.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "i like this as a possible levelup mechanic after a run  ||  RESPONSE: recorded as the LEVEL-UP CEREMONY candidate for the post-run flow (design ledger + roadmap) - no visual change; the clip stands as-is for that context.",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "gnomon_measure",
+      "name": "The Gnomon Measure",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "Rebuilt without the sigils: the water itself takes the field in two layers - a dark deep and a living surface - rising until the terrain is a drowned map with real depth.",
+      "cat": "ult",
+      "cat_label": "Ultimate / Cinematic",
+      "clip": "out/audition/the_drowning.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "looks too cheesy, kill the S mark and the burn effects, concentrate on making a cool flood effect that can survive the terrain better and show some acttual depth",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "the_drowning",
+      "name": "The Drowning",
+      "notes": "",
+      "verdict": "",
+      "wave": 4
+    },
+    {
+      "backdrop": "flat",
+      "blurb": "The shipped no-flipbook trick on the clean flat slab: left pool SCROLLS (legacy, the pattern slides), right pool EVOLVES (two octave-locked fields multiplied - the motion churns and never repeats). Longer + faster so the difference reads.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/noise_evolve.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "can you put them on a better background, like the flat view, and no garass, and let theem playeer a little longer and faster motion so i can see the differences better",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "noise_evolve",
+      "name": "Octave-Multiply Evolution",
+      "notes": "",
+      "verdict": "",
+      "wave": 5
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "Research gap #1 \u00e2\u20ac\u201d the anti-white-out: identical stacked effects, pure-additive (L, blooms out) vs blend-add bodies (R, stays readable).",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/blendadd_stack.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "the circle on the lower right, the bottom is cut off because of the un-level terrain, can we fix the shader so it doesnt get clipped like this or figure out how to make this display properly?",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "blendadd_stack",
+      "name": "Blend-Add Stack",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 5
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "The flipbook SYSTEM, now 34 books deep: the original nine (spark/electric/debris/flame/flame_core/smoke/bubbles/leaf/blink), twelve new spanning impact/status/occult/loot/gore, and three COMPOSITES built by layering other books in one frame - ember_column, impact_burst, stacked_lightning.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/micro_flipbook.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "good  start, expand this a lot, the fire effect is not good it should be able to be grouped together to show a whole set of tiles ablaze, research into a good filter way that can show that which isnt just a ton of individaul billlboard animations",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "add a dozen more primtiives to give the flipbook system some more depths, and some combined primitives like stacked lightning or such - really flex out the sy stem and give it depth",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "these are great, come up with moree flipbook animations we can use for a variety of hits and flourishes and larger animations for buffs and such, like make a better shield effect thatn the current one",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "micro_flipbook",
+      "name": "Flipbook System",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 5
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "The engine stress test, anime-grade: FOURTEEN crossings of the attack vector rain down in under a second - hash-spread angles, mirrored entries, streaks with a few full arcs - then the world holds its breath... and the finisher: one huge overhead arc through hitstop, the glint, and a number too big to argue with. (v3: the storm is now ONE beat - the registered omnislash SET, fourteen five-field vector records in data/cast_sets.gd, fired through play().)",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/omnislash.mp4",
+      "history": [],
+      "id": "omnislash",
+      "name": "Omnislash - the storm",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "DIAGNOSTIC, not a candidate look: ONE arc crossing stretched to 3 seconds so every phase of the sweep is measurable frame-by-frame. Used to isolate the leading-edge geometry artifact (the 'sword quad' that cuts through the air before the slash forms) and to verify its fix numerically - the across-band luminance profile at the sweep head should be blade-shaped, never a full-width bar.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/slash_probe.mp4",
+      "history": [],
+      "id": "slash_probe",
+      "name": "PROBE - slash head-bar isolation",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "A friend's hand-animated Blender fire SFX, screen-recorded off a grey viewport, DIFFERENCE-KEYED against its own median background plate (tools/import_flipbook.py - no chroma green needed), auto-cropped, and baked into a 26-frame external flipbook strip the engine plays through the SAME shader as the generated books. Act 1 the import at its native pace. Act 2 the point: it is now a CAST RECORD - the book riding the language with a warm lamp in the house lighting and a scale-up lerp layered on from data. Act 3 a staggered trio, smaller and faster - one import, many uses.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/friend_fire.mp4",
+      "history": [],
+      "id": "friend_fire",
+      "name": "FRIEND FIRE - imported SFX flipbook",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "flat",
+      "blurb": "DIAGNOSTIC: one molten blob, huge, PURE RED ramp, on the flat backdrop (no grass, no props) - if the dark hole persists here it is internal to the raymarch quad; its crisp shape at this contrast names the mechanism.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/blob_probe.mp4",
+      "history": [],
+      "id": "blob_probe",
+      "name": "PROBE - blob hole isolation",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "The signature cold attack, all real geometry: a frost ring bursts at the feet, a translucent PENTAGONAL ICE CAGE forms slowly in eight ticks (a flared-diamond crystal building around the victim - narrow base, fat at the chest, necked to a point), sealing the frozen character inside (visible through the faces, the seams are the bars); jagged twisted icicles jut up around it and frost mist whirls, then the whole thing SHATTERS per-quad and fades fast as the ice damage lands.",
+      "cat": "spell",
+      "cat_label": "Spell / Ability",
+      "clip": "out/audition/ice_prison.mp4",
+      "history": [],
+      "id": "ice_prison",
+      "name": "ICE PRISON - the frozen cage",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "The wave-2 primitives on the profile x path matrix, growing act by act as the build lands. PRISMS: a hex crystal erupting along the vector, a star-profile drill twisting 200 degrees, a spike field bursting from the ground in one record. PATHS: the ribbon swept along a helix and a closed orbit - the same strip, parametric spines. More acts arrive with each phase (vine growth, metaball goo, volumes, spawn chains, shatter, plasma_crown).",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/cast_wave2.mp4",
+      "history": [],
+      "id": "cast_wave2",
+      "name": "CAST WAVE 2 - growth, goo, warp",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "The CastEngine: the slash record language generalized to a FAMILY of shader-driven primitives, every one a vector with sidecar stats, all sequenced and dressed by the same sets/looks/override grammar. Act 1 the SHELLS - a dome sealing over a unit (fresnel rim, materialize-in, ACROSS lift-off) and a void sphere. Act 2 the FLOWS - a beam CONNECTING caster to target and a churning fire breath cone. Act 3 the MOVERS - ink darts in flight, a ring bang, twin braided sine ribbons (geometry displaced IN the shader). Act 4 the SPELLS - barrier_dome, orb_burst, breath_cone, arrow_volley, beam_judgment (the old judgment choreography re-spoken as six data records), helix_ribbon. Act 5 the OVERRIDE - the omnislash storm mass-forced into a DART storm by one key, and the volley re-dressed fire. Act 6 LERPS - custom feel as pure data layered onto a single note or a whole set: a void sphere with an attached scale-up + fade-out, a shaken ring, and the ink volley with a pulse lerp LAYERED across every dart by the group (lerps concatenate through the override grammar, never replace).",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/cast_lookdev.mp4",
+      "history": [],
+      "id": "cast_lookdev",
+      "name": "CAST LOOKDEV - the primitive family",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "Eight sequenced slash effects grown from the set language, ink and cel heavy. 1) omnislash MASS-OVERRIDDEN into ink - one line: {type:omnislash, look:ink}. 2) the same storm forced into the CEL flipbook path. 3) WHIRLWIND - every record carries its OWN axis, a ring of wind streaks spinning around the unit, spun twice by repeat/every. 4) the whirlwind re-dressed cel-ink by the same override grammar. 5) DRILL VORTEX - the roll-fan, the plane spinning about one vector in 45-degree steps. 6) INK SEAL - the calligraphy set piece; the finisher leaves via the ACROSS wipe like a brush lifting. 7) WIND BOLT - motion=bolt, the slash as a SPELL: blades FLY caster to target along the axis, arriving at the impact moment. 8) EDGE RAIN - overhead void cuts raining around the target through the offset field, the last one a lamp.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/slash_sequences.mp4",
+      "history": [],
+      "id": "slash_sequences",
+      "name": "SLASH SEQUENCES - 8 explorations",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "The SlashEngine v4 catalog - every lever of the language on one night stage, section by section. LOOKS (blade/fire/ink/void; fire and void now EMIT - transient lamps in the house lighting wash the ground). STYLES (arc / streak / cel flipbook). EXITS - how a blade LEAVES: fade / wipe (with the sweep) / wipe_back / across (edge to edge) / shrink (taper to death) / collapse (energy drains INTO the wound). ANIM (materialize / burn-away / churn+scroll+flicker). LIGHT featured on the dark stage: the fire arc pooling warm ground-glow, the void cut in violet, an explicit white flash. Finisher: one registered HHV set in full dress - look, sound, light, wipe exits.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/slash_lookdev.mp4",
+      "history": [],
+      "id": "slash_lookdev",
+      "name": "SLASH LOOKDEV BOOK",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The v3 texture system on the crossing executor. Act 1 the registered LOOKS (blade / fire / ink / void - gradient MAPPED BY ENERGY VALUE per the research canon; ink posterized into 3 chunky bands, void churning with two multiplied octave-locked noises). Act 2 gradient-AS-DATA: a bare color list and [pos,color] stops baked straight to ramps - no texture authored. Act 3 the procedural detail masks (noise erosion / dashes / double_edge). Act 4 the anim layer: a blade MATERIALIZING out of the noise front (dissolve-in), one BURNING AWAY with the glowing ember rim, and a scrolling, flickering energy cut. Act 5 the END-PINCH fix (flat rainbow-arch ends vs the default sine-envelope taper-to-points, plus the edge_noise smear lever) and the CEL PATH - slashes as procedurally BAKED FLIPBOOKS (8 hard-stepped boiling-edge frames on the same accurate geometry, still ramp-colored).",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/slash_looks.mp4",
+      "history": [],
+      "id": "slash_looks",
+      "name": "SlashEngine v3 - looks + anim",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The vector-crossing slash engine: every slash is a crossing of the attack vector (entry, the intersection impact, exit) at any roll angle. Act 1 the angle fan (0/45/90/135, auto-bias holding the edge-on case); act 2 the two styles (arc vs streak smear); act 3 the texture ramps (blade/fire/ink/void); act 4 the patterns (X-cross, flurry); act 5 composition - spark bursts + flipbook confirms AT the crossing point; act 6 the TRIPLE STACK - three simultaneous blades at stepped heights over one vector; act 7 (v3) the SET LANGUAGE - a registered {type: HHV} invocation with per-record sound, an X phrase mirrored+slowed by group modifiers through the flattener, then the locked-vs-fly motion A/B (the planted origin is the default; the traversal is the lever).",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/slash_language.mp4",
+      "history": [],
+      "id": "slash_language",
+      "name": "SlashEngine v2 - crossings",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The diegetic icon set, reworked through a designer-critic loop: page 1 = the full 11x11 Icons.tex() library (redesigned shield/skull/teardrop/wax_drip + a dozen new icons) in the default register; page 2 = the STYLE MENU, the same six icons in five treatments (default / outline / engraved / stamped / wax) to pick the final look from. One house ink, many registers.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/icon_sheet.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "i'd like to seee some more styles and more icons, some of them are pretty samey, like the drips, and the shield doesnt read like a shield very well. skull looks kind of weak too, you should have a critical reviewer agent give you feedback on the designs until you come up with a few more passes you can show me that we can pick from to create the final style. good show of the concept working so we can have simple bitmap sprites similar to the font",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "icon_sheet",
+      "name": "Icon Library - styles + set",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The diegetic confirm system: a parchment writ over the scrim, sepia title + body, a wax-seal SEAL IT vs a struck RECANT with the amber cursor between them. A plain discard confirm, then the irreversible FORGET-THIS-MEMORY danger writ (the cursor travels to the seal, then presses it), then a one-choice notice.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/house_dialog.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "i'd like to see a better pass once the icons are sorted better, this looks too low quality, use a different modal look, check o ut some of t he designs from the sepia titlecards and make something a little betteer, maybe add a stamp animatino on parts that are chosen and then cross, have it animate into the screen better, give it more gamified and interesting look, a thicker back strokee thats slightly askew, the modal itself too, our  house style of kind of persona-ish visually interesting given the limited art budget so we have to fake it with procedural work like we've been doing",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "house_dialog",
+      "name": "House Dialog & Confirm",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The FULL movement language, played like a kid with toys: four personas idle (breath, feet-planted sway, fidgets), get bounced across the yard in haphazard nose-tilting hops, then PLAY-FIGHT (wind-up lunges, knocked-over reactions with teardrop bubbles), a DISGAEA-GRADE ULTIMATE (the uppercut launcher, the camera whipping close and ORBITING the spinning victim, juggle pops, the slam into an explosion) and PERFORM the event verb set - joy-bounce, no-no, charge-POP, swoon, startle, victory waggle - before everyone is bounced home at once.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/marionette_toys.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "add some examples of them doing attacks, reacting, script out some uniique moveements during events, show us the full power of the marionette system for how we can use it in game and also to author events. have a preset that skews in different directions each hop, or switchs between right and left mirror, be more creative and give more video examples of eeverything working",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "add some disgaea level ultimates, where they knock each other up, the camerra spins around, does close ups, and then show how a multi part epic ultimate move (like a monk doing its final combo) but show it by scripting the marionettes around to do a battle. the default attack is a little too tame looking",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "the ultimate move doesnt look right its not centered and you need to focus it",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "marionette_toys",
+      "name": "Marionette - The Toy Box",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Research gap #6 (the Dead Cells doctrine) - the smear register in three flavours: crisp short ghosts, a long-fade trail that lingers, and a colour-shifted stretch-smear, each dash throwing flipbook sparkles as it goes.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/afterimage_dash.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "add some more flipbook sparkles during the move, and add some different variations of the after images, like longer fadeouts alucard sotn style or less opaque quick ones that fade , or some kind of filter effect overlaid on them examples to make them interesting and we can have several  different special moves use the same afterimage dash primitive but be visually distinct",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "afterimage_dash",
+      "name": "Afterimage Dash",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 5
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Research gap #5 \u00e2\u20ac\u201d the named feel primitive: the SAME hit twice, without hitstop, then with hitstop + a light that actually flashes the ground.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/hitstop_impact.mp4",
+      "history": [],
+      "id": "hitstop_impact",
+      "name": "Hitstop Impact",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 5
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The pixel-explosion death: the unit bursts into its OWN pixels (chip_burst sampling the sprite), the stain keeps the receipt. death_rites' loud sibling.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/pixel_death.mp4",
+      "history": [],
+      "id": "pixel_death",
+      "name": "Pixel Death",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 5
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "A whole set of tiles ablaze the shader way: one terrain-draped fire field carries the area while looping flame licks and rising smoke accent it, and the grass chars and vanishes under the spreading flame.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/flame_rig.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "flamerig lava needs to follow heightmap, and kill any grass its intersecting (causing burning)",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "flame_rig",
+      "name": "Flame Rig",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Big puffy cumulus smoke, no fire required - the kind that reads as weather, not damage, and asks nothing of the framerate.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/smoke_billow_white.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "looks great but some of the smokes turns into squared offsets that ruin the efect, smoke billow dark column had it perfectly whatever it did to minimize that, if you can figure out whats causing the squared off textures in mist its a common problem in all of the volumetrics",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "smoke_billow_white",
+      "name": "Smoke Billow - White",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "The oily column after the fire already had its say - fat dark puffs climbing in a real column, embers escaping, the scorch filed as the only witness.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/smoke_billow_dark.mp4",
+      "history": [],
+      "id": "smoke_billow_dark",
+      "name": "Smoke Billow - Dark",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "Something breathes at the bottom of the trench, patient and unbothered, a column of bubbles that never checks if anyone is watching.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/bubble_stream.mp4",
+      "history": [],
+      "id": "bubble_stream",
+      "name": "Bubble Stream",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "A forge left running after hours - small sparks jumping off banked coals, or coals that were never banked, just left.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/ambient_sparks.mp4",
+      "history": [],
+      "id": "ambient_sparks",
+      "name": "Ambient Sparks",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "A cloudburst on one tile: localized rain falls only over this patch, the pale ring answers, and by the time the debris lands the ground has forgotten it was ever dry.",
+      "cat": "spell",
+      "cat_label": "Spell / Ability",
+      "clip": "out/audition/water_splash_rig.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "can we have some localized rain that happens only on that immeediate area?",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "this looks cool, like magical iceecycles, b ut the rain should be more of a transparent, less longer lines (unless maybe add some B side animation as variation) make it look less like magical stars falling straight down but some rain come in at an angle, ",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "water_splash_rig",
+      "name": "Water Splash Rig",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "A sheet that has been falling since long before anyone started keeping the ledger - the spray at its foot does not care whose turn it is.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/waterfall_sheet.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "water is flowing the wrong way, the ground circles that spawn dont look good, they should be splashy particle effeccts coming from where the water is coming from and where its landing , research waterfall effects online and figure it out better",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "waterfall_sheet",
+      "name": "Waterfall Sheet",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "Near rain, far rain, fog pooled at the knee - a full storm ledger, then the line goes quiet enough to hear the drips.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/rain_depth.mp4",
+      "history": [],
+      "id": "rain_depth",
+      "name": "Rain Depth",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "After the storm the field is still standing in water - a real shallow sim pool, and every circle it makes lands on a surface that actually answers back.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/puddle_rings.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "this would be great if you could demo some of these over our actual procedural sim water",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "puddle_rings",
+      "name": "Puddle Rings",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "A dust devil crossing the field like it owns the deed - three touch-downs in a line, debris and leaf litter dragged along for the ride.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/dust_devil_rig.mp4",
+      "history": [],
+      "id": "dust_devil_rig",
+      "name": "Dust Devil Rig",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Autumn keeps its own calendar here - TWO layers now: the full-screen fall drifts behind as the steady main, and the original flutter is back on top of it, discrete leaves that tumble and skew through the air across the whole frame.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/falling_leaves_3d.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "this is good but make it a full screen effect",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "it looks like there are tweo layers of falling leaves , the larger ones look kind of just like flowing water but the smaller ones have the right animation the flutter, i want to see the smaller fflutter animatino played as a layer combined with this new flowing one and see if it looks go od",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "the original flutter is completely gone, bring it back, it should b e the secondary layer that plays over the main one",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "falling_leaves_3d",
+      "name": "Falling Leaves",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The camera itself is not neutral - nine registers shown ONE AT A TIME (each held a beat, alone), then the good pairings: OLD FILM (sepia+scanlines), BROKEN TAPE (VHS+glitch), PRINTED PAGE (posterize+dither) - the filter vocabulary and how it combines.",
+      "cat": "meta",
+      "cat_label": "Meta Juice",
+      "clip": "out/audition/filter_reel.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "can we get longer holds on each filter, it flicks through them too fast",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "the filters all happen at the same timee, i want to see each filter held for a second, then a new filter added (not stacked, just by itself) then show some combinations of filters and how they can be used in unique ways",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "filter_reel",
+      "name": "Filter Reel",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "The Bayer matrix eats the frame in place of a cut - the classic pixel-game wipe, ordered dither standing in for a fade.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/dither_wipe.mp4",
+      "history": [],
+      "id": "dither_wipe",
+      "name": "Dither Wipe",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "A status-curse register: the world hiccups three times, then buckles once hard - the frame itself is the symptom.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/glitch_burst.mp4",
+      "history": [],
+      "id": "glitch_burst",
+      "name": "Glitch Burst",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "THE skill-cast presentation: the skill's name slams up on an askew torn-parchment writ (the house register, sepia-title-card blood) while the lens pulls focus and the caster charges (glints + gathering sparks) - hold it, hold it - then BLAM: the blur snaps off into hitstop, the burst, and the ring. (In-game this carries the charge-up SFX; renders are mute.)",
+      "cat": "meta",
+      "cat_label": "Meta Juice",
+      "clip": "out/audition/focus_pull.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "the focus pull this is exactly what i want to see when the unit is about to do its 'skill', wheree the name of the skill comes up in a box, while focus pull happens, you hear the little charge up magic noise, and then BLAM\nalso remove that cloud that appears - its broken. we will use this for combat a lot so the just show the focus pull ",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "make the title card look more like our diagetic house style, use sepia title cards as inspiration, make it askewed with a thick stroke thats also slightly off, and add some intro and exit animation on the card, remove the BLAM samp, and make the vlambeer chain slightly thinner and fades out faster - just show how it casted a spell basically, then add a ramza unit to show the effect of the sppell",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "the skillname should be more prominent over the background",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "focus_pull",
+      "name": "Focus Pull",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "The poison/confusion register: the horizon will not sit still, and the green pooling at the feet says why.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/drunk_haze.mp4",
+      "history": [],
+      "id": "drunk_haze",
+      "name": "Drunk Haze",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The Cathedral's past tense as a stack of aged archival cards: under a held sepia wash and drifting dust, four parchment title treatments open in turn - a torn deckled page, a ruled ledger entry, a wax-sealed decree, and an ink-bled inscription - each with its own entrance.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/sepia_flashback.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "make the titlecard more visually interesting, chunky and skewed perhaps, thicker  fonts wwith a thhiick stroke, more persona ish",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "sepia_flashback",
+      "name": "Sepia Flashback",
+      "notes": "add 3-4 more designs for title cards that can fit the sepia",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "night",
+      "blurb": "Her re-brief: the fog as a huge explosion side-effect - the blast throws out a rolling ground bank that owns the field for a breath, then thins to nothing.",
+      "cat": "env",
+      "cat_label": "Environmental / Ambient",
+      "clip": "out/audition/ground_fog_layer.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "can you make it erupting and then fades out, like a huge explosion side effect",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "ground_fog_layer",
+      "name": "Blast Fog Bank",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "The mesh-ring primitive, then the mesh-ring with FLAIR - glint, freeze, the ring, and a full flipbook chain (flame, spark, electric, smoke) layered on top - one primitive, two ways to spend it.",
+      "cat": "hit",
+      "cat_label": "Battle Micro-Feedback",
+      "clip": "out/audition/shock_ring_mesh.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "this looks good as a primitives but show some flair, add some flipbook or other ways to give examples how to use the vlambeer chain primitive in cool ways",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "shock_ring_mesh",
+      "name": "Shock Ring Mesh",
+      "notes": "",
+      "verdict": "",
+      "wave": 6
+    },
+    {
+      "backdrop": "dusk",
+      "blurb": "A ground eruption with a fair warning circle first - the world always tells you before it opens. The blast burns the grass to ash and leaves a scorched crater, oily dark smoke racing up through slow white billows behind it.",
+      "cat": "spell",
+      "cat_label": "Spell / Ability",
+      "clip": "out/audition/eruption_shell.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "it doesnt interact well because of the pillar, can you put it in a different spot",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "the procedural grass must render below the madoka circles, all of the ground plane aligned stuff must follow this rule",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "the madoka circle and explosion should burn grass, and cause a crater like in the dark smoke billowing effect, also the burnt splat should come on the same beat as the explosion and crater forming",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "add a slower fps white smoke variant like in the white smoke expample, that overlaps t he dark fast moving smoke",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "eruption_shell",
+      "name": "Eruption Shell",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Three impacts, three colors, one held wide shot - the point is not the hit, it is what is still lying there after.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/debris_permanence.mp4",
+      "history": [],
+      "id": "debris_permanence",
+      "name": "Debris Permanence",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "Two outline techniques: the alpha-dilation stroke (gold SELECT / red THREAT / green PROC) and the scaled-silhouette copy behind the sprite (STROKE / SKEWED), skewable and rollable for character.",
+      "cat": "prim",
+      "cat_label": "New Primitive",
+      "clip": "out/audition/outline_language.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "its not aligned with the billboard correctly, its intersecting. figure out a better shader based way we can do this that still lets us do lerp animatins for cool lead ins",
+          "pass": 4.0,
+          "verdict": "tweak"
+        },
+        {
+          "fulfilled": true,
+          "notes": "this is cool, keep this style of offsset boxy, but also show me a shader version that just simply gives the billboard sprite a stroke effect, one simple way to approach this would be to just have a separate copy of the billboard behind it, but all one color and scaled up, so it appears to be its outline, thhen you can rotate and skew this in interesting ways to give charactrer",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "outline_language",
+      "name": "Outline Language",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    },
+    {
+      "backdrop": "noon",
+      "blurb": "A rack of flashback title-card styles under the sepia grade - tilted parchment, a carved dark plaque, a torn hasty note, and a red-ink decree - each with its own entrance - a drop, a thump, a waggle, a slam - so the past tense can pick its voice.",
+      "cat": "flow",
+      "cat_label": "Flow / Meta (v0.0.1 critical path)",
+      "clip": "out/audition/title_card_designs.mp4",
+      "history": [
+        {
+          "fulfilled": true,
+          "notes": "add some different animations on reveal, thumps, waggles, etc",
+          "pass": 4.0,
+          "verdict": "tweak"
+        }
+      ],
+      "id": "title_card_designs",
+      "name": "Title Card Designs",
+      "notes": "",
+      "verdict": "keep",
+      "wave": 6
+    }
+  ],
+  "pass": 4,
+  "passes": [
+    {
+      "accepted": 20.0,
+      "date": "2026-07-19",
+      "killed": 0.0,
+      "pass": 1.0,
+      "sent_back": 8.0,
+      "unreviewed": 9.0
+    },
+    {
+      "accepted": 28.0,
+      "date": "2026-07-19",
+      "killed": 2.0,
+      "pass": 2.0,
+      "sent_back": 7.0,
+      "unreviewed": 0.0
+    },
+    {
+      "accepted": 31.0,
+      "date": "2026-07-19",
+      "killed": 2.0,
+      "pass": 3.0,
+      "sent_back": 4.0,
+      "unreviewed": 0.0
+    }
+  ],
+  "requests": [
+    {
+      "id": 1.0,
+      "pass": 4.0,
+      "response": "three hybrids live in ACTIVE: heavy_hit (the solid-blow tier - bigger star + chroma whisper + weight, no frame-invert), combo_finisher (hit-hit-CRIT escalating in one beat with climbing damage numbers), counter_hit (the cold-blue interrupt with reversed speedline bias + COUNTER chip). Verdict away.",
+      "status": "done",
+      "text": "add some new hit effeccts that combine the crit and hit types"
+    },
+    {
+      "id": 2.0,
+      "pass": 4.0,
+      "response": "four epics live in ACTIVE: the_audit (the dragon counts the field - scan circles, tally threads, AUDITED), convergence_echo (six faction circles lattice into a hexagram, bloom white, one remains), gnomon_measure (the measuring ray sweeps and every unit gets its letter), the_drowning (the dam-break at ult scale with the codex showing through the flood). Verdict away.",
+      "status": "done",
+      "text": "add more epics"
+    },
+    {
+      "id": 3.0,
+      "pass": 4.0,
+      "response": "HouseDialog delivered - new game/house_dialog.gd: confirm/alert/dialog in the Amber-Ledger parchment look (wax-seal SEAL IT vs struck RECANT, danger register with oxblood title + vermillion rule + skull sigil, amber FocusRing), composing House + the new Icons + PixelUI + FocusRing over a scrim/focus-trap modal. Reusable: HouseDialog.confirm/alert/dialog from anywhere. Showcase: the house_dialog candidate. Verdict away.",
+      "status": "done",
+      "text": "we need a general purpose confirmation box and dialog system using our diagetic house look as we've developed so far"
+    },
+    {
+      "id": 4.0,
+      "pass": 4.0,
+      "response": "Marionette shipped as the general movement engine, doctrine 'a kid playing make-believe with toys': idle (feet-planted sway + fidgets), bouncy nose-tilting hops with haphazard per-step mess, attack lunge, knock-over recoil, wobble-settle landings + dust, the march-map cursor skew-hops too, teardrop emote bubbles. Watch: the marionette_toys candidate (four personas idle then get bounced across the yard) + out/audition/marionette_battle.mp4 (live battle). Every knob is in marionette.gd personas; renders are deterministic A/Bs. Verdict away.",
+      "status": "done",
+      "text": "\"marionette style\", since our pixel sprites will be less animated then traditional FFT where they march in place, our units stil need to havve character and bounce and bobble programatically, wind up and do hits, hobble over, and etc - create an entire programatic taxonomy  of what we need to do to create memorable actions for our sprites so we can keeep pose changes limited to very key moments and the rest can be done via bobble language"
+    }
+  ]
+}
