@@ -22,7 +22,7 @@ version at any of roughly 140 call sites with zero caller-code changes.
 
 **The VFX side** authors effects as data records against a fixed engine (18 shapes, 21
 flipbook animations) rather than as one script per effect, reviewed through a gallery that
-batch-generates candidates, renders them, and persists a verdict per candidate. Across three
+batch-generates candidates, renders them, and persists a verdict per candidate. Across four
 dated review passes: 117 candidates, 154 review-history entries, verdicts of 93 kept / 57
 tweak / 4 killed. The review system's own validator deliberately constructs a broken test case
 and requires itself to catch it before it will validate anything real — a self-test wired into

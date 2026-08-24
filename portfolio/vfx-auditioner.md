@@ -11,8 +11,9 @@ rather than as one script per effect, and reviewed through this gallery: it batc
 candidates, renders each one, and keeps a verdict per candidate across passes.
 
 The record is the artifact. All 117 candidates ship here with their blurb, wave, backdrop,
-verdict, note and complete per-pass history across four passes. Counting each candidate's current
-verdict once: 68 accepted, 4 killed, 45 still in review, and 8 changed verdict between passes. That last group is
+verdict, note and complete per-pass history across four passes dated 2026-07-19. Counting each
+candidate's current verdict as captured for this build: 68 accepted, 4 killed, 45 still in
+review, and 8 changed verdict between passes. That last group is
 what a finished effects reel cannot show: `witness_thread` reads tweak on pass 1 and kill on passes
 2 and 3; `impact_frame` was kept carrying the note "the sparkle effect kills it, needs more work
 but i like as a starter", which is a critique passed forward rather than a rejection.
