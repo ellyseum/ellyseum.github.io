@@ -16,6 +16,10 @@ The mod uses a community-standard, publicly documented, permissively licensed mo
 framework, targets that framework's own supported API, is single-player scope, and defeats no
 copy protection or anti-cheat.
 
+**Fan-work disclaimer.** *Resident Evil* and *Resident Evil Requiem* are the property of Capcom.
+This is an unaffiliated, non-commercial fan project; it is not endorsed by or affiliated with
+Capcom, and no game assets are distributed here.
+
 What will fill this page: a short write-up, the measurements or receipts that back it,
 a before/after screenshot pair, moving video of the fixed-camera mode and the live trigger
 editor, and the repository itself. Until that's produced, this placeholder holds the URL so
