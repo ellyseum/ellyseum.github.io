@@ -6,12 +6,14 @@ status: live
 permalink: /portfolio/battle-effect-sequence/
 ---
 
+<div class="pf-frame">
 <iframe src="{{ '/portfolio/battle-effect-sequence/demo/' | relative_url }}"
-        style="width:100%;aspect-ratio:16/9;border:1px solid var(--surface, #333);border-radius:0.5rem;"
+        style="width:100%;aspect-ratio:16/9;border:0;display:block;"
         loading="lazy" title="Battle-effect sequence demo — click the replay button in the corner">
 </iframe>
+</div>
 
-<p><a href="{{ '/portfolio/battle-effect-sequence/demo/' | relative_url }}">Run it full-page →</a>
+<p><a class="pf-btn" href="{{ '/portfolio/battle-effect-sequence/demo/' | relative_url }}">Run it full-page →</a>
 <small>(replay button in the corner)</small></p>
 
 A clean-room recreation of *Persona 5*'s "AMBUSH!" battle-start flourish — **cyan light-beams, a

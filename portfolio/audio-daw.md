@@ -10,12 +10,14 @@ The audio tool from *For What Lies Beneath*, live in this page with no server be
 **167 synthesized cues, 7 music tracks, waveform cutting, loop authoring**. This system is why
 the game's music can loop seamlessly in-engine: it authors the exact loop data Godot reads.
 
+<div class="pf-frame">
 <iframe src="{{ '/portfolio/audio-daw/demo/' | relative_url }}"
-        style="width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--surface, #333);border-radius:0.5rem;"
+        style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
         loading="lazy" title="Audio DAW — 167 SFX cues, 7 music tracks, loop authoring and WAV export">
 </iframe>
+</div>
 
-<p><a href="{{ '/portfolio/audio-daw/demo/' | relative_url }}">Run it full-page →</a></p>
+<p><a class="pf-btn" href="{{ '/portfolio/audio-daw/demo/' | relative_url }}">Run it full-page →</a></p>
 
 Two of the game's tracks, straight off the shelf the tool serves:
 

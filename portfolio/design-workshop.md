@@ -11,7 +11,7 @@ permalink: /portfolio/design-workshop/
   <video src="{{ '/portfolio/design-workshop/demo/out/workshop/battle_feel/feel_punchy.mp4' | relative_url }}" autoplay muted loop playsinline style="width:33.3%;min-width:0;border-radius:0.5rem;" title="battle feel — punchy"></video>
   <video src="{{ '/portfolio/design-workshop/demo/out/workshop/battle_feel/feel_cinematic.mp4' | relative_url }}" autoplay muted loop playsinline style="width:33.3%;min-width:0;border-radius:0.5rem;" title="battle feel — cinematic"></video>
 </div>
-<p><small>Three takes on battle feel from the board's battle-feel lane: <strong>baseline</strong>, <strong>punchy</strong>, <strong>cinematic</strong> — the kind of side-by-side call the board exists to make.</small></p>
+<p class="pf-cap">Three takes on battle feel from the board's battle-feel lane: <strong>baseline</strong>, <strong>punchy</strong>, <strong>cinematic</strong> — the kind of side-by-side call the board exists to make.</p>
 
 The review surface the design work on *For What Lies Beneath* runs through — this board is
 where the game's design calls get made. **Six lanes — VFX,
@@ -19,12 +19,14 @@ battle feel, mechanics, playthrough, flow and balance** — each with its own ca
 and notes, plus a work-card queue, a milestone list, and a scene-flow view that diffs the
 intended screen graph against a trace captured from live play.
 
+<div class="pf-frame">
 <iframe src="{{ '/portfolio/design-workshop/demo/' | relative_url }}"
-        style="width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--surface, #333);border-radius:0.5rem;"
+        style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
         loading="lazy" title="Design Workshop board — six review lanes, four passes, and the balance lab">
 </iframe>
+</div>
 
-<p><a href="{{ '/portfolio/design-workshop/demo/' | relative_url }}">Run it full-page →</a></p>
+<p><a class="pf-btn" href="{{ '/portfolio/design-workshop/demo/' | relative_url }}">Run it full-page →</a></p>
 
 Open every lane and tab, play the clips, read a verdict next to the note that produced it and
 the pass history behind both. The balance lab, off the board's BALANCE lane button: three tables

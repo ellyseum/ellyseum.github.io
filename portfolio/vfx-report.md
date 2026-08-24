@@ -11,7 +11,7 @@ permalink: /portfolio/vfx-report/
   <video src="{{ '/portfolio/vfx-report/demo/out/cracked.mp4' | relative_url }}" autoplay muted loop playsinline style="width:33.3%;min-width:0;border-radius:0.5rem;" title="Cracked ground · obsidian"></video>
   <video src="{{ '/portfolio/vfx-report/demo/out/trail.mp4' | relative_url }}" autoplay muted loop playsinline style="width:33.3%;min-width:0;border-radius:0.5rem;" title="Energy trails"></video>
 </div>
-<p><small>Three of the twelve renders: <strong>dissolve / materialize</strong>, <strong>cracked ground · obsidian</strong>, <strong>energy trails</strong>. All twelve are embedded in the report below.</small></p>
+<p class="pf-cap">Three of the twelve renders: <strong>dissolve / materialize</strong>, <strong>cracked ground · obsidian</strong>, <strong>energy trails</strong>. All twelve are embedded in the report below.</p>
 
 One sustained VFX build-out on *For What Lies Beneath* — **fourteen commits across six waves,
 eight new demo studios, six reusable modules** the game's effect work now draws on — narrated
@@ -19,12 +19,14 @@ wave by wave with the renders embedded
 where the prose earns them: HD sprites in the pixel world, energy trails, cashing in the noise
 engine, a distortion family, anti-occlusion and the info layer, and cellular follow-ons.
 
+<div class="pf-frame">
 <iframe src="{{ '/portfolio/vfx-report/demo/' | relative_url }}"
-        style="width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--surface, #333);border-radius:0.5rem;"
+        style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
         loading="lazy" title="VFX build-out report — six waves narrated with twelve embedded renders">
 </iframe>
+</div>
 
-<p><a href="{{ '/portfolio/vfx-report/demo/' | relative_url }}">Read it full-page →</a></p>
+<p><a class="pf-btn" href="{{ '/portfolio/vfx-report/demo/' | relative_url }}">Read it full-page →</a></p>
 
 The build ran autonomously; **the report is how it came back for judgment**. It closes with an
 explicit decision list for the project owner and suggested follow-ons — the same contract the

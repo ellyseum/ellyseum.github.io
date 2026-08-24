@@ -11,12 +11,14 @@ shape it through an effects rack, render the keeper to a WAV** — live in this 
 takes chosen here are how the game gets its sound: generation supplies the candidates, and a
 human ear makes the call.
 
+<div class="pf-frame">
 <iframe src="{{ '/portfolio/sfx-composer/demo/' | relative_url }}"
-        style="width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--surface, #333);border-radius:0.5rem;"
+        style="width:100%;aspect-ratio:16/10;min-height:560px;border:0;display:block;"
         loading="lazy" title="SFX take composer — 167 reference cues, an effects rack, and offline WAV rendering">
 </iframe>
+</div>
 
-<p><a href="{{ '/portfolio/sfx-composer/demo/' | relative_url }}">Run it full-page →</a></p>
+<p><a class="pf-btn" href="{{ '/portfolio/sfx-composer/demo/' | relative_url }}">Run it full-page →</a></p>
 
 Two generated takes of one cue, exactly as the tool auditions them:
 

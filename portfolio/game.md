@@ -13,12 +13,14 @@ the DAW's loops, the auditioned effects, and the workshop's verdicts all point h
 through it: faction select, the branching march map, then a battle on destructible terrain with
 the action menu and unit stats live.
 
+<div class="pf-frame">
 <iframe src="{{ '/portfolio/game/demo/' | relative_url }}"
-        style="width:100%;aspect-ratio:16/9;min-height:520px;border:1px solid var(--surface, #333);border-radius:0.5rem;"
+        style="width:100%;aspect-ratio:16/9;min-height:520px;border:0;display:block;"
         loading="lazy" allow="fullscreen; autoplay" title="For What Lies Beneath — Godot web export, click the canvas then press Enter">
 </iframe>
+</div>
 
-<p><a href="{{ '/portfolio/game/demo/' | relative_url }}">Run it full-page →</a></p>
+<p><a class="pf-btn" href="{{ '/portfolio/game/demo/' | relative_url }}">Run it full-page →</a></p>
 
 <small>**It needs no cross-origin isolation, and none is configured.** The common expectation is
 that Godot Web requires `SharedArrayBuffer`, therefore COOP/COEP headers, therefore a
