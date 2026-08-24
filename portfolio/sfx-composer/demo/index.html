@@ -8,7 +8,10 @@
 -->
 <script src="lib/tone.js"></script>
 <style>
- body{background:#13131a;color:#ddd;font:13px system-ui;margin:0;display:flex;height:100vh}
+ body{background:#13131a;color:#ddd;font:13px system-ui;margin:0;display:flex;flex-direction:column;height:100vh}
+ #wrap{display:flex;flex:1;min-height:0}
+ #fanwork{font-size:11px;line-height:1.5;color:#8b8b99;background:#101017;border-top:1px solid #2a2a33;padding:6px 12px}
+ #fanwork i{color:#a9a9bb}
  #cues{width:300px;overflow:auto;border-right:1px solid #333;padding:8px}
  #cues .cue{padding:6px 8px;border-radius:6px;cursor:pointer}
  #cues .cue:hover{background:#22222c} #cues .cue.sel{background:#34406a}
@@ -25,8 +28,11 @@
  .info{color:#888;margin:8px 0} .ok{color:#6d6} .err{color:#e66}
  #toast{position:fixed;bottom:16px;right:16px;background:#243;color:#cfc;padding:10px 16px;border-radius:8px;opacity:0;transition:.3s}
 </style></head><body>
+<div id="wrap">
 <div id="cues"><div class="info">loading…</div></div>
 <div id="main"><div class="info">Static build. The composer runs entirely in the browser: pick a cue on the left, then a source (OG or a take), tweak, preview, Render &amp; Download — the render is Tone.js offline synthesis and the WAV encoder runs client-side.</div></div>
+</div>
+<div id="fanwork">Fan-work disclaimer: the reference cues originate from <i>Final Fantasy Tactics</i>, &copy; SQUARE ENIX. They are included solely as the reference targets this tool was built to match, for an unaffiliated, non-commercial recreation project. The tool, its synthesis and rendering code, and all generated takes are original work.</div>
 <div id="toast"></div>
 <script>
 const PARAMS = [

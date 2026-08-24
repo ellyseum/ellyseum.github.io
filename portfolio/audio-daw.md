@@ -32,7 +32,10 @@ hover rather than failing:
   same need for a file you already have.
 
 The track list is served from a generated `tracks.json`; the live server enumerates the music
-directory instead.
+directory instead. The SFX bank's reference cues originate from *Final Fantasy Tactics* and ship
+under a stated fan-work disclaimer: they are the targets an unaffiliated, non-commercial recreation
+project was built to match, and the tool, its synthesis code, and all generated takes are original
+work.
 
 <p><a href="{{ '/portfolio/audio-daw/demo/' | relative_url }}">Run it →</a></p>
 
