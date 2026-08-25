@@ -39,6 +39,14 @@ name: **the judging seat sees the candidates in swapped order across rounds**, w
 favoring whichever flow it saw first — so describing was split from judging, and the positions
 rotate. The reel below plays all five flows end to end, studio card to save-slot screen.
 
+<video src="{{ '/portfolio/vfx-auditioner/title-beat-pair.mp4' | relative_url }}"
+       autoplay muted loop playsinline
+       style="width:100%;display:block;border-radius:0.5rem;"
+       title="Two title-flow candidates at the same beat, side by side — the judging seat's actual input"></video>
+<p class="pf-cap">What the judging seat actually sees: two candidates at the same beat,
+labelled only LEFT and RIGHT — and shown again with the positions swapped before any
+verdict counts.</p>
+
 <div class="pf-frame">
 <video src="{{ '/portfolio/vfx-auditioner/title-flow-reel.mp4' | relative_url }}"
        controls preload="metadata" playsinline
