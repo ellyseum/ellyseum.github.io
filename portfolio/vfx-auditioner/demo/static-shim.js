@@ -70,9 +70,8 @@
       h.textContent = 'clip not bundled';
       const p = document.createElement('div');
       p.style.cssText = 'opacity:.75;line-height:1.4';
-      p.textContent = 'This build ships 24 of the 120 rendered clips, chosen to span the range of '
-        + 'judgments rather than the best-looking results; the full set is 763 MB. The verdict, '
-        + 'note and pass history on this candidate are the recorded ones.';
+      p.textContent = 'This clip is not in this build. The verdict, note and pass history on '
+        + 'this candidate are the recorded ones.';
       const c = document.createElement('code');
       c.style.cssText = 'display:block;margin-top:6px;opacity:.55;font-size:10px;word-break:break-all';
       c.textContent = path;

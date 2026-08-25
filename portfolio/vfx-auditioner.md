@@ -60,9 +60,8 @@ whole interactive sequence rather than a single effect.</p>
 <small>Verdicts are read-only here — in the live gallery a verdict and its note write into the
 manifest and wake an orchestrator agent, which dispatches a worker to act on the note; a request
 for a new candidate makes a worker render one in Godot; live reload's server-sent-events channel
-is stubbed. Clips are sampled, metadata is not: the full render set is 763 MB across 120 files,
-24 clips ship here spanning the range of judgments, and a candidate whose clip is absent shows a
-labelled box with its verdict, note and history intact.</small>
+is stubbed. Record and reel both ship whole: **every candidate's clip is bundled and plays**,
+the original 763 MB render set re-encoded for the web to 87 MB with the pixel art intact.</small>
 
 The authoring engine behind the candidates:
 [the instruments]({{ '/portfolio/sfx-vfx-instruments/' | relative_url }}); the lane this gallery
