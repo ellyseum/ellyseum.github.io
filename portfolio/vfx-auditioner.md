@@ -47,6 +47,24 @@ rotate. The reel below plays all five flows end to end, studio card to save-slot
 labelled only LEFT and RIGHT — and shown again with the positions swapped before any
 verdict counts.</p>
 
+**The style studies that came first.** Before the title flows, the same look-dev loop surveyed
+the UI languages of seven games — **Final Fantasy Tactics, Metaphor: ReFantazio, Persona 5,
+Into the Breach, Disgaea, Shin Megami Tensei V, Slay the Spire** — and rebuilt each as a named
+FWLB house style: original characters, systems and numbers throughout, the studied game's
+visual grammar credited. The eighth tour walks the game's own menu system, opening on a
+classic-JRPG study. Each study ran research → plan → build → QA before its tour was recorded.
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0.6rem;margin:1rem 0 0.5rem;">
+  <figure style="margin:0"><video src="{{ '/portfolio/vfx-auditioner/ui-tours/fft.mp4' | relative_url }}" poster="{{ '/portfolio/vfx-auditioner/ui-tours/fft.jpg' | relative_url }}" controls preload="none" playsinline style="width:100%;display:block;border-radius:0.5rem;"></video><figcaption class="pf-cap">after <strong>Final Fantasy Tactics</strong></figcaption></figure>
+  <figure style="margin:0"><video src="{{ '/portfolio/vfx-auditioner/ui-tours/mp.mp4' | relative_url }}" poster="{{ '/portfolio/vfx-auditioner/ui-tours/mp.jpg' | relative_url }}" controls preload="none" playsinline style="width:100%;display:block;border-radius:0.5rem;"></video><figcaption class="pf-cap">after <strong>Metaphor: ReFantazio</strong> — the Crimson Codex study</figcaption></figure>
+  <figure style="margin:0"><video src="{{ '/portfolio/vfx-auditioner/ui-tours/p5.mp4' | relative_url }}" poster="{{ '/portfolio/vfx-auditioner/ui-tours/p5.jpg' | relative_url }}" controls preload="none" playsinline style="width:100%;display:block;border-radius:0.5rem;"></video><figcaption class="pf-cap">after <strong>Persona 5</strong> — the Phantom Crimson study</figcaption></figure>
+  <figure style="margin:0"><video src="{{ '/portfolio/vfx-auditioner/ui-tours/itb.mp4' | relative_url }}" poster="{{ '/portfolio/vfx-auditioner/ui-tours/itb.jpg' | relative_url }}" controls preload="none" playsinline style="width:100%;display:block;border-radius:0.5rem;"></video><figcaption class="pf-cap">after <strong>Into the Breach</strong> — the Wardline study</figcaption></figure>
+  <figure style="margin:0"><video src="{{ '/portfolio/vfx-auditioner/ui-tours/dg.mp4' | relative_url }}" poster="{{ '/portfolio/vfx-auditioner/ui-tours/dg.jpg' | relative_url }}" controls preload="none" playsinline style="width:100%;display:block;border-radius:0.5rem;"></video><figcaption class="pf-cap">after <strong>Disgaea</strong> — the Nethergloom study</figcaption></figure>
+  <figure style="margin:0"><video src="{{ '/portfolio/vfx-auditioner/ui-tours/smt.mp4' | relative_url }}" poster="{{ '/portfolio/vfx-auditioner/ui-tours/smt.jpg' | relative_url }}" controls preload="none" playsinline style="width:100%;display:block;border-radius:0.5rem;"></video><figcaption class="pf-cap">after <strong>Shin Megami Tensei V</strong> — the Leyline study</figcaption></figure>
+  <figure style="margin:0"><video src="{{ '/portfolio/vfx-auditioner/ui-tours/sts.mp4' | relative_url }}" poster="{{ '/portfolio/vfx-auditioner/ui-tours/sts.jpg' | relative_url }}" controls preload="none" playsinline style="width:100%;display:block;border-radius:0.5rem;"></video><figcaption class="pf-cap">after <strong>Slay the Spire</strong> — the Ashen Deck study</figcaption></figure>
+  <figure style="margin:0"><video src="{{ '/portfolio/vfx-auditioner/ui-tours/menu.mp4' | relative_url }}" poster="{{ '/portfolio/vfx-auditioner/ui-tours/menu.jpg' | relative_url }}" controls preload="none" playsinline style="width:100%;display:block;border-radius:0.5rem;"></video><figcaption class="pf-cap">the game's <strong>own menu system</strong>, toured</figcaption></figure>
+</div>
+
 <div class="pf-frame">
 <video src="{{ '/portfolio/vfx-auditioner/title-flow-reel.mp4' | relative_url }}"
        controls preload="metadata" playsinline
